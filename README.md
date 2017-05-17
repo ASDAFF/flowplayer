@@ -3,14 +3,14 @@
 
 [Сайт](https://flowplayer.org) | [Демо](https://flowplayer.org/demos/) | [Документация](https://flowplayer.org/docs/)
 
-## For the impatient
+## Для нетерпеливых
 
 1. [Скачать Flowplayer](https://flowplayer.org/latest)
-2. Unzip
-3. Drop the folder under your server
+2. Распаковать
+3. Загрузить папку на сервер
 
 
-## Minimal setup
+## Минимальные настройки
 
 ```html
 <!DOCTYPE html>
@@ -46,7 +46,7 @@
 
 ```
 
-## API Samples
+## Примеры API
 
 ```js
 // listen to events on second player
@@ -62,9 +62,9 @@ $(".flowplayer").bind("unload", function (e, api) {
 });
 ```
 
-## Compiling Flash
+## Компиляция Flash
 
-- Download [Open Source Flex SDK, v4.5.1](http://opensource.adobe.com/wiki/display/flexsdk/Download+Flex+4.5)
+- Скачать [Open Source Flex SDK, v4.5.1](http://opensource.adobe.com/wiki/display/flexsdk/Download+Flex+4.5)
 
 ```
 export mxmlc=<PATH_TO>/flex_sdk_4.5.1.21328_mpl/bin/mxmlc
@@ -72,15 +72,15 @@ cd ./flowplayer # this repository
 make flash
 ```
 
-## Reporting bugs
+## Отчеты об ошибках
 
 Please read the [contributing guidelines](CONTRIBUTING.md) before reporting issues or submitting patches.
 
-## Running tests
+## Выполнение тестов
 
 Our automated test suite is sponsored by [BrowserStack](http://browserstack.com). Thanks you!
 
-### Running locally
+### Выполнение локально
 
 Tests are run on [BrowserStack](http://browserstack.com)
 
@@ -88,7 +88,7 @@ Tests are run on [BrowserStack](http://browserstack.com)
  * Setup broserstack tunnel: `java -jar features/support/BrowserStackTunnel.jar -f <your tunnel api key> /path/to/flowplayer/repo`
  * Run cucumber features: `rake username=<browserstack username> key=<broserstack automate api key> base_url=http://<something>.browserstack.com`
 
-## License
+## Лицензия
 
 [GPL v3 with an ADDITIONAL TERM per GPL Section 7](LICENSE.md)
 
