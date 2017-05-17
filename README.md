@@ -49,14 +49,14 @@
 ## Примеры API
 
 ```js
-// listen to events on second player
+// прослушка событий на втором плеере
 flowplayer(1).bind("load", function (e, api, video) {
 
 }).bind("pause", function (e, api) {
 
 });
 
-// work with jQuery
+// запуск с jQuery
 $(".flowplayer").bind("unload", function (e, api) {
 
 });
