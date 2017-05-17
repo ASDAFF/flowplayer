@@ -1,5 +1,5 @@
 
-# GPL License v33
+# GPL License v3
 
 The Flowplayer Free version is released under the GNU GENERAL PUBLIC LICENSE
 Version 3 (GPL).
