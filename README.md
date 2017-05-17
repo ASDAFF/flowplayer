@@ -74,19 +74,19 @@ make flash
 
 ## Отчеты об ошибках
 
-Please read the [contributing guidelines](CONTRIBUTING.md) before reporting issues or submitting patches.
+Пожалуйста, ознакомьтесь с [руководящими принципами](CONTRIBUTING.md), чтобы сообщить о проблемах или отправьте исправления.
 
 ## Выполнение тестов
 
-Our automated test suite is sponsored by [BrowserStack](http://browserstack.com). Thanks you!
+Наш автоматический набор тестов спонсируется [BrowserStack](http://browserstack.com). Спасибо вам!
 
 ### Выполнение локально
 
-Tests are run on [BrowserStack](http://browserstack.com)
+Тесты запускаются на [BrowserStack](http://browserstack.com)
 
- * Install dependencies: `bundle install`
- * Setup broserstack tunnel: `java -jar features/support/BrowserStackTunnel.jar -f <your tunnel api key> /path/to/flowplayer/repo`
- * Run cucumber features: `rake username=<browserstack username> key=<broserstack automate api key> base_url=http://<something>.browserstack.com`
+ * Установка зависимостей: `bundle install`
+ * Настройка туннеля broserstack: `java -jar features/support/BrowserStackTunnel.jar -f <your tunnel api key> /path/to/flowplayer/repo`
+ * Запуск функций cucumber: `rake username=<browserstack username> key=<broserstack automate api key> base_url=http://<something>.browserstack.com`
 
 ## Лицензия
 
