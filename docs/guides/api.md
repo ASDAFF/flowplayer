@@ -62,13 +62,14 @@ This anonymous callback function is provided by the Flowplayer library and is ca
 You use it to customize the default **behaviour** of all players on your page in a similar manner as you set [global configuration](setup.md#global-javascript-configuration) options, and thus it should be called right after the flowplayer script is included in the [HEAD section](setup.md#prerequisites) of the page and _before_ the page is loaded - before the [DOM](http://www.w3schools.com/js/js_htmldom.asp) (Document Object Model) is ready.
 
 The API is provided by the first argument and it looks like this in the browser console:
+
 ![alt-текст](../img/consol.png)
 
 ## Console screenshot
 
 Via the second argument - called `root` above - you can access the root or container element of the player.
 
-*   **tip** The global `flowplayer` function is the only place to catch the initial `load` [event](#events) in non [splash](setup.html#splash) setups.
+*   **tip** The global `flowplayer` function is the only place to catch the initial `load` [event](#events) in non [splash](setup.md#splash) setups.
 
 # Selective API access
 
