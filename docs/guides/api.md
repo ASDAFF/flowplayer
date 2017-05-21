@@ -1702,7 +1702,7 @@ Like anything relating to global configuration, `flowplayer.set` should be used 
 *   `inlineVideo` - support for playing video inline
 *   `seekable` - support for seeking when video is [ready](#properties)
 *   `subtitles` - native subtitle support
-*   `svg` - whether [scalable vector graphics](https://en.wikipedia.org/wiki/Scalable_Vector_Graphics) for the [skin](skinning.html) are supported
+*   `svg` - whether [scalable vector graphics](https://en.wikipedia.org/wiki/Scalable_Vector_Graphics) for the [skin](skinning.md) are supported
 *   `touch` - touch interface support
 *   `video` - HTML5 video support
 *   `volume` - volume support via JavaScript API

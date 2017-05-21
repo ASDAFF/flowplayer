@@ -91,8 +91,8 @@ Load the required assets and declare the page title - the TITLE tag is mandatory
 
 *   These assets are served globally from a content delivery network (Amazon CloudFront). Free for you to use.
 *   You can place the files on your own servers too, maybe combine them with your existing files for faster initial load. The latest commercial version is always available from your [account page](/account/#players), while the free version can be found on the [free download page](/latest).
-*   [jQuery](http://jquery.com/) v1.7.2+ is required for [VIDEO tag based installations](/docs/setup.html#videotag-install). Make sure to load only one version of the library when integrating Flowplayer in an existing page.
-*   [Alternate skins](/docs/skinning.html) are available.
+*   [jQuery](http://jquery.com/) v1.7.2+ is required for [VIDEO tag based installations](setup.md#videotag-install). Make sure to load only one version of the library when integrating Flowplayer in an existing page.
+*   [Alternate skins](skinning.md) are available.
 *   In general it is recommended to load CSS stylesheets before JavaScript assets.
 *   It is not recommended to load the Flowplayer and jQuery Javascripts in the BODY or at the end of the document.
 
@@ -101,18 +101,18 @@ Load the required assets and declare the page title - the TITLE tag is mandatory
 
 For each player you need to prepare a html [DIV element](http://www.w3schools.com/tags/tag_div.asp) as player **container** inside the [BODY](http://www.w3schools.com/tags/tag_body.asp) of your page.
 
-*   <span class="label">Note</span> Sections exclusively dedicated to [VIDEO tag based installations](/docs/setup.html#videotag-install) are flagged with a pink border, sections exclusively dedicated to [pure JavaScript installations](/docs/setup.html#javascript-install) with a green border.  
+*   <span class="label">Note</span> Sections exclusively dedicated to [VIDEO tag based installations](setup.md#videotag-install) are flagged with a pink border, sections exclusively dedicated to [pure JavaScript installations](setup.md#javascript-install) with a green border.  
     Advanced opions and functions are colored
 
 ## 3 ways to install
 
-*   [automatic installation](/docs/setup.html#automatic): quick, no fuss, no scripting required, and yet entirely customizable, including complete API access if the need arises
-*   [manual installation](/docs/setup.html#manual-install): install on demand, individual customization both in HTML and JSON syntax
-*   [pure JavaScript installation](/docs/setup.html#javascript-install): complete and consistent control via JavaScript, no dependence on external libraries, advanced configuration and seamless API integration
+*   [automatic installation](setup.md#automatic): quick, no fuss, no scripting required, and yet entirely customizable, including complete API access if the need arises
+*   [manual installation](setup.md#manual-install): install on demand, individual customization both in HTML and JSON syntax
+*   [pure JavaScript installation](setup.md#javascript-install): complete and consistent control via JavaScript, no dependence on external libraries, advanced configuration and seamless API integration
 
 ## 2 installation categories
 
-*   [video tag based](/docs/setup.html#videotag-install) - precondition: a [html VIDEO tag](http://www.w3schools.com/tags/tag_video.asp) inside the container element on the page
+*   [video tag based](setup.md#videotag-install) - precondition: a [html VIDEO tag](http://www.w3schools.com/tags/tag_video.asp) inside the container element on the page
 
  ```html
  <video>
@@ -121,7 +121,7 @@ For each player you need to prepare a html [DIV element](http://www.w3schools.co
  </video>
  ```
 
-*   [purely JavaScript based](/docs/setup.html#javascript-install) - precondition: a JavaScript [clip](#clip-and-sources) object in the [player configuration](/docs/setup.html#player-options)
+*   [purely JavaScript based](setup.md#javascript-install) - precondition: a JavaScript [clip](#clip-and-sources) object in the [player configuration](setup.md#player-options)
 
     ```js
     clip: {
@@ -147,7 +147,7 @@ Advantages of video tag based installations:
 
 Restrictions of video tag based installations:
 
-*   Fine-tuning the configuration on the [clip](/docs/setup.html#clip-options) and [source](/docs/setup.html#source-options) level is not possible or only in a restricted way for [playlists](playlists.html).
+*   Fine-tuning the configuration on the [clip](setup.md#clip-options) and [source](setup.md#source-options) level is not possible or only in a restricted way for [playlists](playlists.html).
 
 ### Automatic installation
 
@@ -165,7 +165,7 @@ Flowplayer will be installed automatically into each container element for which
 Advantages of the automatic installation method:
 
 *   no further scripting required
-*   players can be individually customized even with this automated installation: [all options on all levels](/docs/setup.html#configuration-summary) are also available in [HTML notation](#configuration).
+*   players can be individually customized even with this automated installation: [all options on all levels](setup.md#configuration-summary) are also available in [HTML notation](#configuration).
 
 Restriction of the automatic installation method:
 
@@ -203,12 +203,12 @@ $(function () {
 *   The player is installed using the `flowplayer` jQuery plugin.
 *   Container elements are targeted with a [jQuery selector](http://api.jquery.com/category/selectors/).
 
-Advantages of the manual method over [automatic installation](/docs/setup.html#automatic):
+Advantages of the manual method over [automatic installation](setup.md#automatic):
 
 *   you control where and **when** to install the player - not confined to page load
-*   you can specify a [player specific configuration in JavaScript](/docs/setup.html#local-configuration) as argument to the `flowplayer` jQuery extension.
+*   you can specify a [player specific configuration in JavaScript](setup.md#local-configuration) as argument to the `flowplayer` jQuery extension.
 
-Advantage of the manual method over [pure JavaScript installation](/docs/setup.html#javascript-install):
+Advantage of the manual method over [pure JavaScript installation](setup.md#javascript-install):
 
 *   jQuery allows you to select several container elements as install targets in one `flowplayer` call. The pure method can target only one element at a time, as it also must configure the individual [video clip](#clip-options).
 
@@ -227,7 +227,7 @@ Advantage of the manual method over [pure JavaScript installation](/docs/setup.h
 
 ## Pure JavaScript
 
-This installation method uses `flowplayer()` as pure JavaScript function. It takes a reference to the container element as first argument, and the [player configuration](/docs/setup.html#player-options) as mandatory second argument.
+This installation method uses `flowplayer()` as pure JavaScript function. It takes a reference to the container element as first argument, and the [player configuration](setup.md#player-options) as mandatory second argument.
 
 ```html
 <div id="player"></div>
@@ -266,7 +266,7 @@ flowplayer("#player", {
 
 *   Caveat If the first argument references an array of elements, only the first array member will be targeted. To avoid surprises make sure that you always select a single unique element as installation target.
 
-If the [jQuery library](http://jquery.com/) is loaded, `flowplayer()` can also be invoked as jQuery extension like in the [VIDEO tag based](/docs/setup.html#videotag-install) installation methods with the player configuration including `clip` in the first argument:
+If the [jQuery library](http://jquery.com/) is loaded, `flowplayer()` can also be invoked as jQuery extension like in the [VIDEO tag based](setup.md#videotag-install) installation methods with the player configuration including `clip` in the first argument:
 
 ```js
 $("#player").flowplayer({
@@ -276,18 +276,18 @@ $("#player").flowplayer({
 
 *   <span class="label">Warning</span> The jQuery invocation syntax is strongly discouraged for this installation method because it will not give [instant access](api.html#instant-api-access) to the Flowplayer JavaScript API and blurs the structure of the code.
 
-Advantages of the pure JavaScript installation in addition to those of the [manual installation](/docs/setup.html#manual-install):
+Advantages of the pure JavaScript installation in addition to those of the [manual installation](setup.md#manual-install):
 
 *   It does not depend on an external library - you may still use jQuery of course.
-*   Availability of some advanced features with [playlists](playlist.html), like [subtitles](subtitles.html) or [looping of individual clips](/docs/setup.html#clip-options).
+*   Availability of some advanced features with [playlists](playlist.html), like [subtitles](subtitles.html) or [looping of individual clips](setup.md#clip-options).
 *   The entire player functionality is controled in one place, in one language.
 *   A reference to a specific player's [JavaScript API](api.html#api-access) can be created in [one step](api.html#instant-api-access) at installation time.
-*   The page will load faster because no VIDEO tag is present, especially with multiple [splash setups](/docs/setup.html#splash).
+*   The page will load faster because no VIDEO tag is present, especially with multiple [splash setups](setup.md#splash).
 
 Restrictions of the pure JavaScript installation:
 
 *   Only one player can be installed per `flowplayer()` call.
-*   By definition options set via [HTML data attributes](/docs/setup.html#html-configuration) have no effect.
+*   By definition options set via [HTML data attributes](setup.md#html-configuration) have no effect.
 
 *   Recommendation If you want clearly structured code suited for long-term maintenance and extensibility, choose the JavaScript installation method.
 
@@ -296,9 +296,9 @@ Restrictions of the pure JavaScript installation:
 
 The `clip` object is Flowplayer's concept and understanding of [video content](#video).
 
-The `clip` [configuration object](/docs/setup.html#clip-options) is the representation of a HTML5 VIDEO tag, including [Flash video](#flash-video), in [JavaScript Object Notation](http://www.secretgeek.net/json_3mins.asp).
+The `clip` [configuration object](setup.md#clip-options) is the representation of a HTML5 VIDEO tag, including [Flash video](#flash-video), in [JavaScript Object Notation](http://www.secretgeek.net/json_3mins.asp).
 
-Each object in a clip's `sources` [array](/docs/setup.html#source-options) is the representation of a HTML5 SOURCE tag in [JavaScript Object Notation](http://www.secretgeek.net/json_3mins.asp).
+Each object in a clip's `sources` [array](setup.md#source-options) is the representation of a HTML5 SOURCE tag in [JavaScript Object Notation](http://www.secretgeek.net/json_3mins.asp).
 
 [view standalone page](/standalone/basics/pure-js.html)
 
@@ -364,7 +364,7 @@ Each object in a clip's `sources` [array](/docs/setup.html#source-options) is th
 
 # Video
 
-The Flowplayer [engines](#engines) can play a slew of [video formats](/docs/setup.html#video-formats): all videos which can be played by a [HTML5 video](#html-video) tag or by [Flash](#flash-video).
+The Flowplayer [engines](#engines) can play a slew of [video formats](setup.md#video-formats): all videos which can be played by a [HTML5 video](#html-video) tag or by [Flash](#flash-video).
 
 However, one of the main purposes of using Flowplayer is to achieve cross browser and cross device compatibility, so your videos can be viewed in all browsers and on all mobile devices. To achieve that goal, the videos must meet the these criteria:
 
@@ -379,7 +379,7 @@ _clip_ is how we call the sum of everything related to one video content.
 
 _sources_ is how we call the format variants of this video, i.e., technically differing representations of the same one content.
 
-The audience will watch **one** clip - the content -, but to grant an optimal viewing experience the player should be provided with **several** sources to [choose from](/docs/setup.html#picking-order):
+The audience will watch **one** clip - the content -, but to grant an optimal viewing experience the player should be provided with **several** sources to [choose from](setup.md#picking-order):
 
 ## Video formats
 
@@ -524,7 +524,7 @@ Discouraged format and delivery combinations are marked in <span class="hilite">
 
 ## HLS
 
-HLS stands for [Apple HTTP Live Streaming](https://developer.apple.com/library/ios/documentation/networkinginternet/conceptual/streamingmediaguide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008332-CH1-SW1), but can just as well be used for video on demand. The source is a so-called playlist with filename suffix `m3u8`. It can deliver [multiple resolutions](/demos/qsel/#drive-qsel-demo) of a video presented via Adaptive Bit Rate and resolution streaming ([ABR](http://en.wikipedia.org/wiki/Adaptive_bitrate_streaming)). HLS ABR lets your audience enjoy your content at the best quality available with the current connection speed and device capabilities. In almost all scenarios it should be the preferred source and [listed first](/docs/setup.html#picking-order).
+HLS stands for [Apple HTTP Live Streaming](https://developer.apple.com/library/ios/documentation/networkinginternet/conceptual/streamingmediaguide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008332-CH1-SW1), but can just as well be used for video on demand. The source is a so-called playlist with filename suffix `m3u8`. It can deliver [multiple resolutions](/demos/qsel/#drive-qsel-demo) of a video presented via Adaptive Bit Rate and resolution streaming ([ABR](http://en.wikipedia.org/wiki/Adaptive_bitrate_streaming)). HLS ABR lets your audience enjoy your content at the best quality available with the current connection speed and device capabilities. In almost all scenarios it should be the preferred source and [listed first](setup.md#picking-order).
 
 Flowplayer is shipped with the most complete HLS support: Out of the box it plays HLS whenever technically possible: Either if native HTML5 playback of HLS [is supported by the client](#html5-engine) or if the [Flash plugin](#flash-hls) in the browser is enabled.
 
@@ -554,7 +554,7 @@ Flowplayer supports HLS everywhere:
 
 As Flash is on the decline, we recommend to make your [streams](plugins.html#hlsjs-stream-compatibility) and [server](plugins.html#hlsjs-server-side) ready for hlsjs.
 
-Then simply switch the player to live mode by setting the `live` option for [player](/docs/setup.html#player-options) or [clip](/docs/setup.html#clip-options) to `true`.
+Then simply switch the player to live mode by setting the `live` option for [player](setup.md#player-options) or [clip](setup.md#clip-options) to `true`.
 
 ### HLS quality selection
 
@@ -562,7 +562,7 @@ Manual HLS quality selection is available out of the box via the HD menu if the 
 
 **Note:** Native HLS playback - for example on iOS - does not allow manual HLS level selection. This feature is available with [hlsjs](plugins.html#hlsjs) and [Flash HLS](#flash-hls).
 
-By default all HLS levels are shown in the HD menu. Manual selection can be disabled or a specific set of HLS levels specified with the `hlsQualities` [option](/docs/setup.html#player-options) on the [global](/docs/setup.html#global-configuration), [player](/docs/setup.html#player-options), and [clip](/docs/setup.html#clip-options) level.
+By default all HLS levels are shown in the HD menu. Manual selection can be disabled or a specific set of HLS levels specified with the `hlsQualities` [option](setup.md#player-options) on the [global](setup.md#global-configuration), [player](setup.md#player-options), and [clip](setup.md#clip-options) level.
 
 
 ### DRM
@@ -572,7 +572,7 @@ HLS offers the best [content protection](https://developer.apple.com/library/ios
 
 ## Recommended format offerings
 
-The following format combinations ensure best cross browser and cross device compatibility with Flowplayer. The formats are listed in the recommended [order](/docs/setup.html#picking-order). You can also see which combinations are on offer at our [Flowplayer Drive](drive.html#result-files) transcoding and delivery platform.
+The following format combinations ensure best cross browser and cross device compatibility with Flowplayer. The formats are listed in the recommended [order](setup.md#picking-order). You can also see which combinations are on offer at our [Flowplayer Drive](drive.html#result-files) transcoding and delivery platform.
 
 <table>
 
@@ -665,9 +665,9 @@ Available as [standard encoding](drive.html#standard-resolution) in Flowplayer D
 
 The order in which you specify the sources matters. Flowplayer will cycle through the sources and choose the first source it can play.
 
-If a source can be played by more than one [engine](#engines) Flowplayer will try the html5 engine first. The main candidates for this scenario are the HLS and MP4 [formats](/docs/setup.html#video-formats): If the browser [cannot play](#html5-video) the format and its Flash plugin is enabled, then this source will be played using the flash engine. - Exception for convenience: If HTML5 video is not supported by the browser, HLS is not on offer, but an RTMP stream, the RTMP stream takes precedence over MP4 via HTTP.
+If a source can be played by more than one [engine](#engines) Flowplayer will try the html5 engine first. The main candidates for this scenario are the HLS and MP4 [formats](setup.md#video-formats): If the browser [cannot play](#html5-video) the format and its Flash plugin is enabled, then this source will be played using the flash engine. - Exception for convenience: If HTML5 video is not supported by the browser, HLS is not on offer, but an RTMP stream, the RTMP stream takes precedence over MP4 via HTTP.
 
-You can completely control the picking order by setting the `engine` [source option](/docs/setup.html#source-options) explicitly.
+You can completely control the picking order by setting the `engine` [source option](setup.md#source-options) explicitly.
 
 This is the recommended order to provide the sources by `type`:
 
@@ -705,7 +705,7 @@ However, hard coding width and height of the container element foregoes Flowplay
 
 By default Flowplayer uses all the width that is given via CSS or the width of the container's parent element. The height of the player is determined by the `aspectRatio` or `ratio` [configuration settings](#configuration) which default to `"16:9"` or `9/16` respectively. Under the premise that letterboxing or empty sidebars on the video screen are to be avoided, this assumes a video of 16/9 aspect ratio. Note that the `ratio` notation is the inverse ratio of how one usually specifies the aspect ratio of a video: height/width (container) as opposed to width/height (video).
 
-You can change the ratio in the [global player configuration](/docs/setup.html#global-configuration):
+You can change the ratio in the [global player configuration](setup.md#global-configuration):
 
 ```js
 flowplayer.conf.aspectRatio = "4:3";
@@ -717,7 +717,7 @@ This is the same as:
 flowplayer.conf.ratio = 3/4;
 ```
 
-Or you can set the ratio in the [HTML configuration](/docs/setup.html#html-configuration) using the `data-aspect-ratio` or `data-ratio` attribute of the container element as follows:
+Or you can set the ratio in the [HTML configuration](setup.md#html-configuration) using the `data-aspect-ratio` or `data-ratio` attribute of the container element as follows:
 
 ```html
 <div class="flowplayer" data-aspect-ratio="4:3">
@@ -839,13 +839,13 @@ Alternatively you can change the container's ratio via CSS while setting the `ra
 
 Now when you resize the browser the video size will adjust accordingly, and the player's width/height ratio is kept.
 
-You may also let the player size dynamically be determined by the video's aspect ratio: Set the `adaptiveRatio` [player option](/docs/setup.html#player-options) to `true`.
+You may also let the player size dynamically be determined by the video's aspect ratio: Set the `adaptiveRatio` [player option](setup.md#player-options) to `true`.
 
-This comes in handy for quick setups when you do not happen to know the exact dimensions of the video, but still want the player's screen size to match the aspect ratio of the video. By consequence refrain from configuring `adaptiveRatio` for a [splash setup](/docs/setup.html#splash) as the video's dimensions - and therefore its aspect ratio are only available once the video is loaded and the player is [ready](/docs/api.html#properties).
+This comes in handy for quick setups when you do not happen to know the exact dimensions of the video, but still want the player's screen size to match the aspect ratio of the video. By consequence refrain from configuring `adaptiveRatio` for a [splash setup](setup.md#splash) as the video's dimensions - and therefore its aspect ratio are only available once the video is loaded and the player is [ready](/docs/api.html#properties).
 
 ## Start screen
 
-In a basic setup like the one in our [quick start guide](quickstart.html#flowplayer) the video is loaded and the first frame is shown - unless `autoplay` is [configured](/docs/setup.html#player-options).
+In a basic setup like the one in our [quick start guide](quickstart.html#flowplayer) the video is loaded and the first frame is shown - unless `autoplay` is [configured](setup.md#player-options).
 
 In most cases however, you want to customize the initial screen as what is often called a splash or poster screen. Flowplayer offers two techniques to implement a start screen which are also named "poster" and "splash".
 
@@ -856,8 +856,8 @@ Common features of "poster" and "splash":
 
 Where "poster" and "splash" differ is their behaviour:
 
-*   [poster](/docs/setup.html#poster): the video is loaded in the background
-*   [splash](/docs/setup.html#splash): the video is loaded on demand, i.e. when the user starts playback with a click
+*   [poster](setup.md#poster): the video is loaded in the background
+*   [splash](setup.md#splash): the video is loaded on demand, i.e. when the user starts playback with a click
 
 *   **Important** A splash or poster setup is mandatory if the player is _hidden_ at some point in its life cycle. Some browsers forbid hiding the Flash object, and thus errors are encountered when the [flash engine](#engines) is in use. This notably concerns [modal window setups](/demos/layout/#overlay-demo).
 
@@ -866,7 +866,7 @@ Where "poster" and "splash" differ is their behaviour:
 
 The poster setup is recommended when you want to preload the video at startup while giving the player a custom look and feel.
 
-Flowplayer features an extended and flexible concept of the generic `poster` [VIDEO tag attribute](/docs/setup.html#video-tag-attributes): If the `poster` attribute is given, it will also be used as CSS background image of the container element. Par consequence you can also choose to omit the poster attribute, and instead specify a background image or background color (treated as monochrome "poster") CSS directive to the same effect.
+Flowplayer features an extended and flexible concept of the generic `poster` [VIDEO tag attribute](setup.md#video-tag-attributes): If the `poster` attribute is given, it will also be used as CSS background image of the container element. Par consequence you can also choose to omit the poster attribute, and instead specify a background image or background color (treated as monochrome "poster") CSS directive to the same effect.
 
 The advantages of this approach:
 
@@ -880,9 +880,9 @@ The advantages of this approach:
 To sum up, a poster setup requires that
 
 *   a `background-image` or `background-color` CSS rule applies to the container element or
-*   the `poster` [configuration option](/docs/setup.html#player-options) is set or
+*   the `poster` [configuration option](setup.md#player-options) is set or
 *   the VIDEO tag carries a `poster` attribute and
-*   the [splash](/docs/setup.html#splash) setup is not enforced.
+*   the [splash](setup.md#splash) setup is not enforced.
 
 If both `background-image` for the container and `poster` attribute for the VIDEO tag are given, the poster image takes precedence and replaces the background image.
 
@@ -915,7 +915,7 @@ To set up splash screens you either add the [state class](/docs/skinning.html#co
 </div>
 ```
 
-Or you configure the addition of the "is-splash" state class by setting the `splash` [option](/docs/setup.html#player-options) to `true` or to the location of the splash image. For instance this [global configuration](/docs/setup.html#global-configuration) applies the splash setup to all players on the page:
+Or you configure the addition of the "is-splash" state class by setting the `splash` [option](setup.md#player-options) to `true` or to the location of the splash image. For instance this [global configuration](setup.md#global-configuration) applies the splash setup to all players on the page:
 
 ```js
 flowplayer.conf = {
@@ -927,7 +927,7 @@ The splash image is given in the CSS `background-image` directive for the contai
 
 Here is how it works:
 
-*   [Video tag based installations](/docs/setup.html#videotag-install): Upon recognition of the "is-splash" class name or the `splash` option the VIDEO tag is temporarily removed from the container element on page load.
+*   [Video tag based installations](setup.md#videotag-install): Upon recognition of the "is-splash" class name or the `splash` option the VIDEO tag is temporarily removed from the container element on page load.
 *   When the splash screen is clicked the VIDEO or an OBJECT tag, depending on the engine picked, is placed inside the player container and the "is-splash" CSS class name is removed.
 *   Unloading does the opposite: the VIDEO or OBJECT tag is removed and the "is-splash" class is re-added.
 *   The player can be made to go back to splash state by hitting the `q` [key](#keyboard) or by calling the `unload` [API method](api.html#methods).
@@ -993,16 +993,16 @@ HTML schema:
 
 *   <span class="label">Important</span> The HTML schema is less clear cut and sometimes less flexible at the clip and source level. We recommend to use the [JavaScript](#pure-javascript-install) installation method for complex setups.
 
-The following tables show all options as they are declared in a [global](/docs/setup.html#global-configuration), [local](/docs/setup.html#local-configuration) or [pure](/docs/setup.html#javascript-install) JavaScript configuration in JSON syntax.
+The following tables show all options as they are declared in a [global](setup.md#global-configuration), [local](setup.md#local-configuration) or [pure](setup.md#javascript-install) JavaScript configuration in JSON syntax.
 
 Options marked in <span class="hilite">red</span> are advanced options. Only set them when you know what you are doing and aware of potential side-effects or drawbacks.
 
 
 ## Player options
 
-Here is a list of all core configuration options at [player level](/docs/setup.html#configuration-summary).
+Here is a list of all core configuration options at [player level](setup.md#configuration-summary).
 
-For [video tag based installations](/docs/setup.html#videotag-install) every player option can alternatively be specified in [HTML configuration syntax](/docs/setup.html#html-configuration) as [custom data-attribute](http://www.w3schools.com/tags/att_global_data.asp) of the container element - except for `clip` which is set via the VIDEO and SOURCE tags and `rtmp` if specified as Object. Camel cased option names like `adaptiveRatio` must be written as compound lower cased attributes: `data-adaptive-ratio`.
+For [video tag based installations](setup.md#videotag-install) every player option can alternatively be specified in [HTML configuration syntax](setup.md#html-configuration) as [custom data-attribute](http://www.w3schools.com/tags/att_global_data.asp) of the container element - except for `clip` which is set via the VIDEO and SOURCE tags and `rtmp` if specified as Object. Camel cased option names like `adaptiveRatio` must be written as compound lower cased attributes: `data-adaptive-ratio`.
 
 <table>
 
@@ -1341,7 +1341,7 @@ CSS alternative: the `is-splash` [state class](skinning.html#configurable-states
 
 ## Extension and plugin options
 
-The following options are `undefined` by default, but are supported by player extensions or additionally loaded plugins. Follow the link in the third column for details. The rightmost column indicates whether the option can also be set as data attribute in a [HTML configuration](/docs/setup.html#html-configuration). Some of the options accept a nested configuration object as value, in which case only the top-level option is listed here.
+The following options are `undefined` by default, but are supported by player extensions or additionally loaded plugins. Follow the link in the third column for details. The rightmost column indicates whether the option can also be set as data attribute in a [HTML configuration](setup.md#html-configuration). Some of the options accept a nested configuration object as value, in which case only the top-level option is listed here.
 
 <table>
 
@@ -1810,8 +1810,8 @@ Make sure to deploy and load the **commercial** release available at your [Flowp
 The following assets _must_ be commercial for license validation:
 
 *   the API script: `flowplayer.min.js`
-*   the Flash swf file: `flowplayer.swf` - if not loaded from our CDN (the default) the `swf` [option](#commercial-configuration) or the `data-swf` [container attribute](/docs/setup.html#html-configuration) must be set
-*   the Flash HLS swf file: `flowplayerhls.swf` - if not loaded from our CDN (the default) the `swfHls` [option](#commercial-configuration) or the `data-swf-hls` [container attribute](/docs/setup.html#html-configuration) must be set
+*   the Flash swf file: `flowplayer.swf` - if not loaded from our CDN (the default) the `swf` [option](#commercial-configuration) or the `data-swf` [container attribute](setup.md#html-configuration) must be set
+*   the Flash HLS swf file: `flowplayerhls.swf` - if not loaded from our CDN (the default) the `swfHls` [option](#commercial-configuration) or the `data-swf-hls` [container attribute](setup.md#html-configuration) must be set
 
 
 ### Commercial options
@@ -1884,9 +1884,9 @@ By default no context menu is present in the commercial player.
 
 ## Clip options
 
-The `clip` [object](/docs/setup.html#player-options) may not be empty. As any HTML5 player, Flowplayer requires a video to run. Therefore specifying a [sources](#source-options) parameter is mandatory for a valid clip configuration.
+The `clip` [object](setup.md#player-options) may not be empty. As any HTML5 player, Flowplayer requires a video to run. Therefore specifying a [sources](#source-options) parameter is mandatory for a valid clip configuration.
 
-In a [VIDEO tag based installation](/docs/setup.html#videotag-install) the `sources` are already present as SOURCE tags. Options which are not generic [VIDEO tag attributes](/docs/setup.html#video-tag-attributes) can be set as data-attributes of the VIDEO tag if their value is not an `object`.
+In a [VIDEO tag based installation](setup.md#videotag-install) the `sources` are already present as SOURCE tags. Options which are not generic [VIDEO tag attributes](setup.md#video-tag-attributes) can be set as data-attributes of the VIDEO tag if their value is not an `object`.
 
 <table>
 
@@ -2276,7 +2276,7 @@ Makes [picking order](#picking-order) completely customizeable.</td>
 
 ## Video tag attributes
 
-In [VIDEO tag based installations](/docs/setup.html#videotag-install) you can apply the following standard html5 [VIDEO tag attributes](http://www.w3schools.com/tags/tag_video.asp):
+In [VIDEO tag based installations](setup.md#videotag-install) you can apply the following standard html5 [VIDEO tag attributes](http://www.w3schools.com/tags/tag_video.asp):
 
 <table>
 
@@ -2376,10 +2376,10 @@ Remember to set these _after_ the `flowplayer.conf = {...}` setting if you have 
 
 The scope of both the pure JavaScript installation and manual installation methods is local. Player specific configuration is passed as argument to the `flowplayer()` function.
 
-*   [manual installation (jQuery)](/docs/setup.html#manual-install): 1st argument (optional)
-*   [pure JavaScript installation](/docs/setup.html#javascript-install): 2nd argument - mandatory, as a `clip` must be configured
+*   [manual installation (jQuery)](setup.md#manual-install): 1st argument (optional)
+*   [pure JavaScript installation](setup.md#javascript-install): 2nd argument - mandatory, as a `clip` must be configured
 
-Here is an example how to configure the `ratio` [option](/docs/setup.html#player-options) for all players which are manually installed into containers of class "player".
+Here is an example how to configure the `ratio` [option](setup.md#player-options) for all players which are manually installed into containers of class "player".
 
 ```js
 // install player manually after DOM is ready
@@ -2395,7 +2395,7 @@ $(function() {
 
 The configuration is normally passed as in [JavaScript Object Notation](http://www.secretgeek.net/json_3mins.asp) as argument to the `flowplayer()` call. If the argument is a simple string it is treated as the location of the flowplayer swf file.
 
-Local configuration overrides [global configuration](/docs/setup.html#global-configuration).
+Local configuration overrides [global configuration](setup.md#global-configuration).
 
 [view standalone page](/standalone/basics/manual.html)
 
@@ -2414,9 +2414,9 @@ Configuration options for specific players can also be set directly in HTML synt
 </div>
 ```
 
-The HTML syntax allows to customize specific players even when they are [automatically installed](/docs/setup.html#automatic).
+The HTML syntax allows to customize specific players even when they are [automatically installed](setup.md#automatic).
 
-HTML configuration overrides [global configuration](/docs/setup.html#global-configuration) and [local JavaScript configuration](/docs/setup.html#local-configuration).
+HTML configuration overrides [global configuration](setup.md#global-configuration) and [local JavaScript configuration](setup.md#local-configuration).
 
 [view standalone page](/standalone/basics/autoplay.html)
 
@@ -2425,9 +2425,9 @@ HTML configuration overrides [global configuration](/docs/setup.html#global-conf
 
 The above override rules result in this order of precedence regarding the possibilities to configure the player:
 
-1.  [HTML configuration](/docs/setup.html#html-configuration)
-2.  [local JavaScript configuration](/docs/setup.html#local-configuration)
-3.  [global JavaScript configuration](/docs/setup.html#global-configuration)
+1.  [HTML configuration](setup.md#html-configuration)
+2.  [local JavaScript configuration](setup.md#local-configuration)
+3.  [global JavaScript configuration](setup.md#global-configuration)
 
 
 ## Configuration summary
@@ -2760,7 +2760,7 @@ Keyboard shortcuts can be turned off by setting the `keyboard` [configuration op
 
 For players shown in an IFRAME fullscreen is disabled by default. It would not work in browsers without native fullscreen support, and some browsers forbid fullscreen from IFRAMEs, notably from a remote orgin, without offering a reliable detection mechanism.
 
-If you are in control of the IFRAME's source and the page where the IFRAME is shown you can allow fullscreen by excplicitly setting the `fullscreen` [configuration option](/docs/setup.html#player-options) to `true` on the originating page and specifying the `allowfullscreen` attribute for the IFRAME:
+If you are in control of the IFRAME's source and the page where the IFRAME is shown you can allow fullscreen by excplicitly setting the `fullscreen` [configuration option](setup.md#player-options) to `true` on the originating page and specifying the `allowfullscreen` attribute for the IFRAME:
 
 ```html
 <iframe src="//example.com/iframe-src.html"
@@ -2768,7 +2768,7 @@ If you are in control of the IFRAME's source and the page where the IFRAME is sh
         allowfullscreen="true"></iframe>
 ```
 
-To allow fullscreen playback from within an IFRAME on iOS, additionally the `native_fullscreen` [option](/docs/setup.html#player-options) must be set to `true`.
+To allow fullscreen playback from within an IFRAME on iOS, additionally the `native_fullscreen` [option](setup.md#player-options) must be set to `true`.
 
 Check out [the iframe demo](http://demos.flowplayer.org/basics/iframe.html).
 
@@ -2781,7 +2781,7 @@ Additional engines can be added as plugins for advanced purposes like [MPEG DASH
 
 ## html5 engine
 
-The primary engine is the `html5` engine, unless you configured a different engine for a specific [source](/docs/setup.html#source-options) explicitly.
+The primary engine is the `html5` engine, unless you configured a different engine for a specific [source](setup.md#source-options) explicitly.
 
 
 ### HTML5 video
@@ -2898,17 +2898,17 @@ The Flash engine is chosen to play a source if
 
 1.  the tested video source cannot be played as HTML5 video by the browser and
 2.  the tested video type can be played by the Flash engine and
-3.  the `engine` [source option](/docs/setup.html#source-options) for this source is not set to a value other than "flash" and
+3.  the `engine` [source option](setup.md#source-options) for this source is not set to a value other than "flash" and
 4.  the Flash plugin is enabled in the browser
 
 or if
 
-1.  the `engine` [source option](/docs/setup.html#source-options) for this source is set to "flash" and
+1.  the `engine` [source option](setup.md#source-options) for this source is set to "flash" and
 2.  the Flash plugin is enabled in the browser
 
-The Flowplayer Flash component requires Flash version 9.0.0\. Flash supports playback of the [MP4 format](/docs/setup.html#video-formats) since version 9.0.115\. Consider it safe to neglect offering a FLV source as fallback for ancient Flash.
+The Flowplayer Flash component requires Flash version 9.0.0\. Flash supports playback of the [MP4 format](setup.md#video-formats) since version 9.0.115\. Consider it safe to neglect offering a FLV source as fallback for ancient Flash.
 
-The Flash engine supports playback of the following [video formats](/docs/setup.html#video-formats):
+The Flash engine supports playback of the following [video formats](setup.md#video-formats):
 
 *   [HLS](#flash-hls)
 *   MP4
@@ -2919,7 +2919,7 @@ The Flash engine supports playback of the following [video formats](/docs/setup.
 
 *   <span class="label">Important</span> The [hlsjs plugin](plugins.html#hlsjs) enables HLS playback in modern browsers and devices without requiring Flash. Compared to Flash HLS it features better playback performance and is more resource friendly. - Flash HLS will still be used in legacy browsers.
 
-Flowplayer supports [HLS](/docs/setup.html#video-formats) playback with its [Flash engine](#flash-engine). Adaptive Bit Rate (ABR) switching is available not only in browsers which can play HLS in HTML5 video, but also in all other browsers, noteably most desktop browsers.
+Flowplayer supports [HLS](setup.md#video-formats) playback with its [Flash engine](#flash-engine). Adaptive Bit Rate (ABR) switching is available not only in browsers which can play HLS in HTML5 video, but also in all other browsers, noteably most desktop browsers.
 
 For live streams this means that the same range of clients can be reached with just one source of type `application/x-mpegurl` as with a combination of HLS for HTML5 video and RTMP for Flash (where RTMP does not offer the benefits of ABR).
 
@@ -2960,7 +2960,7 @@ RTMP delivery in Flash allows [seeking to unbuffered positions](#random-seeking)
 
 _Important:_
 
-*   The `rtmp` [option](/docs/setup.html#player-options) for the server address - also called 'net connection url' - _must_ be set. Please consult the documentation of your server for its exact value.
+*   The `rtmp` [option](setup.md#player-options) for the server address - also called 'net connection url' - _must_ be set. Please consult the documentation of your server for its exact value.
 *   The `src` must be the path on the server, not a full URL. For video on demand it is often prefixed with `mp4:` for MP4 videos. Again the server documentation is your friend.
 
 Specifying a `video/flash` source delivered via HTTP for progressive download is rarely useful:
@@ -3003,7 +3003,7 @@ The easiest and most flexible way to achieve this is by omitting the protocol:
 <script src="//example.com/assets/flowplayer.min.js"></script>
 ```
 
-The same applies to loading the video [sources](/docs/setup.html#source-options):
+The same applies to loading the video [sources](setup.md#source-options):
 
 ```js
 // omit protocol when loading sources
@@ -3028,7 +3028,7 @@ This obviously requires that `example.com` is accessible both via HTTPS and HTTP
 
 ## Cross domain
 
-To make HLS work in Flash Flowplayer's [Flash engine](#flash-engine) must have explicit permission to access the transport streams. The deployment of a a [cross domain policy file](http://www.adobe.com/devnet/articles/crossdomain_policy_file_spec.html) at the _root_ of the domain from which the TS files are served is _obligatory_. It must allow requests from the location of `flowplayerhls.swf` (see the `swfHls` [configuration option](/docs/setup.html#player-options)).
+To make HLS work in Flash Flowplayer's [Flash engine](#flash-engine) must have explicit permission to access the transport streams. The deployment of a a [cross domain policy file](http://www.adobe.com/devnet/articles/crossdomain_policy_file_spec.html) at the _root_ of the domain from which the TS files are served is _obligatory_. It must allow requests from the location of `flowplayerhls.swf` (see the `swfHls` [configuration option](setup.md#player-options)).
 
 Simple example of a `crossdomain.xml` file giving full access to requests from anywhere:
 
@@ -3076,7 +3076,7 @@ The options listed in the following sections should _only_ be applied if needed,
 
 ## flashls
 
-For finer control of [Flash HLS](#flash-hls) the following options are available as properties of the `flashls` configuration object on the [clip level](/docs/setup.html#clip-options):
+For finer control of [Flash HLS](#flash-hls) the following options are available as properties of the `flashls` configuration object on the [clip level](setup.md#clip-options):
 
 <table>
 
@@ -3382,7 +3382,7 @@ Mandatory, corresponds to `rtmp` given as string.</td>
 
 </table>
 
-Both forms of the `rtmp` option can be given at [player](/docs/setup.html#player-options) and [clip](/docs/setup.html#clip-options) level.
+Both forms of the `rtmp` option can be given at [player](setup.md#player-options) and [clip](setup.md#clip-options) level.
 
 
 # Migration from Version 6
@@ -3399,10 +3399,10 @@ Discover the revamped [skinning](skinning.html) and [sharing](sharing.html) poss
 
 A lot of effort went into keeping the player compatible with existing setups. If you still encounter problems, please check also the migration notes in the [skinning](skinning.html#migration-from-version-5) and [api](api.html#migration-from-version-5) doc sections and turn to our [forum](/forum/) for support.
 
-Installation of a `playlist` of sources into an [empty container element](/v5docs/setup.html#empty-container) has grown up to become a first class citizen in the form of the API friendly [JavaScript installation method](/docs/setup.html#javascript-install) in Flowplayer 6 with an extensible [clip object](#clip-object). We recommend to embrace the more flexible full syntax which will give you even more control over each [clip](/docs/setup.html#clip-options) and its [sources](/docs/setup.html#source-options).
+Installation of a `playlist` of sources into an [empty container element](/v5docs/setup.html#empty-container) has grown up to become a first class citizen in the form of the API friendly [JavaScript installation method](setup.md#javascript-install) in Flowplayer 6 with an extensible [clip object](#clip-object). We recommend to embrace the more flexible full syntax which will give you even more control over each [clip](setup.md#clip-options) and its [sources](setup.md#source-options).
 
-Flowplayer 6 introduces a simpler source [picking order](/docs/setup.html#picking-order): Every source will be tried in the given order by all engines available. In the usual recommended setups this will not cause any difference in behaviour.
+Flowplayer 6 introduces a simpler source [picking order](setup.md#picking-order): Every source will be tried in the given order by all engines available. In the usual recommended setups this will not cause any difference in behaviour.
 
-In the same vein, the `engine` option has moved from the [player level](/v5docs/setup.html#config-options) to the [source level](/docs/setup.html#source-options) to allow for complete fine-grained control of video source preferences.
+In the same vein, the `engine` option has moved from the [player level](/v5docs/setup.html#config-options) to the [source level](setup.md#source-options) to allow for complete fine-grained control of video source preferences.
 
-Users of advanced RTMP options like `bufferTime`, `rtmpt`: The options will currently still work when set at player level directly. We recommend to start upgrading to the new [rtmp configuration object](#rtmp-options) which is available both at [player](/docs/setup.html#player-options) and [clip](/docs/setup.html#clip-options) level and thereby offers increased flexibility.
+Users of advanced RTMP options like `bufferTime`, `rtmpt`: The options will currently still work when set at player level directly. We recommend to start upgrading to the new [rtmp configuration object](#rtmp-options) which is available both at [player](setup.md#player-options) and [clip](setup.md#clip-options) level and thereby offers increased flexibility.
