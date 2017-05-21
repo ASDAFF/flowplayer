@@ -32,12 +32,12 @@
 
 # JavaScript API
 
-*   **Note** Sections exclusively dedicated to [VIDEO tag based installations](/docs/setup.html#videotag-install) are flagged with a pink **border**, sections exclusively dedicated to [pure JavaScript installations](/docs/setup.html#javascript-install) with a **green border**.  
+*   **Note** Sections exclusively dedicated to [VIDEO tag based installations](setup.md#video-tag-based) are flagged with a pink **border**, sections exclusively dedicated to [pure JavaScript installations](/docs/setup.html#javascript-install) with a **green border**.  
     Advanced opions and functions are colored **red**.
 
 # Global API access
 
-Use the `flowplayer` function to get a global handle on the API. Here we attach two custom [events](/docs/api.html#events) to the API of all players which will be installed on the page:
+Use the `flowplayer` function to get a global handle on the API. Here we attach two custom [events](api.md#events) to the API of all players which will be installed on the page:
 
 ```js
 flowplayer(function (api, root) {
@@ -59,7 +59,7 @@ View [standalone demo](/standalone/api/access.html).
 
 This anonymous callback function is provided by the Flowplayer library and is called every time a Flowplayer instance is created. Think of it as a "mini-plugin".
 
-You use it to customize the default **behaviour** of all players on your page in a similar manner as you set [global configuration](/docs/setup.html#global-configuration) options, and thus it should be called right after the flowplayer script is included in the [HEAD section](setup.html#prerequisites) of the page and _before_ the page is loaded - before the [DOM](http://www.w3schools.com/js/js_htmldom.asp) (Document Object Model) is ready.
+You use it to customize the default **behaviour** of all players on your page in a similar manner as you set [global configuration](setup.md#global-configuration) options, and thus it should be called right after the flowplayer script is included in the [HEAD section](setup.md#prerequisites) of the page and _before_ the page is loaded - before the [DOM](http://www.w3schools.com/js/js_htmldom.asp) (Document Object Model) is ready.
 
 The API is provided by the first argument and it looks like this in the browser console:
 ![alt-текст](../img/consol.png)
