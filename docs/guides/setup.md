@@ -35,7 +35,7 @@
     *   [Extension and plugin clip options](#extension-and-plugin-clip-options)
     *   [Source options](#source-options)
     *   [Video tag attributes](#video-tag-attributes)
-    *   [Global JavaScript configuration](#global-configuration)
+    *   [Global JavaScript configuration](#global-javascript-configuration)
     *   [Local JavaScript configuration](#local-configuration)
     *   [HTML configuration](#html-configuration)
     *   [Order of precedence](#configuration-precedence)
