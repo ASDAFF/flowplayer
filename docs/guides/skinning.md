@@ -148,6 +148,9 @@ Three themes are available for the overall look of the player.
 
 This is how the skin looks like without and modifications:
 
+![alt-текст](../img/2017-05-22_032241.jpg)
+
+```html
 <div class="flowplayer"
      data-aspect-ratio="12:5">
    <video>
@@ -157,12 +160,9 @@ This is how the skin looks like without and modifications:
               src="//edge.flowplayer.org/functional.mp4">
       </video>
 </div>
+```
 
-[view standalone page](/standalone/skin/default.html)
-
-</section>
-
-<section class="level2" id="section_minimal">
+[view standalone page](https://flowplayer.org/standalone/skin/default.html)
 
 ## Minimal
 
