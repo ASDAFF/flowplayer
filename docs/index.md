@@ -96,18 +96,13 @@ Load the required assets and declare the page title - the TITLE tag is mandatory
 *   In general it is recommended to load CSS stylesheets before JavaScript assets.
 *   It is not recommended to load the Flowplayer and jQuery Javascripts in the BODY or at the end of the document.
 
-</section>
-
-<section class="level1 has5" id="section_installation">
 
 # Installation
 
 For each player you need to prepare a html [DIV element](http://www.w3schools.com/tags/tag_div.asp) as player **container** inside the [BODY](http://www.w3schools.com/tags/tag_body.asp) of your page.
 
-*   <span class="label">Note</span> Sections exclusively dedicated to [VIDEO tag based installations](/docs/setup.html#videotag-install) are flagged with a <span style="color:pink">pink border</span>, sections exclusively dedicated to [pure JavaScript installations](/docs/setup.html#javascript-install) with a <span style="color:green">green border</span>.  
-    Advanced opions and functions are colored <span class="hilite">red</span>.
-
-<section class="level2" id="section_3-ways-to-install">
+*   <span class="label">Note</span> Sections exclusively dedicated to [VIDEO tag based installations](/docs/setup.html#videotag-install) are flagged with a pink border, sections exclusively dedicated to [pure JavaScript installations](/docs/setup.html#javascript-install) with a green border.  
+    Advanced opions and functions are colored
 
 ## 3 ways to install
 
@@ -115,63 +110,29 @@ For each player you need to prepare a html [DIV element](http://www.w3schools.co
 *   [manual installation](/docs/setup.html#manual-install): install on demand, individual customization both in HTML and JSON syntax
 *   [pure JavaScript installation](/docs/setup.html#javascript-install): complete and consistent control via JavaScript, no dependence on external libraries, advanced configuration and seamless API integration
 
-</section>
-
-<section class="level2" id="section_2-installation-categories">
-
 ## 2 installation categories
 
 *   [video tag based](/docs/setup.html#videotag-install) - precondition: a [html VIDEO tag](http://www.w3schools.com/tags/tag_video.asp) inside the container element on the page
 
-    <div class="codebox">
-
-    <figure class="code">
-
-    <div class="highlight">
-
-    <pre><span></span><span class="p"><</span><span class="nt">video</span><span class="p">></span>  
-       <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"application/x-mpegurl"</span> <span class="na">src</span><span class="o">=</span><span class="s">"//mydomain.com/video.m3u8"</span><span class="p">></span>  
-       <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/mp4"</span>             <span class="na">src</span><span class="o">=</span><span class="s">"//mydomain.com/video.mp4"</span><span class="p">></span>  
-    <span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-    </pre>
-
-    </div>
-
-    <figcaption>HTML</figcaption>
-
-    </figure>
-
-    </div>
+ ```html
+ <video>
+    <source type="application/x-mpegurl" src="//mydomain.com/video.m3u8">
+    <source type="video/mp4"             src="//mydomain.com/video.mp4">
+ </video>
+ ```
 
 *   [purely JavaScript based](/docs/setup.html#javascript-install) - precondition: a JavaScript [clip](#clip-and-sources) object in the [player configuration](/docs/setup.html#player-options)
 
-    <div class="codebox">
-
-    <figure class="code">
-
-    <div class="highlight">
-
-    <pre><span></span><span class="nx">clip</span><span class="o">:</span> <span class="p">{</span>  
-        <span class="nx">sources</span><span class="o">:</span> <span class="p">[</span>  
-              <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">"application/x-mpegurl"</span><span class="p">,</span>  
-                <span class="nx">src</span><span class="o">:</span>  <span class="s2">"//mydomain.com/video.m3u8"</span> <span class="p">},</span>  
-              <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">"video/mp4"</span><span class="p">,</span>  
-                <span class="nx">src</span><span class="o">:</span>  <span class="s2">"//mydomain.com/video.mp4"</span> <span class="p">}</span>  
-        <span class="p">]</span>  
-    <span class="p">}</span>  
-    </pre>
-
-    </div>
-
-    <figcaption>JavaScript</figcaption>
-
-    </figure>
-
-    </div>
-
-</section>
-
-<section class="level2 has2" id="section_videotag-install">
+    ```js
+    clip: {
+        sources: [
+              { type: "application/x-mpegurl",
+                src:  "//mydomain.com/video.m3u8" },
+              { type: "video/mp4",
+                src:  "//mydomain.com/video.mp4" }
+        ]
+    }
+    ```
 
 ## Video tag based
 
@@ -188,33 +149,20 @@ Restrictions of video tag based installations:
 
 *   Fine-tuning the configuration on the [clip](/docs/setup.html#clip-options) and [source](/docs/setup.html#source-options) level is not possible or only in a restricted way for [playlists](playlists.html).
 
-<section class="level3" id="section_automatic">
+
 
 ### Automatic installation
 
 Flowplayer will be installed automatically into each container element for which the magic CSS class `"flowplayer"` is specified:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"flowplayer"</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">video</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"application/x-mpegurl"</span> <span class="na">src</span><span class="o">=</span><span class="s">"//mydomain.com/video.m3u8"</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/mp4"</span>             <span class="na">src</span><span class="o">=</span><span class="s">"//mydomain.com/video.mp4"</span><span class="p">></span>  
-   <span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
+```html
+<div class="flowplayer">
+   <video>
+      <source type="application/x-mpegurl" src="//mydomain.com/video.m3u8">
+      <source type="video/mp4"             src="//mydomain.com/video.mp4">
+   </video>
 </div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
+```
 
 Advantages of the automatic installation method:
 
@@ -231,43 +179,28 @@ The automatic method is used in the [quick start guide](quickstart.html) and an 
 
 [view standalone page](/standalone/basics/minimal.html)
 
-</section>
 
-<section class="level3" id="section_manual">
 
 ### Manual installation with jQuery
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"player"</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">video</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"application/x-mpegurl"</span> <span class="na">src</span><span class="o">=</span><span class="s">"//mydomain.com/video.m3u8"</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/mp4"</span>             <span class="na">src</span><span class="o">=</span><span class="s">"//mydomain.com/video.mp4"</span><span class="p">></span>  
-   <span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-
-<span class="p"><</span><span class="nt">script</span><span class="p">></span>  
-<span class="c1">// run script after document is ready</span>  
-<span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>  
-
-   <span class="c1">// install flowplayer into all elements with CSS class="player"</span>  
-   <span class="nx">$</span><span class="p">(</span><span class="s2">".player"</span><span class="p">).</span><span class="nx">flowplayer</span><span class="p">();</span>  
-
-<span class="p">});</span>  
-<span class="p"></</span><span class="nt">script</span><span class="p">></span>  
-</pre>
-
+```html
+<div class="player">
+   <video>
+      <source type="application/x-mpegurl" src="//mydomain.com/video.m3u8">
+      <source type="video/mp4"             src="//mydomain.com/video.mp4">
+   </video>
 </div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
+ 
+<script>
+// run script after document is ready
+$(function () {
+ 
+   // install flowplayer into all elements with CSS class="player"
+   $(".player").flowplayer();
+ 
+});
+</script>
+```
 
 *   The player is installed using the `flowplayer` jQuery plugin.
 *   Container elements are targeted with a [jQuery selector](http://api.jquery.com/category/selectors/).
@@ -281,122 +214,67 @@ Advantage of the manual method over [pure JavaScript installation](/docs/setup.h
 
 *   jQuery allows you to select several container elements as install targets in one `flowplayer` call. The pure method can target only one element at a time, as it also must configure the individual [video clip](#clip-options).
 
-    <div class="codebox">
-
-    <figure class="code">
-
-    <div class="highlight">
-
-    <pre><span></span><span class="nx">$</span><span class="p">(</span><span class="s2">".player"</span><span class="p">).</span><span class="nx">flowplayer</span><span class="p">({</span>  
-        <span class="c1">// configuration common to all players in</span>  
-        <span class="c1">// containers with class="player" goes here</span>  
-    <span class="p">});</span>  
-    </pre>
-
-    </div>
-
-    <figcaption>JavaScript</figcaption>
-
-    </figure>
-
-    </div>
+    ```js
+    $(".player").flowplayer({
+        // configuration common to all players in
+        // containers with class="player" goes here
+    });
+    ```
 
 *   <span class="label">Recommendation</span> The manual installation method makes it easy to fine tune the customization of individual players in a flexible fashion.
 
 [view standalone page](/standalone/basics/manual.html)
 
-</section>
 
-</section>
-
-<section class="level2 has1" id="section_javascript-install">
 
 ## Pure JavaScript
 
 This installation method uses `flowplayer()` as pure JavaScript function. It takes a reference to the container element as first argument, and the [player configuration](/docs/setup.html#player-options) as mandatory second argument.
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">"player"</span><span class="p">></</span><span class="nt">div</span><span class="p">></span>  
-
-<span class="p"><</span><span class="nt">script</span><span class="p">></span>  
-<span class="c1">// select the above element as player container</span>  
-<span class="kd">var</span> <span class="nx">container</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"player"</span><span class="p">);</span>  
-
-<span class="c1">// install flowplayer into selected container</span>  
-<span class="nx">flowplayer</span><span class="p">(</span><span class="nx">container</span><span class="p">,</span> <span class="p">{</span>  
-    <span class="nx">clip</span><span class="o">:</span> <span class="p">{</span>  
-        <span class="nx">sources</span><span class="o">:</span> <span class="p">[</span>  
-              <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">"application/x-mpegurl"</span><span class="p">,</span>  
-                <span class="nx">src</span><span class="o">:</span>  <span class="s2">"//mydomain.com/video.m3u8"</span> <span class="p">},</span>  
-              <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">"video/mp4"</span><span class="p">,</span>  
-                <span class="nx">src</span><span class="o">:</span>  <span class="s2">"//mydomain.com/video.mp4"</span> <span class="p">}</span>  
-        <span class="p">]</span>  
-    <span class="p">}</span>  
-<span class="p">});</span>  
-<span class="p"></</span><span class="nt">script</span><span class="p">></span>  
-</pre>
-
-</div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
+```html
+<div id="player"></div>
+ 
+<script>
+// select the above element as player container
+var container = document.getElementById("player");
+ 
+// install flowplayer into selected container
+flowplayer(container, {
+    clip: {
+        sources: [
+              { type: "application/x-mpegurl",
+                src:  "//mydomain.com/video.m3u8" },
+              { type: "video/mp4",
+                src:  "//mydomain.com/video.mp4" }
+        ]
+    }
+});
+</script>
+```
 
 Because video sources are absent on the page the `clip` [object](#clip-object) featuring its mandatory `sources` property _must_ be specified.
 
 For convenience the container reference in the first argument can also be written in shorthand as a simple string formatted in [jQuery selector](http://api.jquery.com/category/selectors/) syntax:
 
-<div class="codebox">
+```js
+// install into container with id="#player"
+// corresponding jquery selector: $("#player")
+ 
+flowplayer("#player", {
+    // mandatory player and clip configuration goes here
+});
 
-<figure class="code">
+```
 
-<div class="highlight">
-
-<pre><span></span><span class="c1">// install into container with id="#player"</span>  
-<span class="c1">// corresponding jquery selector: $("#player")</span>  
-
-<span class="nx">flowplayer</span><span class="p">(</span><span class="s2">"#player"</span><span class="p">,</span> <span class="p">{</span>  
-    <span class="c1">// mandatory player and clip configuration goes here</span>  
-<span class="p">});</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
-
-*   <span class="label">Caveat</span> If the first argument references an array of elements, only the first array member will be targeted. To avoid surprises make sure that you always select a single unique element as installation target.
+*   Caveat If the first argument references an array of elements, only the first array member will be targeted. To avoid surprises make sure that you always select a single unique element as installation target.
 
 If the [jQuery library](http://jquery.com/) is loaded, `flowplayer()` can also be invoked as jQuery extension like in the [VIDEO tag based](/docs/setup.html#videotag-install) installation methods with the player configuration including `clip` in the first argument:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="nx">$</span><span class="p">(</span><span class="s2">"#player"</span><span class="p">).</span><span class="nx">flowplayer</span><span class="p">({</span>  
-    <span class="c1">// mandatory player and clip configuration goes here</span>  
-<span class="p">});</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
+```js
+$("#player").flowplayer({
+    // mandatory player and clip configuration goes here
+});
+```
 
 *   <span class="label">Warning</span> The jQuery invocation syntax is strongly discouraged for this installation method because it will not give [instant access](api.html#instant-api-access) to the Flowplayer JavaScript API and blurs the structure of the code.
 
@@ -413,9 +291,8 @@ Restrictions of the pure JavaScript installation:
 *   Only one player can be installed per `flowplayer()` call.
 *   By definition options set via [HTML data attributes](/docs/setup.html#html-configuration) have no effect.
 
-*   <span class="label">Recommendation</span> If you want clearly structured code suited for long-term maintenance and extensibility, choose the JavaScript installation method.
+*   Recommendation If you want clearly structured code suited for long-term maintenance and extensibility, choose the JavaScript installation method.
 
-<section class="level3" id="section_clip-object">
 
 ### Clip object
 
@@ -427,15 +304,11 @@ Each object in a clip's `sources` [array](/docs/setup.html#source-options) is th
 
 [view standalone page](/standalone/basics/pure-js.html)
 
-</section>
 
-</section>
-
-<section class="level2" id="section_installation-summary">
 
 ## Installation summary
 
-<table class="listing " id="">
+<table>
 
 <tbody>
 
@@ -491,12 +364,6 @@ Each object in a clip's `sources` [array](/docs/setup.html#source-options) is th
 
 </table>
 
-</section>
-
-</section>
-
-<section class="level1 has5" id="section_video">
-
 # Video
 
 The Flowplayer [engines](#engines) can play a slew of [video formats](/docs/setup.html#video-formats): all videos which can be played by a [HTML5 video](#html-video) tag or by [Flash](#flash-video).
@@ -508,8 +375,6 @@ However, one of the main purposes of using Flowplayer is to achieve cross browse
 
 The second point will be covered in this section.
 
-<section class="level2" id="section_clip-and-sources">
-
 ## Clip and sources
 
 _clip_ is how we call the sum of everything related to one video content.
@@ -518,15 +383,11 @@ _sources_ is how we call the format variants of this video, i.e., technically di
 
 The audience will watch **one** clip - the content -, but to grant an optimal viewing experience the player should be provided with **several** sources to [choose from](/docs/setup.html#picking-order):
 
-</section>
-
-<section class="level2" id="section_video-formats">
-
 ## Video formats
 
 Flowplayer supports playback of the following video formats:
 
-<table class="listing conf" id="video_formats">
+<table>
 
 <tbody>
 
@@ -662,9 +523,6 @@ Discouraged format and delivery combinations are marked in <span class="hilite">
 *   FLV format: By definition (_Fl_ash _V_ideo) can only be played in Flash mode. Use MP4 instead, which gives a much higher quality/bitrate ratio.
 *   HTTP delivery of MP4 (or FLV) to the Flash engine: Seeking until the end of the video is not possible before the complete video is buffered (progressive download). See also the [section on server side setup](#server-side).
 
-</section>
-
-<section class="level2 has4" id="section_hls">
 
 ## HLS
 
@@ -672,19 +530,14 @@ HLS stands for [Apple HTTP Live Streaming](https://developer.apple.com/library/i
 
 Flowplayer is shipped with the most complete HLS support: Out of the box it plays HLS whenever technically possible: Either if native HTML5 playback of HLS [is supported by the client](#html5-engine) or if the [Flash plugin](#flash-hls) in the browser is enabled.
 
-*   <span class="label">important</span> Make sure to have a [crossdomain.xml](#cross-domain) file in your media server root for Flash HLS.
+*   important Make sure to have a [crossdomain.xml](#cross-domain) file in your media server root for Flash HLS.
 
-*   <span class="label">tip</span> The [hlsjs plugin](plugins.html#hlsjs) enables HLS playback in modern browsers and devices without requiring Flash. Its use is strongly recommended
-
-<section class="level3" id="section_cost-effective">
+*   tip The [hlsjs plugin](plugins.html#hlsjs) enables HLS playback in modern browsers and devices without requiring Flash. Its use is strongly recommended
 
 ### Cost effective
 
 Its streaming feature makes HLS the most server resource friendly way to deploy video: Only what the viewers see is retrieved from the server. Therefore it is also the most cost effective format: **What they see, is what you pay for.** No large files are downloaded in the background. And the ABR mechanism ensures not only the best quality per bandwidth, but also an optimal quality/cost ratio.
 
-</section>
-
-<section class="level3" id="section_live-streaming">
 
 ### Live streaming
 
@@ -705,10 +558,6 @@ As Flash is on the decline, we recommend to make your [streams](plugins.html#hls
 
 Then simply switch the player to live mode by setting the `live` option for [player](/docs/setup.html#player-options) or [clip](/docs/setup.html#clip-options) to `true`.
 
-</section>
-
-<section class="level3" id="section_hls-quality-selection">
-
 ### HLS quality selection
 
 Manual HLS quality selection is available out of the box via the HD menu if the stream is delivered from a root playlist pointing to several variants.
@@ -717,25 +566,17 @@ Manual HLS quality selection is available out of the box via the HD menu if the 
 
 By default all HLS levels are shown in the HD menu. Manual selection can be disabled or a specific set of HLS levels specified with the `hlsQualities` [option](/docs/setup.html#player-options) on the [global](/docs/setup.html#global-configuration), [player](/docs/setup.html#player-options), and [clip](/docs/setup.html#clip-options) level.
 
-</section>
-
-<section class="level3" id="section_drm">
 
 ### DRM
 
 HLS offers the best [content protection](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/StreamingMediaGuide/UsingHTTPLiveStreaming/UsingHTTPLiveStreaming.html#//apple_ref/doc/uid/TP40008332-CH102-SW15) in HTML5 video. Flowplayer supports encrypted HLS also in Flash - check out the [demo](https://flowplayer.blacktrash.org/hls-crypt).
 
-</section>
-
-</section>
-
-<section class="level2" id="section_recommended-format-offerings">
 
 ## Recommended format offerings
 
 The following format combinations ensure best cross browser and cross device compatibility with Flowplayer. The formats are listed in the recommended [order](/docs/setup.html#picking-order). You can also see which combinations are on offer at our [Flowplayer Drive](drive.html#result-files) transcoding and delivery platform.
 
-<table class="listing list" id="recommended_formats">
+<table>
 
 <tbody>
 
@@ -821,9 +662,6 @@ Available as [standard encoding](drive.html#standard-resolution) in Flowplayer D
 
 *For WebM to be [chosen](#picking-order) it should be listed before MP4, because all current browsers now support MP4 playback, and will never get to pick WebM otherwise.
 
-</section>
-
-<section class="level2" id="section_picking-order">
 
 ## Picking order
 
@@ -842,150 +680,66 @@ This is the recommended order to provide the sources by `type`:
 
 *   <span class="label">Important</span> Engine plugins like [hlsjs](plugins.html#hlsjs) or [dashjs](plugins.html#dashjs) are usually inserted at the top of the above order and will take precedence.
 
-</section>
-
-</section>
-
-<section class="level1 has2" id="section_layout">
 
 # Layout
 
 This section covers how the player is presented on the page before playback starts.
 
-<section class="level2" id="section_player-size">
 
 ## Player size
 
 The size of the player is determined by the dimensions of the container element. For example you can hard code them using CSS directives:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">{</span>  
-   <span class="k">width</span><span class="p">:</span> <span class="mi">600</span><span class="kt">px</span><span class="p">;</span>  
-   <span class="k">height</span><span class="p">:</span> <span class="mi">338</span><span class="kt">px</span><span class="p">;</span>  
-<span class="p">}</span>  
-</pre>
-
-</div>
-
-<figcaption>CSS</figcaption>
-
-</figure>
-
-</div>
+```css
+.flowplayer {
+   width: 600px;
+   height: 338px;
+}
+```
 
 However, hard coding width and height of the container element foregoes Flowplayer's **responsive design**: If you do not specify fixed dimensions for the container like above, the player will adapt itself to the dimensions of the parent element according to its `ratio` setting (see below) - very useful to make the player look good on small mobile screens for example. Therefore it is recommended to either just omit dimension directives, or you can use more flexible CSS rules like `max-width` and/or `max-height`:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">{</span>  
-   <span class="k">max-width</span><span class="p">:</span> <span class="mi">800</span><span class="kt">px</span><span class="p">;</span>  
-<span class="p">}</span>  
-</pre>
-
-</div>
-
-<figcaption>CSS</figcaption>
-
-</figure>
-
-</div>
+```css
+.flowplayer {
+   max-width: 800px;
+}
+```
 
 By default Flowplayer uses all the width that is given via CSS or the width of the container's parent element. The height of the player is determined by the `aspectRatio` or `ratio` [configuration settings](#configuration) which default to `"16:9"` or `9/16` respectively. Under the premise that letterboxing or empty sidebars on the video screen are to be avoided, this assumes a video of 16/9 aspect ratio. Note that the `ratio` notation is the inverse ratio of how one usually specifies the aspect ratio of a video: height/width (container) as opposed to width/height (video).
 
 You can change the ratio in the [global player configuration](/docs/setup.html#global-configuration):
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="nx">flowplayer</span><span class="p">.</span><span class="nx">conf</span><span class="p">.</span><span class="nx">aspectRatio</span> <span class="o">=</span> <span class="s2">"4:3"</span><span class="p">;</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
+```js
+flowplayer.conf.aspectRatio = "4:3";
+```
 
 This is the same as:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="nx">flowplayer</span><span class="p">.</span><span class="nx">conf</span><span class="p">.</span><span class="nx">ratio</span> <span class="o">=</span> <span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">;</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
+```js
+flowplayer.conf.ratio = 3/4;
+```
 
 Or you can set the ratio in the [HTML configuration](/docs/setup.html#html-configuration) using the `data-aspect-ratio` or `data-ratio` attribute of the container element as follows:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"flowplayer"</span> <span class="na">data-aspect-ratio</span><span class="o">=</span><span class="s">"4:3"</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">video</span><span class="p">></span>...<span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
+```html
+<div class="flowplayer" data-aspect-ratio="4:3">
+   <video>...</video>
 </div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
+```
 
 This is the same as:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"flowplayer"</span> <span class="na">data-ratio</span><span class="o">=</span><span class="s">"0.75"</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">video</span><span class="p">></span>...<span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
+```html
+<div class="flowplayer" data-ratio="0.75">
+   <video>...</video>
 </div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
+```
 
 You may round a floating point value, but you should should not go below a precision of 4 decimals.
 
 Here are the player `ratio` values for some widely used video aspect ratios:
 
-<table class="listing " id="">
+<table>
 
 <tbody>
 
@@ -1079,34 +833,17 @@ Here are the player `ratio` values for some widely used video aspect ratios:
 
 Alternatively you can change the container's ratio via CSS while setting the `ratio` option to `false`:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-ratio</span> <span class="p">{</span>  
-   <span class="err">padding-top</span> <span class="err">41.67%</span>  
-<span class="p">}</span>  
-</pre>
-
-</div>
-
-<figcaption>CSS</figcaption>
-
-</figure>
-
-</div>
+```css
+.flowplayer .fp-ratio {
+   padding-top: 41.67%;
+}
+```
 
 Now when you resize the browser the video size will adjust accordingly, and the player's width/height ratio is kept.
 
 You may also let the player size dynamically be determined by the video's aspect ratio: Set the `adaptiveRatio` [player option](/docs/setup.html#player-options) to `true`.
 
 This comes in handy for quick setups when you do not happen to know the exact dimensions of the video, but still want the player's screen size to match the aspect ratio of the video. By consequence refrain from configuring `adaptiveRatio` for a [splash setup](/docs/setup.html#splash) as the video's dimensions - and therefore its aspect ratio are only available once the video is loaded and the player is [ready](/docs/api.html#properties).
-
-</section>
-
-<section class="level2 has2" id="section_start-screen">
 
 ## Start screen
 
@@ -1124,9 +861,8 @@ Where "poster" and "splash" differ is their behaviour:
 *   [poster](/docs/setup.html#poster): the video is loaded in the background
 *   [splash](/docs/setup.html#splash): the video is loaded on demand, i.e. when the user starts playback with a click
 
-*   <span class="label">Important</span> A splash or poster setup is mandatory if the player is _hidden_ at some point in its life cycle. Some browsers forbid hiding the Flash object, and thus errors are encountered when the [flash engine](#engines) is in use. This notably concerns [modal window setups](/demos/layout/#overlay-demo).
+*   **Important** A splash or poster setup is mandatory if the player is _hidden_ at some point in its life cycle. Some browsers forbid hiding the Flash object, and thus errors are encountered when the [flash engine](#engines) is in use. This notably concerns [modal window setups](/demos/layout/#overlay-demo).
 
-<section class="level3" id="section_poster">
 
 ### Poster
 
@@ -1156,9 +892,6 @@ When the above conditions are met, the CSS "is-poster" [state class](/docs/skinn
 
 [view standalone page](/standalone/basics/poster.html)
 
-</section>
-
-<section class="level3" id="section_splash">
 
 ### Splash
 
@@ -1174,49 +907,23 @@ Please have a look at the poster and splash [comparison page](/standalone/basics
 
 To set up splash screens you either add the [state class](/docs/skinning.html#configurable-states) "is-splash" to the CSS class of the container element:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"flowplayer is-splash"</span>  
-     <span class="na">style</span><span class="o">=</span><span class="s">"background-color:#777; background-image:url(/path/to/splash.jpg);"</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">video</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"application/x-mpegurl"</span> <span class="na">src</span><span class="o">=</span><span class="s">"//mydomain.com/video.m3u8"</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/mp4"</span>             <span class="na">src</span><span class="o">=</span><span class="s">"//mydomain.com/video.mp4"</span><span class="p">></span>  
-   <span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
+```html
+<div class="flowplayer is-splash"
+     style="background-color:#777; background-image:url(/path/to/splash.jpg);">
+   <video>
+      <source type="application/x-mpegurl" src="//mydomain.com/video.m3u8">
+      <source type="video/mp4"             src="//mydomain.com/video.mp4">
+   </video>
 </div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
+```
 
 Or you configure the addition of the "is-splash" state class by setting the `splash` [option](/docs/setup.html#player-options) to `true` or to the location of the splash image. For instance this [global configuration](/docs/setup.html#global-configuration) applies the splash setup to all players on the page:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="nx">flowplayer</span><span class="p">.</span><span class="nx">conf</span> <span class="o">=</span> <span class="p">{</span>  
-  <span class="nx">splash</span><span class="o">:</span> <span class="kc">true</span>  
-<span class="p">};</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
+```js
+flowplayer.conf = {
+  splash: true
+};
+```
 
 The splash image is given in the CSS `background-image` directive for the container element or by setting the `splash` option to the location of the image. However, providing an image is not mandatory to set up a Flowplayer splash screen; in fact there is no CSS or image requirement for the splash setup. Usually you want at least a `background-color` to discern the player from its surroundings.
 
@@ -1230,48 +937,29 @@ Here is how it works:
 
 Splash screens are used heavily in our [demo area](/demos/). They are one of the main reasons why people use Flowplayer.
 
-*   <span class="label">Tip</span> The cleanest and fastest way to implement a splash setup is to use a [pure JavaScript installation](#javascript-install), and, if desired, to set the splash image via CSS.
+*   **Tip** The cleanest and fastest way to implement a splash setup is to use a [pure JavaScript installation](#javascript-install), and, if desired, to set the splash image via CSS.
 
 [view standalone page](/standalone/basics/splash.html)
 
-</section>
 
-</section>
-
-</section>
-
-<section class="level1 has12" id="section_configuration">
 
 # Configuration
 
 The player supports various configuration options. For example:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">script</span><span class="p">></span>  
-<span class="nx">$</span><span class="p">(</span><span class="s2">".myplayer"</span><span class="p">).</span><span class="nx">flowplayer</span><span class="p">({</span>  
-
-   <span class="c1">// option 1</span>  
-   <span class="nx">ratio</span><span class="o">:</span> <span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span>  
-
-   <span class="c1">// option 2</span>  
-   <span class="nx">rtmp</span><span class="o">:</span> <span class="s1">'rtmp://s3b78u0kbtx79q.cloudfront.net/cfx/st'</span>  
-
-<span class="p">});</span>  
-<span class="p"></</span><span class="nt">script</span><span class="p">></span>  
-</pre>
-
-</div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
+```html
+<script>
+$(".myplayer").flowplayer({
+ 
+   // option 1
+   ratio: 3/4,
+ 
+   // option 2
+   rtmp: 'rtmp://s3b78u0kbtx79q.cloudfront.net/cfx/st'
+ 
+});
+</script>
+```
 
 Configuration happens on 3 levels:
 
@@ -1281,55 +969,29 @@ Configuration happens on 3 levels:
 
 JavaScript schema:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="kd">var</span> <span class="nx">conf</span> <span class="o">=</span> <span class="p">{</span>  
-    <span class="c1">// player level</span>  
-    <span class="nx">clip</span><span class="o">:</span> <span class="p">{</span>  
-        <span class="c1">// clip level</span>  
-        <span class="nx">sources</span><span class="o">:</span> <span class="p">[</span>  
-            <span class="c1">// source level</span>  
-            <span class="p">...</span>  
-        <span class="p">]</span>  
-    <span class="p">}</span>  
-<span class="p">}</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
+```js
+var conf = {
+    // player level
+    clip: {
+        // clip level
+        sources: [
+            // source level
+            ...
+        ]
+    }
+}
+```
 
 HTML schema:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">"playerContainer"</span> <span class="na">data-</span><span class="err">[</span><span class="na">option</span><span class="err">]="</span><span class="na">value</span><span class="err">"</span> <span class="err">...</span><span class="p">></span> <span class="c"><!-- player level --></span>  
-   <span class="p"><</span><span class="nt">video</span><span class="p">></span>                                           <span class="c"><!-- clip level   --></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="err">...</span><span class="p">></span>                                   <span class="c"><!-- source level --></span>  
-      ...  
-   <span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
+```html
+<div id="playerContainer" data-[option]="value" ...> <!-- player level -->
+   <video>                                           <!-- clip level   -->
+      <source ...>                                   <!-- source level -->
+      ...
+   </video>
 </div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
+```
 
 *   <span class="label">Important</span> The HTML schema is less clear cut and sometimes less flexible at the clip and source level. We recommend to use the [JavaScript](#pure-javascript-install) installation method for complex setups.
 
@@ -1337,7 +999,6 @@ The following tables show all options as they are declared in a [global](/docs/s
 
 Options marked in <span class="hilite">red</span> are advanced options. Only set them when you know what you are doing and aware of potential side-effects or drawbacks.
 
-<section class="level2" id="section_player-options">
 
 ## Player options
 
@@ -1345,7 +1006,7 @@ Here is a list of all core configuration options at [player level](/docs/setup.h
 
 For [video tag based installations](/docs/setup.html#videotag-install) every player option can alternatively be specified in [HTML configuration syntax](/docs/setup.html#html-configuration) as [custom data-attribute](http://www.w3schools.com/tags/att_global_data.asp) of the container element - except for `clip` which is set via the VIDEO and SOURCE tags and `rtmp` if specified as Object. Camel cased option names like `adaptiveRatio` must be written as compound lower cased attributes: `data-adaptive-ratio`.
 
-<table class="listing conf" id="player_conf">
+<table>
 
 <tbody>
 
@@ -1679,15 +1340,12 @@ CSS alternative: the `is-splash` [state class](skinning.html#configurable-states
 
 </table>
 
-</section>
-
-<section class="level2" id="section_extension-and-plugin-options">
 
 ## Extension and plugin options
 
 The following options are `undefined` by default, but are supported by player extensions or additionally loaded plugins. Follow the link in the third column for details. The rightmost column indicates whether the option can also be set as data attribute in a [HTML configuration](/docs/setup.html#html-configuration). Some of the options accept a nested configuration object as value, in which case only the top-level option is listed here.
 
-<table class="listing conf" id="plugin_player_conf">
+<table>
 
 <tbody>
 
@@ -2139,9 +1797,6 @@ The following options are `undefined` by default, but are supported by player ex
 
 </table>
 
-</section>
-
-<section class="level2 has3" id="section_commercial-configuration">
 
 ## Commercial configuration
 
@@ -2149,7 +1804,6 @@ The [commercial version](/pricing/player.html#players) allows you to get rid of 
 
 The license key is tied to the domain name shown in the browser's location bar - in the case of IFRAMEs when the frame is viewed in its own window, i.e., the IFRAME source domain.
 
-<section class="level3" id="section_commercial-prerequisites">
 
 ### Commercial prerequisites
 
@@ -2161,15 +1815,12 @@ The following assets _must_ be commercial for license validation:
 *   the Flash swf file: `flowplayer.swf` - if not loaded from our CDN (the default) the `swf` [option](#commercial-configuration) or the `data-swf` [container attribute](/docs/setup.html#html-configuration) must be set
 *   the Flash HLS swf file: `flowplayerhls.swf` - if not loaded from our CDN (the default) the `swfHls` [option](#commercial-configuration) or the `data-swf-hls` [container attribute](/docs/setup.html#html-configuration) must be set
 
-</section>
-
-<section class="level3" id="section_commercial-options">
 
 ### Commercial options
 
 Here are the player options for the commercial version:
 
-<table class="listing list" id="commercial_player_conf">
+<table>
 
 <tbody>
 
@@ -2225,9 +1876,6 @@ Setting this to `false` will prevent playback of HLS by the Flash engine altoget
 
 Here is a [minimal commercial setup](/standalone/commercial.html). Take a look at its source code and you can see how the key is provided. You create the key on your [account page](/account) after [purchase](/pricing/players.html#players) by entering the domain name you wish to license into the "Add domain" field.
 
-</section>
-
-<section class="level3" id="section_custom-context-menu">
 
 ### Custom context menu
 
@@ -2235,11 +1883,6 @@ The [context menu](skinning.html#html-layout) which shows up on right-click on t
 
 By default no context menu is present in the commercial player.
 
-</section>
-
-</section>
-
-<section class="level2" id="section_clip-options">
 
 ## Clip options
 
@@ -2247,7 +1890,7 @@ The `clip` [object](/docs/setup.html#player-options) may not be empty. As any HT
 
 In a [VIDEO tag based installation](/docs/setup.html#videotag-install) the `sources` are already present as SOURCE tags. Options which are not generic [VIDEO tag attributes](/docs/setup.html#video-tag-attributes) can be set as data-attributes of the VIDEO tag if their value is not an `object`.
 
-<table class="listing conf" id="clip_conf">
+<table>
 
 <tbody>
 
@@ -2363,9 +2006,6 @@ Setting this property is **mandatory**.</td>
 
 </table>
 
-</section>
-
-<section class="level2" id="section_extension-and-plugin-clip-options">
 
 ## Extension and plugin clip options
 
@@ -2373,7 +2013,7 @@ These options are `undefined` by default but are supported by the referenced ext
 
 The rightmost column indicates whether the option can also be set as data attribute in a [VIDEO tag based playlist installation](/docs/playlist.html#videotag-install) as custom data-attribute of a playlist "trigger" element.
 
-<table class="listing conf" id="plugin_clip_conf">
+<table>
 
 <tbody>
 
@@ -2573,13 +2213,10 @@ The rightmost column indicates whether the option can also be set as data attrib
 
 </table>
 
-</section>
-
-<section class="level2" id="section_source-options">
 
 ## Source options
 
-<table class="listing list" id="sources_conf">
+<table>
 
 <tbody>
 
@@ -2636,17 +2273,14 @@ Makes [picking order](#picking-order) completely customizeable.</td>
 
 </table>
 
-*   <span class="label">Warning</span> Source options cannot be set in a [VIDEO tag based playlist installation](playlist.html#videotag-install).
+*   **Warning** Source options cannot be set in a [VIDEO tag based playlist installation](playlist.html#videotag-install).
 
-</section>
-
-<section class="level2" id="section_video-tag-attributes">
 
 ## Video tag attributes
 
 In [VIDEO tag based installations](/docs/setup.html#videotag-install) you can apply the following standard html5 [VIDEO tag attributes](http://www.w3schools.com/tags/tag_video.asp):
 
-<table class="listing conf" id="videotag_conf">
+<table>
 
 <tbody>
 
@@ -2706,39 +2340,23 @@ Cannot be used with [playlists](playlist.html).</td>
 
 *   <span class="label">Warning</span> Do not use any other standard VIDEO tag attributes as they might cause conflicting or unpredictable behaviour.
 
-</section>
-
-<section class="level2" id="section_global-configuration">
 
 ## Global JavaScript configuration
 
 Here we provide global settings for _all_ players on the page:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"//releases.flowplayer.org/7.0.4/flowplayer.min.js"</span><span class="p">></</span><span class="nt">script</span><span class="p">></span>  
-
-<span class="c"><!-- global options --></span>  
-<span class="p"><</span><span class="nt">script</span><span class="p">></span>  
-<span class="nx">flowplayer</span><span class="p">.</span><span class="nx">conf</span> <span class="o">=</span> <span class="p">{</span>  
-   <span class="nx">ratio</span><span class="o">:</span> <span class="mi">5</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span>  
-   <span class="nx">splash</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>  
-   <span class="nx">analytics</span><span class="o">:</span> <span class="s2">"UA-27182341-1"</span>  
-<span class="p">};</span>  
-<span class="p"></</span><span class="nt">script</span><span class="p">></span>  
-</pre>
-
-</div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
+```html
+<script src="//releases.flowplayer.org/7.0.4/flowplayer.min.js"></script>
+ 
+<!-- global options -->
+<script>
+flowplayer.conf = {
+   ratio: 5/12,
+   splash: true,
+   analytics: "UA-27182341-1"
+};
+</script>
+```
 
 The `flowplayer.conf` object sets the global [configuration](#configuration) for Flowplayer. You should customize its properties right after Flowplayer has been included in the [HEAD section](#prerequisites) of your page (with `script src`). Another common place to put site-wide Flowplayer defaults is in an external javascript file which contains the website logic and is loaded after the basic assets. This is a practical way to specify global settings such as the [Google Analytics ID](analytics.html#configuration).
 
@@ -2746,32 +2364,15 @@ Each player will have these as defaults but they can be overridden for individua
 
 You can set individual options as follows:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"//releases.flowplayer.org/7.0.4/flowplayer.min.js"</span><span class="p">></</span><span class="nt">script</span><span class="p">></span>  
-
-<span class="p"><</span><span class="nt">script</span><span class="p">></span>  
-<span class="nx">flowplayer</span><span class="p">.</span><span class="nx">conf</span><span class="p">.</span><span class="nx">ratio</span> <span class="o">=</span> <span class="mi">5</span><span class="o">/</span><span class="mi">12</span><span class="p">;</span>  
-<span class="p"></</span><span class="nt">script</span><span class="p">></span>  
-</pre>
-
-</div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
+```html
+<script src="//releases.flowplayer.org/7.0.4/flowplayer.min.js"></script>
+ 
+<script>
+flowplayer.conf.ratio = 5/12;
+</script>
+```
 
 Remember to set these _after_ the `flowplayer.conf = {...}` setting if you have one because setting the entire `conf` object will discard any individual property settings. Or use the `flowplayer.set` [function](api.html#flowplayerset) which allows to **extend** an existing global configuration.
-
-</section>
-
-<section class="level2" id="section_local-configuration">
 
 ## Local JavaScript configuration
 
@@ -2782,30 +2383,17 @@ The scope of both the pure JavaScript installation and manual installation metho
 
 Here is an example how to configure the `ratio` [option](/docs/setup.html#player-options) for all players which are manually installed into containers of class "player".
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="c1">// install player manually after DOM is ready</span>  
-<span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>  
-    <span class="c1">// install into all elements with class="player"</span>  
-    <span class="nx">$</span><span class="p">(</span><span class="s2">".player"</span><span class="p">).</span><span class="nx">flowplayer</span><span class="p">({</span>  
-        <span class="c1">// video dimensions: 470px / 250px</span>  
-        <span class="nx">aspectRatio</span><span class="o">:</span> <span class="s2">"47:25"</span><span class="p">,</span>  
-        <span class="nx">rtmp</span><span class="o">:</span> <span class="s2">"rtmp://s3b78u0kbtx79q.cloudfront.net/cfx/st"</span>  
-    <span class="p">});</span>  
-<span class="p">});</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
+```js
+// install player manually after DOM is ready
+$(function() {
+    // install into all elements with class="player"
+    $(".player").flowplayer({
+        // video dimensions: 470px / 250px
+        aspectRatio: "47:25",
+        rtmp: "rtmp://s3b78u0kbtx79q.cloudfront.net/cfx/st"
+    });
+});
+```
 
 The configuration is normally passed as in [JavaScript Object Notation](http://www.secretgeek.net/json_3mins.asp) as argument to the `flowplayer()` call. If the argument is a simple string it is treated as the location of the flowplayer swf file.
 
@@ -2813,37 +2401,20 @@ Local configuration overrides [global configuration](/docs/setup.html#global-con
 
 [view standalone page](/standalone/basics/manual.html)
 
-</section>
-
-<section class="level2" id="section_html-configuration">
-
 ## HTML configuration
 
 Configuration options for specific players can also be set directly in HTML syntax:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">data-aspect-ratio</span><span class="o">=</span><span class="s">"47:25"</span> <span class="na">class</span><span class="o">=</span><span class="s">"flowplayer no-volume"</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">video</span> <span class="na">autoplay</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/webm"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/black/470x250.webm"</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/mp4"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/black/470x250.mp4"</span><span class="p">></span>  
-      <span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
+```html
+<div data-aspect-ratio="47:25" class="flowplayer no-volume">
+   <video autoplay>
+      <source type="video/webm"
+              src="//edge.flowplayer.org/black/470x250.webm">
+      <source type="video/mp4"
+              src="//edge.flowplayer.org/black/470x250.mp4">
+      </video>
 </div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
+```
 
 The HTML syntax allows to customize specific players even when they are [automatically installed](/docs/setup.html#automatic).
 
@@ -2851,9 +2422,6 @@ HTML configuration overrides [global configuration](/docs/setup.html#global-conf
 
 [view standalone page](/standalone/basics/autoplay.html)
 
-</section>
-
-<section class="level2" id="section_configuration-precedence">
 
 ## Order of precedence
 
@@ -2863,9 +2431,6 @@ The above override rules result in this order of precedence regarding the possib
 2.  [local JavaScript configuration](/docs/setup.html#local-configuration)
 3.  [global JavaScript configuration](/docs/setup.html#global-configuration)
 
-</section>
-
-<section class="level2" id="section_configuration-summary">
 
 ## Configuration summary
 
@@ -2873,7 +2438,7 @@ Here is an overwiew of the ways to configure Flowplayer mapped to their respecti
 
 ● = mandatory   + = accepted   − = not possible
 
-<table class="listing list" id="config_overview">
+<table>
 
 <tbody>
 
@@ -3073,17 +2638,12 @@ Here is an overwiew of the ways to configure Flowplayer mapped to their respecti
 
 `attr` = element attribute `conf` = [JSON](http://www.secretgeek.net/json_3mins.asp) option: value mapping `index` = array index
 
-</section>
-
-</section>
-
-<section class="level1" id="section_keyboard">
 
 # Keyboard
 
 Flowplayer not only offers a graphical interface. It can also be controled via the keyboard. Here is an overview of the available keyboard shortcuts:
 
-<table class="listing " id="">
+<table>
 
 <tbody>
 
@@ -3197,9 +2757,6 @@ Flowplayer not only offers a graphical interface. It can also be controled via t
 
 Keyboard shortcuts can be turned off by setting the `keyboard` [configuration option](#configuration) to `false`.
 
-</section>
-
-<section class="level1" id="section_iframe">
 
 # Iframe
 
@@ -3207,32 +2764,15 @@ For players shown in an IFRAME fullscreen is disabled by default. It would not w
 
 If you are in control of the IFRAME's source and the page where the IFRAME is shown you can allow fullscreen by excplicitly setting the `fullscreen` [configuration option](/docs/setup.html#player-options) to `true` on the originating page and specifying the `allowfullscreen` attribute for the IFRAME:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">iframe</span> <span class="na">src</span><span class="o">=</span><span class="s">"//example.com/iframe-src.html"</span>  
-        <span class="na">width</span><span class="o">=</span><span class="s">"800"</span> <span class="na">height</span><span class="o">=</span><span class="s">"500"</span>  
-        <span class="na">allowfullscreen</span><span class="o">=</span><span class="s">"true"</span><span class="p">></</span><span class="nt">iframe</span><span class="p">></span>  
-</pre>
-
-</div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
+```html
+<iframe src="//example.com/iframe-src.html"
+        width="800" height="500"
+        allowfullscreen="true"></iframe>
+```
 
 To allow fullscreen playback from within an IFRAME on iOS, additionally the `native_fullscreen` [option](/docs/setup.html#player-options) must be set to `true`.
 
 Check out [the iframe demo](http://demos.flowplayer.org/basics/iframe.html).
-
-</section>
-
-<section class="level1 has2" id="section_engines">
 
 # Engines
 
@@ -3240,19 +2780,17 @@ Flowplayer is shipped with two engines: `html5` and `flash`.
 
 Additional engines can be added as plugins for advanced purposes like [MPEG DASH playback](http://demos.flowplayer.org/scripting/dash.html).
 
-<section class="level2 has1" id="section_html5-engine">
 
 ## html5 engine
 
 The primary engine is the `html5` engine, unless you configured a different engine for a specific [source](/docs/setup.html#source-options) explicitly.
 
-<section class="level3" id="section_html5-video">
 
 ### HTML5 video
 
 Generic HTML5 video support introduced by major desktop browser versions:
 
-<table class="listing " id="">
+<table>
 
 <tbody>
 
@@ -3355,11 +2893,6 @@ HTML5 video format support on mobiles:
 
 Check out [this dynamic table](http://demos.flowplayer.org/videotest/canplay.html) which shows what formats your current browser can play.
 
-</section>
-
-</section>
-
-<section class="level2 has2" id="section_flash-engine">
 
 ## Flash engine
 
@@ -3383,7 +2916,6 @@ The Flash engine supports playback of the following [video formats](/docs/setup.
 *   MP4
 *   FLV
 
-<section class="level3" id="section_flash-hls">
 
 ### Flash HLS
 
@@ -3399,49 +2931,32 @@ Advantages of Flash HLS over RTMP:
 *   no additonal Flash source required
 *   no RTMP server required to offer [random seeking](#random-seeking) via the Flash engine
 
-*   <span class="label">compatibility</span> Flash HLS does not support [#EXT-X-BYTERANGE](https://developer.apple.com/library/content/technotes/tn2288/_index.html#//apple_ref/doc/uid/DTS40012238-CH1-BYTE_RANGE_SUPPORT_FOR_SEGMENTS) playlists (#EXT-X-VERSION:4).
+*   **compatibility** Flash HLS does not support [#EXT-X-BYTERANGE](https://developer.apple.com/library/content/technotes/tn2288/_index.html#//apple_ref/doc/uid/DTS40012238-CH1-BYTE_RANGE_SUPPORT_FOR_SEGMENTS) playlists (#EXT-X-VERSION:4).
 
 Rare scenarios where RTMP delivery for Flash might be preferrable:
 
 *   live streams where synchronicity with the live event is of crucial importance; live stream delivery often is done over RTMP first, which then has to be transformed to HLS causing a slight delay
 *   very fine seeking granularity is of crucial importance to the setup - reason: Flash HLS seeks only to keyframe positions [by default](#flashls) and setting [flashls](#flashls) `seekmode: "ACCURATE"` doesn't yield the desired experience. - Even in this scenario RTMP should only be 3rd choice after HLS via the [hlsjs plugin](plugins.html#hlsjs) and native playback.
 
-</section>
-
-<section class="level3" id="section_flash-video-rtmp">
-
 ### Flash video (RTMP)
 
 Flowplayer supports a special `video/flash` source type to target video specifically for Flash. The type is mostly and best used to offer an RTMP stream as Flash source if a [HLS stream](#flash-hls) is not available:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="c"><!-- flowplayer with RTMP configuration option --></span>  
-<span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"flowplayer"</span> <span class="na">data-rtmp</span><span class="o">=</span><span class="s">"rtmp://myrtmpserver.com"</span><span class="p">></span>  
-
-  <span class="p"><</span><span class="nt">video</span><span class="p">></span>  
-    <span class="c"><!-- consumed by the html5 engine --></span>  
-    <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/webm"</span>  <span class="na">src</span><span class="o">=</span><span class="s">"//mydomain.com/video.webm"</span><span class="p">></span>  
-    <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/mp4"</span>   <span class="na">src</span><span class="o">=</span><span class="s">"//mydomain.com/video.mp4"</span><span class="p">></span>  
-
-    <span class="c"><!-- consumed by the flash engine --></span>  
-    <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/flash"</span> <span class="na">src</span><span class="o">=</span><span class="s">"mp4:path/to/video.mp4"</span><span class="p">></span>  
-  <span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
+```html
+<!-- flowplayer with RTMP configuration option -->
+<div class="flowplayer" data-rtmp="rtmp://myrtmpserver.com">
+ 
+  <video>
+    <!-- consumed by the html5 engine -->
+    <source type="video/webm"  src="//mydomain.com/video.webm">
+    <source type="video/mp4"   src="//mydomain.com/video.mp4">
+ 
+    <!-- consumed by the flash engine -->
+    <source type="video/flash" src="mp4:path/to/video.mp4">
+  </video>
+ 
 </div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
+```
 
 RTMP delivery in Flash allows [seeking to unbuffered positions](#random-seeking) in the timeline.
 
@@ -3455,52 +2970,27 @@ Specifying a `video/flash` source delivered via HTTP for progressive download is
 *   If the video is in [MP4 format](#video-formats), the source of type `video/mp4` will be be [automatically chosen](#picking-order) as Flash fallback format if no HLS or RTMP source is available.
 *   The [FLV format](#video-formats) has a lower quality/bitrate ratio compared to MP4 and cannot be played in HTML5 video.
 
-</section>
-
-</section>
-
-</section>
-
-<section class="level1 has5" id="section_server-side">
-
-<hgroup class="level1" id="hgroup_server-side">
-
 # Server side
 
 ## Mime types
 
-</hgroup>
 
 Make sure that all the files are available on the server and that the server transmits them with the correct Content-Type. Depending on your server you might have to extend the `.htaccess` or `mime.types` files (Apache), use the IIS manager (Internet Information Server) or set the header via Metadata (Amazon S3). Example `.htaccess` file:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="nb">AddType</span> video/mp4             .mp4  
-<span class="nb">AddType</span> video/webm            .webm  
-<span class="nb">AddType</span> video/ogg             .ogv  
-<span class="nb">AddType</span> application/x-mpegurl .m3u8  
-
-<span class="c"># hls transport stream segments:</span>  
-<span class="nb">AddType</span> video/mp2t            .ts  
-<span class="c"># subtitle text tracks:</span>  
-<span class="nb">AddType</span> text/vtt              .vtt  
-</pre>
-
-</div>
-
-<figcaption>ApacheConf</figcaption>
-
-</figure>
-
-</div>
+```
+AddType video/mp4             .mp4
+AddType video/webm            .webm
+AddType video/ogg             .ogv
+AddType application/x-mpegurl .m3u8
+ 
+# hls transport stream segments:
+AddType video/mp2t            .ts
+# subtitle text tracks:
+AddType text/vtt              .vtt
+```
 
 The first 4 mime types above are also the ones most commonly used [source types](#source-options).
 
-<section class="level2" id="section_https">
 
 ## HTTPS
 
@@ -3508,77 +2998,35 @@ When loading the [Flowplayer assets](#prerequisites) make sure to avoid [mixed c
 
 The easiest and most flexible way to achieve this is by omitting the protocol:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="c"><!-- omit protocol when loading assets --></span>  
-<span class="p"><</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet"</span> <span class="na">src</span><span class="o">=</span><span class="s">"//example.com/assets/skin/skin.css"</span><span class="p">></span>  
-<span class="c"><!-- ... --></span>  
-<span class="p"><</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"//example.com/assets/flowplayer.min.js"</span><span class="p">></</span><span class="nt">script</span><span class="p">></span>  
-</pre>
-
-</div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
+```html
+<!-- omit protocol when loading assets -->
+<link rel="stylesheet" src="//example.com/assets/skin/skin.css">
+<!-- ... -->
+<script src="//example.com/assets/flowplayer.min.js"></script>
+```
 
 The same applies to loading the video [sources](/docs/setup.html#source-options):
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="c1">// omit protocol when loading sources</span>  
-<span class="nx">sources</span><span class="o">:</span> <span class="p">[</span>  
-    <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">"application/x-mpegurl"</span><span class="p">,</span>  
-      <span class="nx">src</span><span class="o">:</span>  <span class="s2">"//example.com/video.m3u8"</span> <span class="p">},</span>  
-    <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">"video/mp4"</span><span class="p">,</span>  
-      <span class="nx">src</span><span class="o">:</span>  <span class="s2">"//example.com/video.mp4"</span> <span class="p">}</span>  
-<span class="p">]</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
+```js
+// omit protocol when loading sources
+sources: [
+    { type: "application/x-mpegurl",
+      src:  "//example.com/video.m3u8" },
+    { type: "video/mp4",
+      src:  "//example.com/video.mp4" }
+]
+```
 
 or:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="c"><!-- omit protocol when loading sources --></span>  
-<span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"application/x-mpegurl"</span> <span class="na">src</span><span class="o">=</span><span class="s">"//example.com/video.m3u8"</span><span class="p">></span>  
-<span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/mp4"</span>             <span class="na">src</span><span class="o">=</span><span class="s">"//example.com/video.mp4"</span><span class="p">></span>  
-</pre>
-
-</div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
+```html
+<!-- omit protocol when loading sources -->
+<source type="application/x-mpegurl" src="//example.com/video.m3u8">
+<source type="video/mp4"             src="//example.com/video.mp4">
+```
 
 This obviously requires that `example.com` is accessible both via HTTPS and HTTP. Otherwise use the same protocol as the page is served with or a local path - but also read the notes on [sharing](sharing.html#https).
 
-</section>
-
-<section class="level2" id="section_cross-domain">
 
 ## Cross domain
 
@@ -3586,35 +3034,19 @@ To make HLS work in Flash Flowplayer's [Flash engine](#flash-engine) must have e
 
 Simple example of a `crossdomain.xml` file giving full access to requests from anywhere:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="cp"><?xml version="1.0"?></span>  
-<span class="cp"><!DOCTYPE cross-domain-policy SYSTEM</span>  
-<span class="cp">"http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd"></span>  
-<span class="nt"><cross-domain-policy></span>  
-  <span class="nt"><allow-access-from</span> <span class="na">domain=</span><span class="s">"*"</span> <span class="nt">/></span>  
-<span class="nt"></cross-domain-policy></span>  
-</pre>
-
-</div>
-
-<figcaption>XML</figcaption>
-
-</figure>
-
-</div>
+```xml
+<?xml version="1.0"?>
+<!DOCTYPE cross-domain-policy SYSTEM
+"http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd">
+<cross-domain-policy>
+  <allow-access-from domain="*" />
+</cross-domain-policy>
+```
 
 Refer to the Adobe Flash documentation for a [full specification](http://www.adobe.com/devnet-docs/acrobatetk/tools/AppSec/CrossDomain_PolicyFile_Specification.pdf).
 
 *   <span class="label">Important</span> With Flash HLS it is especially important to load the Flowplayer assets (`flowplayerhls.swf`) and the media via the same [protocol](#https).
 
-</section>
-
-<section class="level2" id="section_redirecting">
 
 ## Redirecting
 
@@ -3622,9 +3054,6 @@ Avoid redirects in the video source URLs. Some browsers may not be able to handl
 
 [Flash HLS](#flash-hls) does not allow for `302` redirecting of relative paths in the master variant HLS playlist.
 
-</section>
-
-<section class="level2" id="section_random-seeking">
 
 ## Random seeking
 
@@ -3635,19 +3064,11 @@ Audiences expect to be able to skip back and forth in a video without inconvenie
 3.  Flash is only capable of progressive download over HTTP. If you cannot offer a HLS stream, consider serving from an RTMP server for Flash delivery. You do not necessarily have to run your own RTMP server for this purpose. Most [content delivery networks](#cdn) (CDNs) offer this alternative and other advantages, see below.
 4.  Note on [MP4 metadata](/docs/encoding.html#mp4-and-metadata): make sure the MOOV atom is at the beginning of the file, or some browsers will not start playback before downlaoding the full file.
 
-</section>
-
-<section class="level2" id="section_cdn">
 
 ## CDN
 
 In the interest of your audience, and to lower your worries regarding maintenance, reliability, and delivery speed, consider serving your videos from a [content delivery network](http://en.wikipedia.org/wiki/Content_delivery_network). The videos will be served from edge locations near your viewers, which can result in a noticeable speed gain, resulting in improved playback quality.
 
-</section>
-
-</section>
-
-<section class="level1 has2" id="section_advanced-flash-configuration">
 
 # Advanced Flash configuration
 
@@ -3659,7 +3080,7 @@ The options listed in the following sections should _only_ be applied if needed,
 
 For finer control of [Flash HLS](#flash-hls) the following options are available as properties of the `flashls` configuration object on the [clip level](/docs/setup.html#clip-options):
 
-<table class="listing conf" id="flashls_conf">
+<table>
 
 <tbody>
 
@@ -3889,15 +3310,12 @@ From `0` to `1`: indicates the "normalized" preferred bit rate:
 
 *   <span class="label">Important</span> The `flashls` configuration does not influence the behaviour of native HTML5 video HLS playback.
 
-</section>
-
-<section class="level2" id="section_rtmp-options">
 
 ## RTMP options
 
 To fine tune RTMP server settings the `rtmp` option can be specfied in JavaScript object notation. The `rtmp` object accepts the following properties:
 
-<table class="listing conf" id="rtmp_conf">
+<table>
 
 <tbody>
 
@@ -3968,11 +3386,6 @@ Mandatory, corresponds to `rtmp` given as string.</td>
 
 Both forms of the `rtmp` option can be given at [player](/docs/setup.html#player-options) and [clip](/docs/setup.html#clip-options) level.
 
-</section>
-
-</section>
-
-<section class="level1" id="section_migration-from-version-6">
 
 # Migration from Version 6
 
@@ -3995,5 +3408,3 @@ Flowplayer 6 introduces a simpler source [picking order](/docs/setup.html#pickin
 In the same vein, the `engine` option has moved from the [player level](/v5docs/setup.html#config-options) to the [source level](/docs/setup.html#source-options) to allow for complete fine-grained control of video source preferences.
 
 Users of advanced RTMP options like `bufferTime`, `rtmpt`: The options will currently still work when set at player level directly. We recommend to start upgrading to the new [rtmp configuration object](#rtmp-options) which is available both at [player](/docs/setup.html#player-options) and [clip](/docs/setup.html#clip-options) level and thereby offers increased flexibility.
-
-</section>
