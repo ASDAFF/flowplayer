@@ -7,7 +7,7 @@
 4. ready    video is ready
 5. play     playback starts: root.one("progress")
 .........   seek, pause, resume, progress, buffer)
-6. finish   video ends
+6. finish   конец видеоролика
 
 .........
 5. play     video starts again (replay)
