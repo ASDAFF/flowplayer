@@ -357,37 +357,24 @@ Depending on the state of the player at the moment when you grab the API or call
 
 For example: Before the player is `ready` video [metadata](#video-object) such as its duration has not been processed and is therefore `undefined`. Similarly you cannot obtain a sensible value for the current playback position at all times. A safe way to retrieve that position would be:
 
-<div class="codebox">
+```js
+var api = flowplayer(), currentPos;
+ 
+// get the current position, default to 0
+currentPos = api.ready ? api.video.time : 0;
 
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="kd">var</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">flowplayer</span><span class="p">(),</span> <span class="nx">currentPos</span><span class="p">;</span>  
-
-<span class="c1">// get the current position, default to 0</span>  
-<span class="nx">currentPos</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">ready</span> <span class="o">?</span> <span class="nx">api</span><span class="p">.</span><span class="nx">video</span><span class="p">.</span><span class="nx">time</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
+```
 
 API properties should be considered as **read only**. Use API [methods](/docs/api.html#methods) to change the state of the player and its properties. **Setting** properties is only needed in advanced cases and situations which often should be avoided in the first place, like in [this demo](http://demos.flowplayer.org/scripting/recover.html) which recovers from an invalid video location.
 
 *   <span class="label">Tip</span> When [skinning](skinning.html) is involved you can often achieve your scripting goals with pure [CSS programming](#css-programming-example) by defining rules for the [state classes](skinning.html#states) instead of querying JavaScript API properties.
 
-<section class="level2" id="section_extension-and-plugin-properties">
 
 ## Extension and plugin properties
 
 The following properties are provided by player extensions and plugins. Follow the link in the third column for further details:
 
-<table class="listing conf" id="extension_props">
+<table>
 
 <tbody>
 
@@ -445,78 +432,63 @@ The following properties are provided by player extensions and plugins. Follow t
 
 The video property is a reference to the currently playing video. Here is an example:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p">{</span>  
-  <span class="c1">// the length of the available buffer in seconds - not available over RTMP</span>  
-  <span class="nx">buffer</span><span class="o">:</span> <span class="mf">15.43</span><span class="p">,</span>  
-
-  <span class="c1">// flag indicating whether the buffer is fully loaded</span>  
-  <span class="nx">buffered</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>  
-
-  <span class="c1">// length of video in seconds</span>  
-  <span class="nx">duration</span><span class="o">:</span> <span class="mf">18.85</span><span class="p">,</span>  
-
-  <span class="c1">// width of video file in pixels</span>  
-  <span class="nx">width</span><span class="o">:</span> <span class="mi">640</span>  
-
-  <span class="c1">// height of video in pixels</span>  
-  <span class="nx">height</span><span class="o">:</span> <span class="mi">280</span><span class="p">,</span>  
-
-  <span class="c1">// whether the [server](index.html#server-side) supports random jumping on timeline</span>  
-  <span class="nx">seekable</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>  
-
-  <span class="c1">// path to currently playing video as given on setup</span>  
-  <span class="nx">src</span><span class="o">:</span> <span class="s1">'http://mydomain.com/video1.m3u8'</span><span class="p">,</span>  
-
-  <span class="c1">// current playback position in seconds</span>  
-  <span class="nx">time</span><span class="o">:</span> <span class="mf">5.27681660899654</span><span class="p">,</span>  
-
-  <span class="c1">// video format (media type)</span>  
-  <span class="nx">type</span><span class="o">:</span> <span class="s1">'application/x-mpegurl'</span><span class="p">,</span>  
-
-  <span class="c1">// array of video formats</span>  
-  <span class="nx">sources</span><span class="o">:</span> <span class="p">[</span>  
-    <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">'application/x-mpegurl'</span><span class="p">,</span> <span class="nx">src</span><span class="o">:</span> <span class="s1">'//mydomain.com/video1.m3u8'</span><span class="p">,</span> <span class="nx">suffix</span><span class="o">:</span> <span class="s1">'m3u8'</span> <span class="p">},</span>  
-    <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">'video/mp4'</span><span class="p">,</span>  <span class="nx">src</span><span class="o">:</span> <span class="s1">'//mydomain.com/video1.mp4'</span><span class="p">,</span>  <span class="nx">suffix</span><span class="o">:</span> <span class="s1">'mp4'</span>  <span class="p">}</span>  
-  <span class="p">],</span>  
-
-  <span class="c1">// video filename suffix</span>  
-  <span class="nx">suffix</span><span class="o">:</span> <span class="s1">'m3u8'</span><span class="p">,</span>  
-
-  <span class="c1">// absolute URL of the video</span>  
-  <span class="nx">url</span><span class="o">:</span> <span class="s1">'http://mydomain.com/video1.m3u8'</span><span class="p">,</span>  
-
-  <span class="c1">// [HLS quality selection](setup.html#hls-quality-selection)</span>  
-  <span class="nx">qualities</span><span class="o">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>  
-  <span class="nx">quality</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>  
-
-  <span class="c1">// the clip title (if configured)</span>  
-  <span class="nx">title</span><span class="o">:</span> <span class="s1">'My video'</span>  
-<span class="p">}</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
+```js
+{
+  // the length of the available buffer in seconds - not available over RTMP
+  buffer: 15.43,
+ 
+  // flag indicating whether the buffer is fully loaded
+  buffered: false,
+ 
+  // length of video in seconds
+  duration: 18.85,
+ 
+  // width of video file in pixels
+  width: 640
+ 
+  // height of video in pixels
+  height: 280,
+ 
+  // whether the server supports random jumping on timeline
+  seekable: true,
+ 
+  // path to currently playing video as given on setup
+  src: 'http://mydomain.com/video1.m3u8',
+ 
+  // current playback position in seconds
+  time: 5.27681660899654,
+ 
+  // video format (media type)
+  type: 'application/x-mpegurl',
+ 
+  // array of video formats
+  sources: [
+    { type: 'application/x-mpegurl', src: '//mydomain.com/video1.m3u8', suffix: 'm3u8' },
+    { type: 'video/mp4',  src: '//mydomain.com/video1.mp4',  suffix: 'mp4'  }
+  ],
+ 
+  // video filename suffix
+  suffix: 'm3u8',
+ 
+  // absolute URL of the video
+  url: 'http://mydomain.com/video1.m3u8',
+ 
+  // HLS quality selection
+  qualities: [-1, 0, 1, 2, 3, 4],
+  quality: -1,
+ 
+  // the clip title (if configured)
+  title: 'My video'
+}
+```
 
 Check out [this demo](http://demos.flowplayer.org/api/videoinspect.html) which prints the entire video object to the page for inspection.
-
-<section class="level2" id="section_extension-and-plugin-video-properties">
 
 ## Extension and plugin video properties
 
 The following video object properties are provided by player extensions and plugins. Follow the link in the third column for further details:
 
-<table class="listing conf" id="extension_video_props">
+<table>
 
 <tbody>
 
@@ -624,15 +596,10 @@ The following video object properties are provided by player extensions and plug
 
 </table>
 
-</section>
-
-</section>
-
-<section class="level1 has1" id="section_methods">
 
 # Methods
 
-<table class="listing list" id="player_methods">
+<table>
 
 <tbody>
 
@@ -836,33 +803,18 @@ In non-splash setups the player is **not** unloaded but goes back to its initial
 
 All methods return the API object, with the exception of `shutdown()`. This allows method **chaining**:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="c1">// re-enable the api for the 2nd player on the page and resume</span>  
-<span class="nx">flowplayer</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">disable</span><span class="p">(</span><span class="kc">false</span><span class="p">).</span><span class="nx">resume</span><span class="p">();</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
+```js
+// re-enable the api for the 2nd player on the page and resume
+flowplayer(1).disable(false).resume();
+```
 
 See also the [methods for event handling](/docs/api.html#attaching-events).
-
-<section class="level2" id="section_extension-methods">
 
 ## Extension methods
 
 The following methods are provided by player extensions. Follow the link in the second column for further details:
 
-<table class="listing list" id="extension_methods">
+<table>
 
 <tbody>
 
@@ -990,204 +942,106 @@ The following methods are provided by player extensions. Follow the link in the 
 
 </table>
 
-</section>
 
-</section>
-
-<section class="level1 has1" id="section_load-method">
-
-<hgroup class="level1" id="hgroup_load-method">
 
 # Load method
 
 ## Load player
 
-</hgroup>
+
 
 Without argument the `load()` [method](#method) initializes player and video from the [splash state](/docs/setup.html#splash) on demand:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="nx">api</span><span class="p">.</span><span class="nx">load</span><span class="p">();</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
+```js
+api.load({
+  sources: [
+    { type: "application/x-mepgurl",
+      src:  "//mydomain.com/video2.m3u8" },
+    { type: "video/mp4",
+      src:  "//mydomain.com/video2.mp4"  }
+  ]
+});
+```
 
 A VIDEO or OBJECT tag is created depending on browser or engine preference.
-
-<section class="level2" id="section_load-video">
 
 ## Load video
 
 `load()` also accepts a [clip object](/docs/setup.html#clip-object) as argument in the same way a [pure JavaScript installation](/docs/setup.html#javascript-install) does as value to the `clip` [option](/docs/setup.html#clip-options). The video represented by this clip object is then loaded into an existing player instance:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="nx">api</span><span class="p">.</span><span class="nx">load</span><span class="p">({</span>  
-  <span class="nx">sources</span><span class="o">:</span> <span class="p">[</span>  
-    <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">"application/x-mepgurl"</span><span class="p">,</span>  
-      <span class="nx">src</span><span class="o">:</span>  <span class="s2">"//mydomain.com/video2.m3u8"</span> <span class="p">},</span>  
-    <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">"video/mp4"</span><span class="p">,</span>  
-      <span class="nx">src</span><span class="o">:</span>  <span class="s2">"//mydomain.com/video2.mp4"</span>  <span class="p">}</span>  
-  <span class="p">]</span>  
-<span class="p">});</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
+```js
+api.load({
+  sources: [
+    { type: "application/x-mepgurl",
+      src:  "//mydomain.com/video2.m3u8" },
+    { type: "video/mp4",
+      src:  "//mydomain.com/video2.mp4"  }
+  ]
+});
+```
 
 The following shorthands are available for the [clip object](/docs/setup.html#clip-object) argument:
 
 *   Array of sources
 
-    <div class="codebox">
-
-    <figure class="code">
-
-    <div class="highlight">
-
-    <pre><span></span><span class="nx">api</span><span class="p">.</span><span class="nx">load</span><span class="p">([</span>  
-      <span class="p">{</span> <span class="nx">mpegurl</span><span class="o">:</span> <span class="s2">"//mydomain.com/video2.m3u8"</span> <span class="p">},</span>  
-      <span class="p">{</span>     <span class="nx">mp4</span><span class="o">:</span> <span class="s2">"//mydomain.com/video2.mp4"</span>  <span class="p">}</span>  
-    <span class="p">]);</span>  
-    </pre>
-
-    </div>
-
-    <figcaption>JavaScript</figcaption>
-
-    </figure>
-
-    </div>
+```js
+api.load([
+  { mpegurl: "//mydomain.com/video2.m3u8" },
+  {     mp4: "//mydomain.com/video2.mp4"  }
+]);
+```
 
 This shorthand does not accept further [clip](/docs/setup.html#clip-options) or [source](/docs/setup.html#source-options) options.
 
 *   URL as string
 
-    <div class="codebox">
-
-    <figure class="code">
-
-    <div class="highlight">
-
-    <pre><span></span><span class="nx">api</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="s2">"//mydomain.com/my/another/video2.mp4"</span><span class="p">);</span>  
-    </pre>
-
-    </div>
-
-    <figcaption>JavaScript</figcaption>
-
-    </figure>
-
-    </div>
+```js
+api.load("//mydomain.com/my/another/video2.mp4");
+```
 
 This shorthand does not accept further [clip](/docs/setup.html#clip-options) or [source](/docs/setup.html#source-options) options. And it expects the same source types to be present as configured for the player instance referenced by the API. Additionally the sources must be available via HTTP and obey the same file naming scheme: they can only differ by their filename suffix.
 
 The above shorthand could be applied successfully to the following player for example:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"flowplayer"</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">video</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"application/x-mpegurl"</span> <span class="na">src</span><span class="o">=</span><span class="s">"//mydomain.com/video1.m3u8"</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/mp4"</span> <span class="na">src</span><span class="o">=</span><span class="s">"//mydomain.com/video1.mp4"</span><span class="p">></span>  
-   <span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
+```html
+<div class="flowplayer">
+   <video>
+      <source type="application/x-mpegurl" src="//mydomain.com/video1.m3u8">
+      <source type="video/mp4" src="//mydomain.com/video1.mp4">
+   </video>
 </div>
+```
 
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
-
-*   <span class="label">Tip</span> If in doubt go for the full clip object syntax instead of using a shorthand. This will make your code more self explanatory, transparent and easier to maintain in the long term.
+*   **Tip** If in doubt go for the full clip object syntax instead of using a shorthand. This will make your code more self explanatory, transparent and easier to maintain in the long term.
 
 *   Callback
 
-    <div class="codebox">
-
-    <figure class="code">
-
-    <div class="highlight">
-
-    <pre><span></span><span class="nx">api</span><span class="p">.</span><span class="nx">load</span><span class="p">({</span>  
-      <span class="nx">sources</span><span class="o">:</span> <span class="p">[</span>  
-        <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">"application/x-mepgurl"</span><span class="p">,</span>  
-          <span class="nx">src</span><span class="o">:</span>  <span class="s2">"//mydomain.com/video2.m3u8"</span> <span class="p">},</span>  
-        <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">"video/mp4"</span><span class="p">,</span>  
-          <span class="nx">src</span><span class="o">:</span>  <span class="s2">"//mydomain.com/video2.mp4"</span>  <span class="p">}</span>  
-      <span class="p">]</span>  
-    <span class="p">},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span class="nx">video</span><span class="p">)</span> <span class="p">{;</span>  
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">video</span><span class="p">.</span><span class="nx">duration</span><span class="p">);</span>  
-    <span class="p">});</span>  
-    </pre>
-
-    </div>
-
-    <figcaption>JavaScript</figcaption>
-
-    </figure>
-
-    </div>
+```js
+api.load({
+  sources: [
+    { type: "application/x-mepgurl",
+      src:  "//mydomain.com/video2.m3u8" },
+    { type: "video/mp4",
+      src:  "//mydomain.com/video2.mp4"  }
+  ]
+}, function (e, api, video) {;
+  console.log(video.duration);
+});
+```
 
 The callback function will be invoked when the player is ready and the new video is about to start.
-
-</section>
-
-</section>
-
-<section class="level1 has2" id="section_events">
 
 # Events
 
 The [attaching methods](/docs/api.html#attaching-events) can be used to execute custom JavaScript when a specified [event](/docs/api.html#events) happens in the player. For example:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="nx">api</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"pause"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span class="p">{</span>  
-
-   <span class="c1">// do your thing when the player is paused</span>  
-
-<span class="p">});</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
+```js
+api.on("pause", function(e, api) {
+ 
+   // do your thing when the player is paused
+ 
+});
+```
 
 The first argument is the event name or a space separated string of several event names, and the second is a callback function which is fed with 2 or 3 arguments:
 
@@ -1197,28 +1051,15 @@ The first argument is the event name or a space separated string of several even
 
 The event properties, like `target`, `type` etc., can be inspected in the browser console:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="nx">api</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"mute"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>  
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>  
-<span class="p">});</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
+```js
+api.on("mute", function (e) {
+    console.log(e);
+});
+```
 
 Here is a complete list of player events:
 
-<table class="listing list" id="player_events">
+<table>
 
 <tbody>
 
@@ -1412,15 +1253,13 @@ For VOD quality selection see the event of the same name provided by the [VOD qu
 
 </table>
 
-*   <span class="label">Tip</span> You will often find that Flowplayer's [CSS programming](/docs/skinning.html#states) capabilities provide a more elegant way to customize the player's look and feel dynamically according to its state.
-
-<section class="level2" id="section_error-codes">
+*   **Tip** You will often find that Flowplayer's [CSS programming](/docs/skinning.html#states) capabilities provide a more elegant way to customize the player's look and feel dynamically according to its state.
 
 ## Error codes
 
 Error codes and error messages returned by the third argument of the [error event](#events) are mapped the following way:
 
-<table class="listing list" id="error_mappings">
+<table>
 
 <tbody>
 
@@ -1518,15 +1357,12 @@ Error codes and error messages returned by the third argument of the [error even
 
 Errors `1` through `4` are HTML5 video exceptions, errors `5` through `10` are Flowplayer exceptions.
 
-</section>
-
-<section class="level2" id="section_extension-events">
 
 ## Extension events
 
 The `cuepoint` event is provided by 2 player extensions. Follow the link in the second column for further details:
 
-<table class="listing list" id="extension_events">
+<table>
 
 <tbody>
 
@@ -1566,17 +1402,12 @@ The `cuepoint` event is provided by 2 player extensions. Follow the link in the 
 
 </table>
 
-</section>
-
-</section>
-
-<section class="level1 has7" id="section_attaching-events">
 
 # Attaching events
 
 The following methods attach (or detach) events:
 
-<table class="listing list" id="attach_methods">
+<table>
 
 <tbody>
 
@@ -1639,30 +1470,15 @@ Events can be attached either to the [API](/docs/api.html#api-event-binding), or
 
 Multiple events can be attached in one call by passing their names in a space separated string in the first argument:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="nx">api</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"fullscreen fullscreen-exit"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span class="p">{</span>  
-    <span class="k">if</span> <span class="p">(</span><span class="sr">/exit/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">type</span><span class="p">))</span> <span class="p">{</span>  
-       <span class="c1">// do something after leaving fullscreen</span>  
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>  
-       <span class="c1">// do something after going fullscreen</span>  
-    <span class="p">}</span>  
-<span class="p">});</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
-
-<section class="level2" id="section_api-event-binding">
+```js
+api.on("fullscreen fullscreen-exit", function (e, api) {
+    if (/exit/.test(e.type)) {
+       // do something after leaving fullscreen
+    } else {
+       // do something after going fullscreen
+    }
+});
+```
 
 ## API event binding
 
@@ -1670,32 +1486,15 @@ Normally events are simply attached to the API, like in the [example above](/doc
 
 Events attached to the API return the API object.
 
-</section>
-
-<section class="level2" id="section_jquery-event-binding">
-
 ## jQuery event binding
 
 You can also bind your events directly to the jQuery object referencing the container element. For example:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="nx">$</span><span class="p">(</span><span class="s2">".flowplayer:first"</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">"pause"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span class="p">{</span>  
-  <span class="c1">// do something on pause</span>  
-<span class="p">});</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
+```js
+$(".flowplayer:first").on("pause", function(e, api) {
+  // do something on pause
+});
+```
 
 This makes for seamless integration of the Flowplayer API into custom [jQuery plugins](https://learn.jquery.com/plugins/basic-plugin-creation/).
 
@@ -1703,151 +1502,66 @@ Events attached via jQuery return the jQuery object of the container element.
 
 As this is a jQuery event, the `this` [keyword](http://www.quirksmode.org/js/this.html) refers to the root or container element of the player within the callback. It corresponds to the [currentTarget](http://api.jquery.com/event.currentTarget/) property of the first argument.
 
-</section>
-
-<section class="level2" id="section_name-space">
-
 ## Name space
 
 All Flowplayer events can be confined to a specific name space when you attach them:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="nx">api</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"pause.mypause"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span class="p">{</span>  
-  <span class="c1">// do something on pause</span>  
-<span class="p">});</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
+```js
+api.on("pause.mypause", function (e, api) {
+  // do something on pause
+});
+```
 
 Flowplayer event name spaces work as in [jQuery](http://docs.jquery.com/Namespaced_Events), but do not require jQuery to be loaded. They come in handy for instance if you want to turn off a specific callback:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="c1">// turns off pause.mypause, but not the entire pause callback</span>  
-<span class="nx">api</span><span class="p">.</span><span class="nx">off</span><span class="p">(</span><span class="s2">"pause.mypause"</span><span class="p">);</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
-
-</section>
-
-<section class="level2" id="section_attaching-to-javascript-installation">
+```js
+// turns off pause.mypause, but not the entire pause callback
+api.off("pause.mypause");
+```
 
 ## Attaching to JavaScript installation
 
 Events can immediately be [attached to the API](/docs/api.html#api-event-binding) of a specific [JavaScript installation](/docs/setup.html#javascript-install):
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="nx">flowplayer</span><span class="p">(</span><span class="s2">"#player"</span><span class="p">,</span> <span class="p">{</span>  
-  <span class="c1">// player configuration goes here</span>  
-<span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">"pause"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span class="p">{</span>  
-  <span class="c1">// do something on pause with this player</span>  
-<span class="p">});</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
-
-</section>
-
-<section class="level2" id="section_attaching-to-manual-installation">
+```js
+flowplayer("#player", {
+  // player configuration goes here
+}).on("pause", function (e, api) {
+  // do something on pause with this player
+});
+```
 
 ## Attaching to manual installation
 
 Events can immediately be [attached to the container jQuery object](/docs/api.html#jquery-event-binding) of a specific [manual installation](/docs/setup.html#manual-install):
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="nx">$</span><span class="p">(</span><span class="s2">".player"</span><span class="p">).</span><span class="nx">flowplayer</span><span class="p">({</span>  
-  <span class="c1">// player configuration goes here</span>  
-<span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">"pause"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span class="p">{</span>  
-  <span class="c1">// do something on pause with these players</span>  
-<span class="p">});</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
+```js
+$(".player").flowplayer({
+  // player configuration goes here
+}).on("pause", function (e, api) {
+  // do something on pause with these players
+});
+```
 
 *   <span class="label">Warning</span> This way of attaching events to the container element is **strongly** discouraged! In [splash setups](/docs/setup.html#splash) it will catch the `load` event **only** because the VIDEO tag is replaced on load. As splash setups are enforced on mobile devices, this is bound to lead to unexpected behaviour. Use the [pure JavaScript installation](/docs/setup.html#javascript-install) to chain events [directly to an install script](#attaching-to-javascript-installation) or access the API selectively [in a second step](#selective-api-access).
-
-</section>
-
-<section class="level2" id="section_event-chaining">
 
 ## Event chaining
 
 All Flowplayer events return the API, or, if attached via [jQuery](/docs/api.html#jquery-event-binding) the jQuery object of the container element. Therefore event bindings can be chained:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="nx">api</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"pause"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span class="p">{</span>  
-  <span class="c1">// do something on pause</span>  
-<span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">"resume"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span class="p">{</span>  
-  <span class="c1">// do something on resume</span>  
-<span class="p">});</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
-
-</section>
-
-<section class="level2" id="section_event-prevention">
+```js
+api.on("pause", function (e, api) {
+  // do something on pause
+}).on("resume", function (e, api) {
+  // do something on resume
+});
+```
 
 ## Event prevention
 
 In some situations it is desireable to prevent player events from happening or to limit their scope, and optionally take a different action. To achieve this the Flowplayer API offers two methods which can be chained to the event variable provided by first argument of the [event handle](/docs/api.html#events):
 
-<table class="listing list" id="prevention_methods">
+<table>
 
 <tbody>
 
@@ -1884,107 +1598,67 @@ Similar to the [jQuery method](http://api.jquery.com/event.stopPropagation/) of 
 
 [This demo](http://demos.flowplayer.org/lookandfeel/noseek.html) gives an example of both methods in action to show how seeking can be disabled.
 
-</section>
-
-</section>
-
-<section class="level1" id="section_engines">
-
 # Engines
 
 Flowplayer ships with two engines named `html5` and `flash`. They share a common engine interface which is implemented as follows:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="kd">var</span> <span class="nx">engineImpl</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">player</span><span class="p">,</span> <span class="nx">root</span><span class="p">)</span> <span class="p">{</span>  
-
-    <span class="kd">var</span> <span class="nx">engine</span> <span class="o">=</span> <span class="p">{</span>  
-        <span class="nx">engineName</span><span class="o">:</span> <span class="nx">engineImpl</span><span class="p">.</span><span class="nx">engineName</span><span class="p">,</span>  
-
-        <span class="nx">pick</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">sources</span><span class="p">)</span> <span class="p">{</span>  
-            <span class="c1">// engine specific picking mechanism</span>  
-
-        <span class="p">},</span>  
-
-        <span class="nx">load</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">video</span><span class="p">)</span> <span class="p">{</span>  
-            <span class="c1">// how this engine loads the video</span>  
-
-        <span class="p">},</span>  
-
-        <span class="nx">resume</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>  
-            <span class="c1">// how this engine resumes playback</span>  
-
-        <span class="p">},</span>  
-
-        <span class="cm">/* etc. */</span>  
-
-    <span class="p">};</span>  
-
-    <span class="k">return</span> <span class="nx">engine</span><span class="p">;</span>  
-<span class="p">};</span>  
-
-<span class="nx">engineImpl</span><span class="p">.</span><span class="nx">engineName</span> <span class="o">=</span> <span class="s2">"myengine"</span><span class="p">;</span>  
-<span class="nx">engineImpl</span><span class="p">.</span><span class="nx">canPlay</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">conf</span><span class="p">)</span> <span class="p">{</span>  
-    <span class="c1">// return boolean whether this engine can play media of type type</span>  
-    <span class="c1">// in the player configuration conf</span>  
-
-<span class="p">};</span>  
-<span class="c1">// prepend the engine to the existing engines</span>  
-<span class="nx">flowplayer</span><span class="p">.</span><span class="nx">engines</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="nx">engineImpl</span><span class="p">);</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
+```js
+var engineImpl = function (player, root) {
+ 
+    var engine = {
+        engineName: engineImpl.engineName,
+ 
+        pick: function (sources) {
+            // engine specific picking mechanism
+ 
+        },
+ 
+        load: function (video) {
+            // how this engine loads the video
+ 
+        },
+ 
+        resume: function () {
+            // how this engine resumes playback
+ 
+        },
+ 
+        /* etc. */
+ 
+    };
+ 
+    return engine;
+};
+ 
+engineImpl.engineName = "myengine";
+engineImpl.canPlay = function (type, conf) {
+    // return boolean whether this engine can play media of type type
+    // in the player configuration conf
+ 
+};
+// prepend the engine to the existing engines
+flowplayer.engines.unshift(engineImpl);
+```
 
 Look for the implementation details in [Github](http://github.com/flowplayer/flowplayer/tree/master/lib/engine) or check out our [hlsjs plugin](plugins.html#hlsjs) - its engine can be inspected [here](https://github.com/flowplayer/flowplayer-hlsjs/blob/master/flowplayer.hlsjs.js).
-
-</section>
-
-<section class="level1" id="section_windowflowplayer">
 
 # window.flowplayer
 
 The `flowplayer` [function](#global-api-access) is used for accessing the player, making extensions and engines. It also provides the following properties:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="c1">// version number</span>  
-<span class="kd">var</span> <span class="nx">version</span> <span class="o">=</span> <span class="nx">flowplayer</span><span class="p">.</span><span class="nx">version</span><span class="p">;</span>  
-
-<span class="c1">// default configuration for all players (v5.1)</span>  
-<span class="nx">flowplayer</span><span class="p">.</span><span class="nx">defaults</span><span class="p">;</span>  
-
-<span class="c1">// global configuration to override defaults</span>  
-<span class="nx">flowplayer</span><span class="p">.</span><span class="nx">conf</span> <span class="o">=</span> <span class="p">{</span> <span class="p">};</span>  
-
-<span class="c1">// list of engines which are supported by the browser</span>  
-<span class="nx">flowplayer</span><span class="p">.</span><span class="nx">engines</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
-
-</section>
-
-<section class="level1" id="section_flowplayerset">
+```js
+// version number
+var version = flowplayer.version;
+ 
+// default configuration for all players (v5.1)
+flowplayer.defaults;
+ 
+// global configuration to override defaults
+flowplayer.conf = { };
+ 
+// list of engines which are supported by the browser
+flowplayer.engines
+```
 
 # flowplayer.set
 
@@ -1992,39 +1666,22 @@ The `flowplayer.set` method allows to **extend** the existing [global configurat
 
 A typical scenario where this comes in handy: All pages on a site load a default script which contains Flowplayer configuration settings, but you want to override selected settings without discarding others:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="nx">flowplayer</span><span class="p">.</span><span class="nx">set</span><span class="p">({</span>  
-    <span class="c1">// all videos on this page have a 4:3 aspect ratio</span>  
-    <span class="nx">ratio</span><span class="o">:</span> <span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span>  
-    <span class="c1">// all players on this page should use a splash setup</span>  
-    <span class="nx">splash</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>  
-    <span class="c1">// common hlsjs configuration to all players</span>  
-    <span class="nx">hlsjs</span><span class="o">:</span> <span class="p">{</span>  
-        <span class="nx">startLevel</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span>  
-    <span class="p">}</span>  
-<span class="p">});</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
+```js
+flowplayer.set({
+    // all videos on this page have a 4:3 aspect ratio
+    ratio: 3/4,
+    // all players on this page should use a splash setup
+    splash: true,
+    // common hlsjs configuration to all players
+    hlsjs: {
+        startLevel: -1
+    }
+});
+```
 
 Like anything relating to global configuration, `flowplayer.set` should be used only in the HEAD section of your page, before the [DOM](http://www.w3schools.com/js/js_htmldom.asp) is ready.
 
-*   <span class="label">Caveat</span> If the specified property is itself an Object, its nested properties are still overridden, also by omission. In the example above one would have to repeat any previous `hlsjs` settings if still applicable. Only previous top-level values are merged.
-
-</section>
-
-<section class="level1" id="section_flowplayersupport">
+*   **Caveat** If the specified property is itself an Object, its nested properties are still overridden, also by omission. In the example above one would have to repeat any previous `hlsjs` settings if still applicable. Only previous top-level values are merged.
 
 # flowplayer.support
 
@@ -2053,32 +1710,13 @@ Like anything relating to global configuration, `flowplayer.set` should be used 
 
 Refer to [this page](http://demos.flowplayer.org/videotest/support.html) for the results with your current browser.
 
-</section>
-
-<section class="level1" id="section_migration-from-version-5">
-
 # Migration from Version 5
 
 The second argument provided by the anonymous callback of the [global API setup function](/docs/api.html#global-api-access) is not a jQuery object anymore but a reference to the container element itself. If jQuery is loaded, you can still access the container element the jQuery way like this:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="nx">flowplayer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">api</span><span class="p">,</span> <span class="nx">root</span><span class="p">)</span> <span class="p">{</span>  
-  <span class="nx">root</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">root</span><span class="p">);</span>  
-  <span class="c1">// ... code referring to root as jQuery object</span>  
-<span class="p">});</span>  
-</pre>
-
-</div>
-
-<figcaption>JavaScript</figcaption>
-
-</figure>
-
-</div>
-
-</section>
+```js
+flowplayer(function (api, root) {
+  root = $(root);
+  // ... code referring to root as jQuery object
+});
+```
