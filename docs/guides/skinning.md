@@ -58,29 +58,15 @@ Typically you use a combination of 1, 2, and 3.
 
 The skin [stylesheet](//releases.flowplayer.org/7.0.4/skin/skin.css) is loaded in the HEAD section of the page:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet"</span> <span class="na">href</span><span class="o">=</span><span class="s">"//releases.flowplayer.org/7.0.4/skin/skin.css"</span><span class="p">></span>  
-</pre>
-
-</div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
+```html
+<link rel="stylesheet" href="//releases.flowplayer.org/7.0.4/skin/skin.css">
+```
 
 To use the skin you can:
 
 1.  download it and put it on your [server](#server-side) or
 2.  load it directly from our CDN URL as shown above
 
-<section class="level2" id="section_server-side">
 
 ## Server side
 
@@ -88,22 +74,9 @@ The Flowplayer skin also contain fonts instead of graphics for fast loading. The
 
 Simple apache sample config:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="nb">Header</span> set Access-Control-Allow-Origin <span class="s2">"*"</span>  
-</pre>
-
-</div>
-
-<figcaption>ApacheConf</figcaption>
-
-</figure>
-
-</div>
+```
+Header set Access-Control-Allow-Origin "*"
+```
 
 For more details look up [cross-orgin resource sharing](http://enable-cors.org/).
 
@@ -117,88 +90,39 @@ The most decisive aspect in making the player "yours" is to set the brand color.
 
 Change the color of the progress bar and active menu items with a CSS directive for the `fp-color` class:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-color</span> <span class="p">{</span>  
-  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#373484</span><span class="p">;</span>  
-<span class="p">}</span>  
-</pre>
-
-</div>
-
-<figcaption>CSS</figcaption>
-
-</figure>
-
-</div>
+```css
+.flowplayer .fp-color {
+  background-color: #373484;
+}
+```
 
 Default color: `#00abcd`.
 
-</section>
-
-<section class="level2" id="section_control-bar">
 
 ## Control bar
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-controls</span> <span class="p">{</span>  
-  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#ec6c4c</span><span class="p">;</span>  
-<span class="p">}</span>  
-</pre>
-
-</div>
-
-<figcaption>CSS</figcaption>
-
-</figure>
-
-</div>
+```css
+.flowplayer .fp-controls {
+  background-color: #ec6c4c;
+}
+```
 
 By default the control bar background is transparent.
-
-</section>
-
-<section class="level2" id="section_play-button">
 
 ## Play button
 
 The big play button in the center of the screen can be emphasized with circled background color:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-color-play</span> <span class="p">{</span>  
-  <span class="n">fill</span><span class="p">:</span> <span class="mh">#ec6c4c</span><span class="p">;</span>  
-<span class="p">}</span>  
-</pre>
-
-</div>
-
-<figcaption>CSS</figcaption>
-
-</figure>
-
-</div>
+```css
+.flowplayer .fp-color-play {
+  fill: #ec6c4c;
+}
+```
 
 Flowplayer's handling of the on-screen play button is unconventional: It is only visible until playback is initiated. From then only pause and play action indicators alert to the change of player state at the moment of pausing or resuming.
 
 The player can still be customize to feature the traditional approach of showing a center-screen play button during pause as in [this demo](http://demos.flowplayer.org/lookandfeel/traditional-play-button.html).
 
-</section>
-
-<section class="level2" id="section_canvas">
 
 ## Canvas
 
@@ -206,144 +130,32 @@ The player canvas is normally visible only when the video is letterboxed or pill
 
 Make the canvas black:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">is-ready</span> <span class="p">.</span><span class="nc">fp-player</span> <span class="p">{</span>  
-  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#000</span><span class="p">;</span>  
-<span class="p">}</span>  
-</pre>
-
-</div>
-
-<figcaption>CSS</figcaption>
-
-</figure>
-
-</div>
+```css
+.flowplayer.is-ready .fp-player {
+  background-color: #000;
+}
+```
 
 See also the `bgcolor` [option](setup.html#player-options) for the Flash failover.
 
 For HTML5 video even the canvas color can be used for effect and changed dynamically. Play [this](http://demos.flowplayer.org/playlist/adverts-in-playlist) in fullscreen.
 
-</section>
-
-</section>
-
-<section class="level1 has4" id="section_themes">
-
 # Themes
 
 Three themes are available for the overall look of the player.
-
-<section class="level2" id="section_default">
 
 ## Default
 
 This is how the skin looks like without and modifications:
 
-<div class="flowplayer is-mouseout fp-default-playlist is-ready is-paused" data-aspect-ratio="12:5" data-flowplayer-instance-id="0">
-
-<div class="fp-player">
-
-<div class="fp-ui">
-
-<div class="fp-header"><a class="fp-share fp-icon"></a><a class="fp-fullscreen fp-icon"></a><a class="fp-unload fp-icon"></a></div>
-
-<div class="fp-play fp-visible"><a class="fp-icon fp-playbtn"></a><svg class="fp-play-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.a { fill: #000; opacity: 0.65; } .b { fill: #fff; opacity: 1.0; }</style></defs> <title>play-rounded-fill</title> </svg><svg class="fp-play-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-rounded-outline</title> </svg><svg class="fp-play-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-fill</title> </svg><svg class="fp-play-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.controlbuttonbg { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-outline</title></svg></div>
-
-<div class="fp-pause"><a class="fp-icon fp-playbtn"></a><svg class="fp-pause-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-outline</title> </svg><svg class="fp-pause-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-fill</title> </svg><svg class="fp-pause-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-outline</title> </svg><svg class="fp-pause-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-fill</title></svg></div>
-
-<div class="fp-controls"><a class="fp-icon fp-playbtn"></a><span class="fp-elapsed">00:00</span>
-
-<div class="fp-timeline fp-bar"><span class="fp-timestamp"></span></div>
-
-<span class="fp-duration">00:28</span> <span class="fp-remaining">00:28</span>
-
-<div class="fp-volume"><a class="fp-icon fp-volumebtn"></a></div>
-
-**CC**</div>
-
-<div class="fp-menu fp-share-menu">**Share**<a class="fp-icon fp-twitter">Twitter</a><a class="fp-icon fp-embed" title="Copy to your site">Embed</a></div>
-
-<div class="fp-menu fp-subtitle-menu">**Closed Captions**<a data-subtitle-index="-1" class="fp-selected">No subtitles</a></div>
-
-</div>
-
-<div class="fp-help"><a class="fp-close"></a>
-
-<div class="fp-help-section fp-help-basics">
-
-_space_play / pause
-
-_q_unload | stop
-
-_f_fullscreen
-
-_shift_ + _←__→_slower / faster
-
-</div>
-
-<div class="fp-help-section">
-
-_↑__↓_volume
-
-_m_mute
-
-</div>
-
-<div class="fp-help-section">
-
-_←__→_seek
-
-_ ._ seek to previous
-
-_1__2_… _6_ seek to 10%, 20% … 60%
-
-</div>
-
-</div>
-
-<div class="fp-context-menu fp-menu">**© 2017 Flowplayer**[About Flowplayer](https://flowplayer.org/hello)[GPL based license](https://flowplayer.org/license)</div>
-
-</div>
-
-[](https://flowplayer.org/hello)</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-<div id="fpdefault-html" class="codetoggle">
-
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"flowplayer"</span>  
-     <span class="na">data-aspect-ratio</span><span class="o">=</span><span class="s">"12:5"</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">video</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/webm"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.webm"</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/mp4"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.mp4"</span><span class="p">></span>  
-      <span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
-</div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
+<div class="flowplayer"
+     data-aspect-ratio="12:5">
+   <video>
+      <source type="video/webm"
+              src="//edge.flowplayer.org/functional.webm">
+      <source type="video/mp4"
+              src="//edge.flowplayer.org/functional.mp4">
+      </video>
 </div>
 
 [view standalone page](/standalone/skin/default.html)
