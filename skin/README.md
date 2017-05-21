@@ -1,28 +1,28 @@
 
-# The use of CSS classes
+# Использование CSS-классов
 
-## Timeline options
-`(no class)` – default
+## Параметры шкалы времени
+`(no class)` – по умолчанию
 
-`.flow-slim` – slim timeline
+`.flow-slim` – тонкая шкала времени
 
-`.flow-full` – timeline above the buttons (YouTube style)
+`.flow-full` – шкала времени над кнопками (стиль YouTube)
 
-`.flow-fat` – tall timeline (Wistia style)
+`.flow-fat` – Высокая шкала времени (стиль Wistia)
 
 
-## Modifiers
-`.flow-edgy` – no border radius in any element
+## Модификаторы
+`.flow-edgy` – без закругления границ в любом элементе
 
 
 ## Iconsets (coming soon)
-`(no class)` – solid white
+`(no class)` – сплошной белый
 
-`.flow-outlined` – outline only
+`.flow-outlined` – только контур
 
-`.flow-edgy` – solid, no rounding
+`.flow-edgy` – сплошная, без закругления
 
-`.flow-outlined.flow-edgy` – outlined, no rounding
+`.flow-outlined.flow-edgy` – выделено, без закругления
 
 
 
@@ -57,20 +57,20 @@ Playful skin uses Flowplayer colors by default:
 
 
 
-## Effects
+## Эффекты
 
 `-grayscale` – apply "grayscale" effect for the video
 `-sepia` – apply "sepia" effect for the video
 `-blur` – apply "blur" effect for the video
 
 
-## Internal use
-`.flow-ui-shown` – controls are always shown when mouseovered, paused
+## Внутреннее использование
+`.flow-ui-shown` – элементы управления всегда отображаются при наведении курсора, при паузе
 
-`.no-flex` – no flexbox support
+`.no-flex` – нет поддержки flexbox
 
-`.is-rtl` – RTL support
+`.is-rtl` – поддержка RTL
 
-`.flow-play.flow-visible` – while master play button is showing for 300ms
+`.flow-play.flow-visible` – основная кнопка воспроизведения отображается в течение 300 мс
 
 
