@@ -3,7 +3,7 @@
 *   − [Installation](#installation)
     *   [3 ways to install](#3-ways-to-install)
     *   [2 installation categories](#2-installation-categories)
-    *   [Video tag based](#videotag-install)
+    *   [Video tag based](#video-tag-based)
         *   [Automatic installation](#automatic)
         *   [Manual installation with jQuery](#manual)
     *   [Pure JavaScript](#javascript-install)
@@ -91,7 +91,7 @@ Load the required assets and declare the page title - the TITLE tag is mandatory
 
 *   These assets are served globally from a content delivery network (Amazon CloudFront). Free for you to use.
 *   You can place the files on your own servers too, maybe combine them with your existing files for faster initial load. The latest commercial version is always available from your [account page](/account/#players), while the free version can be found on the [free download page](/latest).
-*   [jQuery](http://jquery.com/) v1.7.2+ is required for [VIDEO tag based installations](#videotag-install). Make sure to load only one version of the library when integrating Flowplayer in an existing page.
+*   [jQuery](http://jquery.com/) v1.7.2+ is required for [VIDEO tag based installations](#video-tag-based). Make sure to load only one version of the library when integrating Flowplayer in an existing page.
 *   [Alternate skins](skinning.md) are available.
 *   In general it is recommended to load CSS stylesheets before JavaScript assets.
 *   It is not recommended to load the Flowplayer and jQuery Javascripts in the BODY or at the end of the document.
@@ -101,7 +101,7 @@ Load the required assets and declare the page title - the TITLE tag is mandatory
 
 For each player you need to prepare a html [DIV element](http://www.w3schools.com/tags/tag_div.asp) as player **container** inside the [BODY](http://www.w3schools.com/tags/tag_body.asp) of your page.
 
-*   <span class="label">Note</span> Sections exclusively dedicated to [VIDEO tag based installations](#videotag-install) are flagged with a pink border, sections exclusively dedicated to [pure JavaScript installations](#javascript-install) with a green border.  
+*   **Note** Sections exclusively dedicated to [VIDEO tag based installations](#video-tag-based) are flagged with a pink border, sections exclusively dedicated to [pure JavaScript installations](#javascript-install) with a green border.  
     Advanced opions and functions are colored
 
 ## 3 ways to install
@@ -112,7 +112,7 @@ For each player you need to prepare a html [DIV element](http://www.w3schools.co
 
 ## 2 installation categories
 
-*   [video tag based](#videotag-install) - precondition: a [html VIDEO tag](http://www.w3schools.com/tags/tag_video.asp) inside the container element on the page
+*   [video tag based](#video-tag-based) - precondition: a [html VIDEO tag](http://www.w3schools.com/tags/tag_video.asp) inside the container element on the page
 
  ```html
  <video>
@@ -266,7 +266,7 @@ flowplayer("#player", {
 
 *   Caveat If the first argument references an array of elements, only the first array member will be targeted. To avoid surprises make sure that you always select a single unique element as installation target.
 
-If the [jQuery library](http://jquery.com/) is loaded, `flowplayer()` can also be invoked as jQuery extension like in the [VIDEO tag based](#videotag-install) installation methods with the player configuration including `clip` in the first argument:
+If the [jQuery library](http://jquery.com/) is loaded, `flowplayer()` can also be invoked as jQuery extension like in the [VIDEO tag based](#video-tag-based) installation methods with the player configuration including `clip` in the first argument:
 
 ```js
 $("#player").flowplayer({
@@ -927,7 +927,7 @@ The splash image is given in the CSS `background-image` directive for the contai
 
 Here is how it works:
 
-*   [Video tag based installations](#videotag-install): Upon recognition of the "is-splash" class name or the `splash` option the VIDEO tag is temporarily removed from the container element on page load.
+*   [Video tag based installations](#video-tag-based): Upon recognition of the "is-splash" class name or the `splash` option the VIDEO tag is temporarily removed from the container element on page load.
 *   When the splash screen is clicked the VIDEO or an OBJECT tag, depending on the engine picked, is placed inside the player container and the "is-splash" CSS class name is removed.
 *   Unloading does the opposite: the VIDEO or OBJECT tag is removed and the "is-splash" class is re-added.
 *   The player can be made to go back to splash state by hitting the `q` [key](#keyboard) or by calling the `unload` [API method](api.html#methods).
@@ -1002,7 +1002,7 @@ Options marked in <span class="hilite">red</span> are advanced options. Only set
 
 Here is a list of all core configuration options at [player level](#configuration-summary).
 
-For [video tag based installations](#videotag-install) every player option can alternatively be specified in [HTML configuration syntax](#html-configuration) as [custom data-attribute](http://www.w3schools.com/tags/att_global_data.asp) of the container element - except for `clip` which is set via the VIDEO and SOURCE tags and `rtmp` if specified as Object. Camel cased option names like `adaptiveRatio` must be written as compound lower cased attributes: `data-adaptive-ratio`.
+For [video tag based installations](#video-tag-based) every player option can alternatively be specified in [HTML configuration syntax](#html-configuration) as [custom data-attribute](http://www.w3schools.com/tags/att_global_data.asp) of the container element - except for `clip` which is set via the VIDEO and SOURCE tags and `rtmp` if specified as Object. Camel cased option names like `adaptiveRatio` must be written as compound lower cased attributes: `data-adaptive-ratio`.
 
 <table>
 
@@ -1079,7 +1079,7 @@ Has no effect on mobile devices which [do not allow automatic playback](known-is
 <td class="c2">Object</td>
 
 <td class="c3">Configuration of the video to be loaded in a [pure JavaScript installation](#javascript-install). Refer to [clip options](#clip-options) for parameters and detailed descriptions.  
-Not allowed in a [VIDEO tag based installation](#videotag-install).</td>
+Not allowed in a [VIDEO tag based installation](#video-tag-based).</td>
 
 </tr>
 
@@ -1886,7 +1886,7 @@ By default no context menu is present in the commercial player.
 
 The `clip` [object](#player-options) may not be empty. As any HTML5 player, Flowplayer requires a video to run. Therefore specifying a [sources](#source-options) parameter is mandatory for a valid clip configuration.
 
-In a [VIDEO tag based installation](#videotag-install) the `sources` are already present as SOURCE tags. Options which are not generic [VIDEO tag attributes](#video-tag-attributes) can be set as data-attributes of the VIDEO tag if their value is not an `object`.
+In a [VIDEO tag based installation](#video-tag-based) the `sources` are already present as SOURCE tags. Options which are not generic [VIDEO tag attributes](#video-tag-attributes) can be set as data-attributes of the VIDEO tag if their value is not an `object`.
 
 <table>
 
@@ -2009,7 +2009,7 @@ Setting this property is **mandatory**.</td>
 
 These options are `undefined` by default but are supported by the referenced extensions or plugins, especially for use in [playlists](playlist.html).
 
-The rightmost column indicates whether the option can also be set as data attribute in a [VIDEO tag based playlist installation](/docs/playlist.html#videotag-install) as custom data-attribute of a playlist "trigger" element.
+The rightmost column indicates whether the option can also be set as data attribute in a [VIDEO tag based playlist installation](#video-tag-based) as custom data-attribute of a playlist "trigger" element.
 
 <table>
 
@@ -2276,7 +2276,7 @@ Makes [picking order](#picking-order) completely customizeable.</td>
 
 ## Video tag attributes
 
-In [VIDEO tag based installations](#videotag-install) you can apply the following standard html5 [VIDEO tag attributes](http://www.w3schools.com/tags/tag_video.asp):
+In [VIDEO tag based installations](#video-tag-based) you can apply the following standard html5 [VIDEO tag attributes](http://www.w3schools.com/tags/tag_video.asp):
 
 <table>
 
