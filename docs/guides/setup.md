@@ -1,6 +1,6 @@
 *   [DOCTYPE](#doctype)
 *   [Prerequisites](#prerequisites)
-*   <span>−</span>[Installation](#installation)
+*   − [Installation](#installation)
     *   [3 ways to install](#3-ways-to-install)
     *   [2 installation categories](#2-installation-categories)
     *   [Video tag based](#videotag-install)
@@ -148,8 +148,6 @@ Advantages of video tag based installations:
 Restrictions of video tag based installations:
 
 *   Fine-tuning the configuration on the [clip](/docs/setup.html#clip-options) and [source](/docs/setup.html#source-options) level is not possible or only in a restricted way for [playlists](playlists.html).
-
-
 
 ### Automatic installation
 
