@@ -170,112 +170,23 @@ A highly stripped mode when not in fullscreen mode with just a short and slim [t
 
 Set up by adding the `fp-minimal` class to the container element.
 
-<div class="flowplayer fp-minimal is-mouseout fp-default-playlist is-ready is-paused" data-aspect-ratio="12:5" data-flowplayer-instance-id="1">
 
-<div class="fp-player">
-
-<div class="fp-ui">
-
-<div class="fp-header"><a class="fp-share fp-icon"></a><a class="fp-fullscreen fp-icon"></a><a class="fp-unload fp-icon"></a></div>
-
-<div class="fp-play fp-visible"><a class="fp-icon fp-playbtn"></a><svg class="fp-play-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.a { fill: #000; opacity: 0.65; } .b { fill: #fff; opacity: 1.0; }</style></defs> <title>play-rounded-fill</title> </svg><svg class="fp-play-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-rounded-outline</title> </svg><svg class="fp-play-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-fill</title> </svg><svg class="fp-play-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.controlbuttonbg { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-outline</title></svg></div>
-
-<div class="fp-pause"><a class="fp-icon fp-playbtn"></a><svg class="fp-pause-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-outline</title> </svg><svg class="fp-pause-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-fill</title> </svg><svg class="fp-pause-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-outline</title> </svg><svg class="fp-pause-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-fill</title></svg></div>
-
-<div class="fp-controls"><a class="fp-icon fp-playbtn"></a><span class="fp-elapsed">00:00</span>
-
-<div class="fp-timeline fp-bar"><span class="fp-timestamp"></span></div>
-
-<span class="fp-duration">00:28</span> <span class="fp-remaining">00:28</span>
-
-<div class="fp-volume"><a class="fp-icon fp-volumebtn"></a></div>
-
-**CC**</div>
-
-<div class="fp-menu fp-share-menu">**Share**<a class="fp-icon fp-twitter">Twitter</a><a class="fp-icon fp-embed" title="Copy to your site">Embed</a></div>
-
-<div class="fp-menu fp-subtitle-menu">**Closed Captions**<a data-subtitle-index="-1" class="fp-selected">No subtitles</a></div>
-
+```html
+<div class="flowplayer fp-minimal"
+     data-aspect-ratio="12:5">
+   <video>
+      <source type="video/webm"
+              src="//edge.flowplayer.org/functional.webm">
+      <source type="video/mp4"
+              src="//edge.flowplayer.org/functional.mp4">
+      </video>
 </div>
+```
 
-<div class="fp-help"><a class="fp-close"></a>
 
-<div class="fp-help-section fp-help-basics">
-
-_space_play / pause
-
-_q_unload | stop
-
-_f_fullscreen
-
-_shift_ + _←__→_slower / faster
-
-</div>
-
-<div class="fp-help-section">
-
-_↑__↓_volume
-
-_m_mute
-
-</div>
-
-<div class="fp-help-section">
-
-_←__→_seek
-
-_ ._ seek to previous
-
-_1__2_… _6_ seek to 10%, 20% … 60%
-
-</div>
-
-</div>
-
-<div class="fp-context-menu fp-menu">**© 2017 Flowplayer**[About Flowplayer](https://flowplayer.org/hello)[GPL based license](https://flowplayer.org/license)</div>
-
-</div>
-
-[](https://flowplayer.org/hello)</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-<div id="fpminimal-html" class="codetoggle">
-
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"flowplayer fp-minimal"</span>  
-     <span class="na">data-aspect-ratio</span><span class="o">=</span><span class="s">"12:5"</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">video</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/webm"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.webm"</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/mp4"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.mp4"</span><span class="p">></span>  
-      <span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
-</div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-</div>
 
 [view standalone page](/standalone/skin/minimal.html)
 
-</section>
-
-<section class="level2" id="section_playful">
 
 ## Playful
 
@@ -283,112 +194,17 @@ The playful theme uses the [fat](#fat) (tall) [timeline](#timeline) design with 
 
 Set up by adding the `fp-playful` class to the container element.
 
-<div class="flowplayer fp-playful is-mouseout fp-default-playlist is-ready is-paused" data-aspect-ratio="12:5" data-flowplayer-instance-id="2">
-
-<div class="fp-player">
-
-<div class="fp-ui">
-
-<div class="fp-header"><a class="fp-share fp-icon"></a><a class="fp-fullscreen fp-icon"></a><a class="fp-unload fp-icon"></a></div>
-
-<div class="fp-play fp-visible"><a class="fp-icon fp-playbtn"></a><svg class="fp-play-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.a { fill: #000; opacity: 0.65; } .b { fill: #fff; opacity: 1.0; }</style></defs> <title>play-rounded-fill</title> </svg><svg class="fp-play-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-rounded-outline</title> </svg><svg class="fp-play-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-fill</title> </svg><svg class="fp-play-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.controlbuttonbg { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-outline</title></svg></div>
-
-<div class="fp-pause"><a class="fp-icon fp-playbtn"></a><svg class="fp-pause-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-outline</title> </svg><svg class="fp-pause-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-fill</title> </svg><svg class="fp-pause-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-outline</title> </svg><svg class="fp-pause-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-fill</title></svg></div>
-
-<div class="fp-controls"><a class="fp-icon fp-playbtn"></a><span class="fp-elapsed">00:00</span>
-
-<div class="fp-timeline fp-bar"><span class="fp-timestamp"></span></div>
-
-<span class="fp-duration">00:28</span> <span class="fp-remaining">00:28</span>
-
-<div class="fp-volume"><a class="fp-icon fp-volumebtn"></a></div>
-
-**CC**</div>
-
-<div class="fp-menu fp-share-menu">**Share**<a class="fp-icon fp-twitter">Twitter</a><a class="fp-icon fp-embed" title="Copy to your site">Embed</a></div>
-
-<div class="fp-menu fp-subtitle-menu">**Closed Captions**<a data-subtitle-index="-1" class="fp-selected">No subtitles</a></div>
-
+```html
+<div class="flowplayer fp-playful"
+     data-aspect-ratio="12:5">
+   <video>
+      <source type="video/webm"
+              src="//edge.flowplayer.org/functional.webm">
+      <source type="video/mp4"
+              src="//edge.flowplayer.org/functional.mp4">
+      </video>
 </div>
-
-<div class="fp-help"><a class="fp-close"></a>
-
-<div class="fp-help-section fp-help-basics">
-
-_space_play / pause
-
-_q_unload | stop
-
-_f_fullscreen
-
-_shift_ + _←__→_slower / faster
-
-</div>
-
-<div class="fp-help-section">
-
-_↑__↓_volume
-
-_m_mute
-
-</div>
-
-<div class="fp-help-section">
-
-_←__→_seek
-
-_ ._ seek to previous
-
-_1__2_… _6_ seek to 10%, 20% … 60%
-
-</div>
-
-</div>
-
-<div class="fp-context-menu fp-menu">**© 2017 Flowplayer**[About Flowplayer](https://flowplayer.org/hello)[GPL based license](https://flowplayer.org/license)</div>
-
-</div>
-
-[](https://flowplayer.org/hello)</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-<div id="fpplayful-html" class="codetoggle">
-
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"flowplayer fp-playful"</span>  
-     <span class="na">data-aspect-ratio</span><span class="o">=</span><span class="s">"12:5"</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">video</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/webm"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.webm"</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/mp4"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.mp4"</span><span class="p">></span>  
-      <span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
-</div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-</div>
-
-[view standalone page](/standalone/skin/playful.html)
-
-</section>
-
-<section class="level2" id="section_fixed-controls">
+```
 
 ## Fixed controls
 

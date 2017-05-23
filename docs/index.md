@@ -1,6 +1,6 @@
 [**Getting started** _Get up and running in minutes_](/docs/quickstart.html)
 
-1.   [**Setup** _How to install and configure Flowplayer._](./docs/guides/setup.md)
+1.   [**Setup** _How to install and configure Flowplayer._](/docs/guides/setup.md)
 2.   [**Skinning** _Change Flowplayer looks to match your site._](/docs/skinning.html)
 3.   [**Sharing** _Control how your videos are shared on social networks and users' sites._](/docs/sharing.html)
 4.   [**Google Analytics** _Setup Google Analytics to work with Flowplayer._](/docs/analytics.html)
