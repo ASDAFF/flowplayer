@@ -1,37 +1,15 @@
-[Домашняя страница Video.js](http://videojs.com)
+[**Getting started** _Get up and running in minutes_](/docs/quickstart.html)
 
-<h1>Документация Video.js</h1>
-
-Существует две категории документов: [Руководства](./guides/) and [API Документация](http://docs.videojs.com/). Руководства объясняют общие темы и варианты использования (например, настройки). API Документация автоматически генерируются из кодовой базы и содержит подробные сведения о функциях, свойствах и событиях.
-
-(Исправления и дополнения приветствуются)
-
-## Руководства
-
-### Начало работы
-
-* [Установка](./guides/setup.md) - Документация по установке дает более глубокое представление о дополнительных методах, которые можно использовать для запуска установки проигрывателя.
-
-* [Параметры](./guides/options.md) - Есть несколько параметров, которые могут быть использованы для изменения поведения проигрывателя, начиная с опций мультимедиа HTML5, таких как автовоспроизведение и предварительная загрузка и расширения до определенных параметров Video.js.
-
-* [Дорожки](./guides/tracks.md) - Текстовые дорожки используются для отображения субтитров и титров и добавления меню для навигации между сериями в видео.
-
-### Персонализация
-
-* [API](./guides/api.md) - API Video.js позволяет вам управлять видео через javascript или триггеров прослушивающие события, независимо от того, воспроизводится ли видео через HTML5, флеш или другую технологию воспроизведения.
-
-* [Скины](./guides/skins.md) - Вы можете изменять внешний вид проигрывателя по технологиям воспроизведения, просто отредактировав файл CSS. В документации по скинам вы познакомитесь с тем, как составляются HTML и CSS для создания скина по умолчанию.
-
-* [Технология](./guides/tech.md) - «Технология воспроизведения» - это термин, который мы используем для представления видеороликов HTML5, Flash и других видеоплагинов, а также других проигрывателей, таких как проигрыватель YouTube. В принципе, все, что имеет уникальный API для аудио или видео. Дополнительные технологии воспроизведения относительно легко добавляются.
-
-* [Плагины](./guides/plugins.md) - Вы можете упаковать интересные настройки Video.js и повторно использовать их в другом месте. Узнайте, как создать свой собственный плагин или использовать созданный кем-то другим.
-
-### Ресурсы
-
-* [Глоссарий](./guides/glossary.md) - Некоторые полезные определения.
-
-* [Удаление проигрывателей](./guides/removing-players.md) - Полезно для использования VideoJS в одностраничных приложениях.
-
-## API Документация
-- Наиболее актуальной API документацией является [API Документация проигрывателя](./api/vjs.Player.md).
-- [Полный список API Документации](./api/)
+1.   [**Setup** _How to install and configure Flowplayer._](./docs/setup.md)
+2.   [**Skinning** _Change Flowplayer looks to match your site._](/docs/skinning.html)
+3.   [**Sharing** _Control how your videos are shared on social networks and users' sites._](/docs/sharing.html)
+4.   [**Google Analytics** _Setup Google Analytics to work with Flowplayer._](/docs/analytics.html)
+5.   [**Playlists** _Setup and configure video playlists._](/docs/playlist.html)
+6.   [**Cuepoints** _Perform actions at set times during playback._](/docs/cuepoints.html)
+7.   [**Subtitles** _Setup subtitles for your videos._](/docs/subtitles.html)
+8.   [**JavaScript API** _Javascript API for advanced player control._](./docs/api.md)
+9.   [**Encoding** _Info about compatible video formats._](/docs/encoding.html)
+10.   [**AdSense for Flowplayer HTML5** _Earn money by adding by advertising to your videos; now available to everyone_](/docs/asf.html)
+11.   [**Known issues** _Browser compatibility differences and known bugs._](/docs/known-issues.html)
+12.   [**Plugins** _Plugins providing extra features._](/docs/plugins.html)
+13.   [**VAST for Flowplayer HTML5** _Earn money by VAST advertising_](/docs/vast.html)
