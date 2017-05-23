@@ -2,6 +2,8 @@
 # Flowplayer
 
 [Сайт](https://flowplayer.org) | [Демо](https://flowplayer.org/demos/) | [Документация](https://flowplayer.org/docs/)
+------
+
 
 ## Для нетерпеливых
 
