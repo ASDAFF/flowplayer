@@ -7,7 +7,7 @@
 5.   [**Playlists** _Setup and configure video playlists._](/docs/playlist.html)
 6.   [**Cuepoints** _Perform actions at set times during playback._](/docs/cuepoints.html)
 7.   [**Subtitles** _Setup subtitles for your videos._](/docs/subtitles.html)
-8.   [**JavaScript API** _Javascript API for advanced player control._](./docs/guides/api.md)
+8.   [**JavaScript API** _Javascript API for advanced player control._](/docs/guides/api.md)
 9.   [**Encoding** _Info about compatible video formats._](/docs/encoding.html)
 10.   [**AdSense for Flowplayer HTML5** _Earn money by adding by advertising to your videos; now available to everyone_](/docs/asf.html)
 11.   [**Known issues** _Browser compatibility differences and known bugs._](/docs/known-issues.html)
