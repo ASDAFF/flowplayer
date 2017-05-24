@@ -1,0 +1,167 @@
+
+<!doctype html>
+
+<html>
+
+<head>
+   <meta charset="utf-8">
+
+      <title>Flowplayer · Recover from bad URL</title>
+   
+   <!-- optimize mobile versions -->
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+      <!-- Flowplayer skin -->
+   <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css" >
+   
+   <!-- Minimal styling for this standalone page, can be removed -->
+   <link rel="stylesheet" href="../common/css/demo.css" >
+   <!-- Syntax highlighting of source code, can be removed -->
+   <link rel="stylesheet" href="../common/css/pygments.css" >
+   
+<style>
+.flowplayer {
+  background-color: #eee;
+}
+.flowplayer.replacement .fp-color {
+  background-color: #ff0;
+}
+</style>
+
+      <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
+   <script src="../common/jquery/jquery-1.12.4.min.js" ></script>
+         <!-- Flowplayer library -->
+   <script src="../common/releases/7.0.4/flowplayer.min.js" ></script>
+                  
+   
+<script>
+// global configuration
+flowplayer.conf = {
+  splash: true,
+  share: false,
+  aspectRatio: "47:25"
+};
+
+flowplayer(function (api, root) {
+  var alertTimeout; // for optional alert
+
+  api.on("error", function (e, api, err) {
+    if (err.code === 4) { // Video file not found
+      // reset state
+      api.error = api.loading = false;
+      $(".fp-message", root).css({opacity: 0});
+      $(root).removeClass("is-error");
+
+      // load safe replacement video sources
+      api.load({
+        sources: [
+          { type: "video/webm",  src: "http://edge.flowplayer.org/black/470x250.webm" },
+          { type: "video/mp4",   src: "http://edge.flowplayer.org/black/470x250.mp4" }
+        ]
+
+      }, function (e, api) {
+        // optional: notify user
+        $(".fp-message:first", root).remove();
+        api.message("Replacement video!");
+        // change timeline color to alert user
+        $(root).addClass("replacement");
+        alertTimeout = setTimeout(function () {
+          $(".fp-message:first", root).remove();
+        }, 3000);
+
+      });
+
+    }
+  }).on("unload", function () {
+    // remove optional custom message to avoid duplication on reload
+    clearTimeout(alertTimeout);
+    $(".fp-message:first", root).remove();
+
+  });
+});
+</script>
+
+</head>
+
+<body>
+
+   <div id="content">
+
+      <h1>Flowplayer · Recover from bad URL</h1>
+
+<h2>Bad URL</h2>
+
+<div class="flowplayer no-volume is-closeable">
+   <video>
+      <source type="video/webm"  src="http://demos.flowplayer.org/scripting/invalid.webm">
+      <source type="video/mp4"   src="http://demos.flowplayer.org/scripting/invalid.mp4">
+   </video>
+</div>
+
+<h2>Good URL</h2>
+
+<div class="flowplayer no-volume is-closeable">
+   <video>
+      <source type="video/webm"  src="http://edge.flowplayer.org/white/470x250.webm">
+      <source type="video/mp4"   src="http://edge.flowplayer.org/white/470x250.mp4">
+   </video>
+</div>
+
+<div class="doc">
+  <p>If your intended setup is in danger of containing invalid video sources the first step is
+  to rethink your concept.
+
+  <p>This demo implements a seamless recovery mechanism with a replacement video for all
+  player instances with invalid video sources while making sure that no other instances are
+  affected.</p>
+
+  <p>See also <a href="../api/live-check.html" >this demo</a>.</p>
+</div>
+
+<h2 id="head-setup">&lt;head/&gt;</h2>
+
+<h3 id="css-setup">&lt;style&gt;</h3>
+
+<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">{</span><br />  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#eee</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">replacement</span> <span class="p">.</span><span class="nc">fp-color</span> <span class="p">{</span><br />  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#ff0</span><span class="p">;</span><br /><span class="p">}</span><br /></pre></div><br /><figcaption>CSS</figcaption></figure></div>
+
+
+<h3 id="javascript-setup">&lt;script&gt;</h3>
+
+<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="c1">// global configuration</span><br /><span class="nx">flowplayer</span><span class="p">.</span><span class="nx">conf</span> <span class="o">=</span> <span class="p">{</span><br />  <span class="nx">splash</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span><br />  <span class="nx">share</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span><br />  <span class="nx">aspectRatio</span><span class="o">:</span> <span class="s2">&quot;47:25&quot;</span><br /><span class="p">};</span><br />&nbsp;<br /><span class="nx">flowplayer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">api</span><span class="p">,</span> <span class="nx">root</span><span class="p">)</span> <span class="p">{</span><br />  <span class="kd">var</span> <span class="nx">alertTimeout</span><span class="p">;</span> <span class="c1">// for optional alert</span><br />&nbsp;<br />  <span class="nx">api</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span> <span class="p">{</span><br />    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">code</span> <span class="o">===</span> <span class="mi">4</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Video file not found</span><br />      <span class="c1">// reset state</span><br />      <span class="nx">api</span><span class="p">.</span><span class="nx">error</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">loading</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span><br />      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.fp-message&quot;</span><span class="p">,</span> <span class="nx">root</span><span class="p">).</span><span class="nx">css</span><span class="p">({</span><span class="nx">opacity</span><span class="o">:</span> <span class="mi">0</span><span class="p">});</span><br />      <span class="nx">$</span><span class="p">(</span><span class="nx">root</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="s2">&quot;is-error&quot;</span><span class="p">);</span><br />&nbsp;<br />      <span class="c1">// load safe replacement video sources</span><br />      <span class="nx">api</span><span class="p">.</span><span class="nx">load</span><span class="p">({</span><br />        <span class="nx">sources</span><span class="o">:</span> <span class="p">[</span><br />          <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;video/webm&quot;</span><span class="p">,</span>  <span class="nx">src</span><span class="o">:</span> <span class="s2">&quot;//edge.flowplayer.org/black/470x250.webm&quot;</span> <span class="p">},</span><br />          <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;video/mp4&quot;</span><span class="p">,</span>   <span class="nx">src</span><span class="o">:</span> <span class="s2">&quot;//edge.flowplayer.org/black/470x250.mp4&quot;</span> <span class="p">}</span><br />        <span class="p">]</span><br />&nbsp;<br />      <span class="p">},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span class="p">{</span><br />        <span class="c1">// optional: notify user</span><br />        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.fp-message:first&quot;</span><span class="p">,</span> <span class="nx">root</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span><br />        <span class="nx">api</span><span class="p">.</span><span class="nx">message</span><span class="p">(</span><span class="s2">&quot;Replacement video!&quot;</span><span class="p">);</span><br />        <span class="c1">// change timeline color to alert user</span><br />        <span class="nx">$</span><span class="p">(</span><span class="nx">root</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s2">&quot;replacement&quot;</span><span class="p">);</span><br />        <span class="nx">alertTimeout</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br />          <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.fp-message:first&quot;</span><span class="p">,</span> <span class="nx">root</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span><br />        <span class="p">},</span> <span class="mi">3000</span><span class="p">);</span><br />&nbsp;<br />      <span class="p">});</span><br />&nbsp;<br />    <span class="p">}</span><br />  <span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;unload&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br />    <span class="c1">// remove optional custom message to avoid duplication on reload</span><br />    <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">alertTimeout</span><span class="p">);</span><br />    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.fp-message:first&quot;</span><span class="p">,</span> <span class="nx">root</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span><br />&nbsp;<br />  <span class="p">});</span><br /><span class="p">});</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></div>
+
+
+<h2 id="html-setup">&lt;body/&gt;</h2>
+
+<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;flowplayer no-volume is-closeable&quot;</span><span class="p">&gt;</span><br />   <span class="p">&lt;</span><span class="nt">video</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;video/webm&quot;</span>  <span class="na">src</span><span class="o">=</span><span class="s">&quot;invalid.webm&quot;</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span>   <span class="na">src</span><span class="o">=</span><span class="s">&quot;invalid.mp4&quot;</span><span class="p">&gt;</span><br />   <span class="p">&lt;/</span><span class="nt">video</span><span class="p">&gt;</span><br /><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />&nbsp;<br /><br />   <span class="c">&lt;!-- [...] --&gt;</span><br />&nbsp;<br /><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;flowplayer no-volume is-closeable&quot;</span><span class="p">&gt;</span><br />   <span class="p">&lt;</span><span class="nt">video</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;video/webm&quot;</span>  <span class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/white/470x250.webm&quot;</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span>   <span class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/white/470x250.mp4&quot;</span><span class="p">&gt;</span><br />   <span class="p">&lt;/</span><span class="nt">video</span><span class="p">&gt;</span><br /><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
+
+
+
+
+
+<form id="codepenform" method="POST" action="http://codepen.io/pen/define?data={" target="_blank">
+  <input type="hidden" name="data" value='{"title": "New pen based on Recover from bad URL", "js_external": "//code.jquery.com/jquery-1.12.4.min.js;//releases.flowplayer.org/7.0.4/flowplayer.min.js", "js": "// global configuration\nflowplayer.conf = {\n  splash: true,\n  share: false,\n  aspectRatio: \"47:25\"\n};\n\nflowplayer(function (api, root) {\n  var alertTimeout; // for optional alert\n\n  api.on(\"error\", function (e, api, err) {\n    if (err.code === 4) { // Video file not found\n      // reset state\n      api.error = api.loading = false;\n      $(\".fp-message\", root).css({opacity: 0});\n      $(root).removeClass(\"is-error\");\n\n      // load safe replacement video sources\n      api.load({\n        sources: [\n          { type: \"video/webm\",  src: \"//edge.flowplayer.org/black/470x250.webm\" },\n          { type: \"video/mp4\",   src: \"//edge.flowplayer.org/black/470x250.mp4\" }\n        ]\n\n      }, function (e, api) {\n        // optional: notify user\n        $(\".fp-message:first\", root).remove();\n        api.message(\"Replacement video!\");\n        // change timeline color to alert user\n        $(root).addClass(\"replacement\");\n        alertTimeout = setTimeout(function () {\n          $(\".fp-message:first\", root).remove();\n        }, 3000);\n\n      });\n\n    }\n  }).on(\"unload\", function () {\n    // remove optional custom message to avoid duplication on reload\n    clearTimeout(alertTimeout);\n    $(\".fp-message:first\", root).remove();\n\n  });\n});\n", "html": "<div class=\"flowplayer no-volume is-closeable\">\n   <video>\n      <source type=\"video/webm\"  src="../index.htm" invalid.webm/"">\n      <source type=\"video/mp4\"   src="../index.htm" invalid.mp4/"">\n   </video>\n</div>\n", "css_external": "//releases.flowplayer.org/7.0.4/skin/skin.css;http://demos.flowplayer.org/media/css/codepen.css", "css": ".flowplayer {\n  background-color: #eee;\n}\n.flowplayer.replacement .fp-color {\n  background-color: #ff0;\n}\n"}'>
+</form>
+
+<div class="footer">
+    <a href="#" onclick="document.getElementById('codepenform').submit()">Edit demo on codepen</a><br>
+  <span>Flash not available</span>
+  <hr >
+
+    <p><a href="index.html" >Demos in this section</a></p>
+
+  <hr>
+
+  <p><a href="../index.html" >Flowplayer Demos+</a></p>
+
+  <hr>
+
+  <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
+
+  <hr>
+
+  <p><a href="../v6/index.html" >Version 6 Demos</a></p>
+</div>
+   </div> <!-- end content -->
+
+</body>
+</html>

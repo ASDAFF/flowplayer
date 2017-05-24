@@ -1,0 +1,227 @@
+
+<!doctype html>
+
+<html>
+
+<head>
+   <meta charset="utf-8">
+
+      <title>Flowplayer · Link cues</title>
+   
+   <!-- optimize mobile versions -->
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+      <!-- Flowplayer skin -->
+   <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css" >
+   
+   <!-- Minimal styling for this standalone page, can be removed -->
+   <link rel="stylesheet" href="../common/css/demo.css" >
+   <!-- Syntax highlighting of source code, can be removed -->
+   <link rel="stylesheet" href="../common/css/pygments.css" >
+   
+<style>
+.flowplayer .info {
+  background-color: #333;
+  background-color: rgba(0, 0 , 0, 0.75);
+  background-image: url("../common/releases/6.0.5/skin/img/playful_white.png");
+  background-position: 110% 19px;
+  background-repeat: no-repeat;
+  padding: 15px 30px 15px 15px; /* additional right padding for "play button" */
+  position: absolute;
+  top: 50px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  transition: all .5s;
+  font-weight: bold;
+  font-size: 16px;
+}
+.flowplayer .info a {
+  color: #eee;
+}
+.flowplayer .info a:hover {
+  color: #ffa500;
+}
+
+/* stack up links by incrementing z-index in reverse order starting from 1 */
+.flowplayer.cue0 .info0 {
+  z-index: 7;
+  filter: alpha(opacity=100);
+  opacity: 1;
+  left: 50px;
+}
+.flowplayer.cue1 .info1 {
+  z-index: 6;
+  filter: alpha(opacity=100);
+  opacity: 1;
+  left: 80px;
+}
+.flowplayer.cue2 .info2 {
+  z-index: 5;
+  filter: alpha(opacity=100);
+  opacity: 1;
+  left: 110px;
+}
+.flowplayer.cue3 .info3 {
+  z-index: 4;
+  filter: alpha(opacity=100);
+  opacity: 1;
+  left: 140px;
+}
+.flowplayer.cue4 .info4 {
+  z-index: 3;
+  filter: alpha(opacity=100);
+  opacity: 1;
+  left: 170px;
+}
+.flowplayer.cue5 .info5 {
+  z-index: 2;
+  filter: alpha(opacity=100);
+  opacity: 1;
+  left: 200px;
+}
+.flowplayer.cue6 .info6 {
+  z-index: 1;
+  filter: alpha(opacity=100);
+  opacity: 1;
+  left: 230px;
+}
+</style>
+
+      <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
+   <script src="../common/jquery/jquery-1.12.4.min.js" ></script>
+         <!-- Flowplayer library -->
+   <script src="../common/releases/7.0.4/flowplayer.min.js" ></script>
+         <!-- The hlsjs plugin for playback of HLS without Flash in modern browsers -->
+   <script src="../common/releases/hlsjs/flowplayer.hlsjs.min.js" ></script>
+               
+   
+<script>
+$(function () {
+  var resume = false,
+      api = flowplayer();
+
+  $("http://demos.flowplayer.org/lookandfeel/.flowplayer .info").hover(function () {
+    resume = api.playing;
+    if (resume) {
+      api.pause();
+    }
+  }, function () {
+    if (resume) {
+      api.resume();
+    }
+  });
+});
+</script>
+
+</head>
+
+<body>
+
+   <div id="content">
+
+      <h1>Flowplayer · Link cues</h1>
+
+<div class="flowplayer"
+     data-cuepoints="[2, 4, 8, 12, 14, 16, 20]">
+
+   <video>
+      <source type="application/x-mpegurl" src="http://edge.flowplayer.org/trains.m3u8">
+      <source type="video/mp4"             src="http://edge.flowplayer.org/trains.mp4">
+   </video>
+
+   <div class="info info0">
+      <a href="https://flowplayer.org/" target="_blank">Flowplayer Home</a>
+   </div>
+   <div class="info info1">
+      <a href="https://flowplayer.org/designer/" target="_blank">Flowplayer Designer</a>
+   </div>
+   <div class="info info2">
+      <a href="https://flowplayer.org/docs/skinning.html" target="_blank">Flowplayer Skinning</a>
+   </div>
+   <div class="info info3">
+      <a href="https://flowplayer.org/docs/cuepoints.html" target="_blank">Flowplayer Cuepoints</a>
+   </div>
+   <div class="info info4">
+      <a href="https://flowplayer.org/demos/timeline/#info-demo" target="_blank">This demo without links</a>
+   </div>
+   <div class="info info5">
+      <a href="https://flowplayer.org/pricing/#license-key" target="_blank">Flowplayer License</a>
+   </div>
+   <div class="info info6">
+      <a href="https://flowplayer.org/demos/complete/" target="_blank">Your own Logo</a>
+   </div>
+
+</div>
+
+<p class="info">Variant of the
+<a href="https://flowplayer.org/demos/timeline/#info-demo">timeline info demo</a>
+with clickable links</p>
+
+<h2 id="head-setup">&lt;head/&gt;</h2>
+
+<p class="doc">For smoother <a href="https://flowplayer.org/docs/setup.html#hls">HLS</a> playback in modern browsers we load the
+<a href="https://flowplayer.org/docs/plugins.html#hlsjs">hlsjs plugin</a>.
+</p>
+
+<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="c">&lt;!-- Flowplayer library --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/7.0.4/flowplayer.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /><span class="c">&lt;!-- Flowplayer hlsjs engine --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
+
+
+<p class="doc">For anchors to be clickable they must be positioned on top of the Flowplayer UI. To
+be on top of it on the z-axis any added clickable element must therefore have at least a
+<code>z-index</code> of <code>1</code>.</p>
+
+<h3 id="css-setup">&lt;style&gt;</h3>
+
+<p class="doc">In this case we have to additionally stack the cues on top of each other in
+reverse order of their appearance for their anchors to stay functional.</p>
+
+<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">info</span> <span class="p">{</span><br />  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#333</span><span class="p">;</span><br />  <span class="k">background-color</span><span class="p">:</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">);</span><br />  <span class="k">background-image</span><span class="p">:</span> <span class="nb">url</span><span class="p">(</span><span class="sx">//releases.flowplayer.org/6.0.5/skin/img/playful_white.png</span><span class="p">);</span><br />  <span class="k">background-position</span><span class="p">:</span> <span class="mi">110</span><span class="kt">%</span> <span class="mi">19</span><span class="kt">px</span><span class="p">;</span><br />  <span class="k">background-repeat</span><span class="p">:</span> <span class="kc">no-repeat</span><span class="p">;</span><br />  <span class="k">padding</span><span class="p">:</span> <span class="mi">15</span><span class="kt">px</span> <span class="mi">30</span><span class="kt">px</span> <span class="mi">15</span><span class="kt">px</span> <span class="mi">15</span><span class="kt">px</span><span class="p">;</span> <span class="c">/* additional right padding for &quot;play button&quot; */</span><br />  <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span><br />  <span class="k">top</span><span class="p">:</span> <span class="mi">50</span><span class="kt">px</span><span class="p">;</span><br />  <span class="kp">-webkit-</span><span class="k">border-radius</span><span class="p">:</span> <span class="mi">4</span><span class="kt">px</span><span class="p">;</span><br />  <span class="kp">-moz-</span><span class="k">border-radius</span><span class="p">:</span> <span class="mi">4</span><span class="kt">px</span><span class="p">;</span><br />  <span class="k">border-radius</span><span class="p">:</span> <span class="mi">4</span><span class="kt">px</span><span class="p">;</span><br />  <span class="k">filter</span><span class="p">:</span> <span class="nf">alpha</span><span class="p">(</span><span class="n">opacity</span><span class="err">=</span><span class="mi">0</span><span class="p">);</span><br />  <span class="k">opacity</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span><br />  <span class="kp">-webkit-</span><span class="k">transition</span><span class="p">:</span> <span class="kc">all</span> <span class="mf">.5</span><span class="kt">s</span><span class="p">;</span><br />  <span class="kp">-moz-</span><span class="k">transition</span><span class="p">:</span> <span class="kc">all</span> <span class="mf">.5</span><span class="kt">s</span><span class="p">;</span><br />  <span class="k">transition</span><span class="p">:</span> <span class="kc">all</span> <span class="mf">.5</span><span class="kt">s</span><span class="p">;</span><br />  <span class="k">font-weight</span><span class="p">:</span> <span class="kc">bold</span><span class="p">;</span><br />  <span class="k">font-size</span><span class="p">:</span> <span class="mi">16</span><span class="kt">px</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">info</span> <span class="nt">a</span> <span class="p">{</span><br />  <span class="k">color</span><span class="p">:</span> <span class="mh">#eee</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">info</span> <span class="nt">a</span><span class="p">:</span><span class="nd">hover</span> <span class="p">{</span><br />  <span class="k">color</span><span class="p">:</span> <span class="mh">#ffa500</span><span class="p">;</span><br /><span class="p">}</span><br />&nbsp;<br /><span class="c">/* stack up links by incrementing z-index in reverse order starting from 1 */</span><br /><span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">cue0</span> <span class="p">.</span><span class="nc">info0</span> <span class="p">{</span><br />  <span class="k">z-index</span><span class="p">:</span> <span class="mi">7</span><span class="p">;</span><br />  <span class="k">filter</span><span class="p">:</span> <span class="nf">alpha</span><span class="p">(</span><span class="n">opacity</span><span class="err">=</span><span class="mi">100</span><span class="p">);</span><br />  <span class="k">opacity</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span><br />  <span class="k">left</span><span class="p">:</span> <span class="mi">50</span><span class="kt">px</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">cue1</span> <span class="p">.</span><span class="nc">info1</span> <span class="p">{</span><br />  <span class="k">z-index</span><span class="p">:</span> <span class="mi">6</span><span class="p">;</span><br />  <span class="k">filter</span><span class="p">:</span> <span class="nf">alpha</span><span class="p">(</span><span class="n">opacity</span><span class="err">=</span><span class="mi">100</span><span class="p">);</span><br />  <span class="k">opacity</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span><br />  <span class="k">left</span><span class="p">:</span> <span class="mi">80</span><span class="kt">px</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">cue2</span> <span class="p">.</span><span class="nc">info2</span> <span class="p">{</span><br />  <span class="k">z-index</span><span class="p">:</span> <span class="mi">5</span><span class="p">;</span><br />  <span class="k">filter</span><span class="p">:</span> <span class="nf">alpha</span><span class="p">(</span><span class="n">opacity</span><span class="err">=</span><span class="mi">100</span><span class="p">);</span><br />  <span class="k">opacity</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span><br />  <span class="k">left</span><span class="p">:</span> <span class="mi">110</span><span class="kt">px</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">cue3</span> <span class="p">.</span><span class="nc">info3</span> <span class="p">{</span><br />  <span class="k">z-index</span><span class="p">:</span> <span class="mi">4</span><span class="p">;</span><br />  <span class="k">filter</span><span class="p">:</span> <span class="nf">alpha</span><span class="p">(</span><span class="n">opacity</span><span class="err">=</span><span class="mi">100</span><span class="p">);</span><br />  <span class="k">opacity</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span><br />  <span class="k">left</span><span class="p">:</span> <span class="mi">140</span><span class="kt">px</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">cue4</span> <span class="p">.</span><span class="nc">info4</span> <span class="p">{</span><br />  <span class="k">z-index</span><span class="p">:</span> <span class="mi">3</span><span class="p">;</span><br />  <span class="k">filter</span><span class="p">:</span> <span class="nf">alpha</span><span class="p">(</span><span class="n">opacity</span><span class="err">=</span><span class="mi">100</span><span class="p">);</span><br />  <span class="k">opacity</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span><br />  <span class="k">left</span><span class="p">:</span> <span class="mi">170</span><span class="kt">px</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">cue5</span> <span class="p">.</span><span class="nc">info5</span> <span class="p">{</span><br />  <span class="k">z-index</span><span class="p">:</span> <span class="mi">2</span><span class="p">;</span><br />  <span class="k">filter</span><span class="p">:</span> <span class="nf">alpha</span><span class="p">(</span><span class="n">opacity</span><span class="err">=</span><span class="mi">100</span><span class="p">);</span><br />  <span class="k">opacity</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span><br />  <span class="k">left</span><span class="p">:</span> <span class="mi">200</span><span class="kt">px</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">cue6</span> <span class="p">.</span><span class="nc">info6</span> <span class="p">{</span><br />  <span class="k">z-index</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span><br />  <span class="k">filter</span><span class="p">:</span> <span class="nf">alpha</span><span class="p">(</span><span class="n">opacity</span><span class="err">=</span><span class="mi">100</span><span class="p">);</span><br />  <span class="k">opacity</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span><br />  <span class="k">left</span><span class="p">:</span> <span class="mi">230</span><span class="kt">px</span><span class="p">;</span><br /><span class="p">}</span><br /></pre></div><br /><figcaption>CSS</figcaption></figure></div>
+
+
+<h3 id="javascript-setup">&lt;script&gt;</h3>
+
+<p class="doc">Some extra scripting to pause the player while the user hovers over the cue:</p>
+
+<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br />  <span class="kd">var</span> <span class="nx">resume</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span><br />      <span class="nx">api</span> <span class="o">=</span> <span class="nx">flowplayer</span><span class="p">();</span><br />&nbsp;<br />  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.flowplayer .info&quot;</span><span class="p">).</span><span class="nx">hover</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br />    <span class="nx">resume</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">playing</span><span class="p">;</span><br />    <span class="k">if</span> <span class="p">(</span><span class="nx">resume</span><span class="p">)</span> <span class="p">{</span><br />      <span class="nx">api</span><span class="p">.</span><span class="nx">pause</span><span class="p">();</span><br />    <span class="p">}</span><br />  <span class="p">},</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br />    <span class="k">if</span> <span class="p">(</span><span class="nx">resume</span><span class="p">)</span> <span class="p">{</span><br />      <span class="nx">api</span><span class="p">.</span><span class="nx">resume</span><span class="p">();</span><br />    <span class="p">}</span><br />  <span class="p">});</span><br /><span class="p">});</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></div>
+
+
+<h2 id="html-setup">&lt;body/&gt;</h2>
+
+<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;flowplayer&quot;</span><br />     <span class="na">data-cuepoints</span><span class="o">=</span><span class="s">&quot;[2, 4, 8, 12, 14, 16, 20]&quot;</span><span class="p">&gt;</span><br />&nbsp;<br />   <span class="p">&lt;</span><span class="nt">video</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;application/x-mpegurl&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/trains.m3u8&quot;</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span>             <span class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/trains.mp4&quot;</span><span class="p">&gt;</span><br />   <span class="p">&lt;/</span><span class="nt">video</span><span class="p">&gt;</span><br />&nbsp;<br />   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;info info0&quot;</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://flowplayer.org&quot;</span> <span class="na">target</span><span class="o">=</span><span class="s">&quot;_blank&quot;</span><span class="p">&gt;</span>Flowplayer Home<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br />   <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;info info1&quot;</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://flowplayer.org/designer/&quot;</span> <span class="na">target</span><span class="o">=</span><span class="s">&quot;_blank&quot;</span><span class="p">&gt;</span>Flowplayer Designer<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br />   <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;info info2&quot;</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://flowplayer.org/docs/skinning.html&quot;</span> <span class="na">target</span><span class="o">=</span><span class="s">&quot;_blank&quot;</span><span class="p">&gt;</span>Flowplayer Skinning<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br />   <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;info info3&quot;</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://flowplayer.org/docs/cuepoints.html&quot;</span> <span class="na">target</span><span class="o">=</span><span class="s">&quot;_blank&quot;</span><span class="p">&gt;</span>Flowplayer Cuepoints<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br />   <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;info info4&quot;</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://flowplayer.org/demos/timeline/#info-demo&quot;</span> <span class="na">target</span><span class="o">=</span><span class="s">&quot;_blank&quot;</span><span class="p">&gt;</span>This demo without links<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br />   <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;info info5&quot;</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://flowplayer.org/pricing/#license-key&quot;</span> <span class="na">target</span><span class="o">=</span><span class="s">&quot;_blank&quot;</span><span class="p">&gt;</span>Flowplayer License<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br />   <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;info info6&quot;</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://flowplayer.org/demos/complete/&quot;</span> <span class="na">target</span><span class="o">=</span><span class="s">&quot;_blank&quot;</span><span class="p">&gt;</span>Your own Logo<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br />   <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />&nbsp;<br /><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
+
+
+
+
+
+<form id="codepenform" method="POST" action="http://codepen.io/pen/define?data={" target="_blank">
+  <input type="hidden" name="data" value='{"title": "New pen based on Link cues", "js_external": "//code.jquery.com/jquery-1.12.4.min.js;//releases.flowplayer.org/7.0.4/flowplayer.min.js;//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js", "js": "$(function () {\n  var resume = false,\n      api = flowplayer();\n\n  $(\".flowplayer .info\").hover(function () {\n    resume = api.playing;\n    if (resume) {\n      api.pause();\n    }\n  }, function () {\n    if (resume) {\n      api.resume();\n    }\n  });\n});\n", "html": "<div class=\"flowplayer\"\n     data-cuepoints=\"[2, 4, 8, 12, 14, 16, 20]\">\n\n   <video>\n      <source type=\"application/x-mpegurl\" src="../index.htm" //edge.flowplayer.org/trains.m3u8/"">\n      <source type=\"video/mp4\"             src="../index.htm" //edge.flowplayer.org/trains.mp4/"">\n   </video>\n\n   <div class=\"info info0\">\n      <a href="../index.htm" https://flowplayer.org/"" target=\"_blank\">Flowplayer Home</a>\n   </div>\n   <div class=\"info info1\">\n      <a href="../index.htm" https://flowplayer.org/designer//"" target=\"_blank\">Flowplayer Designer</a>\n   </div>\n   <div class=\"info info2\">\n      <a href="../index.htm" https://flowplayer.org/docs/skinning.html/"" target=\"_blank\">Flowplayer Skinning</a>\n   </div>\n   <div class=\"info info3\">\n      <a href="../index.htm" https://flowplayer.org/docs/cuepoints.html/"" target=\"_blank\">Flowplayer Cuepoints</a>\n   </div>\n   <div class=\"info info4\">\n      <a href="../index.htm" https://flowplayer.org/demos/timeline/#info-demo\"" target=\"_blank\">This demo without links</a>\n   </div>\n   <div class=\"info info5\">\n      <a href="../index.htm" https://flowplayer.org/pricing/#license-key\"" target=\"_blank\">Flowplayer License</a>\n   </div>\n   <div class=\"info info6\">\n      <a href="../index.htm" https://flowplayer.org/demos/complete//"" target=\"_blank\">Your own Logo</a>\n   </div>\n\n</div>\n", "css_external": "//releases.flowplayer.org/7.0.4/skin/skin.css;http://demos.flowplayer.org/media/css/codepen.css", "css": ".flowplayer .info {\n  background-color: #333;\n  background-color: rgba(0, 0 , 0, 0.75);\n  background-image: url(//releases.flowplayer.org/6.0.5/skin/img/playful_white.png);\n  background-position: 110% 19px;\n  background-repeat: no-repeat;\n  padding: 15px 30px 15px 15px; /* additional right padding for \"play button\" */\n  position: absolute;\n  top: 50px;\n  -webkit-border-radius: 4px;\n  -moz-border-radius: 4px;\n  border-radius: 4px;\n  filter: alpha(opacity=0);\n  opacity: 0;\n  -webkit-transition: all .5s;\n  -moz-transition: all .5s;\n  transition: all .5s;\n  font-weight: bold;\n  font-size: 16px;\n}\n.flowplayer .info a {\n  color: #eee;\n}\n.flowplayer .info a:hover {\n  color: #ffa500;\n}\n\n/* stack up links by incrementing z-index in reverse order starting from 1 */\n.flowplayer.cue0 .info0 {\n  z-index: 7;\n  filter: alpha(opacity=100);\n  opacity: 1;\n  left: 50px;\n}\n.flowplayer.cue1 .info1 {\n  z-index: 6;\n  filter: alpha(opacity=100);\n  opacity: 1;\n  left: 80px;\n}\n.flowplayer.cue2 .info2 {\n  z-index: 5;\n  filter: alpha(opacity=100);\n  opacity: 1;\n  left: 110px;\n}\n.flowplayer.cue3 .info3 {\n  z-index: 4;\n  filter: alpha(opacity=100);\n  opacity: 1;\n  left: 140px;\n}\n.flowplayer.cue4 .info4 {\n  z-index: 3;\n  filter: alpha(opacity=100);\n  opacity: 1;\n  left: 170px;\n}\n.flowplayer.cue5 .info5 {\n  z-index: 2;\n  filter: alpha(opacity=100);\n  opacity: 1;\n  left: 200px;\n}\n.flowplayer.cue6 .info6 {\n  z-index: 1;\n  filter: alpha(opacity=100);\n  opacity: 1;\n  left: 230px;\n}\n"}'>
+</form>
+
+<div class="footer">
+    <a href="#" onclick="document.getElementById('codepenform').submit()">Edit demo on codepen</a><br>
+  <span>Flash not available</span>
+  <hr >
+
+    <p><a href="index.html" >Demos in this section</a></p>
+
+  <hr>
+
+  <p><a href="../index.html" >Flowplayer Demos+</a></p>
+
+  <hr>
+
+  <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
+
+  <hr>
+
+  <p><a href="../v6/index.html" >Version 6 Demos</a></p>
+</div>
+   </div> <!-- end content -->
+
+</body>
+</html>

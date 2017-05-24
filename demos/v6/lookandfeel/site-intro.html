@@ -1,0 +1,162 @@
+
+<!doctype html>
+
+<html>
+
+<head>
+   <meta charset="utf-8">
+
+      <title>Flowplayer · Site intro</title>
+   
+   <!-- optimize mobile versions -->
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+      <!-- The "minimalist" skin - choose from: "functional.css", "minimalist.css", "playful.css" -->
+   <link rel="stylesheet" href="../../common/releases/6.0.5/commercial/skin/minimalist.css" >
+   
+   <!-- Minimal styling for this standalone page, can be removed -->
+   <link rel="stylesheet" href="../../common/css/demo.css" >
+   <!-- Syntax highlighting of source code, can be removed -->
+   <link rel="stylesheet" href="../../common/css/pygments.css" >
+   
+<style>
+/* make room for countdown */
+.flowplayer {
+   margin-bottom: 80px;
+}
+/* discourage no-op clicks on player area */
+.flowplayer * {
+   cursor: default !important;
+}
+/* the countdown area */
+.flowplayer.aside-time .fp-time {
+   top: 110%; /* below player */
+   left: 20px;
+   width: 8em;
+   height: 4ex;
+   padding: 2ex 0 0 1em;
+   background-color: #333;
+   -webkit-border-radius: 8px;
+   -moz-border-radius: 8px;
+   border-radius: 8px;
+   -webkit-box-shadow: 0 0 15px #000;
+   -moz-box-shadow: 0 0 15px #000;
+   box-shadow: 0 0 15px #000;
+}
+/* hide duration and elapsed time */
+.flowplayer.aside-time .fp-duration, .flowplayer.aside-time .fp-elapsed {
+   display: none;
+}
+/* always show remaining time */
+.flowplayer .fp-remaining {
+   display: block;
+   font-size: 200%;
+}
+/* hide re-play button during redirect */
+.is-finished.flowplayer .fp-ui {
+   background-image: none;
+}
+
+/* logo always visible */
+.flowplayer .fp-logo {
+   display: block;
+   opacity: 1 !important;
+}
+
+/* custom context menu */
+.flowplayer .fp-context-menu .heading {
+   font-weight: bold;
+}
+.flowplayer .fp-context-menu a {
+   cursor: pointer !important;
+}</style>
+
+         <!-- Flowplayer commercial library -->
+   <script src="../../common/releases/6.0.5/commercial/flowplayer.min.js" ></script>
+         <!-- The hlsjs plugin for playback of HLS without Flash in modern browsers -->
+   <script src="../../common/releases/hlsjs/flowplayer.hlsjs.min.js" ></script>
+            
+   
+<script>
+window.onload = function () {
+
+  flowplayer("#player", {
+    autoplay: true,
+    keyboard: false,
+    fullscreen: false,
+    embed: false,
+    ratio: 3/8,
+    logo: "https://flowplayer.org/media/img/mylogo.png",
+    key: "$775445646737769, $863732616083910",
+    clip: {
+      hlsjs: {
+        // let hlsjs plugin pick optimal quality before playback starts
+        startLevel: -1
+      },
+      sources: [
+        { type: "application/x-mpegurl", src: "http://edge.flowplayer.org/download.m3u8" },
+        { type: "video/webm",            src: "http://edge.flowplayer.org/download.webm" },
+        { type: "video/mp4",             src: "http://edge.flowplayer.org/download.mp4"  }
+      ]
+    }
+
+  }).on("ready", function (e, api) {
+    // to avoid getting stuck on devices which do not allow autoplay
+    // we delay disabling the api
+    api.disable(true);
+
+  }).on("finish", function () {
+    // redirect to this page
+    location.href = "site-intro-doc.html";
+
+  });
+
+};</script>
+
+</head>
+
+<body>
+
+   <div id="content">
+
+      <h1>Flowplayer · Site intro</h1>
+
+<div id="player" class="fixed-controls aside-time no-volume no-mute is-inverted">
+   <div class="fp-context-menu">
+      <ul>
+         <li class="heading">Custom context menu</li>
+
+         <li><a href="site-intro-doc.html" >Skip this intro</a></li>
+      </ul>
+   </div>
+</div>
+
+<div class="info">
+   <p>This demo simulates a video welcome page to a website.</p>
+
+   <p>All user interaction with the player is disabled, except via the customized
+   <a href="https://flowplayer.org/v6docs/skinning.html#context-menu">context menu</a> which
+   offers to skip the intro.</p>
+
+   <p>At the end of the video you will be redirected to the documentation for this demo.</p>
+</div>
+
+
+
+<div class="footer">
+    <p><a href="index.html" >Demos in this section</a></p>
+
+  <hr>
+
+  <p><a href="../index.htm" >Version 6 Demos</a></p>
+
+  <p><a href="../../index.htm" >Flowplayer Demos+</a></p>
+
+  <hr>
+
+  <p><a href="https://flowplayer.org/v6docs/">Version 6 Docs</a></p>
+</div>
+   </div> <!-- end content -->
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+
+<!doctype html>
+
+<html>
+
+<head>
+   <meta charset="utf-8">
+
+      <title>Flowplayer · Background plugin</title>
+   
+   <!-- optimize mobile versions -->
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+      <!-- The "functional" skin - choose from: "functional.css", "minimalist.css", "playful.css" -->
+   <link rel="stylesheet" href="../../common/releases/6.0.5/skin/functional.css" >
+   
+   <!-- Minimal styling for this standalone page, can be removed -->
+   <link rel="stylesheet" href="../../common/css/demo.css" >
+   <!-- Syntax highlighting of source code, can be removed -->
+   <link rel="stylesheet" href="../../common/css/pygments.css" >
+      <!-- Specific stylesheet for this demo -->
+   <link rel="stylesheet" href="../../common/releases/background/flowplayer.background.css" >
+   
+<style>
+#content {
+  max-width: 720px;
+}
+
+body {
+  background-color: #d3edf8;
+}
+#background,
+#background.is-loading {
+  background-color: #9cf;
+  background-image: url("../../common/media/202777/210503-snap.jpg");
+}
+#background-trigger {
+  display: none; /* show only when needed */
+  position: fixed;
+  top: 10px;
+  right: 5px;
+  background-color: #80bfff;
+  color: #fff;
+  font-size: 90%;
+  padding: 6px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+</style>
+
+         <!-- Flowplayer library -->
+   <script src="../../common/releases/6.0.5/flowplayer.min.js" ></script>
+         <!-- The hlsjs plugin for playback of HLS without Flash in modern browsers -->
+   <script src="../../common/releases/hlsjs/flowplayer.hlsjs.min.js" ></script>
+            
+      <!-- Specific script for this demo -->
+   <script src="../../common/releases/background/flowplayer.background.min.js" ></script>
+   
+<script>
+flowplayer(function (api) {
+  // work around iOS HLS loop bug
+  if (/iP(hone|ad|od)/.test(navigator.userAgent)) {
+    api.on("ready", function (e, api, video) {
+      if (video.type.toLowerCase().indexOf("mpegurl") > -1) {
+        api.addCuepoint(video.duration);
+      }
+    }).on("cuepoint", function (e, api) {
+      api.seek(0).resume();
+    });
+  }
+});
+
+window.onload = function () {
+  var bgTrigger = document.getElementById("background-trigger"),
+      bgStateToggle = bgTrigger.querySelector("span"),
+      autoplay = flowplayer.support.firstframe,
+
+  bgPlayer = flowplayer("#background", {
+
+    // show this video in the background
+    background: true,
+
+    ratio: 16/9,
+    clip: {
+      sources: [
+        { type: "application/x-mpegurl",
+          src:  "http://cdn.flowplayer.org/202777/210503.m3u8" },
+        { type: "video/mp4",
+          src:  "http://cdn.flowplayer.org/202777/210503.mp4" }
+      ]
+    }
+  }).on("load unload", function (e, api) {
+    bgStateToggle.innerHTML = e.type.indexOf("u") < 0 ? "Stop" : "Start";
+
+  });
+
+
+  if (!autoplay) {
+    bgTrigger.style.display = "inline";
+
+    bgTrigger.onclick = function () {
+      if (bgPlayer.ready) {
+        bgPlayer.unload();
+      } else {
+        bgPlayer.load();
+      }
+    };
+  }
+
+};
+
+</script>
+
+</head>
+
+<body>
+
+   <div id="content">
+
+      <h1>Flowplayer · Background plugin</h1>
+
+
+<div class="info">
+  <p>The <a href="https://flowplayer.org/v6docs/plugins.html#background">background plugin</a>
+  provides an easy way to show a video as background "image" of the page.</p>
+
+  <p>On devices which do not allow autoplay a button to start/stop the video is offered.</p>
+</div>
+
+<h2 id="head-setup">&lt;head/&gt;</h2>
+
+<p class="doc">Load the background stylesheet and plugin:</p>
+
+<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="c">&lt;!-- the background plugin stylesheet --&gt;</span><br /><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span><br />      <span class="na">href</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/background/flowplayer.background.css&quot;</span><span class="p">&gt;</span><br />&nbsp;<br /><span class="c">&lt;!-- ... --&gt;</span><br /><span class="c">&lt;!-- Flowplayer library --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/6.0.5/flowplayer.min.js&quot;</span><span class="p">&gt;</span><br /><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /><span class="c">&lt;!-- Flowplayer hlsjs engine --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js&quot;</span><span class="p">&gt;</span><br /><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /><span class="c">&lt;!-- Flowplayer background  plugin --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/background/flowplayer.background.min.js&quot;</span><span class="p">&gt;</span><br /><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
+
+
+<h3 id="css-setup">&lt;style&gt;</h3>
+
+<p class="doc">Show a "real" background image on devices which do not allow autoplay:</p>
+
+<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="nt">body</span> <span class="p">{</span><br />  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#d3edf8</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">#</span><span class="nn">background</span><span class="o">,</span><br /><span class="p">#</span><span class="nn">background</span><span class="p">.</span><span class="nc">is-loading</span> <span class="p">{</span><br />  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#9cf</span><span class="p">;</span><br />  <span class="k">background-image</span><span class="p">:</span> <span class="nb">url</span><span class="p">(</span><span class="sx">//cdn.flowplayer.org/202777/210503-snap.jpg</span><span class="p">);</span><br /><span class="p">}</span><br /><span class="p">#</span><span class="nn">background-trigger</span> <span class="p">{</span><br />  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span> <span class="c">/* show only when needed */</span><br />  <span class="k">position</span><span class="p">:</span> <span class="kc">fixed</span><span class="p">;</span><br />  <span class="k">top</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span><br />  <span class="k">right</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span><br />  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#80bfff</span><span class="p">;</span><br />  <span class="k">color</span><span class="p">:</span> <span class="mh">#fff</span><span class="p">;</span><br />  <span class="k">font-size</span><span class="p">:</span> <span class="mi">90</span><span class="kt">%</span><span class="p">;</span><br />  <span class="k">padding</span><span class="p">:</span> <span class="mi">6</span><span class="kt">px</span><span class="p">;</span><br />  <span class="kp">-webkit-</span><span class="k">border-radius</span><span class="p">:</span> <span class="mi">3</span><span class="kt">px</span><span class="p">;</span><br />  <span class="kp">-moz-</span><span class="k">border-radius</span><span class="p">:</span> <span class="mi">3</span><span class="kt">px</span><span class="p">;</span><br />  <span class="k">border-radius</span><span class="p">:</span> <span class="mi">3</span><span class="kt">px</span><span class="p">;</span><br />  <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span><br /><span class="p">}</span><br /></pre></div><br /><figcaption>CSS</figcaption></figure></div>
+
+
+<h3 id="javascript-setup">&lt;script&gt;</h3>
+
+<p class="doc">Install the player, and enable background video with the <code>background</code>
+option:</p>
+
+<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="nx">flowplayer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">api</span><span class="p">)</span> <span class="p">{</span><br />  <span class="c1">// work around iOS HLS loop bug</span><br />  <span class="k">if</span> <span class="p">(</span><span class="sr">/iP(hone|ad|od)/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">))</span> <span class="p">{</span><br />    <span class="nx">api</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;ready&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span class="nx">video</span><span class="p">)</span> <span class="p">{</span><br />      <span class="k">if</span> <span class="p">(</span><span class="nx">video</span><span class="p">.</span><span class="nx">type</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;mpegurl&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span><br />        <span class="nx">api</span><span class="p">.</span><span class="nx">addCuepoint</span><span class="p">(</span><span class="nx">video</span><span class="p">.</span><span class="nx">duration</span><span class="p">);</span><br />      <span class="p">}</span><br />    <span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;cuepoint&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span class="p">{</span><br />      <span class="nx">api</span><span class="p">.</span><span class="nx">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">resume</span><span class="p">();</span><br />    <span class="p">});</span><br />  <span class="p">}</span><br /><span class="p">});</span><br />&nbsp;<br /><span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br />  <span class="kd">var</span> <span class="nx">bgTrigger</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;background-trigger&quot;</span><span class="p">),</span><br />      <span class="nx">bgStateToggle</span> <span class="o">=</span> <span class="nx">bgTrigger</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;span&quot;</span><span class="p">),</span><br />      <span class="nx">autoplay</span> <span class="o">=</span> <span class="nx">flowplayer</span><span class="p">.</span><span class="nx">support</span><span class="p">.</span><span class="nx">firstframe</span><span class="p">,</span><br />&nbsp;<br />  <span class="nx">bgPlayer</span> <span class="o">=</span> <span class="nx">flowplayer</span><span class="p">(</span><span class="s2">&quot;#background&quot;</span><span class="p">,</span> <span class="p">{</span><br />&nbsp;<br />    <span class="c1">// show this video in the background</span><br />    <span class="nx">background</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span><br />&nbsp;<br />    <span class="nx">ratio</span><span class="o">:</span> <span class="mi">16</span><span class="o">/</span><span class="mi">9</span><span class="p">,</span><br />    <span class="nx">clip</span><span class="o">:</span> <span class="p">{</span><br />      <span class="nx">sources</span><span class="o">:</span> <span class="p">[</span><br />        <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;application/x-mpegurl&quot;</span><span class="p">,</span><br />          <span class="nx">src</span><span class="o">:</span>  <span class="s2">&quot;//cdn.flowplayer.org/202777/210503.m3u8&quot;</span> <span class="p">},</span><br />        <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;video/mp4&quot;</span><span class="p">,</span><br />          <span class="nx">src</span><span class="o">:</span>  <span class="s2">&quot;//cdn.flowplayer.org/202777/210503.mp4&quot;</span> <span class="p">}</span><br />      <span class="p">]</span><br />    <span class="p">}</span><br />  <span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;load unload&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span class="p">{</span><br />    <span class="nx">bgStateToggle</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">type</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;u&quot;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="s2">&quot;Stop&quot;</span> <span class="o">:</span> <span class="s2">&quot;Start&quot;</span><span class="p">;</span><br />&nbsp;<br />  <span class="p">});</span><br />&nbsp;<br /><br />  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">autoplay</span><span class="p">)</span> <span class="p">{</span><br />    <span class="nx">bgTrigger</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&quot;inline&quot;</span><span class="p">;</span><br />&nbsp;<br />    <span class="nx">bgTrigger</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br />      <span class="k">if</span> <span class="p">(</span><span class="nx">bgPlayer</span><span class="p">.</span><span class="nx">ready</span><span class="p">)</span> <span class="p">{</span><br />        <span class="nx">bgPlayer</span><span class="p">.</span><span class="nx">unload</span><span class="p">();</span><br />      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span><br />        <span class="nx">bgPlayer</span><span class="p">.</span><span class="nx">load</span><span class="p">();</span><br />      <span class="p">}</span><br />    <span class="p">};</span><br />  <span class="p">}</span><br />&nbsp;<br /><span class="p">};</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></div>
+
+
+<h2 id="html-setup">&lt;body/&gt;</h2>
+
+<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="c">&lt;!-- ... --&gt;</span><br /><span class="c">&lt;!-- foreground content above --&gt;</span><br />&nbsp;<br /><span class="c">&lt;!-- offer background video playback on devices not allowing autoplay --&gt;</span><br /><span class="p">&lt;</span><span class="nt">p</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;background-trigger&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span><span class="p">&gt;</span>Start<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> background video<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span><br />&nbsp;<br /><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;background&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
+
+
+<!-- ... -->
+<!-- foreground content above -->
+
+<!-- offer background video playback on devices not allowing autoplay -->
+<p id="background-trigger"><span>Start</span> background video</p>
+
+<div id="background"></div>
+
+
+
+<div class="footer">
+    <p><a href="index.html" >Demos in this section</a></p>
+
+  <hr>
+
+  <p><a href="../index.htm" >Version 6 Demos</a></p>
+
+  <p><a href="../../index.htm" >Flowplayer Demos+</a></p>
+
+  <hr>
+
+  <p><a href="https://flowplayer.org/v6docs/">Version 6 Docs</a></p>
+</div>
+   </div> <!-- end content -->
+
+</body>
+</html>

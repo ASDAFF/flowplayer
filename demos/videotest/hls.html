@@ -1,0 +1,83 @@
+
+<!doctype html>
+
+<html>
+
+<head>
+   <meta charset="utf-8">
+   
+   
+      <title>Flowplayer · HLS source</title>
+   
+   <!-- optimize mobile versions -->
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+      <!-- Flowplayer skin -->
+   <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css" >
+   
+   <!-- Minimal styling for this standalone page, can be removed -->
+   <link rel="stylesheet" href="../common/css/demo.css" >
+   <!-- Syntax highlighting of source code, can be removed -->
+   <link rel="stylesheet" href="../common/css/pygments.css" >
+   
+      <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
+   <script src="../common/jquery/jquery-1.12.4.min.js" ></script>
+         <!-- Flowplayer library -->
+   <script src="../common/releases/7.0.4/flowplayer.min.js" ></script>
+         
+   
+</head>
+
+<body>
+
+   <div id="content">
+
+      <h1>HLS source</h1>
+
+<div>
+   <video controls width="720" height="300">
+       <source type="application/x-mpegurl"
+               src="http://cdn.flowplayer.org/202777/84049-bauhaus.m3u8">
+   </video>
+</div>
+
+<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><br />   <span class="p">&lt;</span><span class="nt">video</span> <span class="na">controls</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;720&quot;</span> <span class="na">height</span><span class="o">=</span><span class="s">&quot;300&quot;</span><span class="p">&gt;</span><br />       <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;application/x-mpegurl&quot;</span><br />               <span class="na">src</span><span class="o">=</span><span class="s">&quot;//cdn.flowplayer.org/202777/84049-bauhaus.m3u8&quot;</span><span class="p">&gt;</span><br />   <span class="p">&lt;/</span><span class="nt">video</span><span class="p">&gt;</span><br /><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
+
+
+
+<div class="browser-information">
+  <h3>Browser information</h3>
+  <table>
+    <tr>
+      <th>Browser user agent</th><td class="browser"></td>
+    </tr>
+    <tr>
+      <th><pre>canPlayType('application/x-mpegurl')</pre><td class="mime"></td></th>
+    </tr>
+  </table>
+</div>
+
+
+
+<div class="footer">
+    <p><a href="index.html" >Demos in this section</a></p>
+
+  <hr>
+
+  <p><a href="../index.html" >Flowplayer Demos+</a></p>
+
+  <hr>
+
+  <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
+
+  <hr>
+
+  <p><a href="../v6/index.html" >Version 6 Demos</a></p>
+</div>
+   </div> <!-- end content -->
+<script>
+$('.browser').text(window.navigator.userAgent.toString());
+$('.mime').text(document.createElement('video').canPlayType('application/x-mpegurl') || '(empty string)');
+</script>
+</body>
+</html>

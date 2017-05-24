@@ -1,62 +1,67 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-   <meta charset="utf-8"/>
+    <meta charset="utf-8"/>
 
-   <!-- player skin -->
-   <link rel="stylesheet" type="text/css" href="../dist/skin/minimalist.css?f" />
+    <!-- player skin -->
+    <link rel="stylesheet" type="text/css" href="../dist/skin/skin.css"/>
 
-   <!-- site specific styling -->
-   <style>
-   body {
-      font: 12px "Myriad Pro", "Lucida Grande", sans-serif;
-      text-align: center;
-      padding-top: 1%;
-   }
-   .flowplayer { width: 70%; }
-   </style>
+    <!-- site specific styling -->
+    <style>
+        body {
+            font: 12px "Myriad Pro", "Lucida Grande", sans-serif;
+            text-align: center;
+            padding-top: 1%;
+        }
 
-   <!-- include flowplayer -->
-   <script src="../dist/flowplayer.js?i"></script>
+        .flowplayer {
+            width: 70%;
+        }
+    </style>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+    <!-- include flowplayer -->
+    <script src="../dist/flowplayer.js"></script>
 
 </head>
 
 <body>
 
-   <!-- the player -->
-   <div class="flowplayer play-button"
-      -data-engine="flash"
-      data-swf="../dist/flowplayer.swf"
-      data-rtmp="rtmp://s3b78u0kbtx79q.cloudfront.net/cfx/st"
-      data-ratio=".4167">
+<!-- the player -->
+<div class="flowplayer"
+     -data-engine="flash"
+     data-swf="../dist/flowplayer.swf"
+     data-rtmp="rtmp://s3b78u0kbtx79q.cloudfront.net/cfx/st"
+     data-ratio=".4167">
 
-      <script type="application/json">
-      {
-        "splash": true,
-        "clip": {
-          "preload": "none",
-          "sources": [
-            {
-              "type": "video/webm",
-              "src": "http://edge.flowplayer.org/bauhaus/624x260.webm"
-            },
-            {
-              "type": "video/mp4",
-              "src": "http://edge.flowplayer.org/bauhaus/624x260.mp4"
+    <script type="application/json">
+        {
+            "splash": true,
+            "clip": {
+                "preload": "none",
+                "sources": [
+                    {
+                        "type": "video/webm",
+                        "src": "http://edge.flowplayer.org/bauhaus/624x260.webm"
+                    },
+                    {
+                        "type": "video/mp4",
+                        "src": "http://edge.flowplayer.org/bauhaus/624x260.mp4"
+                    }
+                ]
             }
-          ]
         }
-      }
-      </script>
-      <noscript>
+    </script>
+    <noscript>
         <video>
-           <source type="video/mp4"   src="http://edge.flowplayer.org/bauhaus/624x260.mp4"/>
-           <source type="video/webm"  src="http://edge.flowplayer.org/bauhaus/624x260.webm"/>
-           <source type="video/ogg"   src="http://edge.flowplayer.org/bauhaus/624x260.ogv"/>
+            <source type="video/mp4" src="http://edge.flowplayer.org/bauhaus/624x260.mp4"/>
+            <source type="video/webm" src="http://edge.flowplayer.org/bauhaus/624x260.webm"/>
+            <source type="video/ogg" src="http://edge.flowplayer.org/bauhaus/624x260.ogv"/>
         </video>
-      </noscript>
-    </div>
+    </noscript>
+</div>
 
 
 </body>
-
+</html>
