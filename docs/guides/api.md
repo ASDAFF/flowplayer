@@ -1,18 +1,18 @@
 *   [JavaScript API](#javascript-api)
-*   + [Global API access](#global-api-access)
-    *   [Console screenshot](#console-screenshot)
-*   [Selective API access](#selective-api-access)
-*   [Instant API access](#instant-api-access)
-*   + [Properties](#properties)
-    *   [Extension and plugin properties](#extension-and-plugin-properties)
-*   + [Video object](#video-object)
+*   [Доступ к глобальному API](#global-api-access)
+    *   [Скриншот консоли](#console-screenshot)
+*   [Выборочный доступ к API](#selective-api-access)
+*   [Мгновенный доступ к API](#instant-api-access)
+*   [Свойства](#properties)
+    *   [Свойства расширений и плагинов](#extension-and-plugin-properties)
+*   [Объект Video](#video-object)
     *   [Extension and plugin video properties](#extension-and-plugin-video-properties)
-*   + [Methods](#methods)
-    *   [Extension methods](#extension-methods)
+*   [Методы](#methods)
+    *   [Методы расширений](#extension-methods)
 *   + [Load method](#load-method)
     *   [Load player](#load-player)
     *   [Load video](#load-video)
-*   + [Events](#events)
+*   + [События](#events)
     *   [Error codes](#error-codes)
     *   [Extension events](#extension-events)
 *   + [Attaching events](#attaching-events)
@@ -33,7 +33,7 @@
 # JavaScript API
 
 *   **Note** Sections exclusively dedicated to [VIDEO tag based installations](setup.md#video-tag-based) are flagged with a pink **border**, sections exclusively dedicated to [pure JavaScript installations](/docs/setup.html#javascript-install) with a **green border**.  
-    Advanced opions and functions are colored **red**.
+    Advanced opions and functions are colored <span style='color: red;'>red</span>.
 
 # Global API access
 
