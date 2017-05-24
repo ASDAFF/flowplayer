@@ -1,5 +1,5 @@
 *   [JavaScript API](#javascript-api)
-*   [Доступ к глобальному API](#global-api-access)
+*   [Доступ к глобальному API](#доступ-к-глобальному-API)
     *   [Скриншот консоли](#console-screenshot)
 *   [Выборочный доступ к API](#selective-api-access)
 *   [Мгновенный доступ к API](#instant-api-access)
@@ -32,12 +32,12 @@
 
 # JavaScript API
 
-*   **Note** Sections exclusively dedicated to [VIDEO tag based installations](setup.md#video-tag-based) are flagged with a pink **border**, sections exclusively dedicated to [pure JavaScript installations](/docs/setup.html#javascript-install) with a **green border**.  
-    Advanced opions and functions are colored <span style='color: red;'>red</span>.
+*   **Примечание** Разделы, посвященные исключительно установке на основе тегов VIDEO, отмечены **розовой рамкой**. Разделы, посвященные исключительно установке на чистом JavaScript помечены **зеленой рамкой**.
+     Дополнительные параметры и функции окрашены в красный цвет.
 
-# Global API access
+# Доступ к глобальному API
 
-Use the `flowplayer` function to get a global handle on the API. Here we attach two custom [events](api.md#events) to the API of all players which will be installed on the page:
+Используйте функцию `flowplayer`, чтобы получить глобальный дескриптор к API. Здесь мы присоединяем два пользовательских [события](api.md#события) к API всех проигрывателей, которые будут установлены на странице:
 
 ```js
 flowplayer(function (api, root) {
