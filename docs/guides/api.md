@@ -12,7 +12,7 @@
 *   + [Load method](#load-method)
     *   [Load player](#load-player)
     *   [Load video](#load-video)
-*   + [События](#events)
+*   [События](#события)
     *   [Error codes](#error-codes)
     *   [Extension events](#extension-events)
 *   + [Attaching events](#attaching-events)
@@ -55,9 +55,9 @@ flowplayer(function (api, root) {
 });
 ```
 
-View [standalone demo](/standalone/api/access.html).
+Смотреть [автономную демонстрацию](https://flowplayer.org/standalone/api/access.html).
 
-This anonymous callback function is provided by the Flowplayer library and is called every time a Flowplayer instance is created. Think of it as a "mini-plugin".
+Эта анонимная функция обратного вызова предоставляется библиотекой Flowplayer и вызывается каждый раз, когда создается экземпляр Flowplayer. Считайте что это как «мини-плагин».This anonymous callback function is provided by the Flowplayer library and is called every time a Flowplayer instance is created. Think of it as a "mini-plugin".
 
 You use it to customize the default **behaviour** of all players on your page in a similar manner as you set [global configuration](setup.md#global-javascript-configuration) options, and thus it should be called right after the flowplayer script is included in the [HEAD section](setup.md#prerequisites) of the page and _before_ the page is loaded - before the [DOM](http://www.w3schools.com/js/js_htmldom.asp) (Document Object Model) is ready.
 
@@ -119,7 +119,7 @@ var api = flowplayer("#player", {
 Contrary to the other [selective API access methods](/docs/api.html#selective-api-access) the API is accessible in a 1-step operation.
 
 
-# Properties
+# Свойства
 
 During its life cycle the player is in varying states which are reflected in the the properties of the API. Here is a complete list of the API properties:
 
@@ -1032,7 +1032,7 @@ api.load({
 
 The callback function will be invoked when the player is ready and the new video is about to start.
 
-# Events
+# События
 
 The [attaching methods](/docs/api.html#attaching-events) can be used to execute custom JavaScript when a specified [event](/docs/api.html#events) happens in the player. For example:
 
