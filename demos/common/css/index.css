@@ -2,7 +2,7 @@ body {
 	color: #777;
 }
 #content {
-	background: url("../../../flowplayer.org/media/img/logo-blue.png") center 42% no-repeat;
+	background: url("../media/img/logo-blue.png") center 42% no-repeat;
 	background-size: 60%;
 }
 ul {
