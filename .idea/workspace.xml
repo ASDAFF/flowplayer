@@ -2,25 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="677169d3-4d0f-4127-bf1c-1fa6f9b4df51" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demos/v6/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/css/demo.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/index.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.eslintignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.eslintrc" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.npmignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.travis.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Gemfile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Rakefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/browserslist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/postcss.config.json" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/amazon.html" afterPath="$PROJECT_DIR$/test/amazon.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/configuration-object.html" afterPath="$PROJECT_DIR$/test/configuration-object.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/flow/index.html" afterPath="$PROJECT_DIR$/test/flow/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demos/basics/bad-url.html" afterPath="$PROJECT_DIR$/demos/basics/bad-url.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -35,21 +18,21 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="1080p.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/demos/basics/1080p.html">
+      <file leaf-file-name="autoplay.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/demos/basics/autoplay.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2771">
-              <caret line="149" column="8" lean-forward="false" selection-start-line="149" selection-start-column="8" selection-end-line="149" selection-end-column="8" />
+            <state relative-caret-position="187">
+              <caret line="70" column="10" lean-forward="false" selection-start-line="70" selection-start-column="10" selection-end-line="70" selection-end-column="10" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="adaptiveratio.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/demos/basics/adaptiveratio.html">
+      <file leaf-file-name="bad-url.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/demos/basics/bad-url.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="101">
-              <caret line="109" column="10" lean-forward="false" selection-start-line="109" selection-start-column="10" selection-end-line="109" selection-end-column="10" />
+            <state relative-caret-position="3400">
+              <caret line="187" column="0" lean-forward="true" selection-start-line="187" selection-start-column="0" selection-end-line="187" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -111,11 +94,12 @@
         <option value="$PROJECT_DIR$/demos/api/audio.html" />
         <option value="$PROJECT_DIR$/demos/api/background.html" />
         <option value="$PROJECT_DIR$/demos/ads/embedded-ads.html" />
-        <option value="$PROJECT_DIR$/demos/basics/bad-url.html" />
         <option value="$PROJECT_DIR$/demos/basics/dvr.html" />
         <option value="$PROJECT_DIR$/demos/basics/minimal.html" />
         <option value="$PROJECT_DIR$/demos/basics/1080p.html" />
         <option value="$PROJECT_DIR$/demos/basics/adaptiveratio.html" />
+        <option value="$PROJECT_DIR$/demos/basics/autoplay.html" />
+        <option value="$PROJECT_DIR$/demos/basics/bad-url.html" />
       </list>
     </option>
   </component>
@@ -311,12 +295,20 @@
       <workItem from="1495620755300" duration="7554000" />
       <workItem from="1495630678730" duration="1181000" />
       <workItem from="1495633981339" duration="4423000" />
-      <workItem from="1495639824472" duration="1132000" />
+      <workItem from="1495639824472" duration="1391000" />
     </task>
+    <task id="LOCAL-00001" summary="Update">
+      <created>1495641179289</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1495641179289</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16423000" />
+    <option name="totallyTimeSpent" value="16682000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1370" height="744" extended-state="0" />
@@ -349,7 +341,8 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="Update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -618,22 +611,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demos/basics/autoplay.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1225">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demos/basics/bad-url.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3570">
-          <caret line="195" column="0" lean-forward="false" selection-start-line="195" selection-start-column="0" selection-end-line="195" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/demos/basics/dvr.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2738">
@@ -662,6 +639,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="101">
           <caret line="109" column="10" lean-forward="false" selection-start-line="109" selection-start-column="10" selection-end-line="109" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demos/basics/autoplay.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="70" column="10" lean-forward="false" selection-start-line="70" selection-start-column="10" selection-end-line="70" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demos/basics/bad-url.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3400">
+          <caret line="187" column="0" lean-forward="true" selection-start-line="187" selection-start-column="0" selection-end-line="187" selection-end-column="0" />
           <folding />
         </state>
       </provider>
