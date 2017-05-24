@@ -226,1107 +226,198 @@ Normally player controls are shown when hovering over the player or in paused [s
 
 Change the looks of the timeline with CSS classes.
 
-<section class="level2" id="section_slim">
 
 ## Slim
 
 A slim timeline, expanding on mouseover, can be set up by adding the `fp-slim` class to the container element.
 
-<div class="flowplayer fp-slim fp-default-playlist is-ready is-paused is-mouseout" data-aspect-ratio="12:5" data-flowplayer-instance-id="4">
-
-<div class="fp-player">
-
-<div class="fp-ui">
-
-<div class="fp-header"><a class="fp-share fp-icon"></a><a class="fp-fullscreen fp-icon"></a><a class="fp-unload fp-icon"></a></div>
-
-<div class="fp-play fp-visible"><a class="fp-icon fp-playbtn"></a><svg class="fp-play-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.a { fill: #000; opacity: 0.65; } .b { fill: #fff; opacity: 1.0; }</style></defs> <title>play-rounded-fill</title> </svg><svg class="fp-play-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-rounded-outline</title> </svg><svg class="fp-play-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-fill</title> </svg><svg class="fp-play-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.controlbuttonbg { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-outline</title></svg></div>
-
-<div class="fp-pause"><a class="fp-icon fp-playbtn"></a><svg class="fp-pause-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-outline</title> </svg><svg class="fp-pause-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-fill</title> </svg><svg class="fp-pause-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-outline</title> </svg><svg class="fp-pause-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-fill</title></svg></div>
-
-<div class="fp-controls"><a class="fp-icon fp-playbtn"></a><span class="fp-elapsed">00:00</span>
-
-<div class="fp-timeline fp-bar"><span class="fp-timestamp"></span></div>
-
-<span class="fp-duration">00:28</span> <span class="fp-remaining">00:28</span>
-
-<div class="fp-volume"><a class="fp-icon fp-volumebtn"></a></div>
-
-**CC**</div>
-
-<div class="fp-menu fp-share-menu">**Share**<a class="fp-icon fp-twitter">Twitter</a><a class="fp-icon fp-embed" title="Copy to your site">Embed</a></div>
-
-<div class="fp-menu fp-subtitle-menu">**Closed Captions**<a data-subtitle-index="-1" class="fp-selected">No subtitles</a></div>
-
+```html
+<div class="flowplayer fp-slim"
+     data-aspect-ratio="12:5">
+   <video>
+      <source type="video/webm"
+              src="//edge.flowplayer.org/functional.webm">
+      <source type="video/mp4"
+              src="//edge.flowplayer.org/functional.mp4">
+      </video>
 </div>
-
-<div class="fp-help"><a class="fp-close"></a>
-
-<div class="fp-help-section fp-help-basics">
-
-_space_play / pause
-
-_q_unload | stop
-
-_f_fullscreen
-
-_shift_ + _←__→_slower / faster
-
-</div>
-
-<div class="fp-help-section">
-
-_↑__↓_volume
-
-_m_mute
-
-</div>
-
-<div class="fp-help-section">
-
-_←__→_seek
-
-_ ._ seek to previous
-
-_1__2_… _6_ seek to 10%, 20% … 60%
-
-</div>
-
-</div>
-
-<div class="fp-context-menu fp-menu">**© 2017 Flowplayer**[About Flowplayer](https://flowplayer.org/hello)[GPL based license](https://flowplayer.org/license)</div>
-
-</div>
-
-[](https://flowplayer.org/hello)</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-<div id="fpslim-html" class="codetoggle">
-
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"flowplayer fp-slim"</span>  
-     <span class="na">data-aspect-ratio</span><span class="o">=</span><span class="s">"12:5"</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">video</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/webm"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.webm"</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/mp4"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.mp4"</span><span class="p">></span>  
-      <span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
-</div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-</div>
-
-[view standalone page](/standalone/skin/slim.html)
-
-</section>
-
-<section class="level2" id="section_full">
+```
 
 ## Full
 
 Positions the timeline above the controlbar buttons and makes it span the whole width, similar to the YouTube player. Can be set up by adding the `fp-full` class to the container element.
 
-<div class="flowplayer fp-full fp-default-playlist is-ready is-paused is-mouseout" data-aspect-ratio="12:5" data-flowplayer-instance-id="5">
-
-<div class="fp-player">
-
-<div class="fp-ui">
-
-<div class="fp-header"><a class="fp-share fp-icon"></a><a class="fp-fullscreen fp-icon"></a><a class="fp-unload fp-icon"></a></div>
-
-<div class="fp-play fp-visible"><a class="fp-icon fp-playbtn"></a><svg class="fp-play-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.a { fill: #000; opacity: 0.65; } .b { fill: #fff; opacity: 1.0; }</style></defs> <title>play-rounded-fill</title> </svg><svg class="fp-play-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-rounded-outline</title> </svg><svg class="fp-play-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-fill</title> </svg><svg class="fp-play-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.controlbuttonbg { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-outline</title></svg></div>
-
-<div class="fp-pause"><a class="fp-icon fp-playbtn"></a><svg class="fp-pause-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-outline</title> </svg><svg class="fp-pause-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-fill</title> </svg><svg class="fp-pause-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-outline</title> </svg><svg class="fp-pause-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-fill</title></svg></div>
-
-<div class="fp-controls"><a class="fp-icon fp-playbtn"></a><span class="fp-elapsed">00:00</span>
-
-<div class="fp-timeline fp-bar"><span class="fp-timestamp"></span></div>
-
-<span class="fp-duration">00:28</span> <span class="fp-remaining">00:28</span>
-
-<div class="fp-volume"><a class="fp-icon fp-volumebtn"></a></div>
-
-**CC**</div>
-
-<div class="fp-menu fp-share-menu">**Share**<a class="fp-icon fp-twitter">Twitter</a><a class="fp-icon fp-embed" title="Copy to your site">Embed</a></div>
-
-<div class="fp-menu fp-subtitle-menu">**Closed Captions**<a data-subtitle-index="-1" class="fp-selected">No subtitles</a></div>
-
+```html
+<div class="flowplayer fp-full"
+     data-aspect-ratio="12:5">
+   <video>
+      <source type="video/webm"
+              src="//edge.flowplayer.org/functional.webm">
+      <source type="video/mp4"
+              src="//edge.flowplayer.org/functional.mp4">
+      </video>
 </div>
-
-<div class="fp-help"><a class="fp-close"></a>
-
-<div class="fp-help-section fp-help-basics">
-
-_space_play / pause
-
-_q_unload | stop
-
-_f_fullscreen
-
-_shift_ + _←__→_slower / faster
-
-</div>
-
-<div class="fp-help-section">
-
-_↑__↓_volume
-
-_m_mute
-
-</div>
-
-<div class="fp-help-section">
-
-_←__→_seek
-
-_ ._ seek to previous
-
-_1__2_… _6_ seek to 10%, 20% … 60%
-
-</div>
-
-</div>
-
-<div class="fp-context-menu fp-menu">**© 2017 Flowplayer**[About Flowplayer](https://flowplayer.org/hello)[GPL based license](https://flowplayer.org/license)</div>
-
-</div>
-
-[](https://flowplayer.org/hello)</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-<div id="fpfull-html" class="codetoggle">
-
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"flowplayer fp-full"</span>  
-     <span class="na">data-aspect-ratio</span><span class="o">=</span><span class="s">"12:5"</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">video</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/webm"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.webm"</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/mp4"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.mp4"</span><span class="p">></span>  
-      <span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
-</div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-</div>
-
-[view standalone page](/standalone/skin/full.html)
-
-</section>
-
-<section class="level2" id="section_fat">
+```
 
 ## Fat
 
 To enhance the prominence of the brand color with a tall timeline add the `fp-fat` class to the container element.
 
-<div class="flowplayer fp-fat is-mouseout fp-default-playlist is-ready is-paused" data-aspect-ratio="12:5" data-flowplayer-instance-id="6">
-
-<div class="fp-player">
-
-<div class="fp-ui">
-
-<div class="fp-header"><a class="fp-share fp-icon"></a><a class="fp-fullscreen fp-icon"></a><a class="fp-unload fp-icon"></a></div>
-
-<div class="fp-play fp-visible"><a class="fp-icon fp-playbtn"></a><svg class="fp-play-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.a { fill: #000; opacity: 0.65; } .b { fill: #fff; opacity: 1.0; }</style></defs> <title>play-rounded-fill</title> </svg><svg class="fp-play-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-rounded-outline</title> </svg><svg class="fp-play-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-fill</title> </svg><svg class="fp-play-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.controlbuttonbg { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-outline</title></svg></div>
-
-<div class="fp-pause"><a class="fp-icon fp-playbtn"></a><svg class="fp-pause-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-outline</title> </svg><svg class="fp-pause-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-fill</title> </svg><svg class="fp-pause-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-outline</title> </svg><svg class="fp-pause-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-fill</title></svg></div>
-
-<div class="fp-controls"><a class="fp-icon fp-playbtn"></a><span class="fp-elapsed">00:00</span>
-
-<div class="fp-timeline fp-bar"><span class="fp-timestamp"></span></div>
-
-<span class="fp-duration">00:28</span> <span class="fp-remaining">00:28</span>
-
-<div class="fp-volume"><a class="fp-icon fp-volumebtn"></a></div>
-
-**CC**</div>
-
-<div class="fp-menu fp-share-menu">**Share**<a class="fp-icon fp-twitter">Twitter</a><a class="fp-icon fp-embed" title="Copy to your site">Embed</a></div>
-
-<div class="fp-menu fp-subtitle-menu">**Closed Captions**<a data-subtitle-index="-1" class="fp-selected">No subtitles</a></div>
-
+```html
+<div class="flowplayer fp-fat"
+     data-aspect-ratio="12:5">
+   <video>
+      <source type="video/webm"
+              src="//edge.flowplayer.org/functional.webm">
+      <source type="video/mp4"
+              src="//edge.flowplayer.org/functional.mp4">
+      </video>
 </div>
-
-<div class="fp-help"><a class="fp-close"></a>
-
-<div class="fp-help-section fp-help-basics">
-
-_space_play / pause
-
-_q_unload | stop
-
-_f_fullscreen
-
-_shift_ + _←__→_slower / faster
-
-</div>
-
-<div class="fp-help-section">
-
-_↑__↓_volume
-
-_m_mute
-
-</div>
-
-<div class="fp-help-section">
-
-_←__→_seek
-
-_ ._ seek to previous
-
-_1__2_… _6_ seek to 10%, 20% … 60%
-
-</div>
-
-</div>
-
-<div class="fp-context-menu fp-menu">**© 2017 Flowplayer**[About Flowplayer](https://flowplayer.org/hello)[GPL based license](https://flowplayer.org/license)</div>
-
-</div>
-
-[](https://flowplayer.org/hello)</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-<div id="fpfat-html" class="codetoggle">
-
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"flowplayer fp-fat"</span>  
-     <span class="na">data-aspect-ratio</span><span class="o">=</span><span class="s">"12:5"</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">video</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/webm"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.webm"</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/mp4"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.mp4"</span><span class="p">></span>  
-      <span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
-</div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-</div>
-
-[view standalone page](/standalone/skin/fat.html)
-
-See also the [playful theme](#playful).
-
-</section>
-
-<section class="level2" id="section_no-buffer">
+```
 
 ## No buffer
 
 The buffer indicator can be removed by adding the `no-buffer` class to the container element.
 
-<div class="flowplayer no-buffer fp-default-playlist is-ready is-paused is-mouseout" data-aspect-ratio="12:5" data-flowplayer-instance-id="7">
-
-<div class="fp-player">
-
-<div class="fp-ui">
-
-<div class="fp-header"><a class="fp-share fp-icon"></a><a class="fp-fullscreen fp-icon"></a><a class="fp-unload fp-icon"></a></div>
-
-<div class="fp-play fp-visible"><a class="fp-icon fp-playbtn"></a><svg class="fp-play-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.a { fill: #000; opacity: 0.65; } .b { fill: #fff; opacity: 1.0; }</style></defs> <title>play-rounded-fill</title> </svg><svg class="fp-play-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-rounded-outline</title> </svg><svg class="fp-play-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-fill</title> </svg><svg class="fp-play-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.controlbuttonbg { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-outline</title></svg></div>
-
-<div class="fp-pause"><a class="fp-icon fp-playbtn"></a><svg class="fp-pause-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-outline</title> </svg><svg class="fp-pause-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-fill</title> </svg><svg class="fp-pause-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-outline</title> </svg><svg class="fp-pause-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-fill</title></svg></div>
-
-<div class="fp-controls"><a class="fp-icon fp-playbtn"></a><span class="fp-elapsed">00:00</span>
-
-<div class="fp-timeline fp-bar"><span class="fp-timestamp"></span></div>
-
-<span class="fp-duration">00:28</span> <span class="fp-remaining">00:28</span>
-
-<div class="fp-volume"><a class="fp-icon fp-volumebtn"></a></div>
-
-**CC**</div>
-
-<div class="fp-menu fp-share-menu">**Share**<a class="fp-icon fp-twitter">Twitter</a><a class="fp-icon fp-embed" title="Copy to your site">Embed</a></div>
-
-<div class="fp-menu fp-subtitle-menu">**Closed Captions**<a data-subtitle-index="-1" class="fp-selected">No subtitles</a></div>
-
+```html
+<div class="flowplayer no-buffer"
+     data-aspect-ratio="12:5">
+   <video>
+      <source type="video/webm"
+              src="//edge.flowplayer.org/functional.webm">
+      <source type="video/mp4"
+              src="//edge.flowplayer.org/functional.mp4">
+      </video>
 </div>
-
-<div class="fp-help"><a class="fp-close"></a>
-
-<div class="fp-help-section fp-help-basics">
-
-_space_play / pause
-
-_q_unload | stop
-
-_f_fullscreen
-
-_shift_ + _←__→_slower / faster
-
-</div>
-
-<div class="fp-help-section">
-
-_↑__↓_volume
-
-_m_mute
-
-</div>
-
-<div class="fp-help-section">
-
-_←__→_seek
-
-_ ._ seek to previous
-
-_1__2_… _6_ seek to 10%, 20% … 60%
-
-</div>
-
-</div>
-
-<div class="fp-context-menu fp-menu">**© 2017 Flowplayer**[About Flowplayer](https://flowplayer.org/hello)[GPL based license](https://flowplayer.org/license)</div>
-
-</div>
-
-[](https://flowplayer.org/hello)</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-<div id="fpnobuffer-html" class="codetoggle">
-
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"flowplayer no-buffer"</span>  
-     <span class="na">data-aspect-ratio</span><span class="o">=</span><span class="s">"12:5"</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">video</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/webm"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.webm"</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/mp4"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.mp4"</span><span class="p">></span>  
-      <span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
-</div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-</div>
-
-[view standalone page](/standalone/skin/no-buffer.html)
-
-</section>
-
-</section>
-
-<section class="level1 has6" id="section_icons">
+```
 
 # Icons
 
 Customize the look of, and add/remove interactive icons with CSS classes.
 
-<section class="level2" id="section_edgy">
 
 ## Edgy
 
 Angular icons are set up by adding the `fp-edgy` class to the container element.
 
-<div class="flowplayer fp-edgy fp-default-playlist is-ready is-paused is-mouseout" data-aspect-ratio="12:5" data-flowplayer-instance-id="8">
-
-<div class="fp-player">
-
-<div class="fp-ui">
-
-<div class="fp-header"><a class="fp-share fp-icon"></a><a class="fp-fullscreen fp-icon"></a><a class="fp-unload fp-icon"></a></div>
-
-<div class="fp-play fp-visible"><a class="fp-icon fp-playbtn"></a><svg class="fp-play-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.a { fill: #000; opacity: 0.65; } .b { fill: #fff; opacity: 1.0; }</style></defs> <title>play-rounded-fill</title> </svg><svg class="fp-play-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-rounded-outline</title> </svg><svg class="fp-play-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-fill</title> </svg><svg class="fp-play-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.controlbuttonbg { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-outline</title></svg></div>
-
-<div class="fp-pause"><a class="fp-icon fp-playbtn"></a><svg class="fp-pause-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-outline</title> </svg><svg class="fp-pause-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-fill</title> </svg><svg class="fp-pause-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-outline</title> </svg><svg class="fp-pause-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-fill</title></svg></div>
-
-<div class="fp-controls"><a class="fp-icon fp-playbtn"></a><span class="fp-elapsed">00:00</span>
-
-<div class="fp-timeline fp-bar"><span class="fp-timestamp"></span></div>
-
-<span class="fp-duration">00:28</span> <span class="fp-remaining">00:28</span>
-
-<div class="fp-volume"><a class="fp-icon fp-volumebtn"></a></div>
-
-**CC**</div>
-
-<div class="fp-menu fp-share-menu">**Share**<a class="fp-icon fp-twitter">Twitter</a><a class="fp-icon fp-embed" title="Copy to your site">Embed</a></div>
-
-<div class="fp-menu fp-subtitle-menu">**Closed Captions**<a data-subtitle-index="-1" class="fp-selected">No subtitles</a></div>
-
+```html
+<div class="flowplayer fp-edgy"
+     data-aspect-ratio="12:5">
+   <video>
+      <source type="video/webm"
+              src="//edge.flowplayer.org/functional.webm">
+      <source type="video/mp4"
+              src="//edge.flowplayer.org/functional.mp4">
+      </video>
 </div>
-
-<div class="fp-help"><a class="fp-close"></a>
-
-<div class="fp-help-section fp-help-basics">
-
-_space_play / pause
-
-_q_unload | stop
-
-_f_fullscreen
-
-_shift_ + _←__→_slower / faster
-
-</div>
-
-<div class="fp-help-section">
-
-_↑__↓_volume
-
-_m_mute
-
-</div>
-
-<div class="fp-help-section">
-
-_←__→_seek
-
-_ ._ seek to previous
-
-_1__2_… _6_ seek to 10%, 20% … 60%
-
-</div>
-
-</div>
-
-<div class="fp-context-menu fp-menu">**© 2017 Flowplayer**[About Flowplayer](https://flowplayer.org/hello)[GPL based license](https://flowplayer.org/license)</div>
-
-</div>
-
-[](https://flowplayer.org/hello)</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-<div id="fpedgy-html" class="codetoggle">
-
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"flowplayer fp-edgy"</span>  
-     <span class="na">data-aspect-ratio</span><span class="o">=</span><span class="s">"12:5"</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">video</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/webm"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.webm"</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/mp4"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.mp4"</span><span class="p">></span>  
-      <span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
-</div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-</div>
-
-[view standalone page](/standalone/skin/edgy.html)
-
-</section>
-
-<section class="level2" id="section_outlined">
+```
 
 ## Outlined
 
 Outlined icons are set up by adding the `fp-outlined` class to the container element.
 
-<div class="flowplayer fp-outlined is-mouseout fp-default-playlist is-ready is-paused" data-aspect-ratio="12:5" data-flowplayer-instance-id="9">
-
-<div class="fp-player">
-
-<div class="fp-ui">
-
-<div class="fp-header"><a class="fp-share fp-icon"></a><a class="fp-fullscreen fp-icon"></a><a class="fp-unload fp-icon"></a></div>
-
-<div class="fp-play fp-visible"><a class="fp-icon fp-playbtn"></a><svg class="fp-play-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.a { fill: #000; opacity: 0.65; } .b { fill: #fff; opacity: 1.0; }</style></defs> <title>play-rounded-fill</title> </svg><svg class="fp-play-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-rounded-outline</title> </svg><svg class="fp-play-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-fill</title> </svg><svg class="fp-play-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.controlbuttonbg { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-outline</title></svg></div>
-
-<div class="fp-pause"><a class="fp-icon fp-playbtn"></a><svg class="fp-pause-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-outline</title> </svg><svg class="fp-pause-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-fill</title> </svg><svg class="fp-pause-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-outline</title> </svg><svg class="fp-pause-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-fill</title></svg></div>
-
-<div class="fp-controls"><a class="fp-icon fp-playbtn"></a><span class="fp-elapsed">00:00</span>
-
-<div class="fp-timeline fp-bar"><span class="fp-timestamp"></span></div>
-
-<span class="fp-duration">00:28</span> <span class="fp-remaining">00:28</span>
-
-<div class="fp-volume"><a class="fp-icon fp-volumebtn"></a></div>
-
-**CC**</div>
-
-<div class="fp-menu fp-share-menu">**Share**<a class="fp-icon fp-twitter">Twitter</a><a class="fp-icon fp-embed" title="Copy to your site">Embed</a></div>
-
-<div class="fp-menu fp-subtitle-menu">**Closed Captions**<a data-subtitle-index="-1" class="fp-selected">No subtitles</a></div>
-
+```html
+<div class="flowplayer fp-outlined"
+     data-aspect-ratio="12:5">
+   <video>
+      <source type="video/webm"
+              src="//edge.flowplayer.org/functional.webm">
+      <source type="video/mp4"
+              src="//edge.flowplayer.org/functional.mp4">
+      </video>
 </div>
-
-<div class="fp-help"><a class="fp-close"></a>
-
-<div class="fp-help-section fp-help-basics">
-
-_space_play / pause
-
-_q_unload | stop
-
-_f_fullscreen
-
-_shift_ + _←__→_slower / faster
-
-</div>
-
-<div class="fp-help-section">
-
-_↑__↓_volume
-
-_m_mute
-
-</div>
-
-<div class="fp-help-section">
-
-_←__→_seek
-
-_ ._ seek to previous
-
-_1__2_… _6_ seek to 10%, 20% … 60%
-
-</div>
-
-</div>
-
-<div class="fp-context-menu fp-menu">**© 2017 Flowplayer**[About Flowplayer](https://flowplayer.org/hello)[GPL based license](https://flowplayer.org/license)</div>
-
-</div>
-
-[](https://flowplayer.org/hello)</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-<div id="fpoutlined-html" class="codetoggle">
-
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"flowplayer fp-outlined"</span>  
-     <span class="na">data-aspect-ratio</span><span class="o">=</span><span class="s">"12:5"</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">video</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/webm"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.webm"</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/mp4"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.mp4"</span><span class="p">></span>  
-      <span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
-</div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-</div>
-
-[view standalone page](/standalone/skin/outlined.html)
-
-</section>
-
-<section class="level2" id="section_mute-button">
+```
 
 ## Mute button
 
 A mute/unmute button can be added with the `fp-mute` class.
 
-<div class="flowplayer fp-mute is-mouseout fp-default-playlist is-ready is-paused" data-aspect-ratio="12:5" data-flowplayer-instance-id="10">
-
-<div class="fp-player">
-
-<div class="fp-ui">
-
-<div class="fp-header"><a class="fp-share fp-icon"></a><a class="fp-fullscreen fp-icon"></a><a class="fp-unload fp-icon"></a></div>
-
-<div class="fp-play fp-visible"><a class="fp-icon fp-playbtn"></a><svg class="fp-play-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.a { fill: #000; opacity: 0.65; } .b { fill: #fff; opacity: 1.0; }</style></defs> <title>play-rounded-fill</title> </svg><svg class="fp-play-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-rounded-outline</title> </svg><svg class="fp-play-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-fill</title> </svg><svg class="fp-play-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.controlbuttonbg { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-outline</title></svg></div>
-
-<div class="fp-pause"><a class="fp-icon fp-playbtn"></a><svg class="fp-pause-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-outline</title> </svg><svg class="fp-pause-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-fill</title> </svg><svg class="fp-pause-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-outline</title> </svg><svg class="fp-pause-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-fill</title></svg></div>
-
-<div class="fp-controls"><a class="fp-icon fp-playbtn"></a><span class="fp-elapsed">00:00</span>
-
-<div class="fp-timeline fp-bar"><span class="fp-timestamp"></span></div>
-
-<span class="fp-duration">00:28</span> <span class="fp-remaining">00:28</span>
-
-<div class="fp-volume"><a class="fp-icon fp-volumebtn"></a></div>
-
-**CC**</div>
-
-<div class="fp-menu fp-share-menu">**Share**<a class="fp-icon fp-twitter">Twitter</a><a class="fp-icon fp-embed" title="Copy to your site">Embed</a></div>
-
-<div class="fp-menu fp-subtitle-menu">**Closed Captions**<a data-subtitle-index="-1" class="fp-selected">No subtitles</a></div>
-
+```html
+<div class="flowplayer fp-mute"
+     data-aspect-ratio="12:5">
+   <video>
+      <source type="video/webm"
+              src="//edge.flowplayer.org/functional.webm">
+      <source type="video/mp4"
+              src="//edge.flowplayer.org/functional.mp4">
+      </video>
 </div>
-
-<div class="fp-help"><a class="fp-close"></a>
-
-<div class="fp-help-section fp-help-basics">
-
-_space_play / pause
-
-_q_unload | stop
-
-_f_fullscreen
-
-_shift_ + _←__→_slower / faster
-
-</div>
-
-<div class="fp-help-section">
-
-_↑__↓_volume
-
-_m_mute
-
-</div>
-
-<div class="fp-help-section">
-
-_←__→_seek
-
-_ ._ seek to previous
-
-_1__2_… _6_ seek to 10%, 20% … 60%
-
-</div>
-
-</div>
-
-<div class="fp-context-menu fp-menu">**© 2017 Flowplayer**[About Flowplayer](https://flowplayer.org/hello)[GPL based license](https://flowplayer.org/license)</div>
-
-</div>
-
-[](https://flowplayer.org/hello)</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-<div id="fpmute-html" class="codetoggle">
-
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"flowplayer fp-mute"</span>  
-     <span class="na">data-aspect-ratio</span><span class="o">=</span><span class="s">"12:5"</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">video</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/webm"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.webm"</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/mp4"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.mp4"</span><span class="p">></span>  
-      <span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
-</div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-</div>
-
-[view standalone page](/standalone/skin/mute.html)
-
-</section>
-
-<section class="level2" id="section_no-volume">
+```
 
 ## No volume
 
 The volume control can be removed by adding the `no-volume` class to the container element. This is done automatically on mobile devices where the volume and can only be changed via device controls.
 
-<div class="flowplayer no-volume is-mouseout fp-default-playlist is-ready is-paused" data-aspect-ratio="12:5" data-flowplayer-instance-id="11">
-
-<div class="fp-player">
-
-<div class="fp-ui">
-
-<div class="fp-header"><a class="fp-share fp-icon"></a><a class="fp-fullscreen fp-icon"></a><a class="fp-unload fp-icon"></a></div>
-
-<div class="fp-play fp-visible"><a class="fp-icon fp-playbtn"></a><svg class="fp-play-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.a { fill: #000; opacity: 0.65; } .b { fill: #fff; opacity: 1.0; }</style></defs> <title>play-rounded-fill</title> </svg><svg class="fp-play-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-rounded-outline</title> </svg><svg class="fp-play-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-fill</title> </svg><svg class="fp-play-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.controlbuttonbg { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-outline</title></svg></div>
-
-<div class="fp-pause"><a class="fp-icon fp-playbtn"></a><svg class="fp-pause-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-outline</title> </svg><svg class="fp-pause-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-fill</title> </svg><svg class="fp-pause-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-outline</title> </svg><svg class="fp-pause-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-fill</title></svg></div>
-
-<div class="fp-controls"><a class="fp-icon fp-playbtn"></a><span class="fp-elapsed">00:00</span>
-
-<div class="fp-timeline fp-bar"><span class="fp-timestamp"></span></div>
-
-<span class="fp-duration">00:28</span> <span class="fp-remaining">00:28</span>
-
-<div class="fp-volume"><a class="fp-icon fp-volumebtn"></a></div>
-
-**CC**</div>
-
-<div class="fp-menu fp-share-menu">**Share**<a class="fp-icon fp-twitter">Twitter</a><a class="fp-icon fp-embed" title="Copy to your site">Embed</a></div>
-
-<div class="fp-menu fp-subtitle-menu">**Closed Captions**<a data-subtitle-index="-1" class="fp-selected">No subtitles</a></div>
-
+```html
+<div class="flowplayer no-volume"
+     data-aspect-ratio="12:5">
+   <video>
+      <source type="video/webm"
+              src="//edge.flowplayer.org/functional.webm">
+      <source type="video/mp4"
+              src="//edge.flowplayer.org/functional.mp4">
+      </video>
 </div>
-
-<div class="fp-help"><a class="fp-close"></a>
-
-<div class="fp-help-section fp-help-basics">
-
-_space_play / pause
-
-_q_unload | stop
-
-_f_fullscreen
-
-_shift_ + _←__→_slower / faster
-
-</div>
-
-<div class="fp-help-section">
-
-_↑__↓_volume
-
-_m_mute
-
-</div>
-
-<div class="fp-help-section">
-
-_←__→_seek
-
-_ ._ seek to previous
-
-_1__2_… _6_ seek to 10%, 20% … 60%
-
-</div>
-
-</div>
-
-<div class="fp-context-menu fp-menu">**© 2017 Flowplayer**[About Flowplayer](https://flowplayer.org/hello)[GPL based license](https://flowplayer.org/license)</div>
-
-</div>
-
-[](https://flowplayer.org/hello)</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-<div id="fpnovolume-html" class="codetoggle">
-
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"flowplayer no-volume"</span>  
-     <span class="na">data-aspect-ratio</span><span class="o">=</span><span class="s">"12:5"</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">video</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/webm"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.webm"</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/mp4"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.mp4"</span><span class="p">></span>  
-      <span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
-</div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-</div>
-
-[view standalone page](/standalone/skin/no-volume.html)
-
-</section>
-
-<section class="level2" id="section_combined">
+```
 
 ## Combined
 
 [Timeline](#timeline) and [icon](#icons) modifiers can be combined, offering a multitude of easy custom variants. Example combining the [fp-full](#full), [fp-edgy](#edgy) and [fp-outlined](#outlined) modifiers:
 
-<div class="flowplayer fp-full fp-edgy fp-outlined is-mouseout fp-default-playlist is-ready is-paused" data-aspect-ratio="12:5" data-flowplayer-instance-id="12">
-
-<div class="fp-player">
-
-<div class="fp-ui">
-
-<div class="fp-header"><a class="fp-share fp-icon"></a><a class="fp-fullscreen fp-icon"></a><a class="fp-unload fp-icon"></a></div>
-
-<div class="fp-play fp-visible"><a class="fp-icon fp-playbtn"></a><svg class="fp-play-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.a { fill: #000; opacity: 0.65; } .b { fill: #fff; opacity: 1.0; }</style></defs> <title>play-rounded-fill</title> </svg><svg class="fp-play-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-rounded-outline</title> </svg><svg class="fp-play-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-fill</title> </svg><svg class="fp-play-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434"><defs><style>.controlbuttonbg { opacity: 0.65; } .controlbutton { fill: #fff; }</style></defs> <title>play-sharp-outline</title></svg></div>
-
-<div class="fp-pause"><a class="fp-icon fp-playbtn"></a><svg class="fp-pause-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-outline</title> </svg><svg class="fp-pause-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-sharp-fill</title> </svg><svg class="fp-pause-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-outline</title> </svg><svg class="fp-pause-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><style>.fp-color-play { opacity: 0.65; } .rect { fill: #fff; }</style></defs> <title>pause-rounded-fill</title></svg></div>
-
-<div class="fp-controls"><a class="fp-icon fp-playbtn"></a><span class="fp-elapsed">00:00</span>
-
-<div class="fp-timeline fp-bar"><span class="fp-timestamp"></span></div>
-
-<span class="fp-duration">00:28</span> <span class="fp-remaining">00:28</span>
-
-<div class="fp-volume"><a class="fp-icon fp-volumebtn"></a></div>
-
-**CC**</div>
-
-<div class="fp-menu fp-share-menu">**Share**<a class="fp-icon fp-twitter">Twitter</a><a class="fp-icon fp-embed" title="Copy to your site">Embed</a></div>
-
-<div class="fp-menu fp-subtitle-menu">**Closed Captions**<a data-subtitle-index="-1" class="fp-selected">No subtitles</a></div>
-
+```html
+<div class="flowplayer fp-full fp-edgy fp-outlined"
+     data-aspect-ratio="12:5">
+   <video>
+      <source type="video/webm"
+              src="//edge.flowplayer.org/functional.webm">
+      <source type="video/mp4"
+              src="//edge.flowplayer.org/functional.mp4">
+      </video>
 </div>
-
-<div class="fp-help"><a class="fp-close"></a>
-
-<div class="fp-help-section fp-help-basics">
-
-_space_play / pause
-
-_q_unload | stop
-
-_f_fullscreen
-
-_shift_ + _←__→_slower / faster
-
-</div>
-
-<div class="fp-help-section">
-
-_↑__↓_volume
-
-_m_mute
-
-</div>
-
-<div class="fp-help-section">
-
-_←__→_seek
-
-_ ._ seek to previous
-
-_1__2_… _6_ seek to 10%, 20% … 60%
-
-</div>
-
-</div>
-
-<div class="fp-context-menu fp-menu">**© 2017 Flowplayer**[About Flowplayer](https://flowplayer.org/hello)[GPL based license](https://flowplayer.org/license)</div>
-
-</div>
-
-[](https://flowplayer.org/hello)</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-<div id="fpcombined-html" class="codetoggle">
-
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"flowplayer fp-full fp-edgy fp-outlined"</span>  
-     <span class="na">data-aspect-ratio</span><span class="o">=</span><span class="s">"12:5"</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">video</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/webm"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.webm"</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/mp4"</span>  
-              <span class="na">src</span><span class="o">=</span><span class="s">"//edge.flowplayer.org/functional.mp4"</span><span class="p">></span>  
-      <span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
-</div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
-
-<div class="help">[<span class="codetogglehint">show</span> HTML code](#)</div>
-
-</div>
-
-[view standalone page](/standalone/skin/combined.html)
-
-</section>
-
-<section class="level2" id="section_extension-icons">
+```
 
 ## Extension icons
 
 *   `fp-default-playlist` [playlist extension](playlist.html#interface)
 *   `fp-custom-playlist` [playlist extension](playlist.html#interface)
 
-</section>
-
-</section>
-
-<section class="level1" id="section_rtl">
 
 # Right to left support
 
 Flowplayer inherently supports right-to-left layouts. On pages which have set RTL direction globally:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="nt">body</span> <span class="p">{</span>  
-   <span class="k">direction</span><span class="p">:</span> <span class="kc">rtl</span><span class="p">;</span>  
-<span class="p">}</span>  
-</pre>
-
-</div>
-
-<figcaption>CSS</figcaption>
-
-</figure>
-
-</div>
+```css
+body {
+   direction: rtl;
+}
+```
 
 Flowplayer will automatically do the right thing and become a right to left video player.
 
 Of course you can also set up Flowplayer in the opposite direction of the body. The following CSS directives will result in left to right players on a right to left page:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="nt">body</span> <span class="p">{</span>  
-   <span class="k">direction</span><span class="p">:</span> <span class="kc">rtl</span><span class="p">;</span>  
-<span class="p">}</span>  
-<span class="p">.</span><span class="nc">flowplayer</span> <span class="p">{</span>  
-   <span class="k">direction</span><span class="p">:</span> <span class="kc">ltr</span><span class="p">;</span>  
-<span class="p">}</span>  
-</pre>
-
-</div>
-
-<figcaption>CSS</figcaption>
-
-</figure>
-
-</div>
+```css
+body {
+   direction: rtl;
+}
+.flowplayer {
+   direction: ltr;
+}
+```
 
 A demo of a right to left player on a left to right page can be found [here](/demos/i18n/).
-
-</section>
-
-<section class="level1 has2" id="section_states">
 
 # States
 
 The player can be in various states during playback, and for each state there is a CSS class name which is added or removed according to the current state. For example:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"is-ready is-paused"</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">video</span><span class="p">></span>  
-      <span class="p"><</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">"video/mp4"</span> <span class="na">src</span><span class="o">=</span><span class="s">"//mydomain.com/my/video.mp4"</span><span class="p">></span>  
-   <span class="p"></</span><span class="nt">video</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
+```html
+<div class="is-ready is-paused">
+   <video>
+      <source type="video/mp4" src="//mydomain.com/my/video.mp4">
+   </video>
 </div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
+```
 
 As you can specify CSS directives for these states you gain a powerful tool to skin the player and the descendant elements **dynamically** during the lifetime of a player. Most of our demos are just CSS "programming". This is where Flowplayer excels as a truly HTML-based video player: concept and design evolve smoothly from the core structure of the underlying markup language.
 
@@ -1355,8 +446,6 @@ These classes are in use no matter whether you are using a default or custom ski
 *   `is-splash` while the [splash screen](/docs/setup.html#splash) is visible and awaits a click
 *   `is-touch` when the device supports touch controls
 
-<section class="level2" id="section_configurable-states">
-
 ## Configurable states
 
 The following of the above state classes can be specified by the user at installation time in the same way as [modifier classes](#modifier-classes). Accordingly they also affect the player behaviour and user experience. They work like [configuration options](/docs/setup.html#player-options), and indeed adding the `is-splash` class to the container element has the same effect as setting `splash: true` in the JavaScript configuration.
@@ -1367,9 +456,6 @@ The following of the above state classes can be specified by the user at install
 *   `is-live` tells the player that it will play back a live stream, controls specific to video on demand are not shown; JavaScript alternative: _live_ [option](/docs/setup.html#player-options) - [view demo](http://demos.flowplayer.org/basics/live.html)
 *   `is-splash` enforces a [splash](/docs/setup.html#splash) setup; JavaScript alternative: _splash_ [option](/docs/setup.html#player-options)
 
-</section>
-
-<section class="level2" id="section_extension-and-plugin-states">
 
 ## Extension and plugin states
 
@@ -1390,176 +476,138 @@ The following classes are dynamically applied to the container element as dynami
 *   `last-video` [playlist extension](playlist.html#css-classes)
 *   `video{index}` [playlist extension](playlist.html#css-classes)
 
-</section>
-
-</section>
-
-<section class="level1 has3" id="section_html-layout">
 
 # HTML layout
 
 Here is the HTML layout rendered by the player. All elements inside the root are prefixed with "fp-" to avoid name collisions
 
-<div class="codebox">
+```html
+<!-- player root -->
+<div class="flowplayer fp-default-playlist is-ready is-paused is-mouseout" data-ratio="0.4167" data-flowplayer-instance-id="0">
+   <!--
+      A magic element that specifies the aspect ratio on different screen sizes
+      http://ansciath.tumblr.com/post/7347495869/css-aspect-ratio
+   -->
+   <div class="fp-ratio" style="padding-top: 41.67%;"></div>
+   <!-- core player element -->
+   <div class="fp-player">
+ 
+      <!-- video or object tag depending on browser support (here it's just DIV) -->
+      <div class="fp-engine"></div>
+ 
+      <!-- user interface -->
+      <div class="fp-ui">
+ 
+         <!-- loading indicator -->
+         <div class="fp-waiting"> <em></em> <em></em> <em></em> </div>
+ 
+         <!-- top buttons -->
+         <div class="fp-header">
+            <a class="fp-share fp-icon"></a>
+            <a class="fp-fullscreen fp-icon"></a>
+            <a class="fp-unload fp-icon"></a>
+         </div>
+ 
+         <!-- playback speed display -->
+         <p class="fp-speed-flash"></p>
+ 
+         <!-- big play/pause button -->
+         <div class="fp-play fp-visible">
+            <a class="fp-icon fp-playbtn"></a>
+            <svg class="fp-play-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+            <svg class="fp-play-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434">
+            <svg class="fp-play-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+            <svg class="fp-play-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.844 99.8434">
+         </div>
+         <div class="fp-pause">
+            <a class="fp-icon fp-playbtn"></a>
+            <svg class="fp-pause-sharp-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434">
+            <svg class="fp-pause-sharp-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+            <svg class="fp-pause-rounded-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99.8434 99.8434">
+            <svg class="fp-pause-rounded-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+         </div>
+ 
+         <!-- controlbar -->
+         <div class="fp-controls">
+ 
+            <!-- play/pause button -->
+            <a class="fp-icon fp-playbtn"></a>
+            <!-- current playback time -->
+            <span class="fp-elapsed">00:00</span>
+ 
+            <!-- timeline, progress bar -->
+            <div class="fp-timeline fp-bar">
+               <div class="fp-buffer" style="width: 13.8954%;"></div>
+               <span class="fp-timestamp"></span>
+               <div class="fp-progress fp-color"></div>
+            </div>
+ 
+            <!-- duration/remaining time -->
+            <span class="fp-duration">00:28</span>
+            <span class="fp-remaining">00:28</span>
+ 
+            <!-- volume control -->
+            <div class="fp-volume">
+               <a class="fp-icon fp-volumebtn"></a>
+               <div class="fp-volumebar fp-bar-slider">
+                  <em class="fp-color"></em>
+                  <em class="fp-color"></em>
+                  <em class="fp-color"></em>
+                  <em class="fp-color"></em>
+                  <em class="fp-color"></em>
+                  <em class="fp-color"></em>
+                  <em class="fp-color"></em>
+               </div>
+            </div>
+ 
+            <strong class="fp-speed fp-hidden"></strong>
+ 
+            <!-- captions (subtitle) button -->
+            <strong class="fp-cc fp-hidden">CC</strong>
+         </div>
+         <div class="fp-menu fp-share-menu">
+            <strong>Share</strong>
+            <a class="fp-icon fp-twitter">Twitter</a>
+            <a class="fp-icon fp-embed" title="Copy to your site">Embed</a>
+         </div>
+ 
+         <!-- caption (subtitle) menu -->
+         <div class="fp-menu fp-subtitle-menu">
+            <strong>Closed Captions</strong>
+            <a class="fp-selected" data-subtitle-index="-1">No subtitles</a>
+         </div>
+      </div>
+ 
+      <!-- context menu - customizable or omitted in licensed players -->
+      <div class="fp-context-menu fp-menu"><!-- ... --></div>
+ 
+      <!-- captions (subtitles) if present -->
+      <div class="fp-captions"></div>
+   </div>
+ 
 
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="c"><!-- player root --></span>  
-<span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"flowplayer fp-default-playlist is-ready is-paused is-mouseout"</span> <span class="na">data-ratio</span><span class="o">=</span><span class="s">"0.4167"</span> <span class="na">data-flowplayer-instance-id</span><span class="o">=</span><span class="s">"0"</span><span class="p">></span>  
-   <span class="c"><!--</span>  
- <span class="c">A magic element that specifies the aspect ratio on different screen sizes</span>  
- <span class="c">http://ansciath.tumblr.com/post/7347495869/css-aspect-ratio</span>  
- <span class="c">--></span>  
-   <span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-ratio"</span> <span class="na">style</span><span class="o">=</span><span class="s">"padding-top: 41.67%;"</span><span class="p">></</span><span class="nt">div</span><span class="p">></span>  
-   <span class="c"><!-- core player element --></span>  
-   <span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-player"</span><span class="p">></span>  
-
-      <span class="c"><!-- video or object tag depending on browser support (here it's just DIV) --></span>  
-      <span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-engine"</span><span class="p">></</span><span class="nt">div</span><span class="p">></span>  
-
-      <span class="c"><!-- user interface --></span>  
-      <span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-ui"</span><span class="p">></span>  
-
-         <span class="c"><!-- loading indicator --></span>  
-         <span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-waiting"</span><span class="p">></span> <span class="p"><</span><span class="nt">em</span><span class="p">></</span><span class="nt">em</span><span class="p">></span> <span class="p"><</span><span class="nt">em</span><span class="p">></</span><span class="nt">em</span><span class="p">></span> <span class="p"><</span><span class="nt">em</span><span class="p">></</span><span class="nt">em</span><span class="p">></span> <span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-
-         <span class="c"><!-- top buttons --></span>  
-         <span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-header"</span><span class="p">></span>  
-            <span class="p"><</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-share fp-icon"</span><span class="p">></</span><span class="nt">a</span><span class="p">></span>  
-            <span class="p"><</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-fullscreen fp-icon"</span><span class="p">></</span><span class="nt">a</span><span class="p">></span>  
-            <span class="p"><</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-unload fp-icon"</span><span class="p">></</span><span class="nt">a</span><span class="p">></span>  
-         <span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-
-         <span class="c"><!-- playback speed display --></span>  
-         <span class="p"><</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-speed-flash"</span><span class="p">></</span><span class="nt">p</span><span class="p">></span>  
-
-         <span class="c"><!-- big play/pause button --></span>  
-         <span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-play fp-visible"</span><span class="p">></span>  
-            <span class="p"><</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-icon fp-playbtn"</span><span class="p">></</span><span class="nt">a</span><span class="p">></span>  
-            <span class="p"><</span><span class="nt">svg</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-play-rounded-fill"</span> <span class="na">xmlns</span><span class="o">=</span><span class="s">"http://www.w3.org/2000/svg"</span> <span class="na">viewBox</span><span class="o">=</span><span class="s">"0 0 100 100"</span><span class="p">></span>  
-            <span class="p"><</span><span class="nt">svg</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-play-rounded-outline"</span> <span class="na">xmlns</span><span class="o">=</span><span class="s">"http://www.w3.org/2000/svg"</span> <span class="na">viewBox</span><span class="o">=</span><span class="s">"0 0 99.844 99.8434"</span><span class="p">></span>  
-            <span class="p"><</span><span class="nt">svg</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-play-sharp-fill"</span> <span class="na">xmlns</span><span class="o">=</span><span class="s">"http://www.w3.org/2000/svg"</span> <span class="na">viewBox</span><span class="o">=</span><span class="s">"0 0 100 100"</span><span class="p">></span>  
-            <span class="p"><</span><span class="nt">svg</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-play-sharp-outline"</span> <span class="na">xmlns</span><span class="o">=</span><span class="s">"http://www.w3.org/2000/svg"</span> <span class="na">viewBox</span><span class="o">=</span><span class="s">"0 0 99.844 99.8434"</span><span class="p">></span>  
-         <span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-         <span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-pause"</span><span class="p">></span>  
-            <span class="p"><</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-icon fp-playbtn"</span><span class="p">></</span><span class="nt">a</span><span class="p">></span>  
-            <span class="p"><</span><span class="nt">svg</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-pause-sharp-outline"</span> <span class="na">xmlns</span><span class="o">=</span><span class="s">"http://www.w3.org/2000/svg"</span> <span class="na">viewBox</span><span class="o">=</span><span class="s">"0 0 99.8434 99.8434"</span><span class="p">></span>  
-            <span class="p"><</span><span class="nt">svg</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-pause-sharp-fill"</span> <span class="na">xmlns</span><span class="o">=</span><span class="s">"http://www.w3.org/2000/svg"</span> <span class="na">viewBox</span><span class="o">=</span><span class="s">"0 0 100 100"</span><span class="p">></span>  
-            <span class="p"><</span><span class="nt">svg</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-pause-rounded-outline"</span> <span class="na">xmlns</span><span class="o">=</span><span class="s">"http://www.w3.org/2000/svg"</span> <span class="na">viewBox</span><span class="o">=</span><span class="s">"0 0 99.8434 99.8434"</span><span class="p">></span>  
-            <span class="p"><</span><span class="nt">svg</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-pause-rounded-fill"</span> <span class="na">xmlns</span><span class="o">=</span><span class="s">"http://www.w3.org/2000/svg"</span> <span class="na">viewBox</span><span class="o">=</span><span class="s">"0 0 100 100"</span><span class="p">></span>  
-         <span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-
-         <span class="c"><!-- controlbar --></span>  
-         <span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-controls"</span><span class="p">></span>  
-
-            <span class="c"><!-- play/pause button --></span>  
-            <span class="p"><</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-icon fp-playbtn"</span><span class="p">></</span><span class="nt">a</span><span class="p">></span>  
-            <span class="c"><!-- current playback time --></span>  
-            <span class="p"><</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-elapsed"</span><span class="p">></span>00:00<span class="p"></</span><span class="nt">span</span><span class="p">></span>  
-
-            <span class="c"><!-- timeline, progress bar --></span>  
-            <span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-timeline fp-bar"</span><span class="p">></span>  
-               <span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-buffer"</span> <span class="na">style</span><span class="o">=</span><span class="s">"width: 13.8954%;"</span><span class="p">></</span><span class="nt">div</span><span class="p">></span>  
-               <span class="p"><</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-timestamp"</span><span class="p">></</span><span class="nt">span</span><span class="p">></span>  
-               <span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-progress fp-color"</span><span class="p">></</span><span class="nt">div</span><span class="p">></span>  
-            <span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-
-            <span class="c"><!-- duration/remaining time --></span>  
-            <span class="p"><</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-duration"</span><span class="p">></span>00:28<span class="p"></</span><span class="nt">span</span><span class="p">></span>  
-            <span class="p"><</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-remaining"</span><span class="p">></span>00:28<span class="p"></</span><span class="nt">span</span><span class="p">></span>  
-
-            <span class="c"><!-- volume control --></span>  
-            <span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-volume"</span><span class="p">></span>  
-               <span class="p"><</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-icon fp-volumebtn"</span><span class="p">></</span><span class="nt">a</span><span class="p">></span>  
-               <span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-volumebar fp-bar-slider"</span><span class="p">></span>  
-                  <span class="p"><</span><span class="nt">em</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-color"</span><span class="p">></</span><span class="nt">em</span><span class="p">></span>  
-                  <span class="p"><</span><span class="nt">em</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-color"</span><span class="p">></</span><span class="nt">em</span><span class="p">></span>  
-                  <span class="p"><</span><span class="nt">em</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-color"</span><span class="p">></</span><span class="nt">em</span><span class="p">></span>  
-                  <span class="p"><</span><span class="nt">em</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-color"</span><span class="p">></</span><span class="nt">em</span><span class="p">></span>  
-                  <span class="p"><</span><span class="nt">em</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-color"</span><span class="p">></</span><span class="nt">em</span><span class="p">></span>  
-                  <span class="p"><</span><span class="nt">em</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-color"</span><span class="p">></</span><span class="nt">em</span><span class="p">></span>  
-                  <span class="p"><</span><span class="nt">em</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-color"</span><span class="p">></</span><span class="nt">em</span><span class="p">></span>  
-               <span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-            <span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-
-            <span class="p"><</span><span class="nt">strong</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-speed fp-hidden"</span><span class="p">></</span><span class="nt">strong</span><span class="p">></span>  
-
-            <span class="c"><!-- captions (subtitle) button --></span>  
-            <span class="p"><</span><span class="nt">strong</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-cc fp-hidden"</span><span class="p">></span>CC<span class="p"></</span><span class="nt">strong</span><span class="p">></span>  
-         <span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-         <span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-menu fp-share-menu"</span><span class="p">></span>  
-            <span class="p"><</span><span class="nt">strong</span><span class="p">></span>Share<span class="p"></</span><span class="nt">strong</span><span class="p">></span>  
-            <span class="p"><</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-icon fp-twitter"</span><span class="p">></span>Twitter<span class="p"></</span><span class="nt">a</span><span class="p">></span>  
-            <span class="p"><</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-icon fp-embed"</span> <span class="na">title</span><span class="o">=</span><span class="s">"Copy to your site"</span><span class="p">></span>Embed<span class="p"></</span><span class="nt">a</span><span class="p">></span>  
-         <span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-
-         <span class="c"><!-- caption (subtitle) menu --></span>  
-         <span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-menu fp-subtitle-menu"</span><span class="p">></span>  
-            <span class="p"><</span><span class="nt">strong</span><span class="p">></span>Closed Captions<span class="p"></</span><span class="nt">strong</span><span class="p">></span>  
-            <span class="p"><</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-selected"</span> <span class="na">data-subtitle-index</span><span class="o">=</span><span class="s">"-1"</span><span class="p">></span>No subtitles<span class="p"></</span><span class="nt">a</span><span class="p">></span>  
-         <span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-      <span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-
-      <span class="c"><!-- context menu - customizable or omitted in licensed players --></span>  
-      <span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-context-menu fp-menu"</span><span class="p">></span><span class="c"><!-- ... --></span><span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-
-      <span class="c"><!-- captions (subtitles) if present --></span>  
-      <span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-captions"</span><span class="p">></</span><span class="nt">div</span><span class="p">></span>  
-   <span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-
-   <span class="c"><!-- any custom HTML goes here --></span>  
-
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
+   <!-- any custom HTML goes here -->
+   
 </div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
+```
 
 Whether you are using the shipped skin or building your own from scratch Flowplayer skinning is all about writing CSS for the layout shown above and taking advantage of the and player [state](#states) classes.
-
-<section class="level2 has2" id="section_custom-controls">
 
 ## Custom controls
 
 Control elements can be added or removed (hidden) with great ease.
 
-<section class="level3" id="section_hiding-controls">
-
 ### Hiding controls
 
 Control elements are hidden via CSS. The following rule hides the duration indicator:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-duration</span> <span class="p">{</span>  
-  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>  
-<span class="p">}</span>  
-</pre>
-
-</div>
-
-<figcaption>CSS</figcaption>
-
-</figure>
-
-</div>
+```css
+.flowplayer .fp-duration {
+  display: none;
+}
+```
 
 Note that the remaining control elements will align themselves automatically. There will be no gap where the duration indicator was hidden.
-
-</section>
-
-<section class="level3" id="section_adding-controls">
 
 ### Adding controls
 
@@ -1569,21 +617,11 @@ This also applies to menus, the [speed menu plugin](plugins.html#speed-menu) is 
 
 Similarly to [hiding control elements](#hiding-controls) the other elements adjust themselves automatically.
 
-</section>
-
-</section>
-
-<section class="level2" id="section_custom-ui-elements">
-
 ## Custom UI elements
 
 You can add your own UI elements to the player area. To be operational - e.g. clickable - they must be stacked on top of the Flowplayer UI in the z-axis with a `z-index` of at least `1`. As This also applies to added elements interfacing existing Flowplayer functionality or extensions.
 
 Similarly any **interactive** overlayed element must be stacked on top accordingly, for instance if [cuepoints](/docs/cuepoints.html) should be clickable links as shown [here](http://demos.flowplayer.org/lookandfeel/link-cues.html).
-
-</section>
-
-<section class="level2" id="section_fp-toggle">
 
 ## fp-toggle
 
@@ -1591,47 +629,21 @@ An added element with the magic `class="fp-toggle"` behaves like a play button: 
 
 This comes in handy for example if you want to add a customized [replay button](http://demos.flowplayer.org/lookandfeel/finish.html).
 
-</section>
-
-</section>
-
-<section class="level1 has1" id="section_commercial-features">
-
-<hgroup class="level1" id="hgroup_commercial-features">
-
 # Commercial features
 
 ## Context menu
 
-</hgroup>
 
 For commercial setups, a custom context menu can be added by inserting the following html inside the player container:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="c"><!-- requires both fp-context-menu and fp-menu classes --></span>  
-<span class="p"><</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"fp-context-menu fp-menu"</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">strong</span><span class="p">></span>Context menu<span class="p"></</span><span class="nt">strong</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"#"</span><span class="p">></span>First menu item<span class="p"></</span><span class="nt">a</span><span class="p">></span>  
-   <span class="p"><</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"#"</span><span class="p">></span>Second menu item<span class="p"></</span><span class="nt">a</span><span class="p">></span>  
-<span class="p"></</span><span class="nt">div</span><span class="p">></span>  
-</pre>
-
+```html
+<!-- requires both fp-context-menu and fp-menu classes -->
+<div class="fp-context-menu fp-menu">
+   <strong>Context menu</strong>
+   <a href="#">First menu item</a>
+   <a href="#">Second menu item</a>
 </div>
-
-<figcaption>HTML</figcaption>
-
-</figure>
-
-</div>
-
-An example of this customization is shown in [the complete commercial setup demo](/demos/complete/).
-
-<section class="level2" id="section_logo">
+```
 
 ## Logo
 
@@ -1639,24 +651,11 @@ If a logo is [configured](setup.html#commercial-options) its appearance can be c
 
 To hide the logo on the origin domain and show it only on foreign sites the player is [shared](sharing.html) to, simply hide the logo with your site's CSS:
 
-<div class="codebox">
-
-<figure class="code">
-
-<div class="highlight">
-
-<pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-logo</span> <span class="p">{</span>  
-  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>  
-<span class="p">}</span>  
-</pre>
-
-</div>
-
-<figcaption>CSS</figcaption>
-
-</figure>
-
-</div>
+```css
+.flowplayer .fp-logo {
+  display: none;
+}
+```
 
 The code used for sharing will ignore this local CSS directive, and the logo will be visible as intended.
 
