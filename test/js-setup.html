@@ -1,59 +1,61 @@
-
 <!doctype html>
 <html>
 <head>
 
-   <!-- player skin -->
-   <link rel="stylesheet" type="text/css" href="../dist/skin/skin.css?f" />
+    <!-- player skin -->
+    <link rel="stylesheet" type="text/css" href="../dist/skin/skin.css?f"/>
 
-   <!-- site specific styling -->
-   <style>
-   body {
-      font: 12px "Myriad Pro", "Lucida Grande", sans-serif;
-      text-align: center;
-      padding-top: 1%;
-   }
-   .flowplayer { width: 70%; }
-   </style>
+    <!-- site specific styling -->
+    <style>
+        body {
+            font: 12px "Myriad Pro", "Lucida Grande", sans-serif;
+            text-align: center;
+            padding-top: 1%;
+        }
 
-   <!-- include flowplayer -->
-   <script src="../dist/flowplayer.js?i"></script>
-   </head>
+        .flowplayer {
+            width: 70%;
+        }
+    </style>
+
+    <!-- include flowplayer -->
+    <script src="../dist/flowplayer.js?i"></script>
+</head>
 
 <body>
 
-   <!-- the player -->
-   <div id="player">
-    </div>
+<!-- the player -->
+<div id="player">
+</div>
 
-    <script>
+<script>
     var el = document.getElementById('player');
     var api = flowplayer(el, {
         splash: false,
         ratio: 0.417,
         clip: {
-          preload: "none",
-          title: 'Example video',
-          subtitles: [{
-            label: 'English',
-            src: '/test/subtitles-demo.vtt',
-            default: true
-          }],
-          sources: [
-            {
-              type: "video/webm",
-              src: "http://edge.flowplayer.org/bauhaus/624x260.webm"
-            },
-            {
-              type: "video/mp4",
-              src: "http://edge.flowplayer.org/bauhaus/624x260.mp4"
-            }
-          ]
+            preload: "none",
+            title: 'Example video',
+            subtitles: [{
+                label: 'English',
+                src: '/test/subtitles-demo.vtt',
+                default: true
+            }],
+            sources: [
+                {
+                    type: "video/webm",
+                    src: "http://edge.flowplayer.org/bauhaus/624x260.webm"
+                },
+                {
+                    type: "video/mp4",
+                    src: "http://edge.flowplayer.org/bauhaus/624x260.mp4"
+                }
+            ]
         }
-      });
-    api.on('load', function(ev, player, video) {
     });
-    </script>
+    api.on('load', function (ev, player, video) {
+    });
+</script>
 
 
 </body>

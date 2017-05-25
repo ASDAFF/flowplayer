@@ -20,15 +20,16 @@
  http://flowplayer.org/pricing/
  */
 package {
+
 import flash.net.NetConnection;
 
 public class SubscribingConnector implements Connector {
-    private var connector:ParallelConnector;
-    private var rtmpUrl:String;
-    private var player:Flowplayer;
-    private var stream:String;
+    private var connector: ParallelConnector;
+    private var rtmpUrl: String;
+    private var player: Flowplayer;
+    private var stream: String;
 
-    public function SubscribingConnector(player:Flowplayer, url:String, stream:String, doRtmpt:Boolean, proxyType:String) {
+    public function SubscribingConnector(player: Flowplayer, url: String, stream: String, doRtmpt: Boolean, proxyType: String) {
         this.player = player;
         this.rtmpUrl = url;
         this.stream = stream;
@@ -36,13 +37,13 @@ public class SubscribingConnector implements Connector {
     }
 
 
-    public function connect(connectedCallback:Function, disconnectedCallback:Function):void {
+    public function connect(connectedCallback: Function, disconnectedCallback: Function): void {
 
-        connector.connect(function (conn:NetConnection):void {
+        connector.connect(function (conn: NetConnection): void {
 
             // listener for successful FCSubscribe
             conn.client = {
-                onFCSubscribe: function (info:Object):void {
+                onFCSubscribe: function (info: Object): void {
 
                     player.debug("FCSubscribe successful, connection established");
                     connectedCallback(conn);
@@ -55,11 +56,11 @@ public class SubscribingConnector implements Connector {
         }, disconnectedCallback);
     }
 
-    public function close():void {
+    public function close(): void {
         connector.close();
     }
 
-    public function get connected():Boolean {
+    public function get connected(): Boolean {
         return connector.connected;
     }
 }

@@ -1,4 +1,5 @@
 Feature: Cuepoints
+
   Background:
     Given a page with
     """html
@@ -39,6 +40,7 @@ Feature: Cuepoints
     And I wait for video to play to the end
     Then no cuepoints should be missed
     And 130 cuepoints should have been fired
+
   Scenario: Slow motion
     When i open the page and wait for player to become ready
     And I start video by clicking the player

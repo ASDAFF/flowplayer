@@ -21,28 +21,29 @@
  */
 package {
 
-    import flash.media.Video;
+import flash.media.Video;
+
 public interface StreamProvider {
-    function load(config:Object):void;
-    
-    function unload():void;
+    function load(config: Object): void;
 
-    function play(url:String):void;
+    function unload(): void;
 
-    function pause():void;
+    function play(url: String): void;
 
-    function resume():void;
+    function pause(): void;
 
-    function seek(seconds:Number):void;
+    function resume(): void;
 
-    function volume(level:Number, fireEvent:Boolean = true):void;
+    function seek(seconds: Number): void;
 
-    function status():Object;
+    function volume(level: Number, fireEvent: Boolean = true): void;
 
-    function setProviderParam(key:String, value:Object):void;
+    function status(): Object;
 
-    function get video() : Video;
+    function setProviderParam(key: String, value: Object): void;
 
-    function setQuality(q  : Number) : void;
-  }
+    function get video(): Video;
+
+    function setQuality(q: Number): void;
+}
 }

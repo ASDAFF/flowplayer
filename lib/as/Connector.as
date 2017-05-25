@@ -23,10 +23,10 @@ package {
 
 public interface Connector {
 
-    function connect(connectedCallback:Function, disconnectedCallback:Function):void;
+    function connect(connectedCallback: Function, disconnectedCallback: Function): void;
 
-    function close():void;
+    function close(): void;
 
-    function get connected():Boolean;
+    function get connected(): Boolean;
 }
 }

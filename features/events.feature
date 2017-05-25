@@ -1,4 +1,5 @@
 Feature: Events
+
   Background:
     Given a page with
     """html
@@ -85,6 +86,7 @@ Feature: Events
     And I start video by clicking the player
     And I wait for a few seconds
     Then "progress" event should be called at least 1 time
+
   Scenario: Finish event
     When i open the page and wait for player to become ready
     And I start video by clicking the player
