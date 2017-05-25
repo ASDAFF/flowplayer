@@ -1,221 +1,335 @@
-
 <!doctype html>
 
 <html>
 
 <head>
-   <meta charset="utf-8">
+    <meta charset="utf-8">
 
-      <title>Flowplayer · VP9 codec for WEBM</title>
-   
-   <!-- optimize mobile versions -->
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-      <!-- The "functional" skin - choose from: "functional.css", "minimalist.css", "playful.css" -->
-   <link rel="stylesheet" href="../../common/releases/6.0.5/skin/functional.css" >
-   
-   <!-- Minimal styling for this standalone page, can be removed -->
-   <link rel="stylesheet" href="../../common/css/demo.css" >
-   <!-- Syntax highlighting of source code, can be removed -->
-   <link rel="stylesheet" href="../../common/css/pygments.css" >
-   
-<link rel="stylesheet" href="../../common/css/canplay.css" >
+    <title>Flowplayer · VP9 codec for WEBM</title>
 
-<style>
-#content {
-  max-width: 800px;
-}
-th, td {
-  text-align: center;
-}
-th {
-  font-weight: normal;
-}
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-.flowplayer {
-  background-color: #ccc;
-}
-</style>
+    <!-- The "functional" skin - choose from: "functional.css", "minimalist.css", "playful.css" -->
+    <link rel="stylesheet" href="../../common/releases/6.0.5/skin/functional.css">
 
-      <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
-   <script src="../../common/jquery/jquery-1.12.4.min.js" ></script>
-         <!-- Flowplayer library -->
-   <script src="../../common/releases/6.0.5/flowplayer.min.js" ></script>
-               
-   
-<script>
-// show video info on load
-flowplayer(function (api, root) {
-  api.on("load", function (e, api, video) {
-    pindex = $(".flowplayer").index(root);
-    $(".vtype").eq(pindex).text(video.type);
-    $(".vsrc").eq(pindex).text(video.src);
-  })
-});
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../../common/css/pygments.css">
+
+    <link rel="stylesheet" href="../../common/css/canplay.css">
+
+    <style>
+        #content {
+            max-width: 800px;
+        }
+
+        th, td {
+            text-align: center;
+        }
+
+        th {
+            font-weight: normal;
+        }
+
+        .flowplayer {
+            background-color: #ccc;
+        }
+    </style>
+
+    <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
+    <script src="../../common/jquery/jquery-1.12.4.min.js"></script>
+    <!-- Flowplayer library -->
+    <script src="../../common/releases/6.0.5/flowplayer.min.js"></script>
 
 
-$(function () {
+    <script>
+        // show video info on load
+        flowplayer(function (api, root) {
+            api.on("load", function (e, api, video) {
+                pindex = $(".flowplayer").index(root);
+                $(".vtype").eq(pindex).text(video.type);
+                $(".vsrc").eq(pindex).text(video.src);
+            })
+        });
 
-  flowplayer("#vp9js", {
-    ratio: 9/16,
-    clip: {
-      sources: [
-        // codecs values must be in double quotes
-        // or unquoted without space after comma
-        { type: "video/webm; codecs=vp9,opus",
-          src: "http://edge.flowplayer.org/drive_vp9.webm" },
-        // Android < 5 needs ogg/vorbis audio
-        { type: "video/webm; codecs=vp9,vorbis",
-          src: "http://edge.flowplayer.org/drive_vp9ogg.webm" },
-        { type: "video/webm", src: "http://edge.flowplayer.org/drive.webm" },
-        { type: "video/mp4",  src: "http://edge.flowplayer.org/drive.mp4" }
-      ]
-    }
-  });
 
-});
-</script>
+        $(function () {
+
+            flowplayer("#vp9js", {
+                ratio: 9 / 16,
+                clip: {
+                    sources: [
+                        // codecs values must be in double quotes
+                        // or unquoted without space after comma
+                        {
+                            type: "video/webm; codecs=vp9,opus",
+                            src: "http://edge.flowplayer.org/drive_vp9.webm"
+                        },
+                        // Android < 5 needs ogg/vorbis audio
+                        {
+                            type: "video/webm; codecs=vp9,vorbis",
+                            src: "http://edge.flowplayer.org/drive_vp9ogg.webm"
+                        },
+                        {type: "video/webm", src: "http://edge.flowplayer.org/drive.webm"},
+                        {type: "video/mp4", src: "http://edge.flowplayer.org/drive.mp4"}
+                    ]
+                }
+            });
+
+        });
+    </script>
 
 </head>
 
 <body>
 
-   <div id="content">
+<div id="content">
 
-      <h1>Flowplayer · VP9 codec for WEBM</h1>
+    <h1>Flowplayer · VP9 codec for WEBM</h1>
 
-<table>
-  <tr>
-    <th>format</th>
+    <table>
+        <tr>
+            <th>format</th>
 
-    <th>codecs</th>
+            <th>codecs</th>
 
-    <th>file size (MB)</th>
+            <th>file size (MB)</th>
 
-    <th>average bit rate (kbps)</th>
-  </tr>
+            <th>average bit rate (kbps)</th>
+        </tr>
 
-  <tr>
-    <td>WEBM</td>
+        <tr>
+            <td>WEBM</td>
 
-    <td>vp9, opus</td>
+            <td>vp9, opus</td>
 
-    <td>1.5</td>
+            <td>1.5</td>
 
-    <td>189</td>
-  </tr>
+            <td>189</td>
+        </tr>
 
-  <tr>
-    <td>WEBM</td>
+        <tr>
+            <td>WEBM</td>
 
-    <td>vp9, vorbis</td>
+            <td>vp9, vorbis</td>
 
-    <td>1.5</td>
+            <td>1.5</td>
 
-    <td>185</td>
-  </tr>
+            <td>185</td>
+        </tr>
 
-  <tr>
-    <td>WEBM</td>
+        <tr>
+            <td>WEBM</td>
 
-    <td>vp8, vorbis</td>
+            <td>vp8, vorbis</td>
 
-    <td>3.1</td>
+            <td>3.1</td>
 
-    <td>386</td>
-  </tr>
+            <td>386</td>
+        </tr>
 
-  <tr>
-    <td>MP4</td>
+        <tr>
+            <td>MP4</td>
 
-    <td>avc1.42c01e, mp4a.40.5</td>
+            <td>avc1.42c01e, mp4a.40.5</td>
 
-    <td>3.0</td>
+            <td>3.0</td>
 
-    <td>354</td>
-  </tr>
-</table>
+            <td>354</td>
+        </tr>
+    </table>
 
-<h2>HTML setup</h2>
+    <h2>HTML setup</h2>
 
-<div class="flowplayer is-splash" data-ratio="0.5625">
-   <video>
-      <!-- codecs values must be in double quotes
-           or unquoted without space after comma  -->
-      <source type="video/webm; codecs=vp9,opus"
-                                src="http://edge.flowplayer.org/drive_vp9.webm">
-      <!-- Android < 5 needs ogg/vorbis audio -->
-      <source type="video/webm; codecs=vp9,vorbis"
-                                src="http://edge.flowplayer.org/drive_vp9ogg.webm">
-      <source type="video/webm" src="http://edge.flowplayer.org/drive.webm">
-      <source type="video/mp4"  src="http://edge.flowplayer.org/drive.mp4">
-   </video>
-</div>
+    <div class="flowplayer is-splash" data-ratio="0.5625">
+        <video>
+            <!-- codecs values must be in double quotes
+                 or unquoted without space after comma  -->
+            <source type="video/webm; codecs=vp9,opus"
+                    src="http://edge.flowplayer.org/drive_vp9.webm">
+            <!-- Android < 5 needs ogg/vorbis audio -->
+            <source type="video/webm; codecs=vp9,vorbis"
+                    src="http://edge.flowplayer.org/drive_vp9ogg.webm">
+            <source type="video/webm" src="http://edge.flowplayer.org/drive.webm">
+            <source type="video/mp4" src="http://edge.flowplayer.org/drive.mp4">
+        </video>
+    </div>
 
-<div class="info">
-   <p>Video type: <span class="vtype"></span>
+    <div class="info">
+        <p>Video type: <span class="vtype"></span>
 
-   <p>Video src: <span class="vsrc"></span>
-</div>
+        <p>Video src: <span class="vsrc"></span>
+    </div>
 
-<h2>JavaScript Setup</h2>
+    <h2>JavaScript Setup</h2>
 
-<div id="vp9js" class="is-splash"></div>
+    <div id="vp9js" class="is-splash"></div>
 
-<div class="info">
-   <p>Video type: <span class="vtype"></span>
+    <div class="info">
+        <p>Video type: <span class="vtype"></span>
 
-   <p>Video src: <span class="vsrc"></span>
-</div>
+        <p>Video src: <span class="vsrc"></span>
+    </div>
 
-<p class="doc"><b>Important:</b> For <a href="http://en.wikipedia.org/wiki/VP9">VP9</a> the video type
-specification must include <code>codecs</code>, so browsers which
-<a href="../../videotest/canplay.html" >can only play VP8</a> can detect this and fall back to
-<a href="http://en.wikipedia.org/wiki/Vp8">VP8</a>. The same applies to the opus and vorbis audio
-codecs.</p>
+    <p class="doc"><b>Important:</b> For <a href="http://en.wikipedia.org/wiki/VP9">VP9</a> the video type
+        specification must include <code>codecs</code>, so browsers which
+        <a href="../../videotest/canplay.html">can only play VP8</a> can detect this and fall back to
+        <a href="http://en.wikipedia.org/wiki/Vp8">VP8</a>. The same applies to the opus and vorbis audio
+        codecs.</p>
 
-<h2 id="head-setup">&lt;head/&gt;</h2>
+    <h2 id="head-setup">&lt;head/&gt;</h2>
 
-<h3 id="css-setup">&lt;style&gt;</h3>
+    <h3 id="css-setup">&lt;style&gt;</h3>
 
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">{</span><br />  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#ccc</span><span class="p">;</span><br /><span class="p">}</span><br /></pre></div><br /><figcaption>CSS</figcaption></figure></div>
-
-
-<h3 id="javascript-setup">&lt;script&gt;</h3>
-
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="c1">// show video info on load</span><br /><span class="nx">flowplayer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">api</span><span class="p">,</span> <span class="nx">root</span><span class="p">)</span> <span class="p">{</span><br />  <span class="nx">api</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span class="nx">video</span><span class="p">)</span> <span class="p">{</span><br />    <span class="nx">pindex</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.flowplayer&quot;</span><span class="p">).</span><span class="nx">index</span><span class="p">(</span><span class="nx">root</span><span class="p">);</span><br />    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.vtype&quot;</span><span class="p">).</span><span class="nx">eq</span><span class="p">(</span><span class="nx">pindex</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">video</span><span class="p">.</span><span class="nx">type</span><span class="p">);</span><br />    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.vsrc&quot;</span><span class="p">).</span><span class="nx">eq</span><span class="p">(</span><span class="nx">pindex</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">video</span><span class="p">.</span><span class="nx">src</span><span class="p">);</span><br />  <span class="p">})</span><br /><span class="p">});</span><br />&nbsp;<br /><br /><span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br />&nbsp;<br />  <span class="nx">flowplayer</span><span class="p">(</span><span class="s2">&quot;#vp9js&quot;</span><span class="p">,</span> <span class="p">{</span><br />    <span class="nx">ratio</span><span class="o">:</span> <span class="mi">9</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span><br />    <span class="nx">clip</span><span class="o">:</span> <span class="p">{</span><br />      <span class="nx">sources</span><span class="o">:</span> <span class="p">[</span><br />        <span class="c1">// codecs values must be in double quotes</span><br />        <span class="c1">// or unquoted without space after comma</span><br />        <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;video/webm; codecs=vp9,opus&quot;</span><span class="p">,</span><br />          <span class="nx">src</span><span class="o">:</span> <span class="s2">&quot;//edge.flowplayer.org/drive_vp9.webm&quot;</span> <span class="p">},</span><br />        <span class="c1">// Android &lt; 5 needs ogg/vorbis audio</span><br />        <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;video/webm; codecs=vp9,vorbis&quot;</span><span class="p">,</span><br />          <span class="nx">src</span><span class="o">:</span> <span class="s2">&quot;//edge.flowplayer.org/drive_vp9ogg.webm&quot;</span> <span class="p">},</span><br />        <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;video/webm&quot;</span><span class="p">,</span> <span class="nx">src</span><span class="o">:</span> <span class="s2">&quot;//edge.flowplayer.org/drive.webm&quot;</span> <span class="p">},</span><br />        <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;video/mp4&quot;</span><span class="p">,</span>  <span class="nx">src</span><span class="o">:</span> <span class="s2">&quot;//edge.flowplayer.org/drive.mp4&quot;</span> <span class="p">}</span><br />      <span class="p">]</span><br />    <span class="p">}</span><br />  <span class="p">});</span><br />&nbsp;<br /><span class="p">});</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></div>
-
-
-<h2 id="html-setup">&lt;body/&gt;</h2>
-
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;flowplayer is-splash&quot;</span> <span class="na">data-ratio</span><span class="o">=</span><span class="s">&quot;0.5625&quot;</span><span class="p">&gt;</span><br />   <span class="p">&lt;</span><span class="nt">video</span><span class="p">&gt;</span><br />      <span class="c">&lt;!-- codecs values must be in double quotes</span><br /><span class="c">           or unquoted without space after comma  --&gt;</span><br />      <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;video/webm; codecs=vp9,opus&quot;</span><br />                                <span class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/drive_vp9.webm&quot;</span><span class="p">&gt;</span><br />      <span class="c">&lt;!-- Android &lt; 5 needs ogg/vorbis audio --&gt;</span><br />      <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;video/webm; codecs=vp9,vorbis&quot;</span><br />                                <span class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/drive_vp9ogg.webm&quot;</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;video/webm&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/drive.webm&quot;</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span>  <span class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/drive.mp4&quot;</span><span class="p">&gt;</span><br />   <span class="p">&lt;/</span><span class="nt">video</span><span class="p">&gt;</span><br /><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />&nbsp;<br /><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;info&quot;</span><span class="p">&gt;</span><br />   <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Video type: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;vtype&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span><br />&nbsp;<br />   <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Video src: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;vsrc&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span><br /><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />&nbsp;<br /><span class="c">&lt;!-- ... --&gt;</span><br />&nbsp;<br /><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;vp9js&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;is-splash&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />&nbsp;<br /><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;info&quot;</span><span class="p">&gt;</span><br />   <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Video type: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;vtype&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span><br />&nbsp;<br />   <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Video src: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;vsrc&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span><br /><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
-
-
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">{</span><br/>  <span class="k">background-color</span><span class="p">:</span> <span
+                        class="mh">#ccc</span><span class="p">;</span><br/><span class="p">}</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>CSS</figcaption>
+        </figure>
+    </div>
 
 
+    <h3 id="javascript-setup">&lt;script&gt;</h3>
 
-<form id="codepenform" method="POST" action="http://codepen.io/pen/define?data={" target="_blank">
-  <input type="hidden" name="data" value='{"title": "New pen based on VP9 codec for WEBM", "js_external": "//code.jquery.com/jquery-1.12.4.min.js;//releases.flowplayer.org/6.0.5/flowplayer.min.js", "js": "// show video info on load\nflowplayer(function (api, root) {\n  api.on(\"load\", function (e, api, video) {\n    pindex = $(\".flowplayer\").index(root);\n    $(\".vtype\").eq(pindex).text(video.type);\n    $(\".vsrc\").eq(pindex).text(video.src");/n"   })\n});\n\n\n$(function () {\n\n  flowplayer(\"#vp9js\", {\n    ratio: 9/16,\n    clip: {\n      sources: [\n        // codecs values must be in double quotes\n        // or unquoted without space after comma\n        { type: \"video/webm; codecs=vp9,opus\",\n          src: \"//edge.flowplayer.org/drive_vp9.webm\" },\n        // Android < 5 needs ogg/vorbis audio\n        { type: \"video/webm; codecs=vp9,vorbis\",\n          src: \"//edge.flowplayer.org/drive_vp9ogg.webm\" },\n        { type: \"video/webm\", src: \"//edge.flowplayer.org/drive.webm\" },\n        { type: \"video/mp4\",  src: \"//edge.flowplayer.org/drive.mp4\" }\n      ]\n    }\n  });\n\n});\n", "html": "<div id=\"vp9js\" class=\"is-splash\"></div>\n\n<div class=\"info\">\n   <p>Video type: <span class=\"vtype\"></span>\n\n   <p>Video src: <span class=\"vsrc\"></span>\n</div>\n", "css_external": "//releases.flowplayer.org/6.0.5/skin/functional.css;http://demos.flowplayer.org/media/css/codepen.css", "css": ".flowplayer {\n  background-color: #ccc;\n}\n"}'>
-</form>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="c1">// show video info on load</span><br/><span
+                        class="nx">flowplayer</span><span class="p">(</span><span class="kd">function</span> <span
+                        class="p">(</span><span class="nx">api</span><span class="p">,</span> <span
+                        class="nx">root</span><span class="p">)</span> <span class="p">{</span><br/>  <span class="nx">api</span><span
+                        class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;load&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span
+                        class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span
+                        class="nx">video</span><span class="p">)</span> <span class="p">{</span><br/>    <span
+                        class="nx">pindex</span> <span class="o">=</span> <span class="nx">$</span><span
+                        class="p">(</span><span class="s2">&quot;.flowplayer&quot;</span><span class="p">).</span><span
+                        class="nx">index</span><span class="p">(</span><span class="nx">root</span><span
+                        class="p">);</span><br/>    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.vtype&quot;</span><span
+                        class="p">).</span><span class="nx">eq</span><span class="p">(</span><span
+                        class="nx">pindex</span><span class="p">).</span><span class="nx">text</span><span
+                        class="p">(</span><span class="nx">video</span><span class="p">.</span><span
+                        class="nx">type</span><span class="p">);</span><br/>    <span class="nx">$</span><span
+                        class="p">(</span><span class="s2">&quot;.vsrc&quot;</span><span class="p">).</span><span
+                        class="nx">eq</span><span class="p">(</span><span class="nx">pindex</span><span
+                        class="p">).</span><span class="nx">text</span><span class="p">(</span><span
+                        class="nx">video</span><span class="p">.</span><span class="nx">src</span><span
+                        class="p">);</span><br/>  <span class="p">})</span><br/><span
+                        class="p">});</span><br/>&nbsp;<br/><br/><span class="nx">$</span><span class="p">(</span><span
+                        class="kd">function</span> <span class="p">()</span> <span
+                        class="p">{</span><br/>&nbsp;<br/>  <span class="nx">flowplayer</span><span
+                        class="p">(</span><span class="s2">&quot;#vp9js&quot;</span><span class="p">,</span> <span
+                        class="p">{</span><br/>    <span class="nx">ratio</span><span class="o">:</span> <span
+                        class="mi">9</span><span class="o">/</span><span class="mi">16</span><span
+                        class="p">,</span><br/>    <span class="nx">clip</span><span class="o">:</span> <span class="p">{</span><br/>      <span
+                        class="nx">sources</span><span class="o">:</span> <span class="p">[</span><br/>        <span
+                        class="c1">// codecs values must be in double quotes</span><br/>        <span class="c1">// or unquoted without space after comma</span><br/>        <span
+                        class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;video/webm; codecs=vp9,opus&quot;</span><span
+                        class="p">,</span><br/>          <span class="nx">src</span><span class="o">:</span> <span
+                        class="s2">&quot;//edge.flowplayer.org/drive_vp9.webm&quot;</span> <span
+                        class="p">},</span><br/>        <span class="c1">// Android &lt; 5 needs ogg/vorbis audio</span><br/>        <span
+                        class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;video/webm; codecs=vp9,vorbis&quot;</span><span
+                        class="p">,</span><br/>          <span class="nx">src</span><span class="o">:</span> <span
+                        class="s2">&quot;//edge.flowplayer.org/drive_vp9ogg.webm&quot;</span> <span
+                        class="p">},</span><br/>        <span class="p">{</span> <span class="nx">type</span><span
+                        class="o">:</span> <span class="s2">&quot;video/webm&quot;</span><span class="p">,</span> <span
+                        class="nx">src</span><span class="o">:</span> <span class="s2">&quot;//edge.flowplayer.org/drive.webm&quot;</span> <span
+                        class="p">},</span><br/>        <span class="p">{</span> <span class="nx">type</span><span
+                        class="o">:</span> <span class="s2">&quot;video/mp4&quot;</span><span class="p">,</span>  <span
+                        class="nx">src</span><span class="o">:</span> <span class="s2">&quot;//edge.flowplayer.org/drive.mp4&quot;</span> <span
+                        class="p">}</span><br/>      <span class="p">]</span><br/>    <span
+                        class="p">}</span><br/>  <span class="p">});</span><br/>&nbsp;<br/><span
+                        class="p">});</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>JavaScript</figcaption>
+        </figure>
+    </div>
 
-<div class="footer">
-    <a href="#" onclick="document.getElementById('codepenform').submit()">Edit demo on codepen</a><br>
-  <span>Flash not available</span>
-  <hr >
 
-    <p><a href="index.html" >Demos in this section</a></p>
+    <h2 id="html-setup">&lt;body/&gt;</h2>
 
-  <hr>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span
+                        class="na">class</span><span class="o">=</span><span
+                        class="s">&quot;flowplayer is-splash&quot;</span> <span class="na">data-ratio</span><span
+                        class="o">=</span><span class="s">&quot;0.5625&quot;</span><span
+                        class="p">&gt;</span><br/>   <span class="p">&lt;</span><span class="nt">video</span><span
+                        class="p">&gt;</span><br/>      <span
+                        class="c">&lt;!-- codecs values must be in double quotes</span><br/><span class="c">           or unquoted without space after comma  --&gt;</span><br/>      <span
+                        class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;video/webm; codecs=vp9,opus&quot;</span><br/>                                <span
+                        class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/drive_vp9.webm&quot;</span><span
+                        class="p">&gt;</span><br/>      <span class="c">&lt;!-- Android &lt; 5 needs ogg/vorbis audio --&gt;</span><br/>      <span
+                        class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;video/webm; codecs=vp9,vorbis&quot;</span><br/>                                <span
+                        class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/drive_vp9ogg.webm&quot;</span><span
+                        class="p">&gt;</span><br/>      <span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;video/webm&quot;</span> <span class="na">src</span><span class="o">=</span><span
+                        class="s">&quot;//edge.flowplayer.org/drive.webm&quot;</span><span class="p">&gt;</span><br/>      <span
+                        class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;video/mp4&quot;</span>  <span class="na">src</span><span class="o">=</span><span
+                        class="s">&quot;//edge.flowplayer.org/drive.mp4&quot;</span><span
+                        class="p">&gt;</span><br/>   <span class="p">&lt;/</span><span class="nt">video</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;/</span><span class="nt">div</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/><span class="p">&lt;</span><span
+                        class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;info&quot;</span><span
+                        class="p">&gt;</span><br/>   <span class="p">&lt;</span><span class="nt">p</span><span
+                        class="p">&gt;</span>Video type: <span class="p">&lt;</span><span class="nt">span</span> <span
+                        class="na">class</span><span class="o">=</span><span class="s">&quot;vtype&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">span</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/>   <span class="p">&lt;</span><span
+                        class="nt">p</span><span class="p">&gt;</span>Video src: <span class="p">&lt;</span><span
+                        class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;vsrc&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span><br/><span
+                        class="p">&lt;/</span><span class="nt">div</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/><span
+                        class="c">&lt;!-- ... --&gt;</span><br/>&nbsp;<br/><span class="p">&lt;</span><span class="nt">div</span> <span
+                        class="na">id</span><span class="o">=</span><span class="s">&quot;vp9js&quot;</span> <span
+                        class="na">class</span><span class="o">=</span><span class="s">&quot;is-splash&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br/>&nbsp;<br/><span
+                        class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span
+                        class="o">=</span><span class="s">&quot;info&quot;</span><span
+                        class="p">&gt;</span><br/>   <span class="p">&lt;</span><span class="nt">p</span><span
+                        class="p">&gt;</span>Video type: <span class="p">&lt;</span><span class="nt">span</span> <span
+                        class="na">class</span><span class="o">=</span><span class="s">&quot;vtype&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">span</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/>   <span class="p">&lt;</span><span
+                        class="nt">p</span><span class="p">&gt;</span>Video src: <span class="p">&lt;</span><span
+                        class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;vsrc&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span><br/><span
+                        class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
 
-  <p><a href="../index.html" >Version 6 Demos</a></p>
+    <div class="footer">
 
-  <p><a href="../../index.html" >Flowplayer Demos+</a></p>
+        <p><a href="index.html">Demos in this section</a></p>
 
-  <hr>
+        <hr>
 
-  <p><a href="https://flowplayer.org/v6docs/">Version 6 Docs</a></p>
-</div>
-   </div> <!-- end content -->
+        <p><a href="../index.html">Version 6 Demos</a></p>
+
+        <p><a href="../../index.html">Flowplayer Demos+</a></p>
+
+        <hr>
+
+        <p><a href="https://flowplayer.org/v6docs/">Version 6 Docs</a></p>
+    </div>
+</div> <!-- end content -->
 
 </body>
 </html>
