@@ -3,137 +3,138 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
 
-  <title>Flowplayer · Quality selection iframe</title>
+    <title>Flowplayer · Quality selection iframe</title>
 
-  <!-- Flowplayer skin -->
-  <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css" >
+    <!-- Flowplayer skin -->
+    <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css">
 
-<style>
-body, html {
-  /* no scrollbars */
-  overflow: hidden;
-  /* ensure that player is pinned to top left corner of the iframe */
-  margin: 0;
-  padding: 0;
-}
+    <style>
+        body, html {
+            /* no scrollbars */
+            overflow: hidden;
+            /* ensure that player is pinned to top left corner of the iframe */
+            margin: 0;
+            padding: 0;
+        }
 
-#qsel {
-  background-image: url("../../flowplayer.org/media/img/demos/minimalist-1.jpg");
-}
-@media(-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
-  #qsel {
-    background-image: url("../../flowplayer.org/media/img/demos/minimalist@x2-1.jpg");
-  }
-}
-</style>
+        #qsel {
+            background-image: url("../common/media/img/minimalist.jpg");
+        }
 
-  <!-- Flowplayer library -->
-  <script src="../common/releases/7.0.4/flowplayer.min.js" ></script>
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+            #qsel {
+                background-image: url("../common/media/img/minimalist@x2.jpg");
+            }
+        }
+    </style>
 
-  <!-- VOD quality selector plugin -->
-  <script src="../common/releases/vod-quality-selector/flowplayer.vod-quality-selector.min.js" ></script>
+    <!-- Flowplayer library -->
+    <script src="../common/releases/7.0.4/flowplayer.min.js"></script>
 
-<script>
-window.onload = function () {
+    <!-- VOD quality selector plugin -->
+    <script src="../common/releases/vod-quality-selector/flowplayer.vod-quality-selector.min.js"></script>
 
-  flowplayer("#qsel", {
-    // iframe embed config
-    embed: {
-      iframe: "qsel-iframe.html"
-    },
-    // iframe fullscreen handling
-    fullscreen: true,
-    native_fullscreen: true,
+    <script>
+        window.onload = function () {
 
-    playlist: [{
-      title: "Minimalist",
+            flowplayer("#qsel", {
+                // iframe embed config
+                embed: {
+                    iframe: "qsel-iframe.html"
+                },
+                // iframe fullscreen handling
+                fullscreen: true,
+                native_fullscreen: true,
 
-      // template based vod quality selector plugin configuration
-      vodQualities: {
-        template: "//edge.flowplayer.org/bauhaus-{q}.{ext}",
-        qualities: [
-          "160p",
-          { label: "260p", src: "//edge.flowplayer.org/bauhaus.{ext}" },
-          "530p",
-          "800p"
-        ]
-      },
+                playlist: [{
+                    title: "Minimalist",
 
-      sources: [
-        // HLS for automatic quality selection
-        { type: "application/x-mpegurl", src: "http://edge.flowplayer.org/bauhaus.m3u8" },
+                    // template based vod quality selector plugin configuration
+                    vodQualities: {
+                        template: "//edge.flowplayer.org/bauhaus-{q}.{ext}",
+                        qualities: [
+                            "160p",
+                            {label: "260p", src: "//edge.flowplayer.org/bauhaus.{ext}"},
+                            "530p",
+                            "800p"
+                        ]
+                    },
 
-        /* manual selection */
+                    sources: [
+                        // HLS for automatic quality selection
+                        {type: "application/x-mpegurl", src: "http://edge.flowplayer.org/bauhaus.m3u8"},
 
-        // default VOD resolution in 2 formats
-        { type: "video/webm", src: "http://edge.flowplayer.org/bauhaus.webm" },
-        { type: "video/mp4",  src: "http://edge.flowplayer.org/bauhaus.mp4" },
+                        /* manual selection */
 
-        // default VOD resolution via RTMP for Flash in old browsers
-        { type: "video/flash", src: "mp4:bauhaus.mp4" }
-      ]
-    }, {
-      title: "Functional",
+                        // default VOD resolution in 2 formats
+                        {type: "video/webm", src: "http://edge.flowplayer.org/bauhaus.webm"},
+                        {type: "video/mp4", src: "http://edge.flowplayer.org/bauhaus.mp4"},
 
-      // template based vod quality selector plugin configuration
-      vodQualities: {
-        template: "//edge.flowplayer.org/functional-{q}.{ext}",
-        qualities: [
-          "160p",
-          { label: "260p", src: "//edge.flowplayer.org/functional.{ext}" },
-          "530p",
-          "800p"
-        ]
-      },
+                        // default VOD resolution via RTMP for Flash in old browsers
+                        {type: "video/flash", src: "mp4:bauhaus.mp4"}
+                    ]
+                }, {
+                    title: "Functional",
 
-      sources: [
-        { type: "application/x-mpegurl", src: "http://edge.flowplayer.org/functional.m3u8" },
-        { type: "video/webm",            src: "http://edge.flowplayer.org/functional.webm" },
-        { type: "video/mp4",             src: "http://edge.flowplayer.org/functional.mp4" },
-        { type: "video/flash",           src: "mp4:functional.mp4" }
-      ]
-    }, {
-      title: "Playful",
+                    // template based vod quality selector plugin configuration
+                    vodQualities: {
+                        template: "//edge.flowplayer.org/functional-{q}.{ext}",
+                        qualities: [
+                            "160p",
+                            {label: "260p", src: "//edge.flowplayer.org/functional.{ext}"},
+                            "530p",
+                            "800p"
+                        ]
+                    },
 
-      // template based vod quality selector plugin configuration
-      vodQualities: {
-        template: "//edge.flowplayer.org/playful-{q}.{ext}",
-        qualities: [
-          "160p",
-          { label: "260p", src: "//edge.flowplayer.org/playful.{ext}" },
-          "530p",
-          "800p"
-        ]
-      },
+                    sources: [
+                        {type: "application/x-mpegurl", src: "http://edge.flowplayer.org/functional.m3u8"},
+                        {type: "video/webm", src: "http://edge.flowplayer.org/functional.webm"},
+                        {type: "video/mp4", src: "http://edge.flowplayer.org/functional.mp4"},
+                        {type: "video/flash", src: "mp4:functional.mp4"}
+                    ]
+                }, {
+                    title: "Playful",
 
-      sources: [
-        { type: "application/x-mpegurl", src: "http://edge.flowplayer.org/playful.m3u8" },
-        { type: "video/webm",            src: "http://edge.flowplayer.org/playful.webm" },
-        { type: "video/mp4",             src: "http://edge.flowplayer.org/playful.mp4" },
-        { type: "video/flash",           src: "mp4:playful.mp4" }
-      ]
-    }],
-    rtmp: "rtmp://s3b78u0kbtx79q.cloudfront.net/cfx/st",
+                    // template based vod quality selector plugin configuration
+                    vodQualities: {
+                        template: "//edge.flowplayer.org/playful-{q}.{ext}",
+                        qualities: [
+                            "160p",
+                            {label: "260p", src: "//edge.flowplayer.org/playful.{ext}"},
+                            "530p",
+                            "800p"
+                        ]
+                    },
 
-    // loop playlist
-    loop: true,
+                    sources: [
+                        {type: "application/x-mpegurl", src: "http://edge.flowplayer.org/playful.m3u8"},
+                        {type: "video/webm", src: "http://edge.flowplayer.org/playful.webm"},
+                        {type: "video/mp4", src: "http://edge.flowplayer.org/playful.mp4"},
+                        {type: "video/flash", src: "mp4:playful.mp4"}
+                    ]
+                }],
+                rtmp: "rtmp://s3b78u0kbtx79q.cloudfront.net/cfx/st",
 
-    splash: true,
-    ratio: 5/12
-  });
+                // loop playlist
+                loop: true,
 
-};
-</script>
+                splash: true,
+                ratio: 5 / 12
+            });
+
+        };
+    </script>
 
 </head>
 
 <body>
 
 <div id="qsel" class="is-closeable">
-  <a class="fp-prev"></a>
-  <a class="fp-next"></a>
+    <a class="fp-prev"></a>
+    <a class="fp-next"></a>
 </div>
 
 </body>

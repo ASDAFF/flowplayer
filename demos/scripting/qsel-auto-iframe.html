@@ -1,60 +1,61 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
+    <meta charset="utf-8">
 
-<link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css" >
+    <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css">
 
-<style>
-body, html {
-  font-family: "myriad pro", tahoma, verdana, arial, sans-serif;
-  font-size: 12px;
-}
-#auto {
-  background-color: #ccc;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-</style>
+    <style>
+        body, html {
+            font-family: "myriad pro", tahoma, verdana, arial, sans-serif;
+            font-size: 12px;
+        }
 
-<script src="../common/releases/7.0.4/flowplayer.min.js" ></script>
-<script>
-// install player when document is ready
-// and decide on video resolution depending on client features
-window.onload = function () {
-  var cdn = "//edge.flowplayer.org/",
-      base = "FlowplayerHTML5forWordPress",
-      // filename label for automatic selection
-      // depending on device capabilities
-      label = !flowplayer.support.inlineVideo ? "-216p" : flowplayer.support.firstframe ? "-720p" : "";
+        #auto {
+            background-color: #ccc;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
 
-  // install the player
-  // it will load the video in the determined resolution
-  flowplayer("#auto", {
-    embed: {
-      // embed iframe which will load exactly this setup
-      iframe: "qsel-auto-iframe.html"
-    },
-    // explicitly allow fullscreen, so embedded iframe can go fullscreen
-    fullscreen: true,
-    // iOS only allows native fullscreen from within iframes
-    native_fullscreen: true,
-    splash: true,
-    ratio: 9/16,
-    clip: {
-      title: "Flowplayer HTML5 for WordPress",
-      rtmp: "rtmp://s3b78u0kbtx79q.cloudfront.net/cfx/st",
-      sources: [
-        { type: "video/webm",  src: cdn + base + label + ".webm" },
-        { type: "video/mp4",   src: cdn + base + label + ".mp4" },
-        { type: "video/flash", src: "mp4:" + base + label }
-      ]
-    }
-  });
+    <script src="../common/releases/7.0.4/flowplayer.min.js"></script>
+    <script>
+        // install player when document is ready
+        // and decide on video resolution depending on client features
+        window.onload = function () {
+            var cdn = "//edge.flowplayer.org/",
+                base = "FlowplayerHTML5forWordPress",
+                // filename label for automatic selection
+                // depending on device capabilities
+                label = !flowplayer.support.inlineVideo ? "-216p" : flowplayer.support.firstframe ? "-720p" : "";
 
-};
-</script>
+            // install the player
+            // it will load the video in the determined resolution
+            flowplayer("#auto", {
+                embed: {
+                    // embed iframe which will load exactly this setup
+                    iframe: "qsel-auto-iframe.html"
+                },
+                // explicitly allow fullscreen, so embedded iframe can go fullscreen
+                fullscreen: true,
+                // iOS only allows native fullscreen from within iframes
+                native_fullscreen: true,
+                splash: true,
+                ratio: 9 / 16,
+                clip: {
+                    title: "Flowplayer HTML5 for WordPress",
+                    rtmp: "rtmp://s3b78u0kbtx79q.cloudfront.net/cfx/st",
+                    sources: [
+                        {type: "video/webm", src: cdn + base + label + ".webm"},
+                        {type: "video/mp4", src: cdn + base + label + ".mp4"},
+                        {type: "video/flash", src: "mp4:" + base + label}
+                    ]
+                }
+            });
+
+        };
+    </script>
 </head>
 
 
