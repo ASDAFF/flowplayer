@@ -1,247 +1,577 @@
-
 <!doctype html>
 
 <html>
 
 <head>
-   <meta charset="utf-8">
+    <meta charset="utf-8">
 
-      <title>Flowplayer · Pre-roll for a playlist</title>
-   
-   <!-- optimize mobile versions -->
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-      <!-- The "minimalist" skin - choose from: "functional.css", "minimalist.css", "playful.css" -->
-   <link rel="stylesheet" href="../../common/releases/6.0.5/commercial/skin/minimalist.css" >
-   
-   <!-- Minimal styling for this standalone page, can be removed -->
-   <link rel="stylesheet" href="../../common/css/demo.css" >
-   <!-- Syntax highlighting of source code, can be removed -->
-   <link rel="stylesheet" href="../../common/css/pygments.css" >
-   
-<style>
-.flowplayer {
-   background-color: #333;
-   /* allow room for playlist element */
-   margin-bottom: 100px;
-}
-.flowplayer .fp-playlist, .flowplayer .preroll-cover {
-   position: absolute;
-   bottom: -100px;
-   width: 100%;
-   height: 100px;
-   text-align: center;
-}
-/* gradient for active playlist */
-.flowplayer .fp-playlist {
-   height: 100px;
-   background-color: rgba(0, 0, 0, 0.2);
-   background: -webkit-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
-   background: -moz-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
-   background: -ms-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+    <title>Flowplayer · Pre-roll for a playlist</title>
 
-}
-/* gradient for playlist during pre-roll */
-.is-splash.flowplayer .fp-playlist, .flowplayer.video0 .fp-playlist {
-   background: -webkit-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%);
-   background: -moz-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%);
-   background: -ms-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%);
-}
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-/* the pre-roll announcement - hidden by default */
-.flowplayer .preroll-cover {
-   display: none;
-   font-size: 60px;
-   color: #fff;
-   letter-spacing: 1em;
-   text-transform: uppercase;
-   cursor: default;
-}
-/* show the pre-roll announcement during pre-roll */
-.is-splash.flowplayer .preroll-cover, .flowplayer.video0 .preroll-cover {
-   display: block;
-   z-index: 1;
-}
+    <!-- The "minimalist" skin - choose from: "functional.css", "minimalist.css", "playful.css" -->
+    <link rel="stylesheet" href="../../common/releases/6.0.5/commercial/skin/minimalist.css">
 
-/* the playlist item anchors */
-.flowplayer .fp-playlist a {
-   display: inline-block;
-   color: #000;
-   background-color: #777;
-   padding: 8px;
-   -webkit-border-radius: 8px;
-   -moz-border-radius: 8px;
-   border-radius: 8px;
-   font-size: 20px;
-   margin: 30px 15px;
-}
-/* hide advert playlist anchor */
-.flowplayer .fp-playlist a.is-advert {
-   display: none;
-}
-.flowplayer .fp-playlist a.is-active {
-   background-color: #fff;
-}
-.is-paused.flowplayer .fp-playlist a.is-active {
-   background-color: #eee;
-}
-/* hide prev/next during preroll
- * hide prev during first feature, next during last feature
- * hide fullscreen button during pre-roll as it's a no-op
- */
-.flowplayer.is-splash .fp-prev, .flowplayer.is-splash .fp-next,
-.flowplayer.video0 .fp-prev, .flowplayer.video0 .fp-next,
-.flowplayer.video1 .fp-prev, .flowplayer.last-video .fp-next,
-.flowplayer.video0 .fp-fullscreen {
-   display: none;
-}
-.flowplayer .fp-next, .flowplayer .fp-prev {
-   position: absolute;
-   bottom: -60px;
-   font-size: 20px;
-   color: #777;
-   cursor: pointer;
-   display: block;
-}
-.flowplayer .fp-prev {
-   left: 1em;
-   z-index: 1;
-}
-.flowplayer .fp-next {
-   right: 1em;
-}
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../../common/css/pygments.css">
 
-/* always show the logo */
-.flowplayer .fp-logo {
-   display: block;
-   opacity: 1 !important;
-}
-</style>
+    <style>
+        .flowplayer {
+            background-color: #333;
+            /* allow room for playlist element */
+            margin-bottom: 100px;
+        }
 
-      <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
-   <script src="../../common/jquery/jquery-1.12.4.min.js" ></script>
-         <!-- Flowplayer commercial library -->
-   <script src="../../common/releases/6.0.5/commercial/flowplayer.min.js" ></script>
-         <!-- The hlsjs plugin for playback of HLS without Flash in modern browsers -->
-   <script src="../../common/releases/hlsjs/flowplayer.hlsjs.min.js" ></script>
-            
-   
-<script>
-flowplayer.conf = {
-  key: "$130763224349944",
-  logo: "https://flowplayer.org/media/img/mylogo.png",
-  splash: true,
-  ratio: 5/12,
-  embed: false
-};
+        .flowplayer .fp-playlist, .flowplayer .preroll-cover {
+            position: absolute;
+            bottom: -100px;
+            width: 100%;
+            height: 100px;
+            text-align: center;
+        }
 
-flowplayer(function (api, root) {
-  api.on("ready", function (e, api, video) {
-    // disable user interaction during pre-roll
-    api.disable(video.index < 1);
+        /* gradient for active playlist */
+        .flowplayer .fp-playlist {
+            height: 100px;
+            background-color: rgba(0, 0, 0, 0.2);
+            background: -webkit-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+            background: -moz-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+            background: -ms-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
 
-  }).on("load", function (e, api) {
-    if (api.video.index === 1) {
-      // preview was silent, but now show volume and mute controls
-      $.each(["no-volume", "no-mute"], function (i, klass) {
-         $(root).removeClass(klass);
-      });
-    }
+        }
 
-  }).on("finish", function (e, api) {
-    if (api.video.is_last) {
-      // do not show pre-roll on replay
-      api.off("resume.fromfirst") // disable default playlist behaviour
-         .one("resume", function (e, api) { // one() binds event just once
-           api.play(1);
-         });
-    }
+        /* gradient for playlist during pre-roll */
+        .is-splash.flowplayer .fp-playlist, .flowplayer.video0 .fp-playlist {
+            background: -webkit-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%);
+            background: -moz-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%);
+            background: -ms-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%);
+        }
 
-  });
-});
-</script>
+        /* the pre-roll announcement - hidden by default */
+        .flowplayer .preroll-cover {
+            display: none;
+            font-size: 60px;
+            color: #fff;
+            letter-spacing: 1em;
+            text-transform: uppercase;
+            cursor: default;
+        }
+
+        /* show the pre-roll announcement during pre-roll */
+        .is-splash.flowplayer .preroll-cover, .flowplayer.video0 .preroll-cover {
+            display: block;
+            z-index: 1;
+        }
+
+        /* the playlist item anchors */
+        .flowplayer .fp-playlist a {
+            display: inline-block;
+            color: #000;
+            background-color: #777;
+            padding: 8px;
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+            border-radius: 8px;
+            font-size: 20px;
+            margin: 30px 15px;
+        }
+
+        /* hide advert playlist anchor */
+        .flowplayer .fp-playlist a.is-advert {
+            display: none;
+        }
+
+        .flowplayer .fp-playlist a.is-active {
+            background-color: #fff;
+        }
+
+        .is-paused.flowplayer .fp-playlist a.is-active {
+            background-color: #eee;
+        }
+
+        /* hide prev/next during preroll
+         * hide prev during first feature, next during last feature
+         * hide fullscreen button during pre-roll as it's a no-op
+         */
+        .flowplayer.is-splash .fp-prev, .flowplayer.is-splash .fp-next,
+        .flowplayer.video0 .fp-prev, .flowplayer.video0 .fp-next,
+        .flowplayer.video1 .fp-prev, .flowplayer.last-video .fp-next,
+        .flowplayer.video0 .fp-fullscreen {
+            display: none;
+        }
+
+        .flowplayer .fp-next, .flowplayer .fp-prev {
+            position: absolute;
+            bottom: -60px;
+            font-size: 20px;
+            color: #777;
+            cursor: pointer;
+            display: block;
+        }
+
+        .flowplayer .fp-prev {
+            left: 1em;
+            z-index: 1;
+        }
+
+        .flowplayer .fp-next {
+            right: 1em;
+        }
+
+        /* always show the logo */
+        .flowplayer .fp-logo {
+            display: block;
+            opacity: 1 !important;
+        }
+    </style>
+
+    <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
+    <script src="../../common/jquery/jquery-1.12.4.min.js"></script>
+    <!-- Flowplayer commercial library -->
+    <script src="../../common/releases/6.0.5/commercial/flowplayer.min.js"></script>
+    <!-- The hlsjs plugin for playback of HLS without Flash in modern browsers -->
+    <script src="../../common/releases/hlsjs/flowplayer.hlsjs.min.js"></script>
+
+
+    <script>
+        flowplayer.conf = {
+            key: "$130763224349944",
+            logo: "https://flowplayer.org/media/img/mylogo.png",
+            splash: true,
+            ratio: 5 / 12,
+            embed: false
+        };
+
+        flowplayer(function (api, root) {
+            api.on("ready", function (e, api, video) {
+                // disable user interaction during pre-roll
+                api.disable(video.index < 1);
+
+            }).on("load", function (e, api) {
+                if (api.video.index === 1) {
+                    // preview was silent, but now show volume and mute controls
+                    $.each(["no-volume", "no-mute"], function (i, klass) {
+                        $(root).removeClass(klass);
+                    });
+                }
+
+            }).on("finish", function (e, api) {
+                if (api.video.is_last) {
+                    // do not show pre-roll on replay
+                    api.off("resume.fromfirst") // disable default playlist behaviour
+                        .one("resume", function (e, api) { // one() binds event just once
+                            api.play(1);
+                        });
+                }
+
+            });
+        });
+    </script>
 
 </head>
 
 <body>
 
-   <div id="content">
+<div id="content">
 
-      <h1>Flowplayer · Pre-roll for a playlist</h1>
+    <h1>Flowplayer · Pre-roll for a playlist</h1>
 
-<!-- no-volume and no-mute classes to be removed after silent preview -->
-<div class="flowplayer no-volume no-mute">
-   <video>
-      <source type="application/x-mpegurl" src="http://edge.flowplayer.org/download.m3u8">
-      <source type="video/mp4"             src="http://edge.flowplayer.org/download.mp4">
-   </video>
+    <!-- no-volume and no-mute classes to be removed after silent preview -->
+    <div class="flowplayer no-volume no-mute">
+        <video>
+            <source type="application/x-mpegurl" src="http://edge.flowplayer.org/download.m3u8">
+            <source type="video/mp4" src="http://edge.flowplayer.org/download.mp4">
+        </video>
 
-   <div class="fp-playlist">
-      <a class="is-advert" href="http://edge.flowplayer.org/download.mp4"></a>
-      <a href="http://edge.flowplayer.org/bauhaus.mp4">minimal</a>
-      <a href="http://edge.flowplayer.org/functional.mp4">functional</a>
-      <a href="http://edge.flowplayer.org/playful.mp4">playful</a>
-   </div>
+        <div class="fp-playlist">
+            <a class="is-advert" href="http://edge.flowplayer.org/download.mp4"></a>
+            <a href="http://edge.flowplayer.org/bauhaus.mp4">minimal</a>
+            <a href="http://edge.flowplayer.org/functional.mp4">functional</a>
+            <a href="http://edge.flowplayer.org/playful.mp4">playful</a>
+        </div>
 
-   <a class="fp-prev">prev</a>
-   <a class="fp-next">next</a>
+        <a class="fp-prev">prev</a>
+        <a class="fp-next">next</a>
 
-   <div class="preroll-cover">pre-roll</div>
-</div>
+        <div class="preroll-cover">pre-roll</div>
+    </div>
 
-<div class="info">
-   <p>Playlist with a mandatory pre-roll advert which is played only once.</p>
+    <div class="info">
+        <p>Playlist with a mandatory pre-roll advert which is played only once.</p>
 
-   <p>The player can only be loaded by clicking on the screen and starting the advert.</p>
-</div>
+        <p>The player can only be loaded by clicking on the screen and starting the advert.</p>
+    </div>
 
-<h2 id="head-setup">&lt;head/&gt;</h2>
+    <h2 id="head-setup">&lt;head/&gt;</h2>
 
-<p class="doc">For smoother <a href="https://flowplayer.org/v6docs/setup.html#hls">HLS</a> playback in modern browsers we load the
-<a href="https://flowplayer.org/v6docs/plugins.html#hlsjs">hlsjs plugin</a>.
-</p>
+    <p class="doc">For smoother <a href="https://flowplayer.org/v6docs/setup.html#hls">HLS</a> playback in modern
+        browsers we load the
+        <a href="https://flowplayer.org/v6docs/plugins.html#hlsjs">hlsjs plugin</a>.
+    </p>
 
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="c">&lt;!-- Flowplayer library --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/6.0.5/flowplayer.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /><span class="c">&lt;!-- Flowplayer hlsjs engine --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
-
-
-<h3 id="css-setup">&lt;style&gt;</h3>
-
-<p class="doc">Note how the pre-roll announcement is only shown on page load and during
-pre-roll playback using the <code>is-splash</code>
-<a href="https://flowplayer.org/v6docs/skinning.html#states">state class</a> and the
-<code>video0</code>
-<a href="https://flowplayer.org/v6docs/playlist.html#css-classes">playlist class</a>. The
-gradient of the playlist element is toggled by the same means.</p>
-
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">{</span><br />   <span class="k">background-color</span><span class="p">:</span> <span class="mh">#333</span><span class="p">;</span><br />   <span class="c">/* allow room for playlist element */</span><br />   <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-playlist</span><span class="o">,</span> <span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">preroll-cover</span> <span class="p">{</span><br />   <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span><br />   <span class="k">bottom</span><span class="p">:</span> <span class="mi">-100</span><span class="kt">px</span><span class="p">;</span><br />   <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span><br />   <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span><br />   <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="c">/* gradient for active playlist */</span><br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-playlist</span> <span class="p">{</span><br />   <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span><br />   <span class="k">background-color</span><span class="p">:</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">);</span><br />   <span class="k">background</span><span class="p">:</span> <span class="bp">-webkit-</span><span class="nb">radial-gradient</span><span class="p">(</span><span class="mi">50</span><span class="kt">%</span> <span class="mi">50</span><span class="kt">%</span><span class="p">,</span> <span class="n">ellipse</span> <span class="n">closest</span><span class="o">-</span><span class="n">corner</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span class="mi">0</span><span class="kt">%</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">100</span><span class="kt">%</span><span class="p">);</span><br />   <span class="k">background</span><span class="p">:</span> <span class="bp">-moz-</span><span class="nb">radial-gradient</span><span class="p">(</span><span class="mi">50</span><span class="kt">%</span> <span class="mi">50</span><span class="kt">%</span><span class="p">,</span> <span class="n">ellipse</span> <span class="n">closest</span><span class="o">-</span><span class="n">corner</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span class="mi">0</span><span class="kt">%</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">100</span><span class="kt">%</span><span class="p">);</span><br />   <span class="k">background</span><span class="p">:</span> <span class="bp">-ms-</span><span class="nb">radial-gradient</span><span class="p">(</span><span class="mi">50</span><span class="kt">%</span> <span class="mi">50</span><span class="kt">%</span><span class="p">,</span> <span class="n">ellipse</span> <span class="n">closest</span><span class="o">-</span><span class="n">corner</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span class="mi">0</span><span class="kt">%</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">100</span><span class="kt">%</span><span class="p">);</span><br />&nbsp;<br /><span class="p">}</span><br /><span class="c">/* gradient for playlist during pre-roll */</span><br /><span class="p">.</span><span class="nc">is-splash</span><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-playlist</span><span class="o">,</span> <span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">video0</span> <span class="p">.</span><span class="nc">fp-playlist</span> <span class="p">{</span><br />   <span class="k">background</span><span class="p">:</span> <span class="bp">-webkit-</span><span class="nb">radial-gradient</span><span class="p">(</span><span class="mi">50</span><span class="kt">%</span> <span class="mi">50</span><span class="kt">%</span><span class="p">,</span> <span class="n">ellipse</span> <span class="n">closest</span><span class="o">-</span><span class="n">corner</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">0</span><span class="kt">%</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span class="mi">100</span><span class="kt">%</span><span class="p">);</span><br />   <span class="k">background</span><span class="p">:</span> <span class="bp">-moz-</span><span class="nb">radial-gradient</span><span class="p">(</span><span class="mi">50</span><span class="kt">%</span> <span class="mi">50</span><span class="kt">%</span><span class="p">,</span> <span class="n">ellipse</span> <span class="n">closest</span><span class="o">-</span><span class="n">corner</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">0</span><span class="kt">%</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span class="mi">100</span><span class="kt">%</span><span class="p">);</span><br />   <span class="k">background</span><span class="p">:</span> <span class="bp">-ms-</span><span class="nb">radial-gradient</span><span class="p">(</span><span class="mi">50</span><span class="kt">%</span> <span class="mi">50</span><span class="kt">%</span><span class="p">,</span> <span class="n">ellipse</span> <span class="n">closest</span><span class="o">-</span><span class="n">corner</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">0</span><span class="kt">%</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span class="mi">100</span><span class="kt">%</span><span class="p">);</span><br /><span class="p">}</span><br />&nbsp;<br /><span class="c">/* the pre-roll announcement - hidden by default */</span><br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">preroll-cover</span> <span class="p">{</span><br />   <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span><br />   <span class="k">font-size</span><span class="p">:</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span><br />   <span class="k">color</span><span class="p">:</span> <span class="mh">#fff</span><span class="p">;</span><br />   <span class="k">letter-spacing</span><span class="p">:</span> <span class="mi">1</span><span class="kt">em</span><span class="p">;</span><br />   <span class="k">text-transform</span><span class="p">:</span> <span class="kc">uppercase</span><span class="p">;</span><br />   <span class="k">cursor</span><span class="p">:</span> <span class="kc">default</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="c">/* show the pre-roll announcement during pre-roll */</span><br /><span class="p">.</span><span class="nc">is-splash</span><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">preroll-cover</span><span class="o">,</span> <span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">video0</span> <span class="p">.</span><span class="nc">preroll-cover</span> <span class="p">{</span><br />   <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span><br />   <span class="k">z-index</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span><br /><span class="p">}</span><br />&nbsp;<br /><span class="c">/* the playlist item anchors */</span><br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-playlist</span> <span class="nt">a</span> <span class="p">{</span><br />   <span class="k">display</span><span class="p">:</span> <span class="kc">inline-block</span><span class="p">;</span><br />   <span class="k">color</span><span class="p">:</span> <span class="mh">#000</span><span class="p">;</span><br />   <span class="k">background-color</span><span class="p">:</span> <span class="mh">#777</span><span class="p">;</span><br />   <span class="k">padding</span><span class="p">:</span> <span class="mi">8</span><span class="kt">px</span><span class="p">;</span><br />   <span class="kp">-webkit-</span><span class="k">border-radius</span><span class="p">:</span> <span class="mi">8</span><span class="kt">px</span><span class="p">;</span><br />   <span class="kp">-moz-</span><span class="k">border-radius</span><span class="p">:</span> <span class="mi">8</span><span class="kt">px</span><span class="p">;</span><br />   <span class="k">border-radius</span><span class="p">:</span> <span class="mi">8</span><span class="kt">px</span><span class="p">;</span><br />   <span class="k">font-size</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span><br />   <span class="k">margin</span><span class="p">:</span> <span class="mi">30</span><span class="kt">px</span> <span class="mi">15</span><span class="kt">px</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="c">/* hide advert playlist anchor */</span><br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-playlist</span> <span class="nt">a</span><span class="p">.</span><span class="nc">is-advert</span> <span class="p">{</span><br />   <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-playlist</span> <span class="nt">a</span><span class="p">.</span><span class="nc">is-active</span> <span class="p">{</span><br />   <span class="k">background-color</span><span class="p">:</span> <span class="mh">#fff</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">is-paused</span><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-playlist</span> <span class="nt">a</span><span class="p">.</span><span class="nc">is-active</span> <span class="p">{</span><br />   <span class="k">background-color</span><span class="p">:</span> <span class="mh">#eee</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="c">/* hide prev/next during preroll</span><br /><span class="c"> * hide prev during first feature, next during last feature</span><br /><span class="c"> * hide fullscreen button during pre-roll as it&#39;s a no-op</span><br /><span class="c"> */</span><br /><span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">is-splash</span> <span class="p">.</span><span class="nc">fp-prev</span><span class="o">,</span> <span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">is-splash</span> <span class="p">.</span><span class="nc">fp-next</span><span class="o">,</span><br /><span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">video0</span> <span class="p">.</span><span class="nc">fp-prev</span><span class="o">,</span> <span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">video0</span> <span class="p">.</span><span class="nc">fp-next</span><span class="o">,</span><br /><span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">video1</span> <span class="p">.</span><span class="nc">fp-prev</span><span class="o">,</span> <span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">last-video</span> <span class="p">.</span><span class="nc">fp-next</span><span class="o">,</span><br /><span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">video0</span> <span class="p">.</span><span class="nc">fp-fullscreen</span> <span class="p">{</span><br />   <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-next</span><span class="o">,</span> <span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-prev</span> <span class="p">{</span><br />   <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span><br />   <span class="k">bottom</span><span class="p">:</span> <span class="mi">-60</span><span class="kt">px</span><span class="p">;</span><br />   <span class="k">font-size</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span><br />   <span class="k">color</span><span class="p">:</span> <span class="mh">#777</span><span class="p">;</span><br />   <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span><br />   <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-prev</span> <span class="p">{</span><br />   <span class="k">left</span><span class="p">:</span> <span class="mi">1</span><span class="kt">em</span><span class="p">;</span><br />   <span class="k">z-index</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-next</span> <span class="p">{</span><br />   <span class="k">right</span><span class="p">:</span> <span class="mi">1</span><span class="kt">em</span><span class="p">;</span><br /><span class="p">}</span><br />&nbsp;<br /><span class="c">/* always show the logo */</span><br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-logo</span> <span class="p">{</span><br />   <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span><br />   <span class="k">opacity</span><span class="p">:</span> <span class="mi">1</span> <span class="cp">!important</span><span class="p">;</span><br /><span class="p">}</span><br /></pre></div><br /><figcaption>CSS</figcaption></figure></div>
-
-
-<h3 id="javascript-setup">&lt;script&gt;</h3>
-
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="nx">flowplayer</span><span class="p">.</span><span class="nx">conf</span> <span class="o">=</span> <span class="p">{</span><br />  <span class="nx">key</span><span class="o">:</span> <span class="s2">&quot;$130763224349944&quot;</span><span class="p">,</span><br />  <span class="nx">logo</span><span class="o">:</span> <span class="s2">&quot;https://flowplayer.org/media/img/mylogo.png&quot;</span><span class="p">,</span><br />  <span class="nx">splash</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span><br />  <span class="nx">ratio</span><span class="o">:</span> <span class="mi">5</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span><br />  <span class="nx">embed</span><span class="o">:</span> <span class="kc">false</span><br /><span class="p">};</span><br />&nbsp;<br /><span class="nx">flowplayer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">api</span><span class="p">,</span> <span class="nx">root</span><span class="p">)</span> <span class="p">{</span><br />  <span class="nx">api</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;ready&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span class="nx">video</span><span class="p">)</span> <span class="p">{</span><br />    <span class="c1">// disable user interaction during pre-roll</span><br />    <span class="nx">api</span><span class="p">.</span><span class="nx">disable</span><span class="p">(</span><span class="nx">video</span><span class="p">.</span><span class="nx">index</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">);</span><br />&nbsp;<br />  <span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span class="p">{</span><br />    <span class="k">if</span> <span class="p">(</span><span class="nx">api</span><span class="p">.</span><span class="nx">video</span><span class="p">.</span><span class="nx">index</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span><br />      <span class="c1">// preview was silent, but now show volume and mute controls</span><br />      <span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">([</span><span class="s2">&quot;no-volume&quot;</span><span class="p">,</span> <span class="s2">&quot;no-mute&quot;</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">klass</span><span class="p">)</span> <span class="p">{</span><br />         <span class="nx">$</span><span class="p">(</span><span class="nx">root</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="nx">klass</span><span class="p">);</span><br />      <span class="p">});</span><br />    <span class="p">}</span><br />&nbsp;<br />  <span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;finish&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span class="p">{</span><br />    <span class="k">if</span> <span class="p">(</span><span class="nx">api</span><span class="p">.</span><span class="nx">video</span><span class="p">.</span><span class="nx">is_last</span><span class="p">)</span> <span class="p">{</span><br />      <span class="c1">// do not show pre-roll on replay</span><br />      <span class="nx">api</span><span class="p">.</span><span class="nx">off</span><span class="p">(</span><span class="s2">&quot;resume.fromfirst&quot;</span><span class="p">)</span> <span class="c1">// disable default playlist behaviour</span><br />         <span class="p">.</span><span class="nx">one</span><span class="p">(</span><span class="s2">&quot;resume&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// one() binds event just once</span><br />           <span class="nx">api</span><span class="p">.</span><span class="nx">play</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><br />         <span class="p">});</span><br />    <span class="p">}</span><br />&nbsp;<br />  <span class="p">});</span><br /><span class="p">});</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></div>
-
-
-<h2 id="html-setup">&lt;body/&gt;</h2>
-
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="c">&lt;!-- no-volume and no-mute classes to be removed after silent preview --&gt;</span><br /><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;flowplayer no-volume no-mute&quot;</span><span class="p">&gt;</span><br />   <span class="p">&lt;</span><span class="nt">video</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;application/x-mpegurl&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/download.m3u8&quot;</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span>             <span class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/download.mp4&quot;</span><span class="p">&gt;</span><br />   <span class="p">&lt;/</span><span class="nt">video</span><span class="p">&gt;</span><br />&nbsp;<br />   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;fp-playlist&quot;</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;is-advert&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/download.mp4&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/bauhaus.mp4&quot;</span><span class="p">&gt;</span>minimal<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/functional.mp4&quot;</span><span class="p">&gt;</span>functional<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/playful.mp4&quot;</span><span class="p">&gt;</span>playful<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br />   <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />&nbsp;<br />   <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;fp-prev&quot;</span><span class="p">&gt;</span>prev<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br />   <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;fp-next&quot;</span><span class="p">&gt;</span>next<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br />&nbsp;<br />   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;preroll-cover&quot;</span><span class="p">&gt;</span>pre-roll<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br /><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="c">&lt;!-- Flowplayer library --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span
+                        class="s">&quot;//releases.flowplayer.org/6.0.5/flowplayer.min.js&quot;</span><span class="p">&gt;&lt;/</span><span
+                        class="nt">script</span><span class="p">&gt;</span><br/><span class="c">&lt;!-- Flowplayer hlsjs engine --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
 
 
+    <h3 id="css-setup">&lt;style&gt;</h3>
+
+    <p class="doc">Note how the pre-roll announcement is only shown on page load and during
+        pre-roll playback using the <code>is-splash</code>
+        <a href="https://flowplayer.org/v6docs/skinning.html#states">state class</a> and the
+        <code>video0</code>
+        <a href="https://flowplayer.org/v6docs/playlist.html#css-classes">playlist class</a>. The
+        gradient of the playlist element is toggled by the same means.</p>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">{</span><br/>   <span class="k">background-color</span><span class="p">:</span> <span
+                        class="mh">#333</span><span class="p">;</span><br/>   <span class="c">/* allow room for playlist element */</span><br/>   <span
+                        class="k">margin-bottom</span><span class="p">:</span> <span class="mi">100</span><span
+                        class="kt">px</span><span class="p">;</span><br/><span class="p">}</span><br/><span
+                        class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-playlist</span><span
+                        class="o">,</span> <span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">.</span><span class="nc">preroll-cover</span> <span class="p">{</span><br/>   <span
+                        class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span
+                        class="p">;</span><br/>   <span class="k">bottom</span><span class="p">:</span> <span
+                        class="mi">-100</span><span class="kt">px</span><span class="p">;</span><br/>   <span class="k">width</span><span
+                        class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span
+                        class="p">;</span><br/>   <span class="k">height</span><span class="p">:</span> <span
+                        class="mi">100</span><span class="kt">px</span><span class="p">;</span><br/>   <span class="k">text-align</span><span
+                        class="p">:</span> <span class="kc">center</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/><span class="c">/* gradient for active playlist */</span><br/><span
+                        class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-playlist</span> <span
+                        class="p">{</span><br/>   <span class="k">height</span><span class="p">:</span> <span
+                        class="mi">100</span><span class="kt">px</span><span class="p">;</span><br/>   <span class="k">background-color</span><span
+                        class="p">:</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span
+                        class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">);</span><br/>   <span
+                        class="k">background</span><span class="p">:</span> <span class="bp">-webkit-</span><span
+                        class="nb">radial-gradient</span><span class="p">(</span><span class="mi">50</span><span
+                        class="kt">%</span> <span class="mi">50</span><span class="kt">%</span><span class="p">,</span> <span
+                        class="n">ellipse</span> <span class="n">closest</span><span class="o">-</span><span class="n">corner</span><span
+                        class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span
+                        class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span
+                        class="mi">0</span><span class="kt">%</span><span class="p">,</span> <span
+                        class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">100</span><span
+                        class="kt">%</span><span class="p">);</span><br/>   <span class="k">background</span><span
+                        class="p">:</span> <span class="bp">-moz-</span><span class="nb">radial-gradient</span><span
+                        class="p">(</span><span class="mi">50</span><span class="kt">%</span> <span class="mi">50</span><span
+                        class="kt">%</span><span class="p">,</span> <span class="n">ellipse</span> <span class="n">closest</span><span
+                        class="o">-</span><span class="n">corner</span><span class="p">,</span> <span
+                        class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span class="mi">0</span><span
+                        class="kt">%</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">)</span> <span class="mi">100</span><span class="kt">%</span><span
+                        class="p">);</span><br/>   <span class="k">background</span><span class="p">:</span> <span
+                        class="bp">-ms-</span><span class="nb">radial-gradient</span><span class="p">(</span><span
+                        class="mi">50</span><span class="kt">%</span> <span class="mi">50</span><span
+                        class="kt">%</span><span class="p">,</span> <span class="n">ellipse</span> <span class="n">closest</span><span
+                        class="o">-</span><span class="n">corner</span><span class="p">,</span> <span
+                        class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span class="mi">0</span><span
+                        class="kt">%</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">)</span> <span class="mi">100</span><span class="kt">%</span><span
+                        class="p">);</span><br/>&nbsp;<br/><span class="p">}</span><br/><span class="c">/* gradient for playlist during pre-roll */</span><br/><span
+                        class="p">.</span><span class="nc">is-splash</span><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">.</span><span class="nc">fp-playlist</span><span class="o">,</span> <span
+                        class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">video0</span> <span
+                        class="p">.</span><span class="nc">fp-playlist</span> <span class="p">{</span><br/>   <span
+                        class="k">background</span><span class="p">:</span> <span class="bp">-webkit-</span><span
+                        class="nb">radial-gradient</span><span class="p">(</span><span class="mi">50</span><span
+                        class="kt">%</span> <span class="mi">50</span><span class="kt">%</span><span class="p">,</span> <span
+                        class="n">ellipse</span> <span class="n">closest</span><span class="o">-</span><span class="n">corner</span><span
+                        class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span
+                        class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">)</span> <span class="mi">0</span><span class="kt">%</span><span
+                        class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span
+                        class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span
+                        class="mi">100</span><span class="kt">%</span><span class="p">);</span><br/>   <span class="k">background</span><span
+                        class="p">:</span> <span class="bp">-moz-</span><span class="nb">radial-gradient</span><span
+                        class="p">(</span><span class="mi">50</span><span class="kt">%</span> <span class="mi">50</span><span
+                        class="kt">%</span><span class="p">,</span> <span class="n">ellipse</span> <span class="n">closest</span><span
+                        class="o">-</span><span class="n">corner</span><span class="p">,</span> <span
+                        class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span
+                        class="mi">0</span><span class="kt">%</span><span class="p">,</span> <span
+                        class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span
+                        class="mi">100</span><span class="kt">%</span><span class="p">);</span><br/>   <span class="k">background</span><span
+                        class="p">:</span> <span class="bp">-ms-</span><span class="nb">radial-gradient</span><span
+                        class="p">(</span><span class="mi">50</span><span class="kt">%</span> <span class="mi">50</span><span
+                        class="kt">%</span><span class="p">,</span> <span class="n">ellipse</span> <span class="n">closest</span><span
+                        class="o">-</span><span class="n">corner</span><span class="p">,</span> <span
+                        class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span
+                        class="mi">0</span><span class="kt">%</span><span class="p">,</span> <span
+                        class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span
+                        class="mi">100</span><span class="kt">%</span><span class="p">);</span><br/><span
+                        class="p">}</span><br/>&nbsp;<br/><span class="c">/* the pre-roll announcement - hidden by default */</span><br/><span
+                        class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">preroll-cover</span> <span
+                        class="p">{</span><br/>   <span class="k">display</span><span class="p">:</span> <span
+                        class="kc">none</span><span class="p">;</span><br/>   <span class="k">font-size</span><span
+                        class="p">:</span> <span class="mi">60</span><span class="kt">px</span><span
+                        class="p">;</span><br/>   <span class="k">color</span><span class="p">:</span> <span class="mh">#fff</span><span
+                        class="p">;</span><br/>   <span class="k">letter-spacing</span><span class="p">:</span> <span
+                        class="mi">1</span><span class="kt">em</span><span class="p">;</span><br/>   <span class="k">text-transform</span><span
+                        class="p">:</span> <span class="kc">uppercase</span><span class="p">;</span><br/>   <span
+                        class="k">cursor</span><span class="p">:</span> <span class="kc">default</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/><span class="c">/* show the pre-roll announcement during pre-roll */</span><br/><span
+                        class="p">.</span><span class="nc">is-splash</span><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">.</span><span class="nc">preroll-cover</span><span class="o">,</span> <span class="p">.</span><span
+                        class="nc">flowplayer</span><span class="p">.</span><span class="nc">video0</span> <span
+                        class="p">.</span><span class="nc">preroll-cover</span> <span class="p">{</span><br/>   <span
+                        class="k">display</span><span class="p">:</span> <span class="kc">block</span><span
+                        class="p">;</span><br/>   <span class="k">z-index</span><span class="p">:</span> <span
+                        class="mi">1</span><span class="p">;</span><br/><span class="p">}</span><br/>&nbsp;<br/><span
+                        class="c">/* the playlist item anchors */</span><br/><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">.</span><span class="nc">fp-playlist</span> <span class="nt">a</span> <span class="p">{</span><br/>   <span
+                        class="k">display</span><span class="p">:</span> <span class="kc">inline-block</span><span
+                        class="p">;</span><br/>   <span class="k">color</span><span class="p">:</span> <span class="mh">#000</span><span
+                        class="p">;</span><br/>   <span class="k">background-color</span><span class="p">:</span> <span
+                        class="mh">#777</span><span class="p">;</span><br/>   <span class="k">padding</span><span
+                        class="p">:</span> <span class="mi">8</span><span class="kt">px</span><span
+                        class="p">;</span><br/>   <span class="kp">-webkit-</span><span
+                        class="k">border-radius</span><span class="p">:</span> <span class="mi">8</span><span
+                        class="kt">px</span><span class="p">;</span><br/>   <span class="kp">-moz-</span><span
+                        class="k">border-radius</span><span class="p">:</span> <span class="mi">8</span><span
+                        class="kt">px</span><span class="p">;</span><br/>   <span class="k">border-radius</span><span
+                        class="p">:</span> <span class="mi">8</span><span class="kt">px</span><span
+                        class="p">;</span><br/>   <span class="k">font-size</span><span class="p">:</span> <span
+                        class="mi">20</span><span class="kt">px</span><span class="p">;</span><br/>   <span class="k">margin</span><span
+                        class="p">:</span> <span class="mi">30</span><span class="kt">px</span> <span
+                        class="mi">15</span><span class="kt">px</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/><span class="c">/* hide advert playlist anchor */</span><br/><span
+                        class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-playlist</span> <span
+                        class="nt">a</span><span class="p">.</span><span class="nc">is-advert</span> <span
+                        class="p">{</span><br/>   <span class="k">display</span><span class="p">:</span> <span
+                        class="kc">none</span><span class="p">;</span><br/><span class="p">}</span><br/><span class="p">.</span><span
+                        class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-playlist</span> <span
+                        class="nt">a</span><span class="p">.</span><span class="nc">is-active</span> <span
+                        class="p">{</span><br/>   <span class="k">background-color</span><span class="p">:</span> <span
+                        class="mh">#fff</span><span class="p">;</span><br/><span class="p">}</span><br/><span class="p">.</span><span
+                        class="nc">is-paused</span><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">.</span><span class="nc">fp-playlist</span> <span class="nt">a</span><span
+                        class="p">.</span><span class="nc">is-active</span> <span class="p">{</span><br/>   <span
+                        class="k">background-color</span><span class="p">:</span> <span class="mh">#eee</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/><span class="c">/* hide prev/next during preroll</span><br/><span
+                        class="c"> * hide prev during first feature, next during last feature</span><br/><span
+                        class="c"> * hide fullscreen button during pre-roll as it&#39;s a no-op</span><br/><span
+                        class="c"> */</span><br/><span class="p">.</span><span class="nc">flowplayer</span><span
+                        class="p">.</span><span class="nc">is-splash</span> <span class="p">.</span><span class="nc">fp-prev</span><span
+                        class="o">,</span> <span class="p">.</span><span class="nc">flowplayer</span><span
+                        class="p">.</span><span class="nc">is-splash</span> <span class="p">.</span><span class="nc">fp-next</span><span
+                        class="o">,</span><br/><span class="p">.</span><span class="nc">flowplayer</span><span
+                        class="p">.</span><span class="nc">video0</span> <span class="p">.</span><span class="nc">fp-prev</span><span
+                        class="o">,</span> <span class="p">.</span><span class="nc">flowplayer</span><span
+                        class="p">.</span><span class="nc">video0</span> <span class="p">.</span><span class="nc">fp-next</span><span
+                        class="o">,</span><br/><span class="p">.</span><span class="nc">flowplayer</span><span
+                        class="p">.</span><span class="nc">video1</span> <span class="p">.</span><span class="nc">fp-prev</span><span
+                        class="o">,</span> <span class="p">.</span><span class="nc">flowplayer</span><span
+                        class="p">.</span><span class="nc">last-video</span> <span class="p">.</span><span class="nc">fp-next</span><span
+                        class="o">,</span><br/><span class="p">.</span><span class="nc">flowplayer</span><span
+                        class="p">.</span><span class="nc">video0</span> <span class="p">.</span><span class="nc">fp-fullscreen</span> <span
+                        class="p">{</span><br/>   <span class="k">display</span><span class="p">:</span> <span
+                        class="kc">none</span><span class="p">;</span><br/><span class="p">}</span><br/><span class="p">.</span><span
+                        class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-next</span><span
+                        class="o">,</span> <span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">.</span><span class="nc">fp-prev</span> <span class="p">{</span><br/>   <span
+                        class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span
+                        class="p">;</span><br/>   <span class="k">bottom</span><span class="p">:</span> <span
+                        class="mi">-60</span><span class="kt">px</span><span class="p">;</span><br/>   <span class="k">font-size</span><span
+                        class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span
+                        class="p">;</span><br/>   <span class="k">color</span><span class="p">:</span> <span class="mh">#777</span><span
+                        class="p">;</span><br/>   <span class="k">cursor</span><span class="p">:</span> <span
+                        class="kc">pointer</span><span class="p">;</span><br/>   <span class="k">display</span><span
+                        class="p">:</span> <span class="kc">block</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">.</span><span class="nc">fp-prev</span> <span class="p">{</span><br/>   <span
+                        class="k">left</span><span class="p">:</span> <span class="mi">1</span><span
+                        class="kt">em</span><span class="p">;</span><br/>   <span class="k">z-index</span><span
+                        class="p">:</span> <span class="mi">1</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">.</span><span class="nc">fp-next</span> <span class="p">{</span><br/>   <span
+                        class="k">right</span><span class="p">:</span> <span class="mi">1</span><span
+                        class="kt">em</span><span class="p">;</span><br/><span class="p">}</span><br/>&nbsp;<br/><span
+                        class="c">/* always show the logo */</span><br/><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">.</span><span class="nc">fp-logo</span> <span class="p">{</span><br/>   <span
+                        class="k">display</span><span class="p">:</span> <span class="kc">block</span><span
+                        class="p">;</span><br/>   <span class="k">opacity</span><span class="p">:</span> <span
+                        class="mi">1</span> <span class="cp">!important</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>CSS</figcaption>
+        </figure>
+    </div>
 
 
-<div class="footer">
-    <p><a href="index.html" >Demos in this section</a></p>
+    <h3 id="javascript-setup">&lt;script&gt;</h3>
 
-  <hr>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="nx">flowplayer</span><span class="p">.</span><span class="nx">conf</span> <span
+                        class="o">=</span> <span class="p">{</span><br/>  <span class="nx">key</span><span
+                        class="o">:</span> <span class="s2">&quot;$130763224349944&quot;</span><span
+                        class="p">,</span><br/>  <span class="nx">logo</span><span class="o">:</span> <span class="s2">&quot;https://flowplayer.org/media/img/mylogo.png&quot;</span><span
+                        class="p">,</span><br/>  <span class="nx">splash</span><span class="o">:</span> <span
+                        class="kc">true</span><span class="p">,</span><br/>  <span class="nx">ratio</span><span
+                        class="o">:</span> <span class="mi">5</span><span class="o">/</span><span
+                        class="mi">12</span><span class="p">,</span><br/>  <span class="nx">embed</span><span class="o">:</span> <span
+                        class="kc">false</span><br/><span class="p">};</span><br/>&nbsp;<br/><span
+                        class="nx">flowplayer</span><span class="p">(</span><span class="kd">function</span> <span
+                        class="p">(</span><span class="nx">api</span><span class="p">,</span> <span
+                        class="nx">root</span><span class="p">)</span> <span class="p">{</span><br/>  <span class="nx">api</span><span
+                        class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;ready&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span
+                        class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span
+                        class="nx">video</span><span class="p">)</span> <span class="p">{</span><br/>    <span
+                        class="c1">// disable user interaction during pre-roll</span><br/>    <span
+                        class="nx">api</span><span class="p">.</span><span class="nx">disable</span><span
+                        class="p">(</span><span class="nx">video</span><span class="p">.</span><span
+                        class="nx">index</span> <span class="o">&lt;</span> <span class="mi">1</span><span
+                        class="p">);</span><br/>&nbsp;<br/>  <span class="p">}).</span><span class="nx">on</span><span
+                        class="p">(</span><span class="s2">&quot;load&quot;</span><span class="p">,</span> <span
+                        class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span
+                        class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span
+                        class="p">{</span><br/>    <span class="k">if</span> <span class="p">(</span><span class="nx">api</span><span
+                        class="p">.</span><span class="nx">video</span><span class="p">.</span><span
+                        class="nx">index</span> <span class="o">===</span> <span class="mi">1</span><span
+                        class="p">)</span> <span class="p">{</span><br/>      <span class="c1">// preview was silent, but now show volume and mute controls</span><br/>      <span
+                        class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">([</span><span
+                        class="s2">&quot;no-volume&quot;</span><span class="p">,</span> <span class="s2">&quot;no-mute&quot;</span><span
+                        class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span
+                        class="nx">i</span><span class="p">,</span> <span class="nx">klass</span><span
+                        class="p">)</span> <span class="p">{</span><br/>         <span class="nx">$</span><span
+                        class="p">(</span><span class="nx">root</span><span class="p">).</span><span class="nx">removeClass</span><span
+                        class="p">(</span><span class="nx">klass</span><span class="p">);</span><br/>      <span
+                        class="p">});</span><br/>    <span class="p">}</span><br/>&nbsp;<br/>  <span
+                        class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;finish&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span
+                        class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span
+                        class="p">{</span><br/>    <span class="k">if</span> <span class="p">(</span><span class="nx">api</span><span
+                        class="p">.</span><span class="nx">video</span><span class="p">.</span><span
+                        class="nx">is_last</span><span class="p">)</span> <span class="p">{</span><br/>      <span
+                        class="c1">// do not show pre-roll on replay</span><br/>      <span class="nx">api</span><span
+                        class="p">.</span><span class="nx">off</span><span class="p">(</span><span class="s2">&quot;resume.fromfirst&quot;</span><span
+                        class="p">)</span> <span
+                        class="c1">// disable default playlist behaviour</span><br/>         <span
+                        class="p">.</span><span class="nx">one</span><span class="p">(</span><span class="s2">&quot;resume&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span
+                        class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span
+                        class="p">{</span> <span class="c1">// one() binds event just once</span><br/>           <span
+                        class="nx">api</span><span class="p">.</span><span class="nx">play</span><span
+                        class="p">(</span><span class="mi">1</span><span class="p">);</span><br/>         <span
+                        class="p">});</span><br/>    <span class="p">}</span><br/>&nbsp;<br/>  <span
+                        class="p">});</span><br/><span class="p">});</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>JavaScript</figcaption>
+        </figure>
+    </div>
 
-  <p><a href="../index.html" >Version 6 Demos</a></p>
 
-  <p><a href="../../index.html" >Flowplayer Demos+</a></p>
+    <h2 id="html-setup">&lt;body/&gt;</h2>
 
-  <hr>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="c">&lt;!-- no-volume and no-mute classes to be removed after silent preview --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span
+                        class="o">=</span><span class="s">&quot;flowplayer no-volume no-mute&quot;</span><span
+                        class="p">&gt;</span><br/>   <span class="p">&lt;</span><span class="nt">video</span><span
+                        class="p">&gt;</span><br/>      <span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;application/x-mpegurl&quot;</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//edge.flowplayer.org/download.m3u8&quot;</span><span
+                        class="p">&gt;</span><br/>      <span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span>             <span
+                        class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/download.mp4&quot;</span><span
+                        class="p">&gt;</span><br/>   <span class="p">&lt;/</span><span class="nt">video</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/>   <span class="p">&lt;</span><span
+                        class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;fp-playlist&quot;</span><span
+                        class="p">&gt;</span><br/>      <span class="p">&lt;</span><span class="nt">a</span> <span
+                        class="na">class</span><span class="o">=</span><span
+                        class="s">&quot;is-advert&quot;</span> <span class="na">href</span><span class="o">=</span><span
+                        class="s">&quot;//edge.flowplayer.org/download.mp4&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br/>      <span
+                        class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span
+                        class="o">=</span><span class="s">&quot;//edge.flowplayer.org/bauhaus.mp4&quot;</span><span
+                        class="p">&gt;</span>minimal<span class="p">&lt;/</span><span class="nt">a</span><span
+                        class="p">&gt;</span><br/>      <span class="p">&lt;</span><span class="nt">a</span> <span
+                        class="na">href</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/functional.mp4&quot;</span><span
+                        class="p">&gt;</span>functional<span class="p">&lt;/</span><span class="nt">a</span><span
+                        class="p">&gt;</span><br/>      <span class="p">&lt;</span><span class="nt">a</span> <span
+                        class="na">href</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/playful.mp4&quot;</span><span
+                        class="p">&gt;</span>playful<span class="p">&lt;/</span><span class="nt">a</span><span
+                        class="p">&gt;</span><br/>   <span class="p">&lt;/</span><span class="nt">div</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/>   <span class="p">&lt;</span><span
+                        class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;fp-prev&quot;</span><span
+                        class="p">&gt;</span>prev<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br/>   <span
+                        class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span
+                        class="o">=</span><span class="s">&quot;fp-next&quot;</span><span class="p">&gt;</span>next<span
+                        class="p">&lt;/</span><span class="nt">a</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/>   <span class="p">&lt;</span><span
+                        class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;preroll-cover&quot;</span><span
+                        class="p">&gt;</span>pre-roll<span class="p">&lt;/</span><span class="nt">div</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;/</span><span class="nt">div</span><span
+                        class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
 
-  <p><a href="https://flowplayer.org/v6docs/">Version 6 Docs</a></p>
-</div>
-   </div> <!-- end content -->
+
+    <div class="footer">
+        <p><a href="index.html">Demos in this section</a></p>
+
+        <hr>
+
+        <p><a href="../index.html">Version 6 Demos</a></p>
+
+        <p><a href="../../index.html">Flowplayer Demos+</a></p>
+
+        <hr>
+
+        <p><a href="https://flowplayer.org/v6docs/">Version 6 Docs</a></p>
+    </div>
+</div> <!-- end content -->
 
 </body>
 </html>
