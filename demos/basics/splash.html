@@ -1,182 +1,323 @@
-
 <!doctype html>
 
 <html>
 
 <head>
-   <meta charset="utf-8">
+    <meta charset="utf-8">
 
-      <title>Flowplayer · Multiple splash</title>
-   
-   <!-- optimize mobile versions -->
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-      <!-- Flowplayer skin -->
-   <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css" >
-   
-   <!-- Minimal styling for this standalone page, can be removed -->
-   <link rel="stylesheet" href="../common/css/demo.css" >
-   <!-- Syntax highlighting of source code, can be removed -->
-   <link rel="stylesheet" href="../common/css/pygments.css" >
-   
-<style>
-#content {
-  max-width: 768px; /* narrower for 4/3 aspect ratio */
-}
+    <title>Flowplayer · Multiple splash</title>
 
-.flowplayer {
-  margin: 10px 0;
-  background-color: #333;
-}
-.flowplayer .fp-color {
-  background-color: #a1e1ff;
-}
-.flowplayer .fp-color-play {
-  fill: #a1e1ff;
-}
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-#ccc {
-  background-image: url("../common/media/d12zt1n3pd4xhr/img/ccc.jpg");
-}
-#manstalt {
-  background-image: url("../common/media/d12zt1n3pd4xhr/img/manstalt.jpg");
-}
-#stsp {
-  background-image: url("../common/media/d12zt1n3pd4xhr/img/stsp.jpg");
-}
-</style>
+    <!-- Flowplayer skin -->
+    <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css">
 
-      <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
-   <script src="../common/jquery/jquery-1.12.4.min.js" ></script>
-         <!-- Flowplayer library -->
-   <script src="../common/releases/7.0.4/flowplayer.min.js" ></script>
-         <!-- The hlsjs plugin for playback of HLS without Flash in modern browsers -->
-   <script src="../common/releases/hlsjs/flowplayer.hlsjs.min.js" ></script>
-               <!-- the thumbnails plugin -->
-   <script src="../common/releases/thumbnails/flowplayer.thumbnails.min.js" ></script>
-      
-   
-<script>
-// global configuration
-flowplayer.conf = {
-  splash: true,
-  ratio: 3/4
-};
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../common/css/pygments.css">
+
+    <style>
+        #content {
+            max-width: 768px; /* narrower for 4/3 aspect ratio */
+        }
+
+        .flowplayer {
+            margin: 10px 0;
+            background-color: #333;
+        }
+
+        .flowplayer .fp-color {
+            background-color: #a1e1ff;
+        }
+
+        .flowplayer .fp-color-play {
+            fill: #a1e1ff;
+        }
+
+        #ccc {
+            background-image: url("../common/media/img/ccc.jpg");
+        }
+
+        #manstalt {
+            background-image: url("../common/media/img/manstalt.jpg");
+        }
+
+        #stsp {
+            background-image: url("../common/media/img/stsp.jpg");
+        }
+    </style>
+
+    <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
+    <script src="../common/jquery/jquery-1.12.4.min.js"></script>
+    <!-- Flowplayer library -->
+    <script src="../common/releases/7.0.4/flowplayer.min.js"></script>
+    <!-- The hlsjs plugin for playback of HLS without Flash in modern browsers -->
+    <script src="../common/releases/hlsjs/flowplayer.hlsjs.min.js"></script>
+    <!-- the thumbnails plugin -->
+    <script src="../common/releases/thumbnails/flowplayer.thumbnails.min.js"></script>
 
 
-$(function () {
+    <script>
+        // global configuration
+        flowplayer.conf = {
+            splash: true,
+            ratio: 3 / 4
+        };
 
-  $.each(["ccc", "manstalt", "stsp"], function (i, id) {
 
-    $("#" + id).flowplayer({
-      thumbnails: {
-        template: "//d12zt1n3pd4xhr.cloudfront.net/" + id + "/thumbs/{time}.jpg",
-        height: 50,
-        interval: 10
-      },
-      embed: {
-        iframe: "//d12zt1n3pd4xhr.cloudfront.net/iframe/" + id + ".html"
-      }
-    });
+        $(function () {
 
-  });
+            $.each(["ccc", "manstalt", "stsp"], function (i, id) {
 
-});
-</script>
+                $("#" + id).flowplayer({
+                    thumbnails: {
+                        template: "//d12zt1n3pd4xhr.cloudfront.net/" + id + "/thumbs/{time}.jpg",
+                        height: 50,
+                        interval: 10
+                    },
+                    embed: {
+                        iframe: "//d12zt1n3pd4xhr.cloudfront.net/iframe/" + id + ".html"
+                    }
+                });
+
+            });
+
+        });
+    </script>
 
 </head>
 
 <body>
 
-   <div id="content">
+<div id="content">
 
-      <h1>Flowplayer · Multiple splash</h1>
+    <h1>Flowplayer · Multiple splash</h1>
 
-<div id="ccc" class="fp-slim fp-outlined no-buffer"
-     data-facebook="https://blacktrash.org/underdogma/ccc.php">
-  <video data-title="Cowboy Canoe Coma">
-    <source type="application/x-mpegurl" src="http://d12zt1n3pd4xhr.cloudfront.net/ccc.m3u8">
-    <source type="video/mp4"             src="http://d12zt1n3pd4xhr.cloudfront.net/ccc.mp4">
-  </video>
-</div>
+    <div id="ccc" class="fp-slim fp-outlined no-buffer"
+         data-facebook="https://blacktrash.org/underdogma/ccc.php">
+        <video data-title="Cowboy Canoe Coma">
+            <source type="application/x-mpegurl" src="http://d12zt1n3pd4xhr.cloudfront.net/ccc.m3u8">
+            <source type="video/mp4" src="http://d12zt1n3pd4xhr.cloudfront.net/ccc.mp4">
+        </video>
+    </div>
 
-<div id="manstalt" class="fp-slim fp-outlined no-buffer"
-     data-facebook="https://blacktrash.org/underdogma/moraliskanstalt.php">
-  <video data-title="Moralisk Anstalt">
-    <source type="application/x-mpegurl" src="http://d12zt1n3pd4xhr.cloudfront.net/manstalt.m3u8">
-    <source type="video/mp4"             src="http://d12zt1n3pd4xhr.cloudfront.net/manstalt.mp4">
-  </video>
-</div>
+    <div id="manstalt" class="fp-slim fp-outlined no-buffer"
+         data-facebook="https://blacktrash.org/underdogma/moraliskanstalt.php">
+        <video data-title="Moralisk Anstalt">
+            <source type="application/x-mpegurl" src="http://d12zt1n3pd4xhr.cloudfront.net/manstalt.m3u8">
+            <source type="video/mp4" src="http://d12zt1n3pd4xhr.cloudfront.net/manstalt.mp4">
+        </video>
+    </div>
 
-<div id="stsp" class="fp-slim fp-outlined no-buffer"
-     data-facebook="https://blacktrash.org/underdogma/stsp.php">
-  <video data-title="Same Time Same Place">
-    <source type="application/x-mpegurl" src="http://d12zt1n3pd4xhr.cloudfront.net/stsp.m3u8">
-    <source type="video/mp4"             src="http://d12zt1n3pd4xhr.cloudfront.net/stsp.mp4">
-  </video>
-</div>
+    <div id="stsp" class="fp-slim fp-outlined no-buffer"
+         data-facebook="https://blacktrash.org/underdogma/stsp.php">
+        <video data-title="Same Time Same Place">
+            <source type="application/x-mpegurl" src="http://d12zt1n3pd4xhr.cloudfront.net/stsp.m3u8">
+            <source type="video/mp4" src="http://d12zt1n3pd4xhr.cloudfront.net/stsp.mp4">
+        </video>
+    </div>
 
-<h2 id="head-setup">&lt;head/&gt;</h2>
+    <h2 id="head-setup">&lt;head/&gt;</h2>
 
-<p class="doc">For smoother <a href="https://flowplayer.org/docs/setup.html#hls">HLS</a> playback in modern browsers we load the
-<a href="https://flowplayer.org/docs/plugins.html#hlsjs">hlsjs plugin</a>.
-</p>
+    <p class="doc">For smoother <a href="https://flowplayer.org/docs/setup.html#hls">HLS</a> playback in modern browsers
+        we load the
+        <a href="https://flowplayer.org/docs/plugins.html#hlsjs">hlsjs plugin</a>.
+    </p>
 
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="c">&lt;!-- Flowplayer library --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/7.0.4/flowplayer.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /><span class="c">&lt;!-- Flowplayer hlsjs engine --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
-
-
-<p class="doc">Additionally the
-<a href="https://flowplayer.org/docs/plugins.html#thumbnails">thumbnails plugin</a> is loaded to
-display visual previews on the timeline:</p>
-
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="c">&lt;!-- Flowplayer thumbnails plugin --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/thumbnails/flowplayer.thumbnails.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
-
-
-<h3 id="css-setup">&lt;style&gt;</h3>
-
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">{</span><br />  <span class="k">margin</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span> <span class="mi">0</span><span class="p">;</span><br />  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#333</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-color</span> <span class="p">{</span><br />  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#a1e1ff</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-color-play</span> <span class="p">{</span><br />  <span class="n">fill</span><span class="p">:</span> <span class="mh">#a1e1ff</span><span class="p">;</span><br /><span class="p">}</span><br />&nbsp;<br /><span class="p">#</span><span class="nn">ccc</span> <span class="p">{</span><br />  <span class="k">background-image</span><span class="p">:</span> <span class="nb">url</span><span class="p">(</span><span class="sx">//d12zt1n3pd4xhr.cloudfront.net/img/ccc.jpg</span><span class="p">);</span><br /><span class="p">}</span><br /><span class="p">#</span><span class="nn">manstalt</span> <span class="p">{</span><br />  <span class="k">background-image</span><span class="p">:</span> <span class="nb">url</span><span class="p">(</span><span class="sx">//d12zt1n3pd4xhr.cloudfront.net/img/manstalt.jpg</span><span class="p">);</span><br /><span class="p">}</span><br /><span class="p">#</span><span class="nn">stsp</span> <span class="p">{</span><br />  <span class="k">background-image</span><span class="p">:</span> <span class="nb">url</span><span class="p">(</span><span class="sx">//d12zt1n3pd4xhr.cloudfront.net/img/stsp.jpg</span><span class="p">);</span><br /><span class="p">}</span><br /></pre></div><br /><figcaption>CSS</figcaption></figure></div>
-
-
-<h3 id="javascript-setup">&lt;script&gt;</h3>
-
-<p class="doc">Looping through container elements selected by <code>id</code> attribute to perform a
-<a href="https://flowplayer.org/docs/setup.html#manual">manual jQuery installation</a>:</p>
-
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="c1">// global configuration</span><br /><span class="nx">flowplayer</span><span class="p">.</span><span class="nx">conf</span> <span class="o">=</span> <span class="p">{</span><br />  <span class="nx">splash</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span><br />  <span class="nx">ratio</span><span class="o">:</span> <span class="mi">3</span><span class="o">/</span><span class="mi">4</span><br /><span class="p">};</span><br />&nbsp;<br /><br /><span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br />&nbsp;<br />  <span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">([</span><span class="s2">&quot;ccc&quot;</span><span class="p">,</span> <span class="s2">&quot;manstalt&quot;</span><span class="p">,</span> <span class="s2">&quot;stsp&quot;</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span> <span class="p">{</span><br />&nbsp;<br />    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#&quot;</span> <span class="o">+</span> <span class="nx">id</span><span class="p">).</span><span class="nx">flowplayer</span><span class="p">({</span><br />      <span class="nx">thumbnails</span><span class="o">:</span> <span class="p">{</span><br />        <span class="nx">template</span><span class="o">:</span> <span class="s2">&quot;//d12zt1n3pd4xhr.cloudfront.net/&quot;</span> <span class="o">+</span> <span class="nx">id</span> <span class="o">+</span> <span class="s2">&quot;/thumbs/{time}.jpg&quot;</span><span class="p">,</span><br />        <span class="nx">height</span><span class="o">:</span> <span class="mi">50</span><span class="p">,</span><br />        <span class="nx">interval</span><span class="o">:</span> <span class="mi">10</span><br />      <span class="p">},</span><br />      <span class="nx">embed</span><span class="o">:</span> <span class="p">{</span><br />        <span class="nx">iframe</span><span class="o">:</span> <span class="s2">&quot;//d12zt1n3pd4xhr.cloudfront.net/iframe/&quot;</span> <span class="o">+</span> <span class="nx">id</span> <span class="o">+</span> <span class="s2">&quot;.html&quot;</span><br />      <span class="p">}</span><br />    <span class="p">});</span><br />&nbsp;<br />  <span class="p">});</span><br />&nbsp;<br /><span class="p">});</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></div>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="c">&lt;!-- Flowplayer library --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span
+                        class="s">&quot;//releases.flowplayer.org/7.0.4/flowplayer.min.js&quot;</span><span class="p">&gt;&lt;/</span><span
+                        class="nt">script</span><span class="p">&gt;</span><br/><span class="c">&lt;!-- Flowplayer hlsjs engine --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
 
 
-<h2 id="html-setup">&lt;body/&gt;</h2>
+    <p class="doc">Additionally the
+        <a href="https://flowplayer.org/docs/plugins.html#thumbnails">thumbnails plugin</a> is loaded to
+        display visual previews on the timeline:</p>
 
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;ccc&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;fp-slim fp-outlined no-buffer&quot;</span><br />     <span class="na">data-facebook</span><span class="o">=</span><span class="s">&quot;https://blacktrash.org/underdogma/ccc.php&quot;</span><span class="p">&gt;</span><br />  <span class="p">&lt;</span><span class="nt">video</span> <span class="na">data-title</span><span class="o">=</span><span class="s">&quot;Cowboy Canoe Coma&quot;</span><span class="p">&gt;</span><br />    <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;application/x-mpegurl&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//d12zt1n3pd4xhr.cloudfront.net/ccc.m3u8&quot;</span><span class="p">&gt;</span><br />    <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span>             <span class="na">src</span><span class="o">=</span><span class="s">&quot;//d12zt1n3pd4xhr.cloudfront.net/ccc.mp4&quot;</span><span class="p">&gt;</span><br />  <span class="p">&lt;/</span><span class="nt">video</span><span class="p">&gt;</span><br /><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />&nbsp;<br /><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;manstalt&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;fp-slim fp-outlined no-buffer&quot;</span><br />     <span class="na">data-facebook</span><span class="o">=</span><span class="s">&quot;https://blacktrash.org/underdogma/moraliskanstalt.php&quot;</span><span class="p">&gt;</span><br />  <span class="p">&lt;</span><span class="nt">video</span> <span class="na">data-title</span><span class="o">=</span><span class="s">&quot;Moralisk Anstalt&quot;</span><span class="p">&gt;</span><br />    <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;application/x-mpegurl&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//d12zt1n3pd4xhr.cloudfront.net/manstalt.m3u8&quot;</span><span class="p">&gt;</span><br />    <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span>             <span class="na">src</span><span class="o">=</span><span class="s">&quot;//d12zt1n3pd4xhr.cloudfront.net/manstalt.mp4&quot;</span><span class="p">&gt;</span><br />  <span class="p">&lt;/</span><span class="nt">video</span><span class="p">&gt;</span><br /><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />&nbsp;<br /><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;stsp&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;fp-slim fp-outlined no-buffer&quot;</span><br />     <span class="na">data-facebook</span><span class="o">=</span><span class="s">&quot;https://blacktrash.org/underdogma/stsp.php&quot;</span><span class="p">&gt;</span><br />  <span class="p">&lt;</span><span class="nt">video</span> <span class="na">data-title</span><span class="o">=</span><span class="s">&quot;Same Time Same Place&quot;</span><span class="p">&gt;</span><br />    <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;application/x-mpegurl&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//d12zt1n3pd4xhr.cloudfront.net/stsp.m3u8&quot;</span><span class="p">&gt;</span><br />    <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span>             <span class="na">src</span><span class="o">=</span><span class="s">&quot;//d12zt1n3pd4xhr.cloudfront.net/stsp.mp4&quot;</span><span class="p">&gt;</span><br />  <span class="p">&lt;/</span><span class="nt">video</span><span class="p">&gt;</span><br /><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="c">&lt;!-- Flowplayer thumbnails plugin --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//releases.flowplayer.org/thumbnails/flowplayer.thumbnails.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
 
 
+    <h3 id="css-setup">&lt;style&gt;</h3>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">{</span><br/>  <span class="k">margin</span><span class="p">:</span> <span class="mi">10</span><span
+                        class="kt">px</span> <span class="mi">0</span><span class="p">;</span><br/>  <span class="k">background-color</span><span
+                        class="p">:</span> <span class="mh">#333</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">.</span><span class="nc">fp-color</span> <span class="p">{</span><br/>  <span
+                        class="k">background-color</span><span class="p">:</span> <span class="mh">#a1e1ff</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">.</span><span class="nc">fp-color-play</span> <span class="p">{</span><br/>  <span
+                        class="n">fill</span><span class="p">:</span> <span class="mh">#a1e1ff</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/>&nbsp;<br/><span class="p">#</span><span
+                        class="nn">ccc</span> <span class="p">{</span><br/>  <span
+                        class="k">background-image</span><span class="p">:</span> <span class="nb">url</span><span
+                        class="p">(</span><span class="sx">//d12zt1n3pd4xhr.cloudfront.net/img/ccc.jpg</span><span
+                        class="p">);</span><br/><span class="p">}</span><br/><span class="p">#</span><span class="nn">manstalt</span> <span
+                        class="p">{</span><br/>  <span class="k">background-image</span><span class="p">:</span> <span
+                        class="nb">url</span><span class="p">(</span><span class="sx">//d12zt1n3pd4xhr.cloudfront.net/img/manstalt.jpg</span><span
+                        class="p">);</span><br/><span class="p">}</span><br/><span class="p">#</span><span class="nn">stsp</span> <span
+                        class="p">{</span><br/>  <span class="k">background-image</span><span class="p">:</span> <span
+                        class="nb">url</span><span class="p">(</span><span class="sx">//d12zt1n3pd4xhr.cloudfront.net/img/stsp.jpg</span><span
+                        class="p">);</span><br/><span class="p">}</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>CSS</figcaption>
+        </figure>
+    </div>
 
 
+    <h3 id="javascript-setup">&lt;script&gt;</h3>
 
-<form id="codepenform" method="POST" action="http://codepen.io/pen/define?data={" target="_blank">
-  <input type="hidden" name="data" value='{"title": "New pen based on Multiple splash", "js_external": "//code.jquery.com/jquery-1.12.4.min.js;//releases.flowplayer.org/7.0.4/flowplayer.min.js;//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js;//releases.flowplayer.org/thumbnails/flowplayer.thumbnails.min.js", "js": "// global configuration\nflowplayer.conf = {\n  splash: true,\n  ratio: 3/4\n};\n\n\n$(function () {\n\n  $.each([\"ccc\", \"manstalt\", \"stsp\"], function (i, id) {\n\n    $(\"#\" + id).flowplayer({\n      thumbnails: {\n        template: \"//d12zt1n3pd4xhr.cloudfront.net/\" + id + \"/thumbs/{time}.jpg\",\n        height: 50,\n        interval: 10\n      },\n      embed: {\n        iframe: \"//d12zt1n3pd4xhr.cloudfront.net/iframe/\" + id + \".html\"\n      }\n    });\n\n  });\n\n});\n", "html": "<div id=\"ccc\" class=\"fp-slim fp-outlined no-buffer\"\n     data-facebook=\"https://blacktrash.org/underdogma/ccc.php\">\n  <video data-title=\"Cowboy Canoe Coma\">\n    <source type=\"application/x-mpegurl\" src="../index.htm" //d12zt1n3pd4xhr.cloudfront.net/ccc.m3u8/"">\n    <source type=\"video/mp4\"             src="../index.htm" //d12zt1n3pd4xhr.cloudfront.net/ccc.mp4/"">\n  </video>\n</div>\n\n<div id=\"manstalt\" class=\"fp-slim fp-outlined no-buffer\"\n     data-facebook=\"https://blacktrash.org/underdogma/moraliskanstalt.php\">\n  <video data-title=\"Moralisk Anstalt\">\n    <source type=\"application/x-mpegurl\" src="../index.htm" //d12zt1n3pd4xhr.cloudfront.net/manstalt.m3u8/"">\n    <source type=\"video/mp4\"             src="../index.htm" //d12zt1n3pd4xhr.cloudfront.net/manstalt.mp4/"">\n  </video>\n</div>\n\n<div id=\"stsp\" class=\"fp-slim fp-outlined no-buffer\"\n     data-facebook=\"https://blacktrash.org/underdogma/stsp.php\">\n  <video data-title=\"Same Time Same Place\">\n    <source type=\"application/x-mpegurl\" src="../index.htm" //d12zt1n3pd4xhr.cloudfront.net/stsp.m3u8/"">\n    <source type=\"video/mp4\"             src="../index.htm" //d12zt1n3pd4xhr.cloudfront.net/stsp.mp4/"">\n  </video>\n</div>\n", "css_external": "//releases.flowplayer.org/7.0.4/skin/skin.css;http://demos.flowplayer.org/media/css/codepen.css", "css": ".flowplayer {\n  margin: 10px 0;\n  background-color: #333;\n}\n.flowplayer .fp-color {\n  background-color: #a1e1ff;\n}\n.flowplayer .fp-color-play {\n  fill: #a1e1ff;\n}\n\n#ccc {\n  background-image: url(//d12zt1n3pd4xhr.cloudfront.net/img/ccc.jpg);\n}\n#manstalt {\n  background-image: url(//d12zt1n3pd4xhr.cloudfront.net/img/manstalt.jpg);\n}\n#stsp {\n  background-image: url(//d12zt1n3pd4xhr.cloudfront.net/img/stsp.jpg);\n}\n"}'>
-</form>
+    <p class="doc">Looping through container elements selected by <code>id</code> attribute to perform a
+        <a href="https://flowplayer.org/docs/setup.html#manual">manual jQuery installation</a>:</p>
 
-<div class="footer">
-    <a href="#" onclick="document.getElementById('codepenform').submit()">Edit demo on codepen</a><br>
-  <span>Flash not available</span>
-  <hr >
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="c1">// global configuration</span><br/><span class="nx">flowplayer</span><span
+                        class="p">.</span><span class="nx">conf</span> <span class="o">=</span> <span class="p">{</span><br/>  <span
+                        class="nx">splash</span><span class="o">:</span> <span class="kc">true</span><span
+                        class="p">,</span><br/>  <span class="nx">ratio</span><span class="o">:</span> <span class="mi">3</span><span
+                        class="o">/</span><span class="mi">4</span><br/><span
+                        class="p">};</span><br/>&nbsp;<br/><br/><span class="nx">$</span><span class="p">(</span><span
+                        class="kd">function</span> <span class="p">()</span> <span
+                        class="p">{</span><br/>&nbsp;<br/>  <span class="nx">$</span><span class="p">.</span><span
+                        class="nx">each</span><span class="p">([</span><span class="s2">&quot;ccc&quot;</span><span
+                        class="p">,</span> <span class="s2">&quot;manstalt&quot;</span><span class="p">,</span> <span
+                        class="s2">&quot;stsp&quot;</span><span class="p">],</span> <span
+                        class="kd">function</span> <span class="p">(</span><span class="nx">i</span><span
+                        class="p">,</span> <span class="nx">id</span><span class="p">)</span> <span
+                        class="p">{</span><br/>&nbsp;<br/>    <span class="nx">$</span><span class="p">(</span><span
+                        class="s2">&quot;#&quot;</span> <span class="o">+</span> <span class="nx">id</span><span
+                        class="p">).</span><span class="nx">flowplayer</span><span class="p">({</span><br/>      <span
+                        class="nx">thumbnails</span><span class="o">:</span> <span class="p">{</span><br/>        <span
+                        class="nx">template</span><span class="o">:</span> <span class="s2">&quot;//d12zt1n3pd4xhr.cloudfront.net/&quot;</span> <span
+                        class="o">+</span> <span class="nx">id</span> <span class="o">+</span> <span class="s2">&quot;/thumbs/{time}.jpg&quot;</span><span
+                        class="p">,</span><br/>        <span class="nx">height</span><span class="o">:</span> <span
+                        class="mi">50</span><span class="p">,</span><br/>        <span class="nx">interval</span><span
+                        class="o">:</span> <span class="mi">10</span><br/>      <span
+                        class="p">},</span><br/>      <span class="nx">embed</span><span class="o">:</span> <span
+                        class="p">{</span><br/>        <span class="nx">iframe</span><span class="o">:</span> <span
+                        class="s2">&quot;//d12zt1n3pd4xhr.cloudfront.net/iframe/&quot;</span> <span
+                        class="o">+</span> <span class="nx">id</span> <span class="o">+</span> <span class="s2">&quot;.html&quot;</span><br/>      <span
+                        class="p">}</span><br/>    <span class="p">});</span><br/>&nbsp;<br/>  <span
+                        class="p">});</span><br/>&nbsp;<br/><span class="p">});</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>JavaScript</figcaption>
+        </figure>
+    </div>
 
-    <p><a href="index.html" >Demos in this section</a></p>
 
-  <hr>
+    <h2 id="html-setup">&lt;body/&gt;</h2>
 
-  <p><a href="../index.html" >Flowplayer Demos+</a></p>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span
+                        class="o">=</span><span class="s">&quot;ccc&quot;</span> <span class="na">class</span><span
+                        class="o">=</span><span
+                        class="s">&quot;fp-slim fp-outlined no-buffer&quot;</span><br/>     <span class="na">data-facebook</span><span
+                        class="o">=</span><span
+                        class="s">&quot;https://blacktrash.org/underdogma/ccc.php&quot;</span><span
+                        class="p">&gt;</span><br/>  <span class="p">&lt;</span><span class="nt">video</span> <span
+                        class="na">data-title</span><span class="o">=</span><span class="s">&quot;Cowboy Canoe Coma&quot;</span><span
+                        class="p">&gt;</span><br/>    <span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;application/x-mpegurl&quot;</span> <span class="na">src</span><span
+                        class="o">=</span><span
+                        class="s">&quot;//d12zt1n3pd4xhr.cloudfront.net/ccc.m3u8&quot;</span><span class="p">&gt;</span><br/>    <span
+                        class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;video/mp4&quot;</span>             <span class="na">src</span><span
+                        class="o">=</span><span
+                        class="s">&quot;//d12zt1n3pd4xhr.cloudfront.net/ccc.mp4&quot;</span><span
+                        class="p">&gt;</span><br/>  <span class="p">&lt;/</span><span class="nt">video</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;/</span><span class="nt">div</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/><span class="p">&lt;</span><span
+                        class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;manstalt&quot;</span> <span
+                        class="na">class</span><span class="o">=</span><span class="s">&quot;fp-slim fp-outlined no-buffer&quot;</span><br/>     <span
+                        class="na">data-facebook</span><span class="o">=</span><span class="s">&quot;https://blacktrash.org/underdogma/moraliskanstalt.php&quot;</span><span
+                        class="p">&gt;</span><br/>  <span class="p">&lt;</span><span class="nt">video</span> <span
+                        class="na">data-title</span><span class="o">=</span><span
+                        class="s">&quot;Moralisk Anstalt&quot;</span><span class="p">&gt;</span><br/>    <span
+                        class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;application/x-mpegurl&quot;</span> <span class="na">src</span><span
+                        class="o">=</span><span
+                        class="s">&quot;//d12zt1n3pd4xhr.cloudfront.net/manstalt.m3u8&quot;</span><span
+                        class="p">&gt;</span><br/>    <span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span>             <span
+                        class="na">src</span><span class="o">=</span><span class="s">&quot;//d12zt1n3pd4xhr.cloudfront.net/manstalt.mp4&quot;</span><span
+                        class="p">&gt;</span><br/>  <span class="p">&lt;/</span><span class="nt">video</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;/</span><span class="nt">div</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/><span class="p">&lt;</span><span
+                        class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;stsp&quot;</span> <span
+                        class="na">class</span><span class="o">=</span><span class="s">&quot;fp-slim fp-outlined no-buffer&quot;</span><br/>     <span
+                        class="na">data-facebook</span><span class="o">=</span><span class="s">&quot;https://blacktrash.org/underdogma/stsp.php&quot;</span><span
+                        class="p">&gt;</span><br/>  <span class="p">&lt;</span><span class="nt">video</span> <span
+                        class="na">data-title</span><span class="o">=</span><span class="s">&quot;Same Time Same Place&quot;</span><span
+                        class="p">&gt;</span><br/>    <span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;application/x-mpegurl&quot;</span> <span class="na">src</span><span
+                        class="o">=</span><span
+                        class="s">&quot;//d12zt1n3pd4xhr.cloudfront.net/stsp.m3u8&quot;</span><span
+                        class="p">&gt;</span><br/>    <span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span>             <span
+                        class="na">src</span><span class="o">=</span><span class="s">&quot;//d12zt1n3pd4xhr.cloudfront.net/stsp.mp4&quot;</span><span
+                        class="p">&gt;</span><br/>  <span class="p">&lt;/</span><span class="nt">video</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;/</span><span class="nt">div</span><span
+                        class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
 
-  <hr>
+    <div class="footer">
 
-  <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
+        <p><a href="index.html">Demos in this section</a></p>
 
-  <hr>
+        <hr>
 
-  <p><a href="../v6/index.html" >Version 6 Demos</a></p>
-</div>
-   </div> <!-- end content -->
+        <p><a href="../index.html">Flowplayer Demos+</a></p>
+
+        <hr>
+
+        <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
+
+        <hr>
+
+        <p><a href="../v6/index.html">Version 6 Demos</a></p>
+    </div>
+</div> <!-- end content -->
 
 </body>
 </html>
