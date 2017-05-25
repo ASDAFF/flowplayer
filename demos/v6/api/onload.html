@@ -1,170 +1,308 @@
-
 <!doctype html>
 
 <html>
 
 <head>
-   <meta charset="utf-8">
+    <meta charset="utf-8">
 
-      <title>Flowplayer · Load event</title>
-   
-   <!-- optimize mobile versions -->
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-      <!-- The "functional" skin - choose from: "functional.css", "minimalist.css", "playful.css" -->
-   <link rel="stylesheet" href="../../common/releases/6.0.5/skin/functional.css" >
-   
-   <!-- Minimal styling for this standalone page, can be removed -->
-   <link rel="stylesheet" href="../../common/css/demo.css" >
-   <!-- Syntax highlighting of source code, can be removed -->
-   <link rel="stylesheet" href="../../common/css/pygments.css" >
-   
-<style>
-.flowplayer {
-  margin: 5px 0;
-}
-.flowplayer.jquery {
-  background-color: #ffe9f5;
-}
-.flowplayer.js {
-  background-color: #e0ffcc;
-}
-</style>
+    <title>Flowplayer · Load event</title>
 
-      <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
-   <script src="../../common/jquery/jquery-1.12.4.min.js" ></script>
-         <!-- Flowplayer library -->
-   <script src="../../common/releases/6.0.5/flowplayer.min.js" ></script>
-               
-   
-<script>
-var fpEvents = "load ready",
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    fpLog = function (container, scope, type, video) {
-      var id = Number(container.data("flowplayer-instance-id")),
-          bg = container.hasClass("js") ? "#e0ffcc" :  "#ffe9f5",
-          msg = "ID " + id + " " + scope + " on " + type + " - " +
-                (video && video.src || "video object not available");
+    <!-- The "functional" skin - choose from: "functional.css", "minimalist.css", "playful.css" -->
+    <link rel="stylesheet" href="../../common/releases/6.0.5/skin/functional.css">
 
-      $("#log").append($("<p/>").css({backgroundColor: bg}).text(msg));
-    };
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../../common/css/pygments.css">
+
+    <style>
+        .flowplayer {
+            margin: 5px 0;
+        }
+
+        .flowplayer.jquery {
+            background-color: #ffe9f5;
+        }
+
+        .flowplayer.js {
+            background-color: #e0ffcc;
+        }
+    </style>
+
+    <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
+    <script src="../../common/jquery/jquery-1.12.4.min.js"></script>
+    <!-- Flowplayer library -->
+    <script src="../../common/releases/6.0.5/flowplayer.min.js"></script>
 
 
-// global api setup
-flowplayer(function (api, root) {
-  fpLog($(root), "GLOBAL init", "undefined")
+    <script>
+        var fpEvents = "load ready",
 
-  api.on(fpEvents, function (e, api, video) {
-    var vid = video || api.video;
+            fpLog = function (container, scope, type, video) {
+                var id = Number(container.data("flowplayer-instance-id")),
+                    bg = container.hasClass("js") ? "#e0ffcc" : "#ffe9f5",
+                    msg = "ID " + id + " " + scope + " on " + type + " - " +
+                        (video && video.src || "video object not available");
 
-    fpLog($(root), "GLOBAL event", e.type, vid);
-  });
-});
-
-
-$(function () {
-  var jqueryContainer = $(".player:first"),
-      jsContainer = $(".player:last");
-
-  jqueryContainer.flowplayer({
-    ratio: 5/12
-  });
-
-  // api retrieval cannot be chained to installation
-  flowplayer(jqueryContainer).on(fpEvents, function (e, api, video) {
-    var vid = video || api.video;
-
-    fpLog(jqueryContainer, "LOCAL event", e.type, vid);
-  });
+                $("#log").append($("<p/>").css({backgroundColor: bg}).text(msg));
+            };
 
 
-  flowplayer(jsContainer[0], {
-    ratio: 5/12,
-    splash: true,
-    clip: {
-      title: "JavaScript install, splash setup",
-      sources: [
-        { type: "video/webm", src: "http://edge.flowplayer.org/functional.webm" },
-        { type: "video/mp4",  src: "http://edge.flowplayer.org/functional.mp4" }
-      ]
-    }
+        // global api setup
+        flowplayer(function (api, root) {
+            fpLog($(root), "GLOBAL init", "undefined")
 
-  }).on(fpEvents, function (e, api, video) {
-    var vid = video || api.video;
+            api.on(fpEvents, function (e, api, video) {
+                var vid = video || api.video;
 
-    fpLog(jsContainer, "LOCAL event", e.type, vid);
-  });
+                fpLog($(root), "GLOBAL event", e.type, vid);
+            });
+        });
 
-});
-</script>
+
+        $(function () {
+            var jqueryContainer = $(".player:first"),
+                jsContainer = $(".player:last");
+
+            jqueryContainer.flowplayer({
+                ratio: 5 / 12
+            });
+
+            // api retrieval cannot be chained to installation
+            flowplayer(jqueryContainer).on(fpEvents, function (e, api, video) {
+                var vid = video || api.video;
+
+                fpLog(jqueryContainer, "LOCAL event", e.type, vid);
+            });
+
+
+            flowplayer(jsContainer[0], {
+                ratio: 5 / 12,
+                splash: true,
+                clip: {
+                    title: "JavaScript install, splash setup",
+                    sources: [
+                        {type: "video/webm", src: "http://edge.flowplayer.org/functional.webm"},
+                        {type: "video/mp4", src: "http://edge.flowplayer.org/functional.mp4"}
+                    ]
+                }
+
+            }).on(fpEvents, function (e, api, video) {
+                var vid = video || api.video;
+
+                fpLog(jsContainer, "LOCAL event", e.type, vid);
+            });
+
+        });
+    </script>
 
 </head>
 
 <body>
 
-   <div id="content">
+<div id="content">
 
-      <h1>Flowplayer · Load event</h1>
+    <h1>Flowplayer · Load event</h1>
 
-<div class="player jquery is-closeable">
-   <video data-title="jQuery manual install, poster setup">
-<source type="video/webm" src="http://edge.flowplayer.org/playful.webm">
-<source type="video/mp4" src="http://edge.flowplayer.org/playful.mp4">
-   </video>
-</div>
+    <div class="player jquery is-closeable">
+        <video data-title="jQuery manual install, poster setup">
+            <source type="video/webm" src="http://edge.flowplayer.org/playful.webm">
+            <source type="video/mp4" src="http://edge.flowplayer.org/playful.mp4">
+        </video>
+    </div>
 
-<div class="player js is-closeable"></div>
+    <div class="player js is-closeable"></div>
 
-<div id="log"></div>
+    <div id="log"></div>
 
-<div class="info">
-  <p>Observe the timing of global and local events.</p>
+    <div class="info">
+        <p>Observe the timing of global and local events.</p>
 
-  <p>Note how <code>load</code> can be listened to locally with a splash setup only.</p>
-</div>
+        <p>Note how <code>load</code> can be listened to locally with a splash setup only.</p>
+    </div>
 
-<h2 id="head-setup">&lt;head/&gt;</h2>
+    <h2 id="head-setup">&lt;head/&gt;</h2>
 
-<h3 id="css-setup">&lt;style&gt;</h3>
+    <h3 id="css-setup">&lt;style&gt;</h3>
 
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">{</span><br />  <span class="k">margin</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span> <span class="mi">0</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">jquery</span> <span class="p">{</span><br />  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#ffe9f5</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">js</span> <span class="p">{</span><br />  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#e0ffcc</span><span class="p">;</span><br /><span class="p">}</span><br /></pre></div><br /><figcaption>CSS</figcaption></figure></div>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">{</span><br/>  <span class="k">margin</span><span class="p">:</span> <span class="mi">5</span><span
+                        class="kt">px</span> <span class="mi">0</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/><span class="p">.</span><span class="nc">flowplayer</span><span
+                        class="p">.</span><span class="nc">jquery</span> <span class="p">{</span><br/>  <span class="k">background-color</span><span
+                        class="p">:</span> <span class="mh">#ffe9f5</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/><span class="p">.</span><span class="nc">flowplayer</span><span
+                        class="p">.</span><span class="nc">js</span> <span class="p">{</span><br/>  <span class="k">background-color</span><span
+                        class="p">:</span> <span class="mh">#e0ffcc</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>CSS</figcaption>
+        </figure>
+    </div>
 
 
-<h3 id="javascript-setup">&lt;script&gt;</h3>
+    <h3 id="javascript-setup">&lt;script&gt;</h3>
 
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">fpEvents</span> <span class="o">=</span> <span class="s2">&quot;load ready&quot;</span><span class="p">,</span><br />&nbsp;<br />    <span class="nx">fpLog</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">container</span><span class="p">,</span> <span class="nx">scope</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">video</span><span class="p">)</span> <span class="p">{</span><br />      <span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">container</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;flowplayer-instance-id&quot;</span><span class="p">)),</span><br />          <span class="nx">bg</span> <span class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">hasClass</span><span class="p">(</span><span class="s2">&quot;js&quot;</span><span class="p">)</span> <span class="o">?</span> <span class="s2">&quot;#e0ffcc&quot;</span> <span class="o">:</span>  <span class="s2">&quot;#ffe9f5&quot;</span><span class="p">,</span><br />          <span class="nx">msg</span> <span class="o">=</span> <span class="s2">&quot;ID &quot;</span> <span class="o">+</span> <span class="nx">id</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nx">scope</span> <span class="o">+</span> <span class="s2">&quot; on &quot;</span> <span class="o">+</span> <span class="nx">type</span> <span class="o">+</span> <span class="s2">&quot; - &quot;</span> <span class="o">+</span><br />                <span class="p">(</span><span class="nx">video</span> <span class="o">&amp;&amp;</span> <span class="nx">video</span><span class="p">.</span><span class="nx">src</span> <span class="o">||</span> <span class="s2">&quot;video object not available&quot;</span><span class="p">);</span><br />&nbsp;<br />      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#log&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;&lt;p/&gt;&quot;</span><span class="p">).</span><span class="nx">css</span><span class="p">({</span><span class="nx">backgroundColor</span><span class="o">:</span> <span class="nx">bg</span><span class="p">}).</span><span class="nx">text</span><span class="p">(</span><span class="nx">msg</span><span class="p">));</span><br />    <span class="p">};</span><br />&nbsp;<br /><br /><span class="c1">// global api setup</span><br /><span class="nx">flowplayer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">api</span><span class="p">,</span> <span class="nx">root</span><span class="p">)</span> <span class="p">{</span><br />  <span class="nx">fpLog</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nx">root</span><span class="p">),</span> <span class="s2">&quot;GLOBAL init&quot;</span><span class="p">,</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span><br />&nbsp;<br />  <span class="nx">api</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="nx">fpEvents</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span class="nx">video</span><span class="p">)</span> <span class="p">{</span><br />    <span class="kd">var</span> <span class="nx">vid</span> <span class="o">=</span> <span class="nx">video</span> <span class="o">||</span> <span class="nx">api</span><span class="p">.</span><span class="nx">video</span><span class="p">;</span><br />&nbsp;<br />    <span class="nx">fpLog</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nx">root</span><span class="p">),</span> <span class="s2">&quot;GLOBAL event&quot;</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">type</span><span class="p">,</span> <span class="nx">vid</span><span class="p">);</span><br />  <span class="p">});</span><br /><span class="p">});</span><br />&nbsp;<br /><br /><span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br />  <span class="kd">var</span> <span class="nx">jqueryContainer</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.player:first&quot;</span><span class="p">),</span><br />      <span class="nx">jsContainer</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.player:last&quot;</span><span class="p">);</span><br />&nbsp;<br />  <span class="nx">jqueryContainer</span><span class="p">.</span><span class="nx">flowplayer</span><span class="p">({</span><br />    <span class="nx">ratio</span><span class="o">:</span> <span class="mi">5</span><span class="o">/</span><span class="mi">12</span><br />  <span class="p">});</span><br />&nbsp;<br />  <span class="c1">// api retrieval cannot be chained to installation</span><br />  <span class="nx">flowplayer</span><span class="p">(</span><span class="nx">jqueryContainer</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="nx">fpEvents</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span class="nx">video</span><span class="p">)</span> <span class="p">{</span><br />    <span class="kd">var</span> <span class="nx">vid</span> <span class="o">=</span> <span class="nx">video</span> <span class="o">||</span> <span class="nx">api</span><span class="p">.</span><span class="nx">video</span><span class="p">;</span><br />&nbsp;<br />    <span class="nx">fpLog</span><span class="p">(</span><span class="nx">jqueryContainer</span><span class="p">,</span> <span class="s2">&quot;LOCAL event&quot;</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">type</span><span class="p">,</span> <span class="nx">vid</span><span class="p">);</span><br />  <span class="p">});</span><br />&nbsp;<br /><br />  <span class="nx">flowplayer</span><span class="p">(</span><span class="nx">jsContainer</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">{</span><br />    <span class="nx">ratio</span><span class="o">:</span> <span class="mi">5</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span><br />    <span class="nx">splash</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span><br />    <span class="nx">clip</span><span class="o">:</span> <span class="p">{</span><br />      <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;JavaScript install, splash setup&quot;</span><span class="p">,</span><br />      <span class="nx">sources</span><span class="o">:</span> <span class="p">[</span><br />        <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;video/webm&quot;</span><span class="p">,</span> <span class="nx">src</span><span class="o">:</span> <span class="s2">&quot;//edge.flowplayer.org/functional.webm&quot;</span> <span class="p">},</span><br />        <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;video/mp4&quot;</span><span class="p">,</span>  <span class="nx">src</span><span class="o">:</span> <span class="s2">&quot;//edge.flowplayer.org/functional.mp4&quot;</span> <span class="p">}</span><br />      <span class="p">]</span><br />    <span class="p">}</span><br />&nbsp;<br />  <span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="nx">fpEvents</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span class="nx">video</span><span class="p">)</span> <span class="p">{</span><br />    <span class="kd">var</span> <span class="nx">vid</span> <span class="o">=</span> <span class="nx">video</span> <span class="o">||</span> <span class="nx">api</span><span class="p">.</span><span class="nx">video</span><span class="p">;</span><br />&nbsp;<br />    <span class="nx">fpLog</span><span class="p">(</span><span class="nx">jsContainer</span><span class="p">,</span> <span class="s2">&quot;LOCAL event&quot;</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">type</span><span class="p">,</span> <span class="nx">vid</span><span class="p">);</span><br />  <span class="p">});</span><br />&nbsp;<br /><span class="p">});</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></div>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="kd">var</span> <span class="nx">fpEvents</span> <span class="o">=</span> <span
+                        class="s2">&quot;load ready&quot;</span><span class="p">,</span><br/>&nbsp;<br/>    <span
+                        class="nx">fpLog</span> <span class="o">=</span> <span class="kd">function</span> <span
+                        class="p">(</span><span class="nx">container</span><span class="p">,</span> <span class="nx">scope</span><span
+                        class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span
+                        class="nx">video</span><span class="p">)</span> <span class="p">{</span><br/>      <span
+                        class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="nb">Number</span><span
+                        class="p">(</span><span class="nx">container</span><span class="p">.</span><span
+                        class="nx">data</span><span class="p">(</span><span class="s2">&quot;flowplayer-instance-id&quot;</span><span
+                        class="p">)),</span><br/>          <span class="nx">bg</span> <span class="o">=</span> <span
+                        class="nx">container</span><span class="p">.</span><span class="nx">hasClass</span><span
+                        class="p">(</span><span class="s2">&quot;js&quot;</span><span class="p">)</span> <span
+                        class="o">?</span> <span class="s2">&quot;#e0ffcc&quot;</span> <span class="o">:</span>  <span
+                        class="s2">&quot;#ffe9f5&quot;</span><span class="p">,</span><br/>          <span
+                        class="nx">msg</span> <span class="o">=</span> <span class="s2">&quot;ID &quot;</span> <span
+                        class="o">+</span> <span class="nx">id</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span
+                        class="o">+</span> <span class="nx">scope</span> <span class="o">+</span> <span class="s2">&quot; on &quot;</span> <span
+                        class="o">+</span> <span class="nx">type</span> <span class="o">+</span> <span class="s2">&quot; - &quot;</span> <span
+                        class="o">+</span><br/>                <span class="p">(</span><span
+                        class="nx">video</span> <span class="o">&amp;&amp;</span> <span class="nx">video</span><span
+                        class="p">.</span><span class="nx">src</span> <span class="o">||</span> <span class="s2">&quot;video object not available&quot;</span><span
+                        class="p">);</span><br/>&nbsp;<br/>      <span class="nx">$</span><span class="p">(</span><span
+                        class="s2">&quot;#log&quot;</span><span class="p">).</span><span class="nx">append</span><span
+                        class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;&lt;p/&gt;&quot;</span><span
+                        class="p">).</span><span class="nx">css</span><span class="p">({</span><span class="nx">backgroundColor</span><span
+                        class="o">:</span> <span class="nx">bg</span><span class="p">}).</span><span
+                        class="nx">text</span><span class="p">(</span><span class="nx">msg</span><span
+                        class="p">));</span><br/>    <span class="p">};</span><br/>&nbsp;<br/><br/><span class="c1">// global api setup</span><br/><span
+                        class="nx">flowplayer</span><span class="p">(</span><span class="kd">function</span> <span
+                        class="p">(</span><span class="nx">api</span><span class="p">,</span> <span
+                        class="nx">root</span><span class="p">)</span> <span class="p">{</span><br/>  <span class="nx">fpLog</span><span
+                        class="p">(</span><span class="nx">$</span><span class="p">(</span><span
+                        class="nx">root</span><span class="p">),</span> <span
+                        class="s2">&quot;GLOBAL init&quot;</span><span class="p">,</span> <span class="s2">&quot;undefined&quot;</span><span
+                        class="p">)</span><br/>&nbsp;<br/>  <span class="nx">api</span><span class="p">.</span><span
+                        class="nx">on</span><span class="p">(</span><span class="nx">fpEvents</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span
+                        class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span
+                        class="nx">video</span><span class="p">)</span> <span class="p">{</span><br/>    <span
+                        class="kd">var</span> <span class="nx">vid</span> <span class="o">=</span> <span class="nx">video</span> <span
+                        class="o">||</span> <span class="nx">api</span><span class="p">.</span><span
+                        class="nx">video</span><span class="p">;</span><br/>&nbsp;<br/>    <span class="nx">fpLog</span><span
+                        class="p">(</span><span class="nx">$</span><span class="p">(</span><span
+                        class="nx">root</span><span class="p">),</span> <span class="s2">&quot;GLOBAL event&quot;</span><span
+                        class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">type</span><span
+                        class="p">,</span> <span class="nx">vid</span><span class="p">);</span><br/>  <span class="p">});</span><br/><span
+                        class="p">});</span><br/>&nbsp;<br/><br/><span class="nx">$</span><span class="p">(</span><span
+                        class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br/>  <span
+                        class="kd">var</span> <span class="nx">jqueryContainer</span> <span class="o">=</span> <span
+                        class="nx">$</span><span class="p">(</span><span
+                        class="s2">&quot;.player:first&quot;</span><span class="p">),</span><br/>      <span class="nx">jsContainer</span> <span
+                        class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.player:last&quot;</span><span
+                        class="p">);</span><br/>&nbsp;<br/>  <span class="nx">jqueryContainer</span><span
+                        class="p">.</span><span class="nx">flowplayer</span><span class="p">({</span><br/>    <span
+                        class="nx">ratio</span><span class="o">:</span> <span class="mi">5</span><span
+                        class="o">/</span><span class="mi">12</span><br/>  <span
+                        class="p">});</span><br/>&nbsp;<br/>  <span class="c1">// api retrieval cannot be chained to installation</span><br/>  <span
+                        class="nx">flowplayer</span><span class="p">(</span><span class="nx">jqueryContainer</span><span
+                        class="p">).</span><span class="nx">on</span><span class="p">(</span><span
+                        class="nx">fpEvents</span><span class="p">,</span> <span class="kd">function</span> <span
+                        class="p">(</span><span class="nx">e</span><span class="p">,</span> <span
+                        class="nx">api</span><span class="p">,</span> <span class="nx">video</span><span
+                        class="p">)</span> <span class="p">{</span><br/>    <span class="kd">var</span> <span
+                        class="nx">vid</span> <span class="o">=</span> <span class="nx">video</span> <span
+                        class="o">||</span> <span class="nx">api</span><span class="p">.</span><span
+                        class="nx">video</span><span class="p">;</span><br/>&nbsp;<br/>    <span class="nx">fpLog</span><span
+                        class="p">(</span><span class="nx">jqueryContainer</span><span class="p">,</span> <span
+                        class="s2">&quot;LOCAL event&quot;</span><span class="p">,</span> <span class="nx">e</span><span
+                        class="p">.</span><span class="nx">type</span><span class="p">,</span> <span
+                        class="nx">vid</span><span class="p">);</span><br/>  <span
+                        class="p">});</span><br/>&nbsp;<br/><br/>  <span class="nx">flowplayer</span><span
+                        class="p">(</span><span class="nx">jsContainer</span><span class="p">[</span><span
+                        class="mi">0</span><span class="p">],</span> <span class="p">{</span><br/>    <span class="nx">ratio</span><span
+                        class="o">:</span> <span class="mi">5</span><span class="o">/</span><span
+                        class="mi">12</span><span class="p">,</span><br/>    <span class="nx">splash</span><span
+                        class="o">:</span> <span class="kc">true</span><span class="p">,</span><br/>    <span
+                        class="nx">clip</span><span class="o">:</span> <span class="p">{</span><br/>      <span
+                        class="nx">title</span><span class="o">:</span> <span class="s2">&quot;JavaScript install, splash setup&quot;</span><span
+                        class="p">,</span><br/>      <span class="nx">sources</span><span class="o">:</span> <span
+                        class="p">[</span><br/>        <span class="p">{</span> <span class="nx">type</span><span
+                        class="o">:</span> <span class="s2">&quot;video/webm&quot;</span><span class="p">,</span> <span
+                        class="nx">src</span><span class="o">:</span> <span class="s2">&quot;//edge.flowplayer.org/functional.webm&quot;</span> <span
+                        class="p">},</span><br/>        <span class="p">{</span> <span class="nx">type</span><span
+                        class="o">:</span> <span class="s2">&quot;video/mp4&quot;</span><span class="p">,</span>  <span
+                        class="nx">src</span><span class="o">:</span> <span class="s2">&quot;//edge.flowplayer.org/functional.mp4&quot;</span> <span
+                        class="p">}</span><br/>      <span class="p">]</span><br/>    <span class="p">}</span><br/>&nbsp;<br/>  <span
+                        class="p">}).</span><span class="nx">on</span><span class="p">(</span><span
+                        class="nx">fpEvents</span><span class="p">,</span> <span class="kd">function</span> <span
+                        class="p">(</span><span class="nx">e</span><span class="p">,</span> <span
+                        class="nx">api</span><span class="p">,</span> <span class="nx">video</span><span
+                        class="p">)</span> <span class="p">{</span><br/>    <span class="kd">var</span> <span
+                        class="nx">vid</span> <span class="o">=</span> <span class="nx">video</span> <span
+                        class="o">||</span> <span class="nx">api</span><span class="p">.</span><span
+                        class="nx">video</span><span class="p">;</span><br/>&nbsp;<br/>    <span class="nx">fpLog</span><span
+                        class="p">(</span><span class="nx">jsContainer</span><span class="p">,</span> <span class="s2">&quot;LOCAL event&quot;</span><span
+                        class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">type</span><span
+                        class="p">,</span> <span class="nx">vid</span><span class="p">);</span><br/>  <span class="p">});</span><br/>&nbsp;<br/><span
+                        class="p">});</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>JavaScript</figcaption>
+        </figure>
+    </div>
 
 
-<h2 id="html-setup">&lt;body/&gt;</h2>
+    <h2 id="html-setup">&lt;body/&gt;</h2>
 
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;player jquery is-closeable&quot;</span><span class="p">&gt;</span><br />   <span class="p">&lt;</span><span class="nt">video</span> <span class="na">data-title</span><span class="o">=</span><span class="s">&quot;jQuery manual install, poster setup&quot;</span><span class="p">&gt;</span><br /><span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;video/webm&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/playful.webm&quot;</span><span class="p">&gt;</span><br /><span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/playful.mp4&quot;</span><span class="p">&gt;</span><br />   <span class="p">&lt;/</span><span class="nt">video</span><span class="p">&gt;</span><br /><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />&nbsp;<br /><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;player js is-closeable&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />&nbsp;<br /><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;log&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span
+                        class="na">class</span><span class="o">=</span><span class="s">&quot;player jquery is-closeable&quot;</span><span
+                        class="p">&gt;</span><br/>   <span class="p">&lt;</span><span class="nt">video</span> <span
+                        class="na">data-title</span><span class="o">=</span><span class="s">&quot;jQuery manual install, poster setup&quot;</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;video/webm&quot;</span> <span class="na">src</span><span class="o">=</span><span
+                        class="s">&quot;//edge.flowplayer.org/playful.webm&quot;</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span> <span
+                        class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/playful.mp4&quot;</span><span
+                        class="p">&gt;</span><br/>   <span class="p">&lt;/</span><span class="nt">video</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;/</span><span class="nt">div</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/><span class="p">&lt;</span><span
+                        class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;player js is-closeable&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br/>&nbsp;<br/><span
+                        class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span
+                        class="o">=</span><span class="s">&quot;log&quot;</span><span class="p">&gt;&lt;/</span><span
+                        class="nt">div</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
 
+    <div class="footer">
 
+        <p><a href="index.html">Demos in this section</a></p>
 
+        <hr>
 
+        <p><a href="../index.html">Version 6 Demos</a></p>
 
-<form id="codepenform" method="POST" action="http://codepen.io/pen/define" target="_blank">
-  <input type="hidden" name="data" value='{"title": "New pen based on Load event", "js_external": "//code.jquery.com/jquery-1.12.4.min.js;//releases.flowplayer.org/6.0.5/flowplayer.min.js", "js": "var fpEvents = \"load ready\",\n\n    fpLog = function (container, scope, type, video) {\n      var id = Number(container.data(\"flowplayer-instance-id\")),\n          bg = container.hasClass(\"js\") ? \"#e0ffcc\" :  \"#ffe9f5\",\n          msg = \"ID \" + id + \" \" + scope + \" on \" + type + \" - \" +\n                (video && video.src "--"  \"video object not available\");\n\n      $(\"#log\").append($(\"<p/>\").css({backgroundColor: bg}).text(msg));\n    };\n\n\n// global api setup\nflowplayer(function (api, root) {\n  fpLog($(root), \"GLOBAL init\", \"undefined\")\n\n  api.on(fpEvents, function (e, api, video) {\n    var vid = video || api.video;\n\n    fpLog($(root), \"GLOBAL event\", e.type, vid);\n  });\n});\n\n\n$(function () {\n  var jqueryContainer = $(\".player:first\"),\n      jsContainer = $(\".player:last\");\n\n  jqueryContainer.flowplayer({\n    ratio: 5/12\n  });\n\n  // api retrieval cannot be chained to installation\n  flowplayer(jqueryContainer).on(fpEvents, function (e, api, video) {\n    var vid = video || api.video;\n\n    fpLog(jqueryContainer, \"LOCAL event\", e.type, vid);\n  });\n\n\n  flowplayer(jsContainer[0], {\n    ratio: 5/12,\n    splash: true,\n    clip: {\n      title: \"JavaScript install, splash setup\",\n      sources: [\n        { type: \"video/webm\", src: \"//edge.flowplayer.org/functional.webm\" },\n        { type: \"video/mp4\",  src: \"//edge.flowplayer.org/functional.mp4\" }\n      ]\n    }\n\n  }).on(fpEvents, function (e, api, video) {\n    var vid = video || api.video;\n\n    fpLog(jsContainer, \"LOCAL event\", e.type, vid);\n  });\n\n});\n", "html": "<div class=\"player jquery is-closeable\">\n   <video data-title=\"jQuery manual install, poster setup\">\n<source type=\"video/webm\" src="../../index.htm" //edge.flowplayer.org/playful.webm/"">\n<source type=\"video/mp4\" src="../../index.htm" //edge.flowplayer.org/playful.mp4/"">\n   </video>\n</div>\n\n<div class=\"player js is-closeable\"></div>\n\n<div id=\"log\"></div>\n", "css_external": "//releases.flowplayer.org/6.0.5/skin/functional.css;http://demos.flowplayer.org/media/css/codepen.css", "css": ".flowplayer {\n  margin: 5px 0;\n}\n.flowplayer.jquery {\n  background-color: #ffe9f5;\n}\n.flowplayer.js {\n  background-color: #e0ffcc;\n}\n"}'>
-</form>
+        <p><a href="../../index.html">Flowplayer Demos+</a></p>
 
-<div class="footer">
-    <a href="#" onclick="document.getElementById('codepenform').submit()">Edit demo on codepen</a><br>
-  <span>Flash not available</span>
-  <hr >
+        <hr>
 
-    <p><a href="index.html" >Demos in this section</a></p>
-
-  <hr>
-
-  <p><a href="../index.htm" >Version 6 Demos</a></p>
-
-  <p><a href="../../index.htm" >Flowplayer Demos+</a></p>
-
-  <hr>
-
-  <p><a href="https://flowplayer.org/v6docs/">Version 6 Docs</a></p>
-</div>
-   </div> <!-- end content -->
+        <p><a href="https://flowplayer.org/v6docs/">Version 6 Docs</a></p>
+    </div>
+</div> <!-- end content -->
 
 </body>
 </html>

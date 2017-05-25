@@ -98,7 +98,7 @@ seamlessly from a bad url scenario.</p>
 
 
 <form id="codepenform" method="POST" action="http://codepen.io/pen/define?data={" target="_blank">
-  <input type="hidden" name="data" value='{"title": "New pen based on Bad URL sample", "js_external": "//code.jquery.com/jquery-1.12.4.min.js;//releases.flowplayer.org/6.0.5/flowplayer.min.js", "js": "$(function () {\n   flowplayer().on(\"error\", function (e, api, error) {\n      console.info(error.code, error.message);\n   });\n\n   $(\"button\").click(function () {\n      var webm = $(this).data(\"href"../../index.htm" ),/n"          mp4 = webm.slice(0, webm.lastIndexOf(\".\")) + \".mp4\";\n\n      // select second player by index\n      flowplayer(1).load({\n         sources: [\n            { type: \"video/webm\", src: webm },\n            { type: \"video/mp4\",  src: mp4  }\n         ]\n      });\n   });\n});\n", "html": "<div class=\"flowplayer\" data-ratio=\"0.4167\" data-debug=\"true\">\n   <video>\n<source type=\"video/webm\" src="../../index.htm" //bad.flowplayer.org/bauhaus.webm/"">\n<source type=\"video/mp4\"  src="../../index.htm" //bad.flowplayer.org/bauhaus.mp4/"">\n   </video>\n</div>\n\n<div class=\"flowplayer\" data-ratio=\"0.4167\" data-debug=\"true\">\n   <video>\n<source type=\"video/webm\" src="../../index.htm" //edge.flowplayer.org/bauhaus.webm/"">\n<source type=\"video/mp4\" src="../../index.htm" //edge.flowplayer.org/bauhaus.mp4/"">\n   </video>\n</div>\n\n<p>\n   <button id=\"good\" data-href="../../index.htm" //edge.flowplayer.org/functional.webm/"">\n      Load good URL\n   </button>\n\n   <button id=\"bad\" data-href="../../index.htm" //foo.flowplayer.org.webm/"">\n      Load bad URL\n   </button>\n</p>\n", "css_external": "//releases.flowplayer.org/6.0.5/skin/functional.css;http://demos.flowplayer.org/media/css/codepen.css", "css": ""}'>
+  <input type="hidden" name="data" value='{"title": "New pen based on Bad URL sample", "js_external": "//code.jquery.com/jquery-1.12.4.min.js;//releases.flowplayer.org/6.0.5/flowplayer.min.js", "js": "$(function () {\n   flowplayer().on(\"error\", function (e, api, error) {\n      console.info(error.code, error.message);\n   });\n\n   $(\"button\").click(function () {\n      var webm = $(this).data(\"href"../../index.html" ),/n"          mp4 = webm.slice(0, webm.lastIndexOf(\".\")) + \".mp4\";\n\n      // select second player by index\n      flowplayer(1).load({\n         sources: [\n            { type: \"video/webm\", src: webm },\n            { type: \"video/mp4\",  src: mp4  }\n         ]\n      });\n   });\n});\n", "html": "<div class=\"flowplayer\" data-ratio=\"0.4167\" data-debug=\"true\">\n   <video>\n<source type=\"video/webm\" src="../../index.html" //bad.flowplayer.org/bauhaus.webm/"">\n<source type=\"video/mp4\"  src="../../index.html" //bad.flowplayer.org/bauhaus.mp4/"">\n   </video>\n</div>\n\n<div class=\"flowplayer\" data-ratio=\"0.4167\" data-debug=\"true\">\n   <video>\n<source type=\"video/webm\" src="../../index.html" //edge.flowplayer.org/bauhaus.webm/"">\n<source type=\"video/mp4\" src="../../index.html" //edge.flowplayer.org/bauhaus.mp4/"">\n   </video>\n</div>\n\n<p>\n   <button id=\"good\" data-href="../../index.html" //edge.flowplayer.org/functional.webm/"">\n      Load good URL\n   </button>\n\n   <button id=\"bad\" data-href="../../index.html" //foo.flowplayer.org.webm/"">\n      Load bad URL\n   </button>\n</p>\n", "css_external": "//releases.flowplayer.org/6.0.5/skin/functional.css;http://demos.flowplayer.org/media/css/codepen.css", "css": ""}'>
 </form>
 
 <div class="footer">
@@ -110,9 +110,9 @@ seamlessly from a bad url scenario.</p>
 
   <hr>
 
-  <p><a href="../index.htm" >Version 6 Demos</a></p>
+  <p><a href="../index.html" >Version 6 Demos</a></p>
 
-  <p><a href="../../index.htm" >Flowplayer Demos+</a></p>
+  <p><a href="../../index.html" >Flowplayer Demos+</a></p>
 
   <hr>
 
