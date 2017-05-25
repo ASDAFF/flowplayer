@@ -1,133 +1,210 @@
-
 <!doctype html>
 
 <html>
 
 <head>
-   <meta charset="utf-8">
-   
-   
-      <title>Flowplayer · AWS signed url</title>
-   
-   <!-- optimize mobile versions -->
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-      <!-- Flowplayer skin -->
-   <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css" >
-   
-   <!-- Minimal styling for this standalone page, can be removed -->
-   <link rel="stylesheet" href="../common/css/demo.css" >
-   <!-- Syntax highlighting of source code, can be removed -->
-   <link rel="stylesheet" href="../common/css/pygments.css" >
-   
-      <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
-   <script src="../common/jquery/jquery-1.12.4.min.js" ></script>
-         <!-- Flowplayer library -->
-   <script src="../common/releases/7.0.4/flowplayer.min.js" ></script>
-         
-   
+    <meta charset="utf-8">
+
+
+    <title>Flowplayer · AWS signed url</title>
+
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Flowplayer skin -->
+    <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css">
+
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../common/css/pygments.css">
+
+    <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
+    <script src="../common/jquery/jquery-1.12.4.min.js"></script>
+    <!-- Flowplayer library -->
+    <script src="../common/releases/7.0.4/flowplayer.min.js"></script>
+
+
 </head>
 
 <body>
 
-   <div id="content">
+<div id="content">
 
-      <h1>AWS signed url</h1>
+    <h1>AWS signed url</h1>
 
-<h2>Video tag browser compatibility test</h2>
+    <h2>Video tag browser compatibility test</h2>
 
-<div id="container"></div>
+    <div id="container"></div>
 
-<pre id="src">
+    <pre id="src">
 
 </pre>
 
-<div class="doc">
-  <p>Expiry time is 5 seconds.</p>
+    <div class="doc">
+        <p>Expiry time is 5 seconds.</p>
 
-  <p>Issues with signed urls:</p>
+        <p>Issues with signed urls:</p>
 
-  <ul>
-    <li>Loading fails after 5 seconds on devices which do not allow autoplay.</li>
+        <ul>
+            <li>Loading fails after 5 seconds on devices which do not allow autoplay.</li>
 
-    <li>Also network errors are triggered if you try to seek to unbuffered postions after 5 seconds in
-    this long video.</li>
-  </ul>
+            <li>Also network errors are triggered if you try to seek to unbuffered postions after 5 seconds in
+                this long video.
+            </li>
+        </ul>
 
-  <p>For further details check the disclaimer in
-  <a href="../scripting/signed-ondemand.html" >this demo</a>.</p>
-</div>
+        <p>For further details check the disclaimer in
+            <a href="../scripting/signed-ondemand.html">this demo</a>.</p>
+    </div>
 
-<h2 id="html-setup">&lt;body/&gt;</h2>
+    <h2 id="html-setup">&lt;body/&gt;</h2>
 
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />&nbsp;<br /><span class="p">&lt;</span><span class="nt">pre</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;src&quot;</span><span class="p">&gt;</span><br />&nbsp;<br /><span class="p">&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
-
-
-<h3 id="javascript-setup">&lt;script&gt;</h3>
-
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br />  <span class="kd">var</span> <span class="nx">vtype</span><span class="p">,</span><br />      <span class="nx">video</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;&lt;video/&gt;&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">({</span><br />        <span class="nx">controls</span><span class="o">:</span> <span class="s2">&quot;controls&quot;</span><span class="p">,</span><br />        <span class="nx">preload</span><span class="o">:</span> <span class="s2">&quot;preload&quot;</span><span class="p">,</span><br />        <span class="s2">&quot;x-webkit-airplay&quot;</span><span class="o">:</span> <span class="s2">&quot;allow&quot;</span><span class="p">,</span><br />        <span class="nx">width</span><span class="o">:</span> <span class="mi">640</span><span class="p">,</span><br />        <span class="nx">height</span><span class="o">:</span> <span class="mi">480</span><br />      <span class="p">});</span><br />&nbsp;<br />  <span class="c1">// report url</span><br />  <span class="nx">video</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;loadeddata&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span><br />    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#src&quot;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">currentSrc</span><span class="p">);</span><br />  <span class="p">});</span><br />   <br />  <span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">([</span><span class="s2">&quot;webm&quot;</span><span class="p">,</span> <span class="s2">&quot;mp4&quot;</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">type</span><span class="p">)</span> <span class="p">{</span><br />    <span class="k">if</span> <span class="p">(</span><span class="o">!!</span><span class="nx">video</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">canPlayType</span><span class="p">(</span><span class="s2">&quot;video/&quot;</span> <span class="o">+</span> <span class="nx">type</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="s2">&quot;no&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span> <span class="p">{</span><br />      <span class="nx">vtype</span> <span class="o">=</span> <span class="nx">type</span><span class="p">;</span><br />      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span><br />    <span class="p">}</span><br />  <span class="p">});</span><br />&nbsp;<br />  <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span><br />    <span class="c1">// github does not offer php, therefore remote origin</span><br />    <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://flowplayer.blacktrash.org/getsignedurl.php?expires=5&quot;</span><span class="p">,</span><br />    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span><br />      <span class="s2">&quot;movie&quot;</span><span class="o">:</span> <span class="s2">&quot;http://d2yz3vc7rxs49u.cloudfront.net/ccc.&quot;</span> <span class="o">+</span> <span class="nx">vtype</span><br />    <span class="p">},</span><br />    <span class="nx">dataType</span><span class="o">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span><br />    <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span><br />      <span class="nx">video</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;&lt;source/&gt;&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">({</span><br />          <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;video/&quot;</span> <span class="o">+</span> <span class="nx">vtype</span><span class="p">,</span><br />          <span class="nx">src</span><span class="o">:</span> <span class="nx">data</span><br />        <span class="p">}));</span><br />&nbsp;<br />      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#container&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">video</span><span class="p">);</span><br />    <span class="p">}</span><br />  <span class="p">});</span><br /><span class="p">});</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></div>
-
-
-<script>
-$(function () {
-  var vtype,
-      video = $("<video/>").attr({
-        controls: "controls",
-        preload: "preload",
-        "x-webkit-airplay": "allow",
-        width: 640,
-        height: 480
-      });
-
-  // report url
-  video.on("loadeddata", function (e) {
-    $("#src").text(e.target.currentSrc);
-  });
-   
-  $.each(["webm", "mp4"], function (i, type) {
-    if (!!video[0].canPlayType("video/" + type).replace("no", "")) {
-      vtype = type;
-      return false;
-    }
-  });
-
-  $.ajax({
-    // github does not offer php, therefore remote origin
-    url: "http://flowplayer.blacktrash.org/getsignedurl.php?expires=5",
-    data: {
-      "movie": "http://d2yz3vc7rxs49u.cloudfront.net/ccc." + vtype
-    },
-    dataType: "text",
-    success: function (data) {
-      video.append($("<source/>").attr({
-          type: "video/" + vtype,
-          src: data
-        }));
-
-      $("#container").append(video);
-    }
-  });
-});
-</script>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span
+                        class="o">=</span><span class="s">&quot;container&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br/>&nbsp;<br/><span
+                        class="p">&lt;</span><span class="nt">pre</span> <span class="na">id</span><span
+                        class="o">=</span><span class="s">&quot;src&quot;</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/><span class="p">&lt;/</span><span
+                        class="nt">pre</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
 
 
+    <h3 id="javascript-setup">&lt;script&gt;</h3>
 
-<div class="footer">
-    <p><a href="index.html" >Demos in this section</a></p>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="nx">$</span><span class="p">(</span><span
+                        class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br/>  <span
+                        class="kd">var</span> <span class="nx">vtype</span><span class="p">,</span><br/>      <span
+                        class="nx">video</span> <span class="o">=</span> <span class="nx">$</span><span
+                        class="p">(</span><span class="s2">&quot;&lt;video/&gt;&quot;</span><span
+                        class="p">).</span><span class="nx">attr</span><span class="p">({</span><br/>        <span
+                        class="nx">controls</span><span class="o">:</span> <span
+                        class="s2">&quot;controls&quot;</span><span class="p">,</span><br/>        <span class="nx">preload</span><span
+                        class="o">:</span> <span class="s2">&quot;preload&quot;</span><span class="p">,</span><br/>        <span
+                        class="s2">&quot;x-webkit-airplay&quot;</span><span class="o">:</span> <span class="s2">&quot;allow&quot;</span><span
+                        class="p">,</span><br/>        <span class="nx">width</span><span class="o">:</span> <span
+                        class="mi">640</span><span class="p">,</span><br/>        <span class="nx">height</span><span
+                        class="o">:</span> <span class="mi">480</span><br/>      <span
+                        class="p">});</span><br/>&nbsp;<br/>  <span class="c1">// report url</span><br/>  <span
+                        class="nx">video</span><span class="p">.</span><span class="nx">on</span><span
+                        class="p">(</span><span class="s2">&quot;loadeddata&quot;</span><span class="p">,</span> <span
+                        class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span
+                        class="p">)</span> <span class="p">{</span><br/>    <span class="nx">$</span><span
+                        class="p">(</span><span class="s2">&quot;#src&quot;</span><span class="p">).</span><span
+                        class="nx">text</span><span class="p">(</span><span class="nx">e</span><span
+                        class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">currentSrc</span><span
+                        class="p">);</span><br/>  <span class="p">});</span><br/>   <br/>  <span
+                        class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">([</span><span
+                        class="s2">&quot;webm&quot;</span><span class="p">,</span> <span
+                        class="s2">&quot;mp4&quot;</span><span class="p">],</span> <span
+                        class="kd">function</span> <span class="p">(</span><span class="nx">i</span><span
+                        class="p">,</span> <span class="nx">type</span><span class="p">)</span> <span class="p">{</span><br/>    <span
+                        class="k">if</span> <span class="p">(</span><span class="o">!!</span><span
+                        class="nx">video</span><span class="p">[</span><span class="mi">0</span><span
+                        class="p">].</span><span class="nx">canPlayType</span><span class="p">(</span><span class="s2">&quot;video/&quot;</span> <span
+                        class="o">+</span> <span class="nx">type</span><span class="p">).</span><span
+                        class="nx">replace</span><span class="p">(</span><span class="s2">&quot;no&quot;</span><span
+                        class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span> <span
+                        class="p">{</span><br/>      <span class="nx">vtype</span> <span class="o">=</span> <span
+                        class="nx">type</span><span class="p">;</span><br/>      <span class="k">return</span> <span
+                        class="kc">false</span><span class="p">;</span><br/>    <span class="p">}</span><br/>  <span
+                        class="p">});</span><br/>&nbsp;<br/>  <span class="nx">$</span><span class="p">.</span><span
+                        class="nx">ajax</span><span class="p">({</span><br/>    <span class="c1">// github does not offer php, therefore remote origin</span><br/>    <span
+                        class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://flowplayer.blacktrash.org/getsignedurl.php?expires=5&quot;</span><span
+                        class="p">,</span><br/>    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span><br/>      <span
+                        class="s2">&quot;movie&quot;</span><span class="o">:</span> <span class="s2">&quot;http://d2yz3vc7rxs49u.cloudfront.net/ccc.&quot;</span> <span
+                        class="o">+</span> <span class="nx">vtype</span><br/>    <span class="p">},</span><br/>    <span
+                        class="nx">dataType</span><span class="o">:</span> <span class="s2">&quot;text&quot;</span><span
+                        class="p">,</span><br/>    <span class="nx">success</span><span class="o">:</span> <span
+                        class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span
+                        class="p">)</span> <span class="p">{</span><br/>      <span class="nx">video</span><span
+                        class="p">.</span><span class="nx">append</span><span class="p">(</span><span
+                        class="nx">$</span><span class="p">(</span><span
+                        class="s2">&quot;&lt;source/&gt;&quot;</span><span class="p">).</span><span
+                        class="nx">attr</span><span class="p">({</span><br/>          <span class="nx">type</span><span
+                        class="o">:</span> <span class="s2">&quot;video/&quot;</span> <span class="o">+</span> <span
+                        class="nx">vtype</span><span class="p">,</span><br/>          <span class="nx">src</span><span
+                        class="o">:</span> <span class="nx">data</span><br/>        <span class="p">}));</span><br/>&nbsp;<br/>      <span
+                        class="nx">$</span><span class="p">(</span><span class="s2">&quot;#container&quot;</span><span
+                        class="p">).</span><span class="nx">append</span><span class="p">(</span><span
+                        class="nx">video</span><span class="p">);</span><br/>    <span class="p">}</span><br/>  <span
+                        class="p">});</span><br/><span class="p">});</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>JavaScript</figcaption>
+        </figure>
+    </div>
 
-  <hr>
 
-  <p><a href="../index.html" >Flowplayer Demos+</a></p>
+    <script>
+        $(function () {
+            var vtype,
+                video = $("<video/>").attr({
+                    controls: "controls",
+                    preload: "preload",
+                    "x-webkit-airplay": "allow",
+                    width: 640,
+                    height: 480
+                });
 
-  <hr>
+            // report url
+            video.on("loadeddata", function (e) {
+                $("#src").text(e.target.currentSrc);
+            });
 
-  <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
+            $.each(["webm", "mp4"], function (i, type) {
+                if (!!video[0].canPlayType("video/" + type).replace("no", "")) {
+                    vtype = type;
+                    return false;
+                }
+            });
 
-  <hr>
+            $.ajax({
+                // github does not offer php, therefore remote origin
+                url: "http://flowplayer.blacktrash.org/getsignedurl.php?expires=5",
+                data: {
+                    "movie": "http://d2yz3vc7rxs49u.cloudfront.net/ccc." + vtype
+                },
+                dataType: "text",
+                success: function (data) {
+                    video.append($("<source/>").attr({
+                        type: "video/" + vtype,
+                        src: data
+                    }));
 
-  <p><a href="../v6/index.html" >Version 6 Demos</a></p>
-</div>
-   </div> <!-- end content -->
+                    $("#container").append(video);
+                }
+            });
+        });
+    </script>
+
+
+    <div class="footer">
+        <p><a href="index.html">Demos in this section</a></p>
+
+        <hr>
+
+        <p><a href="../index.html">Flowplayer Demos+</a></p>
+
+        <hr>
+
+        <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
+
+        <hr>
+
+        <p><a href="../v6/index.html">Version 6 Demos</a></p>
+    </div>
+</div> <!-- end content -->
 
 </body>
 </html>

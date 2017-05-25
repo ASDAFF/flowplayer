@@ -1,182 +1,370 @@
-
 <!doctype html>
 
 <html>
 
 <head>
-   <meta charset="utf-8">
+    <meta charset="utf-8">
 
-      <title>Flowplayer · Video timeline thumbnail</title>
-   
-   <!-- optimize mobile versions -->
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-      <!-- The "minimalist" skin - choose from: "functional.css", "minimalist.css", "playful.css" -->
-   <link rel="stylesheet" href="../../common/releases/6.0.5/skin/minimalist.css" >
-   
-   <!-- Minimal styling for this standalone page, can be removed -->
-   <link rel="stylesheet" href="../../common/css/demo.css" >
-   <!-- Syntax highlighting of source code, can be removed -->
-   <link rel="stylesheet" href="../../common/css/pygments.css" >
-   
-<style>
-.flowplayer {
-  background-color: #000;
-  background-image: url("../../../flowplayer.org/media/img/demos/minimalist-1.jpg");
-  margin-bottom: 30px;
-}
-@media(-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
-  .flowplayer {
-    background-image: url("../../../flowplayer.org/media/img/demos/minimalist@x2-1.jpg");
-  }
-}
-/* hide standard time tool tip */
-.flowplayer .fp-tooltip {
-  display: none !important;
-}
+    <title>Flowplayer · Video timeline thumbnail</title>
 
-/* the preview canvas */
-.flowplayer canvas {
-  outline: 4px solid #fff;
-  position: absolute;
-  z-index: 9999;
-  display: none;
-}
-</style>
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
-   <script src="../../common/jquery/jquery-1.12.4.min.js" ></script>
-         <!-- Flowplayer library -->
-   <script src="../../common/releases/6.0.5/flowplayer.min.js" ></script>
-               
-   
-<script>
-flowplayer(function (api, root) {
-   api.on("ready", function (e, api, video) {
-      var thumbheight = Math.round($(root).height() / 8);
-      $(root).append($("<canvas/>").attr({
-         height: thumbheight,
-         width: Math.round(thumbheight * video.width / video.height)
-      }));
-   });
-});
+    <!-- The "minimalist" skin - choose from: "functional.css", "minimalist.css", "playful.css" -->
+    <link rel="stylesheet" href="../../common/releases/6.0.5/skin/minimalist.css">
+
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../../common/css/pygments.css">
+
+    <style>
+        .flowplayer {
+            background-color: #000;
+            background-image: url("../../common/media/img/minimalist.jpg");
+            margin-bottom: 30px;
+        }
+
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+            .flowplayer {
+                background-image: url("../../common/media/img/minimalist@x2.jpg");
+            }
+        }
+
+        /* hide standard time tool tip */
+        .flowplayer .fp-tooltip {
+            display: none !important;
+        }
+
+        /* the preview canvas */
+        .flowplayer canvas {
+            outline: 4px solid #fff;
+            position: absolute;
+            z-index: 9999;
+            display: none;
+        }
+    </style>
+
+    <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
+    <script src="../../common/jquery/jquery-1.12.4.min.js"></script>
+    <!-- Flowplayer library -->
+    <script src="../../common/releases/6.0.5/flowplayer.min.js"></script>
 
 
-$(function() {
-
-  var withThumbnail = function (fpVideo, callback) {
-     var thumb = $("video.fp-thumbnail");
-     if (!thumb.length) {
-        thumb = fpVideo.clone().addClass("fp-thumbnail").appendTo($("body")).css({
-           position: "absolute",
-           left: -9999
-        }).on("loadedmetadata", function () {
-           callback(thumb);
+    <script>
+        flowplayer(function (api, root) {
+            api.on("ready", function (e, api, video) {
+                var thumbheight = Math.round($(root).height() / 8);
+                $(root).append($("<canvas/>").attr({
+                    height: thumbheight,
+                    width: Math.round(thumbheight * video.width / video.height)
+                }));
+            });
         });
-        thumb[0].muted = true;
-        thumb[0].load();
-     } else if (thumb[0].readyState !== 4) {
-        thumb.on("loadedmetadata", function () {
-           callback(thumb);
-        });
-     } else {
-        callback(thumb);
-     }
-  }
 
-  $(".fp-timeline").on("mousemove", function (ev) {
-     var timelineOffset = $(".fp-timeline").offset(),
-         percentage = (ev.pageX - timelineOffset.left) / $(".fp-timeline").width(),
-         canv = $(".flowplayer canvas"),
-         canvWidth = canv.width(),
-         canvHeight = canv.height(),
-         fpVideo = $(".flowplayer video");
 
-     canv.show().css({
-        left: Math.round(ev.pageX - (flowplayer().isFullscreen ? canvWidth / 2 : canvWidth + 4 * 2)),
-        bottom: Math.round($(".flowplayer .fp-controls").height() + 4 * 2)
-     });
-     withThumbnail(fpVideo, function (thumb) {
-        thumb[0].currentTime = fpVideo[0].duration * percentage;
-        thumb.one("seeked", function () {
-           var canvas = canv[0],
-               ctx = canvas.getContext("2d");
-           ctx.drawImage(thumb[0], 0, 0, canvWidth, canvHeight);
+        $(function () {
+
+            var withThumbnail = function (fpVideo, callback) {
+                var thumb = $("video.fp-thumbnail");
+                if (!thumb.length) {
+                    thumb = fpVideo.clone().addClass("fp-thumbnail").appendTo($("body")).css({
+                        position: "absolute",
+                        left: -9999
+                    }).on("loadedmetadata", function () {
+                        callback(thumb);
+                    });
+                    thumb[0].muted = true;
+                    thumb[0].load();
+                } else if (thumb[0].readyState !== 4) {
+                    thumb.on("loadedmetadata", function () {
+                        callback(thumb);
+                    });
+                } else {
+                    callback(thumb);
+                }
+            }
+
+            $(".fp-timeline").on("mousemove", function (ev) {
+                var timelineOffset = $(".fp-timeline").offset(),
+                    percentage = (ev.pageX - timelineOffset.left) / $(".fp-timeline").width(),
+                    canv = $(".flowplayer canvas"),
+                    canvWidth = canv.width(),
+                    canvHeight = canv.height(),
+                    fpVideo = $(".flowplayer video");
+
+                canv.show().css({
+                    left: Math.round(ev.pageX - (flowplayer().isFullscreen ? canvWidth / 2 : canvWidth + 4 * 2)),
+                    bottom: Math.round($(".flowplayer .fp-controls").height() + 4 * 2)
+                });
+                withThumbnail(fpVideo, function (thumb) {
+                    thumb[0].currentTime = fpVideo[0].duration * percentage;
+                    thumb.one("seeked", function () {
+                        var canvas = canv[0],
+                            ctx = canvas.getContext("2d");
+                        ctx.drawImage(thumb[0], 0, 0, canvWidth, canvHeight);
+                    });
+                })
+            }).on("mouseleave", function () {
+                $(".flowplayer canvas").hide();
+            });
         });
-     })
-  }).on("mouseleave", function () {
-     $(".flowplayer canvas").hide();
-  });
-});
-</script>
+    </script>
 
 </head>
 
 <body>
 
-   <div id="content">
+<div id="content">
 
-      <h1>Flowplayer · Video timeline thumbnail</h1>
+    <h1>Flowplayer · Video timeline thumbnail</h1>
 
-<div class="flowplayer" data-swf-hls="false" data-ratio="0.4167">
-   <video>
-<source type="application/x-mpegurl" src="http://edge.flowplayer.org/bauhaus.m3u8">
-<source type="video/webm" src="http://edge.flowplayer.org/bauhaus.webm">
-<source type="video/mp4" src="http://edge.flowplayer.org/bauhaus.mp4">
-   </video>
-</div>
+    <div class="flowplayer" data-swf-hls="false" data-ratio="0.4167">
+        <video>
+            <source type="application/x-mpegurl" src="http://edge.flowplayer.org/bauhaus.m3u8">
+            <source type="video/webm" src="http://edge.flowplayer.org/bauhaus.webm">
+            <source type="video/mp4" src="http://edge.flowplayer.org/bauhaus.mp4">
+        </video>
+    </div>
 
-<div class="doc">
-  <p><strong>Disclaimer:</strong> With longer videos this is can fail in Chrome,
-  because Chrome gets stuck when it tries to load the same video more than once. Also note that
-  this can only work with the html5 engine.</p>
+    <div class="doc">
+        <p><strong>Disclaimer:</strong> With longer videos this is can fail in Chrome,
+            because Chrome gets stuck when it tries to load the same video more than once. Also note that
+            this can only work with the html5 engine.</p>
 
-  <p>Compare with the
-  <a href="../../api/thumbnails.html" >image based solution using the thumbnails plugin</a>.
-</div>
+        <p>Compare with the
+            <a href="../../api/thumbnails.html">image based solution using the thumbnails plugin</a>.
+    </div>
 
-<h2 id="head-setup">&lt;head/&gt;</h2>
+    <h2 id="head-setup">&lt;head/&gt;</h2>
 
-<h3 id="css-setup">&lt;style&gt;</h3>
+    <h3 id="css-setup">&lt;style&gt;</h3>
 
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">{</span><br />  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#000</span><span class="p">;</span><br />  <span class="k">background-image</span><span class="p">:</span> <span class="nb">url</span><span class="p">(</span><span class="sx">//flowplayer.org/media/img/demos/minimalist.jpg</span><span class="p">);</span><br />  <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">30</span><span class="kt">px</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">@</span><span class="k">media</span><span class="o">(</span><span class="nt">-webkit-min-device-pixel-ratio</span><span class="o">:</span> <span class="nt">2</span><span class="o">),</span> <span class="o">(</span><span class="nt">min-resolution</span><span class="o">:</span> <span class="nt">2dppx</span><span class="o">)</span> <span class="p">{</span><br />  <span class="p">.</span><span class="nc">flowplayer</span> <span class="p">{</span><br />    <span class="k">background-image</span><span class="p">:</span> <span class="nb">url</span><span class="p">(</span><span class="sx">//flowplayer.org/media/img/demos/minimalist@x2.jpg</span><span class="p">);</span><br />  <span class="p">}</span><br /><span class="p">}</span><br /><span class="c">/* hide standard time tool tip */</span><br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-tooltip</span> <span class="p">{</span><br />  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span> <span class="cp">!important</span><span class="p">;</span><br /><span class="p">}</span><br />&nbsp;<br /><span class="c">/* the preview canvas */</span><br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="nt">canvas</span> <span class="p">{</span><br />  <span class="k">outline</span><span class="p">:</span> <span class="mi">4</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#fff</span><span class="p">;</span><br />  <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span><br />  <span class="k">z-index</span><span class="p">:</span> <span class="mi">9999</span><span class="p">;</span><br />  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span><br /><span class="p">}</span><br /></pre></div><br /><figcaption>CSS</figcaption></figure></div>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">{</span><br/>  <span class="k">background-color</span><span class="p">:</span> <span
+                        class="mh">#000</span><span class="p">;</span><br/>  <span
+                        class="k">background-image</span><span class="p">:</span> <span class="nb">url</span><span
+                        class="p">(</span><span class="sx">//flowplayer.org/media/img/demos/minimalist.jpg</span><span
+                        class="p">);</span><br/>  <span class="k">margin-bottom</span><span class="p">:</span> <span
+                        class="mi">30</span><span class="kt">px</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/><span class="p">@</span><span class="k">media</span><span
+                        class="o">(</span><span class="nt">-webkit-min-device-pixel-ratio</span><span class="o">:</span> <span
+                        class="nt">2</span><span class="o">),</span> <span class="o">(</span><span class="nt">min-resolution</span><span
+                        class="o">:</span> <span class="nt">2dppx</span><span class="o">)</span> <span
+                        class="p">{</span><br/>  <span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">{</span><br/>    <span class="k">background-image</span><span class="p">:</span> <span
+                        class="nb">url</span><span class="p">(</span><span class="sx">//flowplayer.org/media/img/demos/minimalist@x2.jpg</span><span
+                        class="p">);</span><br/>  <span class="p">}</span><br/><span class="p">}</span><br/><span
+                        class="c">/* hide standard time tool tip */</span><br/><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">.</span><span class="nc">fp-tooltip</span> <span class="p">{</span><br/>  <span
+                        class="k">display</span><span class="p">:</span> <span class="kc">none</span> <span class="cp">!important</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/>&nbsp;<br/><span class="c">/* the preview canvas */</span><br/><span
+                        class="p">.</span><span class="nc">flowplayer</span> <span class="nt">canvas</span> <span
+                        class="p">{</span><br/>  <span class="k">outline</span><span class="p">:</span> <span
+                        class="mi">4</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#fff</span><span
+                        class="p">;</span><br/>  <span class="k">position</span><span class="p">:</span> <span
+                        class="kc">absolute</span><span class="p">;</span><br/>  <span class="k">z-index</span><span
+                        class="p">:</span> <span class="mi">9999</span><span class="p">;</span><br/>  <span class="k">display</span><span
+                        class="p">:</span> <span class="kc">none</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>CSS</figcaption>
+        </figure>
+    </div>
 
 
-<h3 id="javascript-setup">&lt;script&gt;</h3>
+    <h3 id="javascript-setup">&lt;script&gt;</h3>
 
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="nx">flowplayer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">api</span><span class="p">,</span> <span class="nx">root</span><span class="p">)</span> <span class="p">{</span><br />   <span class="nx">api</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;ready&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span class="nx">video</span><span class="p">)</span> <span class="p">{</span><br />      <span class="kd">var</span> <span class="nx">thumbheight</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nx">root</span><span class="p">).</span><span class="nx">height</span><span class="p">()</span> <span class="o">/</span> <span class="mi">8</span><span class="p">);</span><br />      <span class="nx">$</span><span class="p">(</span><span class="nx">root</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;&lt;canvas/&gt;&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">({</span><br />         <span class="nx">height</span><span class="o">:</span> <span class="nx">thumbheight</span><span class="p">,</span><br />         <span class="nx">width</span><span class="o">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">thumbheight</span> <span class="o">*</span> <span class="nx">video</span><span class="p">.</span><span class="nx">width</span> <span class="o">/</span> <span class="nx">video</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span><br />      <span class="p">}));</span><br />   <span class="p">});</span><br /><span class="p">});</span><br />&nbsp;<br /><br /><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span><br />&nbsp;<br />  <span class="kd">var</span> <span class="nx">withThumbnail</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">fpVideo</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span><br />     <span class="kd">var</span> <span class="nx">thumb</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;video.fp-thumbnail&quot;</span><span class="p">);</span><br />     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">thumb</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span><br />        <span class="nx">thumb</span> <span class="o">=</span> <span class="nx">fpVideo</span><span class="p">.</span><span class="nx">clone</span><span class="p">().</span><span class="nx">addClass</span><span class="p">(</span><span class="s2">&quot;fp-thumbnail&quot;</span><span class="p">).</span><span class="nx">appendTo</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;body&quot;</span><span class="p">)).</span><span class="nx">css</span><span class="p">({</span><br />           <span class="nx">position</span><span class="o">:</span> <span class="s2">&quot;absolute&quot;</span><span class="p">,</span><br />           <span class="nx">left</span><span class="o">:</span> <span class="o">-</span><span class="mi">9999</span><br />        <span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;loadedmetadata&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br />           <span class="nx">callback</span><span class="p">(</span><span class="nx">thumb</span><span class="p">);</span><br />        <span class="p">});</span><br />        <span class="nx">thumb</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">muted</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span><br />        <span class="nx">thumb</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">load</span><span class="p">();</span><br />     <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">thumb</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">readyState</span> <span class="o">!==</span> <span class="mi">4</span><span class="p">)</span> <span class="p">{</span><br />        <span class="nx">thumb</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;loadedmetadata&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br />           <span class="nx">callback</span><span class="p">(</span><span class="nx">thumb</span><span class="p">);</span><br />        <span class="p">});</span><br />     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span><br />        <span class="nx">callback</span><span class="p">(</span><span class="nx">thumb</span><span class="p">);</span><br />     <span class="p">}</span><br />  <span class="p">}</span><br />&nbsp;<br />  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.fp-timeline&quot;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;mousemove&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">ev</span><span class="p">)</span> <span class="p">{</span><br />     <span class="kd">var</span> <span class="nx">timelineOffset</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.fp-timeline&quot;</span><span class="p">).</span><span class="nx">offset</span><span class="p">(),</span><br />         <span class="nx">percentage</span> <span class="o">=</span> <span class="p">(</span><span class="nx">ev</span><span class="p">.</span><span class="nx">pageX</span> <span class="o">-</span> <span class="nx">timelineOffset</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span> <span class="o">/</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.fp-timeline&quot;</span><span class="p">).</span><span class="nx">width</span><span class="p">(),</span><br />         <span class="nx">canv</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.flowplayer canvas&quot;</span><span class="p">),</span><br />         <span class="nx">canvWidth</span> <span class="o">=</span> <span class="nx">canv</span><span class="p">.</span><span class="nx">width</span><span class="p">(),</span><br />         <span class="nx">canvHeight</span> <span class="o">=</span> <span class="nx">canv</span><span class="p">.</span><span class="nx">height</span><span class="p">(),</span><br />         <span class="nx">fpVideo</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.flowplayer video&quot;</span><span class="p">);</span><br />&nbsp;<br />     <span class="nx">canv</span><span class="p">.</span><span class="nx">show</span><span class="p">().</span><span class="nx">css</span><span class="p">({</span><br />        <span class="nx">left</span><span class="o">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">ev</span><span class="p">.</span><span class="nx">pageX</span> <span class="o">-</span> <span class="p">(</span><span class="nx">flowplayer</span><span class="p">().</span><span class="nx">isFullscreen</span> <span class="o">?</span> <span class="nx">canvWidth</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">:</span> <span class="nx">canvWidth</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)),</span><br />        <span class="nx">bottom</span><span class="o">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.flowplayer .fp-controls&quot;</span><span class="p">).</span><span class="nx">height</span><span class="p">()</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span><br />     <span class="p">});</span><br />     <span class="nx">withThumbnail</span><span class="p">(</span><span class="nx">fpVideo</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">thumb</span><span class="p">)</span> <span class="p">{</span><br />        <span class="nx">thumb</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">currentTime</span> <span class="o">=</span> <span class="nx">fpVideo</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">duration</span> <span class="o">*</span> <span class="nx">percentage</span><span class="p">;</span><br />        <span class="nx">thumb</span><span class="p">.</span><span class="nx">one</span><span class="p">(</span><span class="s2">&quot;seeked&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br />           <span class="kd">var</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nx">canv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><br />               <span class="nx">ctx</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span><br />           <span class="nx">ctx</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">thumb</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">canvWidth</span><span class="p">,</span> <span class="nx">canvHeight</span><span class="p">);</span><br />        <span class="p">});</span><br />     <span class="p">})</span><br />  <span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;mouseleave&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br />     <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.flowplayer canvas&quot;</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span><br />  <span class="p">});</span><br /><span class="p">});</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></div>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="nx">flowplayer</span><span class="p">(</span><span
+                        class="kd">function</span> <span class="p">(</span><span class="nx">api</span><span
+                        class="p">,</span> <span class="nx">root</span><span class="p">)</span> <span class="p">{</span><br/>   <span
+                        class="nx">api</span><span class="p">.</span><span class="nx">on</span><span
+                        class="p">(</span><span class="s2">&quot;ready&quot;</span><span class="p">,</span> <span
+                        class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span
+                        class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span
+                        class="nx">video</span><span class="p">)</span> <span class="p">{</span><br/>      <span
+                        class="kd">var</span> <span class="nx">thumbheight</span> <span class="o">=</span> <span
+                        class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span
+                        class="p">(</span><span class="nx">$</span><span class="p">(</span><span
+                        class="nx">root</span><span class="p">).</span><span class="nx">height</span><span
+                        class="p">()</span> <span class="o">/</span> <span class="mi">8</span><span
+                        class="p">);</span><br/>      <span class="nx">$</span><span class="p">(</span><span class="nx">root</span><span
+                        class="p">).</span><span class="nx">append</span><span class="p">(</span><span
+                        class="nx">$</span><span class="p">(</span><span
+                        class="s2">&quot;&lt;canvas/&gt;&quot;</span><span class="p">).</span><span
+                        class="nx">attr</span><span class="p">({</span><br/>         <span class="nx">height</span><span
+                        class="o">:</span> <span class="nx">thumbheight</span><span
+                        class="p">,</span><br/>         <span class="nx">width</span><span class="o">:</span> <span
+                        class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span
+                        class="p">(</span><span class="nx">thumbheight</span> <span class="o">*</span> <span class="nx">video</span><span
+                        class="p">.</span><span class="nx">width</span> <span class="o">/</span> <span
+                        class="nx">video</span><span class="p">.</span><span class="nx">height</span><span
+                        class="p">)</span><br/>      <span class="p">}));</span><br/>   <span
+                        class="p">});</span><br/><span class="p">});</span><br/>&nbsp;<br/><br/><span
+                        class="nx">$</span><span class="p">(</span><span class="kd">function</span><span
+                        class="p">()</span> <span class="p">{</span><br/>&nbsp;<br/>  <span class="kd">var</span> <span
+                        class="nx">withThumbnail</span> <span class="o">=</span> <span class="kd">function</span> <span
+                        class="p">(</span><span class="nx">fpVideo</span><span class="p">,</span> <span class="nx">callback</span><span
+                        class="p">)</span> <span class="p">{</span><br/>     <span class="kd">var</span> <span
+                        class="nx">thumb</span> <span class="o">=</span> <span class="nx">$</span><span
+                        class="p">(</span><span class="s2">&quot;video.fp-thumbnail&quot;</span><span
+                        class="p">);</span><br/>     <span class="k">if</span> <span class="p">(</span><span
+                        class="o">!</span><span class="nx">thumb</span><span class="p">.</span><span
+                        class="nx">length</span><span class="p">)</span> <span class="p">{</span><br/>        <span
+                        class="nx">thumb</span> <span class="o">=</span> <span class="nx">fpVideo</span><span class="p">.</span><span
+                        class="nx">clone</span><span class="p">().</span><span class="nx">addClass</span><span
+                        class="p">(</span><span class="s2">&quot;fp-thumbnail&quot;</span><span class="p">).</span><span
+                        class="nx">appendTo</span><span class="p">(</span><span class="nx">$</span><span
+                        class="p">(</span><span class="s2">&quot;body&quot;</span><span class="p">)).</span><span
+                        class="nx">css</span><span class="p">({</span><br/>           <span
+                        class="nx">position</span><span class="o">:</span> <span
+                        class="s2">&quot;absolute&quot;</span><span class="p">,</span><br/>           <span class="nx">left</span><span
+                        class="o">:</span> <span class="o">-</span><span class="mi">9999</span><br/>        <span
+                        class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;loadedmetadata&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span
+                        class="p">{</span><br/>           <span class="nx">callback</span><span class="p">(</span><span
+                        class="nx">thumb</span><span class="p">);</span><br/>        <span class="p">});</span><br/>        <span
+                        class="nx">thumb</span><span class="p">[</span><span class="mi">0</span><span
+                        class="p">].</span><span class="nx">muted</span> <span class="o">=</span> <span
+                        class="kc">true</span><span class="p">;</span><br/>        <span class="nx">thumb</span><span
+                        class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">load</span><span
+                        class="p">();</span><br/>     <span class="p">}</span> <span class="k">else</span> <span
+                        class="k">if</span> <span class="p">(</span><span class="nx">thumb</span><span
+                        class="p">[</span><span class="mi">0</span><span class="p">].</span><span
+                        class="nx">readyState</span> <span class="o">!==</span> <span class="mi">4</span><span
+                        class="p">)</span> <span class="p">{</span><br/>        <span class="nx">thumb</span><span
+                        class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;loadedmetadata&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span
+                        class="p">{</span><br/>           <span class="nx">callback</span><span class="p">(</span><span
+                        class="nx">thumb</span><span class="p">);</span><br/>        <span class="p">});</span><br/>     <span
+                        class="p">}</span> <span class="k">else</span> <span class="p">{</span><br/>        <span
+                        class="nx">callback</span><span class="p">(</span><span class="nx">thumb</span><span class="p">);</span><br/>     <span
+                        class="p">}</span><br/>  <span class="p">}</span><br/>&nbsp;<br/>  <span
+                        class="nx">$</span><span class="p">(</span><span class="s2">&quot;.fp-timeline&quot;</span><span
+                        class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;mousemove&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span
+                        class="nx">ev</span><span class="p">)</span> <span class="p">{</span><br/>     <span class="kd">var</span> <span
+                        class="nx">timelineOffset</span> <span class="o">=</span> <span class="nx">$</span><span
+                        class="p">(</span><span class="s2">&quot;.fp-timeline&quot;</span><span class="p">).</span><span
+                        class="nx">offset</span><span class="p">(),</span><br/>         <span
+                        class="nx">percentage</span> <span class="o">=</span> <span class="p">(</span><span class="nx">ev</span><span
+                        class="p">.</span><span class="nx">pageX</span> <span class="o">-</span> <span class="nx">timelineOffset</span><span
+                        class="p">.</span><span class="nx">left</span><span class="p">)</span> <span class="o">/</span> <span
+                        class="nx">$</span><span class="p">(</span><span class="s2">&quot;.fp-timeline&quot;</span><span
+                        class="p">).</span><span class="nx">width</span><span class="p">(),</span><br/>         <span
+                        class="nx">canv</span> <span class="o">=</span> <span class="nx">$</span><span
+                        class="p">(</span><span class="s2">&quot;.flowplayer canvas&quot;</span><span
+                        class="p">),</span><br/>         <span class="nx">canvWidth</span> <span
+                        class="o">=</span> <span class="nx">canv</span><span class="p">.</span><span
+                        class="nx">width</span><span class="p">(),</span><br/>         <span
+                        class="nx">canvHeight</span> <span class="o">=</span> <span class="nx">canv</span><span
+                        class="p">.</span><span class="nx">height</span><span class="p">(),</span><br/>         <span
+                        class="nx">fpVideo</span> <span class="o">=</span> <span class="nx">$</span><span
+                        class="p">(</span><span class="s2">&quot;.flowplayer video&quot;</span><span class="p">);</span><br/>&nbsp;<br/>     <span
+                        class="nx">canv</span><span class="p">.</span><span class="nx">show</span><span
+                        class="p">().</span><span class="nx">css</span><span class="p">({</span><br/>        <span
+                        class="nx">left</span><span class="o">:</span> <span class="nb">Math</span><span
+                        class="p">.</span><span class="nx">round</span><span class="p">(</span><span
+                        class="nx">ev</span><span class="p">.</span><span class="nx">pageX</span> <span
+                        class="o">-</span> <span class="p">(</span><span class="nx">flowplayer</span><span
+                        class="p">().</span><span class="nx">isFullscreen</span> <span class="o">?</span> <span
+                        class="nx">canvWidth</span> <span class="o">/</span> <span class="mi">2</span> <span
+                        class="o">:</span> <span class="nx">canvWidth</span> <span class="o">+</span> <span
+                        class="mi">4</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)),</span><br/>        <span
+                        class="nx">bottom</span><span class="o">:</span> <span class="nb">Math</span><span
+                        class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">$</span><span
+                        class="p">(</span><span class="s2">&quot;.flowplayer .fp-controls&quot;</span><span
+                        class="p">).</span><span class="nx">height</span><span class="p">()</span> <span
+                        class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span
+                        class="mi">2</span><span class="p">)</span><br/>     <span class="p">});</span><br/>     <span
+                        class="nx">withThumbnail</span><span class="p">(</span><span class="nx">fpVideo</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">thumb</span><span
+                        class="p">)</span> <span class="p">{</span><br/>        <span class="nx">thumb</span><span
+                        class="p">[</span><span class="mi">0</span><span class="p">].</span><span
+                        class="nx">currentTime</span> <span class="o">=</span> <span class="nx">fpVideo</span><span
+                        class="p">[</span><span class="mi">0</span><span class="p">].</span><span
+                        class="nx">duration</span> <span class="o">*</span> <span class="nx">percentage</span><span
+                        class="p">;</span><br/>        <span class="nx">thumb</span><span class="p">.</span><span
+                        class="nx">one</span><span class="p">(</span><span class="s2">&quot;seeked&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span
+                        class="p">{</span><br/>           <span class="kd">var</span> <span
+                        class="nx">canvas</span> <span class="o">=</span> <span class="nx">canv</span><span
+                        class="p">[</span><span class="mi">0</span><span class="p">],</span><br/>               <span
+                        class="nx">ctx</span> <span class="o">=</span> <span class="nx">canvas</span><span
+                        class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span
+                        class="p">);</span><br/>           <span class="nx">ctx</span><span class="p">.</span><span
+                        class="nx">drawImage</span><span class="p">(</span><span class="nx">thumb</span><span class="p">[</span><span
+                        class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span
+                        class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span
+                        class="nx">canvWidth</span><span class="p">,</span> <span class="nx">canvHeight</span><span
+                        class="p">);</span><br/>        <span class="p">});</span><br/>     <span
+                        class="p">})</span><br/>  <span class="p">}).</span><span class="nx">on</span><span
+                        class="p">(</span><span class="s2">&quot;mouseleave&quot;</span><span class="p">,</span> <span
+                        class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br/>     <span
+                        class="nx">$</span><span class="p">(</span><span
+                        class="s2">&quot;.flowplayer canvas&quot;</span><span class="p">).</span><span
+                        class="nx">hide</span><span class="p">();</span><br/>  <span class="p">});</span><br/><span
+                        class="p">});</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>JavaScript</figcaption>
+        </figure>
+    </div>
 
 
-<h2 id="html-setup">&lt;body/&gt;</h2>
+    <h2 id="html-setup">&lt;body/&gt;</h2>
 
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;flowplayer&quot;</span> <span class="na">data-swf-hls</span><span class="o">=</span><span class="s">&quot;false&quot;</span> <span class="na">data-ratio</span><span class="o">=</span><span class="s">&quot;0.4167&quot;</span><span class="p">&gt;</span><br />   <span class="p">&lt;</span><span class="nt">video</span><span class="p">&gt;</span><br /><span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;application/x-mpegurl&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/bauhaus.m3u8&quot;</span><span class="p">&gt;</span><br /><span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;video/webm&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/bauhaus.webm&quot;</span><span class="p">&gt;</span><br /><span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/bauhaus.mp4&quot;</span><span class="p">&gt;</span><br />   <span class="p">&lt;/</span><span class="nt">video</span><span class="p">&gt;</span><br /><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span
+                        class="na">class</span><span class="o">=</span><span
+                        class="s">&quot;flowplayer&quot;</span> <span class="na">data-swf-hls</span><span
+                        class="o">=</span><span class="s">&quot;false&quot;</span> <span
+                        class="na">data-ratio</span><span class="o">=</span><span
+                        class="s">&quot;0.4167&quot;</span><span class="p">&gt;</span><br/>   <span
+                        class="p">&lt;</span><span class="nt">video</span><span class="p">&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;application/x-mpegurl&quot;</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//edge.flowplayer.org/bauhaus.m3u8&quot;</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;video/webm&quot;</span> <span class="na">src</span><span class="o">=</span><span
+                        class="s">&quot;//edge.flowplayer.org/bauhaus.webm&quot;</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span> <span
+                        class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/bauhaus.mp4&quot;</span><span
+                        class="p">&gt;</span><br/>   <span class="p">&lt;/</span><span class="nt">video</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;/</span><span class="nt">div</span><span
+                        class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
 
+    <div class="footer">
 
+        <p><a href="index.html">Demos in this section</a></p>
 
+        <hr>
 
+        <p><a href="../index.html">Version 6 Demos</a></p>
 
-<form id="codepenform" method="POST" action="http://codepen.io/pen/define?data={" target="_blank">
-  <input type="hidden" name="data" value='{"title": "New pen based on Video timeline thumbnail", "js_external": "//code.jquery.com/jquery-1.12.4.min.js;//releases.flowplayer.org/6.0.5/flowplayer.min.js", "js": "flowplayer(function (api, root) {\n   api.on(\"ready\", function (e, api, video) {\n      var thumbheight = Math.round($(root).height() / 8);\n      $(root).append($(\"<canvas/>\").attr({\n         height: thumbheight,\n         width: Math.round(thumbheight * video.width / video.height)\n      }));\n   });\n});\n\n\n$(function() {\n\n  var withThumbnail = function (fpVideo, callback) {\n     var thumb = $(\"video.fp-thumbnail\");\n     if (!thumb.length) {\n        thumb = fpVideo.clone().addClass(\"fp-thumbnail\").appendTo($(\"body\")).css({\n           position: \"absolute\",\n           left: -9999\n        }).on(\"loadedmetadata\", function () {\n           callback(thumb);\n        });\n        thumb[0].muted = true;\n        thumb[0].load();\n     } else if (thumb[0].readyState !== 4) {\n        thumb.on(\"loadedmetadata\", function () {\n           callback(thumb);\n        });\n     } else {\n        callback(thumb);\n     }\n  }\n\n  $(\".fp-timeline\").on(\"mousemove\", function (ev) {\n     var timelineOffset = $(\".fp-timeline\").offset(),\n         percentage = (ev.pageX - timelineOffset.left) / $(\".fp-timeline\").width(),\n         canv = $(\".flowplayer canvas\"),\n         canvWidth = canv.width(),\n         canvHeight = canv.height(),\n         fpVideo = $(\".flowplayer video\");\n\n     canv.show().css({\n        left: Math.round(ev.pageX - (flowplayer().isFullscreen ? canvWidth / 2 : canvWidth + 4 * 2)),\n        bottom: Math.round($(\".flowplayer .fp-controls\").height() + 4 * 2)\n     });\n     withThumbnail(fpVideo, function (thumb) {\n        thumb[0].currentTime = fpVideo[0].duration * percentage;\n        thumb.one(\"seeked\", function () {\n           var canvas = canv[0],\n               ctx = canvas.getContext(\"2d\");\n           ctx.drawImage(thumb[0], 0, 0, canvWidth, canvHeight);\n        });\n     })\n  }).on(\"mouseleave\", function () {\n     $(\".flowplayer canvas\").hide();\n  });\n});\n", "html": "<div class=\"flowplayer\" data-swf-hls=\"false\" data-ratio=\"0.4167\">\n   <video>\n<source type=\"application/x-mpegurl\" src="../../index.html" //edge.flowplayer.org/bauhaus.m3u8/"">\n<source type=\"video/webm\" src="../../index.html" //edge.flowplayer.org/bauhaus.webm/"">\n<source type=\"video/mp4\" src="../../index.html" //edge.flowplayer.org/bauhaus.mp4/"">\n   </video>\n</div>\n", "css_external": "//releases.flowplayer.org/6.0.5/skin/minimalist.css;http://demos.flowplayer.org/media/css/codepen.css", "css": ".flowplayer {\n  background-color: #000;\n  background-image: url(//flowplayer.org/media/img/demos/minimalist.jpg);\n  margin-bottom: 30px;\n}\n@media(-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {\n  .flowplayer {\n    background-image: url(//flowplayer.org/media/img/demos/minimalist@x2.jpg);\n  }\n}\n/* hide standard time tool tip */\n.flowplayer .fp-tooltip {\n  display: none !important;\n}\n\n/* the preview canvas */\n.flowplayer canvas {\n  outline: 4px solid #fff;\n  position: absolute;\n  z-index: 9999;\n  display: none;\n}\n"}'>
-</form>
+        <p><a href="../../index.html">Flowplayer Demos+</a></p>
 
-<div class="footer">
-    <a href="#" onclick="document.getElementById('codepenform').submit()">Edit demo on codepen</a><br>
-  <span>Flash not available</span>
-  <hr >
+        <hr>
 
-    <p><a href="index.html" >Demos in this section</a></p>
-
-  <hr>
-
-  <p><a href="../index.html" >Version 6 Demos</a></p>
-
-  <p><a href="../../index.html" >Flowplayer Demos+</a></p>
-
-  <hr>
-
-  <p><a href="https://flowplayer.org/v6docs/">Version 6 Docs</a></p>
-</div>
-   </div> <!-- end content -->
+        <p><a href="https://flowplayer.org/v6docs/">Version 6 Docs</a></p>
+    </div>
+</div> <!-- end content -->
 
 </body>
 </html>
