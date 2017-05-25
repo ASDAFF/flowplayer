@@ -1,300 +1,675 @@
-
 <!doctype html>
 
 <html>
 
 <head>
-   <meta charset="utf-8">
+    <meta charset="utf-8">
 
-      <title>Flowplayer · Horizontal scrollable playlist</title>
-   
-   <!-- optimize mobile versions -->
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-      <!-- Flowplayer skin -->
-   <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css" >
-   
-   <!-- Minimal styling for this standalone page, can be removed -->
-   <link rel="stylesheet" href="../common/css/demo.css" >
-   <!-- Syntax highlighting of source code, can be removed -->
-   <link rel="stylesheet" href="../common/css/pygments.css" >
-   
-<style>
-#content {
-  width: 800px;
-}
+    <title>Flowplayer · Horizontal scrollable playlist</title>
 
-/* fixed width container */
-#player {
-  width: 800px;
-  background-color: #036;
-}
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-/* scrollable */
-div.scrollable-wrap {
-  display: block;
-  width: 800px;
-  height: 60px;
-}
-.scrollable-wrap .scrollable {
-  position: relative;
-  overflow: hidden;
-  float: left;
-  width: 730px;
-  height: 60px;
-}
-/* playlist items == scrollable items */
-.scrollable .items {
-  width: 999em;
-  position: absolute;
-}
-.scrollable .items div {
-  float: left;
-}
-.scrollable .items span {
-  float: left;
-  padding: 10px;
-  margin: 10px;
-  width: 330px;
-  color: #282828;
-  background-color: rgba(0, 0, 0, 0.2);
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  background: -webkit-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
-  background: -moz-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
-  background: -ms-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  cursor: pointer;
-}
-.scrollable .items span.is-active {
-  background: -webkit-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%);
-  background: -moz-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%);
-  background: -ms-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%);
-  color: #f00;
-}
-.scrollable .items span.is-paused {
-  color: #900;
-}
-/* scrollable prev and next buttons */
-.scrollable-wrap a.prev, .scrollable-wrap a.next {
-  background: url("../common/media/img/scrollable/arrow/hori_large.png") no-repeat;
-  display: block;
-  float: left;
-  width: 30px;
-  height: 30px;
-  margin: 15px 0;
-  font-size: 0;
-  cursor: pointer;
-}
-.scrollable-wrap a.next {
-  background-position: 0 -30px;
-  clear: right;
-  margin-left: 10px;
-}
-.scrollable-wrap a.prev:hover {
-  background-position: -30px 0;
-}
-.scrollable-wrap a.prev:active {
-  background-position: -60px 0;
-}
-.scrollable-wrap a.next:hover {
-  background-position: -30px -30px;
-}
-.scrollable-wrap a.next:active {
-  background-position: -60px -30px;
-}
-</style>
+    <!-- Flowplayer skin -->
+    <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css">
 
-      <!-- Specific jquery for this demo -->
-   <script src="../common/jquery/jquery-1.8.3.min.js" ></script>
-         <!-- Flowplayer library -->
-   <script src="../common/releases/7.0.4/flowplayer.min.js" ></script>
-            <!-- The dashjs plugin for DASH support -->
-   <script src="../common/releases/dashjs/flowplayer.dashjs.min.js" ></script>
-            
-      <!-- Specific script for this demo -->
-   <script src="../common/jquery/jquery-tools/1.2.7/all/jquery.tools.min.js" ></script>
-   
-<script>
-$(function () {
-  var playlist = [],
-      base = "//edge.flowplayer.org/night",
-      videos = $(".scrollable span"),
-      scrollable,
-      player,
-      i;
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../common/css/pygments.css">
 
-  // build playlist from videos named night1 thru night6
-  for (i = 1; i < 7; i += 1) {
-    playlist.push({
-      sources: [
-        { type: "application/dash+xml",  src: base + i + ".mpd" },
-        { type: "application/x-mpegurl", src: base + i + ".m3u8" },
-        { type: "video/mp4",             src: base + i + ".mp4" }
-      ]
-    });
-  }
+    <style>
+        #content {
+            width: 800px;
+        }
 
-  $(".scrollable").scrollable({
-    circular: true
-  });
+        /* fixed width container */
+        #player {
+            width: 800px;
+            background-color: #036;
+        }
 
-  scrollable = $(".scrollable").data("scrollable");
+        /* scrollable */
+        div.scrollable-wrap {
+            display: block;
+            width: 800px;
+            height: 60px;
+        }
 
-  player = flowplayer($("#player"), {
-    // loop the playlist in a circular scrollable
-    loop: true,
-    ratio: 9/16,
-    splash: true,
-    bgcolor: "#333333",
-    customPlaylist: true,
-    playlist: playlist
+        .scrollable-wrap .scrollable {
+            position: relative;
+            overflow: hidden;
+            float: left;
+            width: 730px;
+            height: 60px;
+        }
 
-  }).on("ready", function (e, api, video) {
-    videos.each(function (i) {
-      var active = i == video.index;
+        /* playlist items == scrollable items */
+        .scrollable .items {
+            width: 999em;
+            position: absolute;
+        }
 
-      $(this).toggleClass("is-active", active)
-             .toggleClass("is-paused", active && api.paused);
-    });
+        .scrollable .items div {
+            float: left;
+        }
 
-  }).on("pause resume", function (e, api) {
-    videos.eq(api.video.index).toggleClass("is-paused", e.type == "pause");
+        .scrollable .items span {
+            float: left;
+            padding: 10px;
+            margin: 10px;
+            width: 330px;
+            color: #282828;
+            background-color: rgba(0, 0, 0, 0.2);
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+            background: -webkit-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+            background: -moz-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+            background: -ms-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+        }
 
-  }).on("finish", function (e, api) {
-    var vindex = api.video.index,
-        currentpage = Math.floor(vindex / 2),
-        scrollindex = scrollable.getIndex(),
-        next;
+        .scrollable .items span.is-active {
+            background: -webkit-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%);
+            background: -moz-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%);
+            background: -ms-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%);
+            color: #f00;
+        }
 
-    // advance scrollable every 2nd playlist item
-    if (vindex % 2 != 0 && scrollindex == currentpage) {
-      // prefer circular movement when current item is visible
-      scrollable.next();
+        .scrollable .items span.is-paused {
+            color: #900;
+        }
 
-    } else if (scrollindex != currentpage) {
-      // scroll to next item if not visible
-      next = vindex < playlist.length - 1 ? vindex + 1 : 0;
-      scrollable.seekTo(Math.floor(next / 2));
-    }
-  });
+        /* scrollable prev and next buttons */
+        .scrollable-wrap a.prev, .scrollable-wrap a.next {
+            background: url("../common/media/img/scrollable/arrow/hori_large.png") no-repeat;
+            display: block;
+            float: left;
+            width: 30px;
+            height: 30px;
+            margin: 15px 0;
+            font-size: 0;
+            cursor: pointer;
+        }
 
-  videos.click(function () {
-    var vindex = videos.index(this);
+        .scrollable-wrap a.next {
+            background-position: 0 -30px;
+            clear: right;
+            margin-left: 10px;
+        }
 
-    if (player.video.index === vindex) {
-      player.toggle();
-    } else {
-      player.play(vindex);
-    }
-  });
-});
-</script>
+        .scrollable-wrap a.prev:hover {
+            background-position: -30px 0;
+        }
+
+        .scrollable-wrap a.prev:active {
+            background-position: -60px 0;
+        }
+
+        .scrollable-wrap a.next:hover {
+            background-position: -30px -30px;
+        }
+
+        .scrollable-wrap a.next:active {
+            background-position: -60px -30px;
+        }
+    </style>
+
+    <!-- Specific jquery for this demo -->
+    <script src="../common/jquery/jquery-1.8.3.min.js"></script>
+    <!-- Flowplayer library -->
+    <script src="../common/releases/7.0.4/flowplayer.min.js"></script>
+    <!-- The dashjs plugin for DASH support -->
+    <script src="../common/releases/dashjs/flowplayer.dashjs.min.js"></script>
+
+    <!-- Specific script for this demo -->
+    <script src="../common/jquery/jquery-tools/1.2.7/all/jquery.tools.min.js"></script>
+
+    <script>
+        $(function () {
+            var playlist = [],
+                base = "//edge.flowplayer.org/night",
+                videos = $(".scrollable span"),
+                scrollable,
+                player,
+                i;
+
+            // build playlist from videos named night1 thru night6
+            for (i = 1; i < 7; i += 1) {
+                playlist.push({
+                    sources: [
+                        {type: "application/dash+xml", src: base + i + ".mpd"},
+                        {type: "application/x-mpegurl", src: base + i + ".m3u8"},
+                        {type: "video/mp4", src: base + i + ".mp4"}
+                    ]
+                });
+            }
+
+            $(".scrollable").scrollable({
+                circular: true
+            });
+
+            scrollable = $(".scrollable").data("scrollable");
+
+            player = flowplayer($("#player"), {
+                // loop the playlist in a circular scrollable
+                loop: true,
+                ratio: 9 / 16,
+                splash: true,
+                bgcolor: "#333333",
+                customPlaylist: true,
+                playlist: playlist
+
+            }).on("ready", function (e, api, video) {
+                videos.each(function (i) {
+                    var active = i == video.index;
+
+                    $(this).toggleClass("is-active", active)
+                        .toggleClass("is-paused", active && api.paused);
+                });
+
+            }).on("pause resume", function (e, api) {
+                videos.eq(api.video.index).toggleClass("is-paused", e.type == "pause");
+
+            }).on("finish", function (e, api) {
+                var vindex = api.video.index,
+                    currentpage = Math.floor(vindex / 2),
+                    scrollindex = scrollable.getIndex(),
+                    next;
+
+                // advance scrollable every 2nd playlist item
+                if (vindex % 2 != 0 && scrollindex == currentpage) {
+                    // prefer circular movement when current item is visible
+                    scrollable.next();
+
+                } else if (scrollindex != currentpage) {
+                    // scroll to next item if not visible
+                    next = vindex < playlist.length - 1 ? vindex + 1 : 0;
+                    scrollable.seekTo(Math.floor(next / 2));
+                }
+            });
+
+            videos.click(function () {
+                var vindex = videos.index(this);
+
+                if (player.video.index === vindex) {
+                    player.toggle();
+                } else {
+                    player.play(vindex);
+                }
+            });
+        });
+    </script>
 
 </head>
 
 <body>
 
-   <div id="content">
+<div id="content">
 
-      <h1>Flowplayer · Horizontal scrollable playlist</h1>
+    <h1>Flowplayer · Horizontal scrollable playlist</h1>
 
-<div id="player"></div>
+    <div id="player"></div>
 
-<div class="scrollable-wrap">
-  <a class="prev">prev</a>
+    <div class="scrollable-wrap">
+        <a class="prev">prev</a>
 
-  <div class="scrollable">
-    <div class="items">
-      <div>
-        <span>Video 1</span> <span>Video 2</span>
-      </div>
+        <div class="scrollable">
+            <div class="items">
+                <div>
+                    <span>Video 1</span> <span>Video 2</span>
+                </div>
 
-      <div>
-        <span>Video 3</span> <span>Video 4</span>
-      </div>
+                <div>
+                    <span>Video 3</span> <span>Video 4</span>
+                </div>
 
-      <div>
-        <span>Video 5</span> <span>Video 6</span>
-      </div>
+                <div>
+                    <span>Video 5</span> <span>Video 6</span>
+                </div>
+            </div>
+        </div>
+
+        <a class="next">next</a>
     </div>
-  </div>
 
-  <a class="next">next</a>
-</div>
+    <div class="doc">
+        <p>A horizontal playlist implemented with jQueryTools'
+            <a href="http://jquerytools.github.io/documentation/scrollable/">scrollable</a>. The videos are
+            offered with adaptive bit rate streaming as <a href="../api/dash.html">MPEG-DASH</a> and
+            <a href="../basics/hls.html">HLS</a> streams.</p>
 
-<div class="doc">
-  <p>A horizontal playlist implemented with jQueryTools'
-  <a href="http://jquerytools.github.io/documentation/scrollable/">scrollable</a>. The videos are
-  offered with adaptive bit rate streaming as <a href="../api/dash.html" >MPEG-DASH</a> and
-  <a href="../basics/hls.html" >HLS</a> streams.</p>
+        <p>Note: In theory you could make Flowplayer's dedicated playlist element inside the container
+            element scrollable. In practice this
+            <a href="https://github.com/flowplayer/flowplayer/issues/359">breaks fullscreen mode in some
+                browsers</a>. Therefore the playlist user interface is replicated in a dedicated scrollable
+            element and the interaction is scripted by duplicating and adapting some of Flowplayer's
+            playlist code for this purpose.</p>
+    </div>
 
-  <p>Note: In theory you could make Flowplayer's dedicated playlist element inside the container
-  element scrollable. In practice this
-  <a href="https://github.com/flowplayer/flowplayer/issues/359">breaks fullscreen mode in some
-  browsers</a>. Therefore the playlist user interface is replicated in a dedicated scrollable
-  element and the interaction is scripted by duplicating and adapting some of Flowplayer's
-  playlist code for this purpose.</p>
-</div>
+    <h2 id="head-setup">&lt;head/&gt;</h2>
 
-<h2 id="head-setup">&lt;head/&gt;</h2>
+    <div class="doc">
+        <p>Here is how to load the assets for scrollable.</p>
 
-<div class="doc">
-  <p>Here is how to load the assets for scrollable.</p>
+        <p><b>Caveat:</b> Because jQueryTools are not completely compatible with jQuery version
+            <a href="http://blog.jquery.com/2013/01/15/jquery-1-9-final-jquery-2-0-beta-migrate-final-released/">1.9+</a>
+            an older version of the jQuery library is used.</p>
+    </div>
 
-  <p><b>Caveat:</b> Because jQueryTools are not completely compatible with jQuery version
-  <a href="http://blog.jquery.com/2013/01/15/jquery-1-9-final-jquery-2-0-beta-migrate-final-released/">1.9+</a>
-  an older version of the jQuery library is used.</p>
-</div>
-
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="c">&lt;!-- load a pre 1.9 version of the jquery library --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//code.jquery.com/jquery-1.8.3.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /><span class="c">&lt;!-- the Flowplayer script as usual --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/7.0.4/flowplayer.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /><span class="c">&lt;!-- the dashjs plugin for playback of DASH streams - for this demo, otherwise often hlsjs --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/dashjs/flowplayer.dashjs.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /><span class="c">&lt;!-- jQuery Tools --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://cdn.jquerytools.org/1.2.7/all/jquery.tools.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
-
-
-<h3 id="css-setup">&lt;style&gt;</h3>
-
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="c">/* fixed width container */</span><br /><span class="p">#</span><span class="nn">player</span> <span class="p">{</span><br />  <span class="k">width</span><span class="p">:</span> <span class="mi">800</span><span class="kt">px</span><span class="p">;</span><br />  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#036</span><span class="p">;</span><br /><span class="p">}</span><br />&nbsp;<br /><span class="c">/* scrollable */</span><br /><span class="nt">div</span><span class="p">.</span><span class="nc">scrollable-wrap</span> <span class="p">{</span><br />  <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span><br />  <span class="k">width</span><span class="p">:</span> <span class="mi">800</span><span class="kt">px</span><span class="p">;</span><br />  <span class="k">height</span><span class="p">:</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">scrollable-wrap</span> <span class="p">.</span><span class="nc">scrollable</span> <span class="p">{</span><br />  <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span><br />  <span class="k">overflow</span><span class="p">:</span> <span class="kc">hidden</span><span class="p">;</span><br />  <span class="k">float</span><span class="p">:</span> <span class="kc">left</span><span class="p">;</span><br />  <span class="k">width</span><span class="p">:</span> <span class="mi">730</span><span class="kt">px</span><span class="p">;</span><br />  <span class="k">height</span><span class="p">:</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="c">/* playlist items == scrollable items */</span><br /><span class="p">.</span><span class="nc">scrollable</span> <span class="p">.</span><span class="nc">items</span> <span class="p">{</span><br />  <span class="k">width</span><span class="p">:</span> <span class="mi">999</span><span class="kt">em</span><span class="p">;</span><br />  <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">scrollable</span> <span class="p">.</span><span class="nc">items</span> <span class="nt">div</span> <span class="p">{</span><br />  <span class="k">float</span><span class="p">:</span> <span class="kc">left</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">scrollable</span> <span class="p">.</span><span class="nc">items</span> <span class="nt">span</span> <span class="p">{</span><br />  <span class="k">float</span><span class="p">:</span> <span class="kc">left</span><span class="p">;</span><br />  <span class="k">padding</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span><br />  <span class="k">margin</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span><br />  <span class="k">width</span><span class="p">:</span> <span class="mi">330</span><span class="kt">px</span><span class="p">;</span><br />  <span class="k">color</span><span class="p">:</span> <span class="mh">#282828</span><span class="p">;</span><br />  <span class="k">background-color</span><span class="p">:</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">);</span><br />  <span class="kp">-webkit-</span><span class="k">border-radius</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span><br />  <span class="kp">-moz-</span><span class="k">border-radius</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span><br />  <span class="k">border-radius</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span><br />  <span class="k">background</span><span class="p">:</span> <span class="bp">-webkit-</span><span class="nb">radial-gradient</span><span class="p">(</span><span class="mi">50</span><span class="kt">%</span> <span class="mi">50</span><span class="kt">%</span><span class="p">,</span> <span class="n">ellipse</span> <span class="n">closest</span><span class="o">-</span><span class="n">corner</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span class="mi">0</span><span class="kt">%</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">100</span><span class="kt">%</span><span class="p">);</span><br />  <span class="k">background</span><span class="p">:</span> <span class="bp">-moz-</span><span class="nb">radial-gradient</span><span class="p">(</span><span class="mi">50</span><span class="kt">%</span> <span class="mi">50</span><span class="kt">%</span><span class="p">,</span> <span class="n">ellipse</span> <span class="n">closest</span><span class="o">-</span><span class="n">corner</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span class="mi">0</span><span class="kt">%</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">100</span><span class="kt">%</span><span class="p">);</span><br />  <span class="k">background</span><span class="p">:</span> <span class="bp">-ms-</span><span class="nb">radial-gradient</span><span class="p">(</span><span class="mi">50</span><span class="kt">%</span> <span class="mi">50</span><span class="kt">%</span><span class="p">,</span> <span class="n">ellipse</span> <span class="n">closest</span><span class="o">-</span><span class="n">corner</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span class="mi">0</span><span class="kt">%</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">100</span><span class="kt">%</span><span class="p">);</span><br />  <span class="k">font-size</span><span class="p">:</span> <span class="mi">16</span><span class="kt">px</span><span class="p">;</span><br />  <span class="k">font-weight</span><span class="p">:</span> <span class="kc">bold</span><span class="p">;</span><br />  <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span><br />  <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">scrollable</span> <span class="p">.</span><span class="nc">items</span> <span class="nt">span</span><span class="p">.</span><span class="nc">is-active</span> <span class="p">{</span><br />  <span class="k">background</span><span class="p">:</span> <span class="bp">-webkit-</span><span class="nb">radial-gradient</span><span class="p">(</span><span class="mi">50</span><span class="kt">%</span> <span class="mi">50</span><span class="kt">%</span><span class="p">,</span> <span class="n">ellipse</span> <span class="n">closest</span><span class="o">-</span><span class="n">corner</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">0</span><span class="kt">%</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span class="mi">100</span><span class="kt">%</span><span class="p">);</span><br />  <span class="k">background</span><span class="p">:</span> <span class="bp">-moz-</span><span class="nb">radial-gradient</span><span class="p">(</span><span class="mi">50</span><span class="kt">%</span> <span class="mi">50</span><span class="kt">%</span><span class="p">,</span> <span class="n">ellipse</span> <span class="n">closest</span><span class="o">-</span><span class="n">corner</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">0</span><span class="kt">%</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span class="mi">100</span><span class="kt">%</span><span class="p">);</span><br />  <span class="k">background</span><span class="p">:</span> <span class="bp">-ms-</span><span class="nb">radial-gradient</span><span class="p">(</span><span class="mi">50</span><span class="kt">%</span> <span class="mi">50</span><span class="kt">%</span><span class="p">,</span> <span class="n">ellipse</span> <span class="n">closest</span><span class="o">-</span><span class="n">corner</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">0</span><span class="kt">%</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span class="mi">100</span><span class="kt">%</span><span class="p">);</span><br />  <span class="k">color</span><span class="p">:</span> <span class="mh">#f00</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">scrollable</span> <span class="p">.</span><span class="nc">items</span> <span class="nt">span</span><span class="p">.</span><span class="nc">is-paused</span> <span class="p">{</span><br />  <span class="k">color</span><span class="p">:</span> <span class="mh">#900</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="c">/* scrollable prev and next buttons */</span><br /><span class="p">.</span><span class="nc">scrollable-wrap</span> <span class="nt">a</span><span class="p">.</span><span class="nc">prev</span><span class="o">,</span> <span class="p">.</span><span class="nc">scrollable-wrap</span> <span class="nt">a</span><span class="p">.</span><span class="nc">next</span> <span class="p">{</span><br />  <span class="k">background</span><span class="p">:</span> <span class="nb">url</span><span class="p">(</span><span class="sx">//jquerytools.github.io/media/img/scrollable/arrow/hori_large.png</span><span class="p">)</span> <span class="kc">no-repeat</span><span class="p">;</span><br />  <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span><br />  <span class="k">float</span><span class="p">:</span> <span class="kc">left</span><span class="p">;</span><br />  <span class="k">width</span><span class="p">:</span> <span class="mi">30</span><span class="kt">px</span><span class="p">;</span><br />  <span class="k">height</span><span class="p">:</span> <span class="mi">30</span><span class="kt">px</span><span class="p">;</span><br />  <span class="k">margin</span><span class="p">:</span> <span class="mi">15</span><span class="kt">px</span> <span class="mi">0</span><span class="p">;</span><br />  <span class="k">font-size</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span><br />  <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">scrollable-wrap</span> <span class="nt">a</span><span class="p">.</span><span class="nc">next</span> <span class="p">{</span><br />  <span class="k">background-position</span><span class="p">:</span> <span class="mi">0</span> <span class="mi">-30</span><span class="kt">px</span><span class="p">;</span><br />  <span class="k">clear</span><span class="p">:</span> <span class="kc">right</span><span class="p">;</span><br />  <span class="k">margin-left</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">scrollable-wrap</span> <span class="nt">a</span><span class="p">.</span><span class="nc">prev</span><span class="p">:</span><span class="nd">hover</span> <span class="p">{</span><br />  <span class="k">background-position</span><span class="p">:</span> <span class="mi">-30</span><span class="kt">px</span> <span class="mi">0</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">scrollable-wrap</span> <span class="nt">a</span><span class="p">.</span><span class="nc">prev</span><span class="p">:</span><span class="nd">active</span> <span class="p">{</span><br />  <span class="k">background-position</span><span class="p">:</span> <span class="mi">-60</span><span class="kt">px</span> <span class="mi">0</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">scrollable-wrap</span> <span class="nt">a</span><span class="p">.</span><span class="nc">next</span><span class="p">:</span><span class="nd">hover</span> <span class="p">{</span><br />  <span class="k">background-position</span><span class="p">:</span> <span class="mi">-30</span><span class="kt">px</span> <span class="mi">-30</span><span class="kt">px</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">scrollable-wrap</span> <span class="nt">a</span><span class="p">.</span><span class="nc">next</span><span class="p">:</span><span class="nd">active</span> <span class="p">{</span><br />  <span class="k">background-position</span><span class="p">:</span> <span class="mi">-60</span><span class="kt">px</span> <span class="mi">-30</span><span class="kt">px</span><span class="p">;</span><br /><span class="p">}</span><br /></pre></div><br /><figcaption>CSS</figcaption></figure></div>
-
-
-<h3 id="javascript-setup">&lt;script&gt;</h3>
-
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br />  <span class="kd">var</span> <span class="nx">playlist</span> <span class="o">=</span> <span class="p">[],</span><br />      <span class="nx">base</span> <span class="o">=</span> <span class="s2">&quot;//edge.flowplayer.org/night&quot;</span><span class="p">,</span><br />      <span class="nx">videos</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.scrollable span&quot;</span><span class="p">),</span><br />      <span class="nx">scrollable</span><span class="p">,</span><br />      <span class="nx">player</span><span class="p">,</span><br />      <span class="nx">i</span><span class="p">;</span><br />&nbsp;<br />  <span class="c1">// build playlist from videos named night1 thru night6</span><br />  <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">7</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span><br />    <span class="nx">playlist</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><br />      <span class="nx">sources</span><span class="o">:</span> <span class="p">[</span><br />        <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;application/dash+xml&quot;</span><span class="p">,</span>  <span class="nx">src</span><span class="o">:</span> <span class="nx">base</span> <span class="o">+</span> <span class="nx">i</span> <span class="o">+</span> <span class="s2">&quot;.mpd&quot;</span> <span class="p">},</span><br />        <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;application/x-mpegurl&quot;</span><span class="p">,</span> <span class="nx">src</span><span class="o">:</span> <span class="nx">base</span> <span class="o">+</span> <span class="nx">i</span> <span class="o">+</span> <span class="s2">&quot;.m3u8&quot;</span> <span class="p">},</span><br />        <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;video/mp4&quot;</span><span class="p">,</span>             <span class="nx">src</span><span class="o">:</span> <span class="nx">base</span> <span class="o">+</span> <span class="nx">i</span> <span class="o">+</span> <span class="s2">&quot;.mp4&quot;</span> <span class="p">}</span><br />      <span class="p">]</span><br />    <span class="p">});</span><br />  <span class="p">}</span><br />&nbsp;<br />  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.scrollable&quot;</span><span class="p">).</span><span class="nx">scrollable</span><span class="p">({</span><br />    <span class="nx">circular</span><span class="o">:</span> <span class="kc">true</span><br />  <span class="p">});</span><br />&nbsp;<br />  <span class="nx">scrollable</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.scrollable&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;scrollable&quot;</span><span class="p">);</span><br />&nbsp;<br />  <span class="nx">player</span> <span class="o">=</span> <span class="nx">flowplayer</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#player&quot;</span><span class="p">),</span> <span class="p">{</span><br />    <span class="c1">// loop the playlist in a circular scrollable</span><br />    <span class="nx">loop</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span><br />    <span class="nx">ratio</span><span class="o">:</span> <span class="mi">9</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span><br />    <span class="nx">splash</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span><br />    <span class="nx">bgcolor</span><span class="o">:</span> <span class="s2">&quot;#333333&quot;</span><span class="p">,</span><br />    <span class="nx">customPlaylist</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span><br />    <span class="nx">playlist</span><span class="o">:</span> <span class="nx">playlist</span><br />&nbsp;<br />  <span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;ready&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span class="nx">video</span><span class="p">)</span> <span class="p">{</span><br />    <span class="nx">videos</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span><br />      <span class="kd">var</span> <span class="nx">active</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">==</span> <span class="nx">video</span><span class="p">.</span><span class="nx">index</span><span class="p">;</span><br />&nbsp;<br />      <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">toggleClass</span><span class="p">(</span><span class="s2">&quot;is-active&quot;</span><span class="p">,</span> <span class="nx">active</span><span class="p">)</span><br />             <span class="p">.</span><span class="nx">toggleClass</span><span class="p">(</span><span class="s2">&quot;is-paused&quot;</span><span class="p">,</span> <span class="nx">active</span> <span class="o">&amp;&amp;</span> <span class="nx">api</span><span class="p">.</span><span class="nx">paused</span><span class="p">);</span><br />    <span class="p">});</span><br />&nbsp;<br />  <span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;pause resume&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span class="p">{</span><br />    <span class="nx">videos</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="nx">api</span><span class="p">.</span><span class="nx">video</span><span class="p">.</span><span class="nx">index</span><span class="p">).</span><span class="nx">toggleClass</span><span class="p">(</span><span class="s2">&quot;is-paused&quot;</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;pause&quot;</span><span class="p">);</span><br />&nbsp;<br />  <span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;finish&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span class="p">{</span><br />    <span class="kd">var</span> <span class="nx">vindex</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">video</span><span class="p">.</span><span class="nx">index</span><span class="p">,</span><br />        <span class="nx">currentpage</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">vindex</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span><br />        <span class="nx">scrollindex</span> <span class="o">=</span> <span class="nx">scrollable</span><span class="p">.</span><span class="nx">getIndex</span><span class="p">(),</span><br />        <span class="nx">next</span><span class="p">;</span><br />&nbsp;<br />    <span class="c1">// advance scrollable every 2nd playlist item</span><br />    <span class="k">if</span> <span class="p">(</span><span class="nx">vindex</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">scrollindex</span> <span class="o">==</span> <span class="nx">currentpage</span><span class="p">)</span> <span class="p">{</span><br />      <span class="c1">// prefer circular movement when current item is visible</span><br />      <span class="nx">scrollable</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span><br />&nbsp;<br />    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">scrollindex</span> <span class="o">!=</span> <span class="nx">currentpage</span><span class="p">)</span> <span class="p">{</span><br />      <span class="c1">// scroll to next item if not visible</span><br />      <span class="nx">next</span> <span class="o">=</span> <span class="nx">vindex</span> <span class="o">&lt;</span> <span class="nx">playlist</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">?</span> <span class="nx">vindex</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span><br />      <span class="nx">scrollable</span><span class="p">.</span><span class="nx">seekTo</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">next</span> <span class="o">/</span> <span class="mi">2</span><span class="p">));</span><br />    <span class="p">}</span><br />  <span class="p">});</span><br />&nbsp;<br />  <span class="nx">videos</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br />    <span class="kd">var</span> <span class="nx">vindex</span> <span class="o">=</span> <span class="nx">videos</span><span class="p">.</span><span class="nx">index</span><span class="p">(</span><span class="k">this</span><span class="p">);</span><br />&nbsp;<br />    <span class="k">if</span> <span class="p">(</span><span class="nx">player</span><span class="p">.</span><span class="nx">video</span><span class="p">.</span><span class="nx">index</span> <span class="o">===</span> <span class="nx">vindex</span><span class="p">)</span> <span class="p">{</span><br />      <span class="nx">player</span><span class="p">.</span><span class="nx">toggle</span><span class="p">();</span><br />    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span><br />      <span class="nx">player</span><span class="p">.</span><span class="nx">play</span><span class="p">(</span><span class="nx">vindex</span><span class="p">);</span><br />    <span class="p">}</span><br />  <span class="p">});</span><br /><span class="p">});</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></div>
-
-
-<h2 id="html-setup">&lt;body/&gt;</h2>
-
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;player&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />&nbsp;<br /><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;scrollable-wrap&quot;</span><span class="p">&gt;</span><br />  <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;prev&quot;</span><span class="p">&gt;</span>prev<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br />&nbsp;<br />  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;scrollable&quot;</span><span class="p">&gt;</span><br />    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;items&quot;</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><br />        <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>Video 1<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>Video 2<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span><br />      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />&nbsp;<br />      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><br />        <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>Video 3<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>Video 4<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span><br />      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />&nbsp;<br />      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><br />        <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>Video 5<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>Video 6<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span><br />      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />&nbsp;<br />  <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;next&quot;</span><span class="p">&gt;</span>next<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br /><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
-
-
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span
+                        class="c">&lt;!-- load a pre 1.9 version of the jquery library --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//code.jquery.com/jquery-1.8.3.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/><span
+                        class="c">&lt;!-- the Flowplayer script as usual --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span
+                        class="s">&quot;//releases.flowplayer.org/7.0.4/flowplayer.min.js&quot;</span><span class="p">&gt;&lt;/</span><span
+                        class="nt">script</span><span class="p">&gt;</span><br/><span class="c">&lt;!-- the dashjs plugin for playback of DASH streams - for this demo, otherwise often hlsjs --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//releases.flowplayer.org/dashjs/flowplayer.dashjs.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/><span
+                        class="c">&lt;!-- jQuery Tools --&gt;</span><br/><span class="p">&lt;</span><span class="nt">script</span> <span
+                        class="na">src</span><span class="o">=</span><span class="s">&quot;http://cdn.jquerytools.org/1.2.7/all/jquery.tools.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
 
 
+    <h3 id="css-setup">&lt;style&gt;</h3>
 
-<form id="codepenform" method="POST" action="http://codepen.io/pen/define?data={" target="_blank">
-  <input type="hidden" name="data" value='{"title": "New pen based on Horizontal scrollable playlist", "js_external": "//code.jquery.com/jquery-1.8.3.min.js;//releases.flowplayer.org/7.0.4/flowplayer.min.js;//releases.flowplayer.org/dashjs/flowplayer.dashjs.min.js;http://cdn.jquerytools.org/1.2.7/all/jquery.tools.min.js", "js": "$(function () {\n  var playlist = [],\n      base = \"//edge.flowplayer.org/night\",\n      videos = $(\".scrollable span\"),\n      scrollable,\n      player,\n      i;\n\n  // build playlist from videos named night1 thru night6\n  for (i = 1; i < 7; i += 1) {\n    playlist.push({\n      sources: [\n        { type: \"application/dash+xml\",  src: base + i + \".mpd\" },\n        { type: \"application/x-mpegurl\", src: base + i + \".m3u8\" },\n        { type: \"video/mp4\",             src: base + i + \".mp4\" }\n      ]\n    });\n  }\n\n  $(\".scrollable\").scrollable({\n    circular: true\n  });\n\n  scrollable = $(\".scrollable\").data(\"scrollable\");\n\n  player = flowplayer($(\"#player\"), {\n    // loop the playlist in a circular scrollable\n    loop: true,\n    ratio: 9/16,\n    splash: true,\n    bgcolor: \"#333333\",\n    customPlaylist: true,\n    playlist: playlist\n\n  }).on(\"ready\", function (e, api, video) {\n    videos.each(function (i) {\n      var active = i == video.index;\n\n      $(this).toggleClass(\"is-active\", active)\n             .toggleClass(\"is-paused\", active && api.paused);\n    });\n\n  }).on(\"pause resume\", function (e, api) {\n    videos.eq(api.video.index).toggleClass(\"is-paused\", e.type == \"pause\");\n\n  }).on(\"finish\", function (e, api) {\n    var vindex = api.video.index,\n        currentpage = Math.floor(vindex / 2),\n        scrollindex = scrollable.getIndex(),\n        next;\n\n    // advance scrollable every 2nd playlist item\n    if (vindex % 2 != 0 && scrollindex == currentpage) {\n      // prefer circular movement when current item is visible\n      scrollable.next();\n\n    } else if (scrollindex != currentpage) {\n      // scroll to next item if not visible\n      next = vindex < playlist.length - 1 ? vindex + 1 : 0;\n      scrollable.seekTo(Math.floor(next / 2));\n    }\n  });\n\n  videos.click(function () {\n    var vindex = videos.index(this);\n\n    if (player.video.index === vindex) {\n      player.toggle();\n    } else {\n      player.play(vindex);\n    }\n  });\n});\n", "html": "<div id=\"player\"></div>\n\n<div class=\"scrollable-wrap\">\n  <a class=\"prev\">prev</a>\n\n  <div class=\"scrollable\">\n    <div class=\"items\">\n      <div>\n        <span>Video 1</span> <span>Video 2</span>\n      </div>\n\n      <div>\n        <span>Video 3</span> <span>Video 4</span>\n      </div>\n\n      <div>\n        <span>Video 5</span> <span>Video 6</span>\n      </div>\n    </div>\n  </div>\n\n  <a class=\"next\">next</a>\n</div>\n", "css_external": "//releases.flowplayer.org/7.0.4/skin/skin.css;http://demos.flowplayer.org/media/css/codepen.css", "css": "/* fixed width container */\n#player {\n  width: 800px;\n  background-color: #036;\n}\n\n/* scrollable */\ndiv.scrollable-wrap {\n  display: block;\n  width: 800px;\n  height: 60px;\n}\n.scrollable-wrap .scrollable {\n  position: relative;\n  overflow: hidden;\n  float: left;\n  width: 730px;\n  height: 60px;\n}\n/* playlist items == scrollable items */\n.scrollable .items {\n  width: 999em;\n  position: absolute;\n}\n.scrollable .items div {\n  float: left;\n}\n.scrollable .items span {\n  float: left;\n  padding: 10px;\n  margin: 10px;\n  width: 330px;\n  color: #282828;\n  background-color: rgba(0, 0, 0, 0.2);\n  -webkit-border-radius: 10px;\n  -moz-border-radius: 10px;\n  border-radius: 10px;\n  background: -webkit-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);\n  background: -moz-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);\n  background: -ms-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);\n  font-size: 16px;\n  font-weight: bold;\n  text-align: center;\n  cursor: pointer;\n}\n.scrollable .items span.is-active {\n  background: -webkit-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%);\n  background: -moz-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%);\n  background: -ms-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%);\n  color: #f00;\n}\n.scrollable .items span.is-paused {\n  color: #900;\n}\n/* scrollable prev and next buttons */\n.scrollable-wrap a.prev, .scrollable-wrap a.next {\n  background: url(//jquerytools.github.io/media/img/scrollable/arrow/hori_large.png) no-repeat;\n  display: block;\n  float: left;\n  width: 30px;\n  height: 30px;\n  margin: 15px 0;\n  font-size: 0;\n  cursor: pointer;\n}\n.scrollable-wrap a.next {\n  background-position: 0 -30px;\n  clear: right;\n  margin-left: 10px;\n}\n.scrollable-wrap a.prev:hover {\n  background-position: -30px 0;\n}\n.scrollable-wrap a.prev:active {\n  background-position: -60px 0;\n}\n.scrollable-wrap a.next:hover {\n  background-position: -30px -30px;\n}\n.scrollable-wrap a.next:active {\n  background-position: -60px -30px;\n}\n"}'>
-</form>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="c">/* fixed width container */</span><br/><span class="p">#</span><span
+                        class="nn">player</span> <span class="p">{</span><br/>  <span class="k">width</span><span
+                        class="p">:</span> <span class="mi">800</span><span class="kt">px</span><span class="p">;</span><br/>  <span
+                        class="k">background-color</span><span class="p">:</span> <span class="mh">#036</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/>&nbsp;<br/><span
+                        class="c">/* scrollable */</span><br/><span class="nt">div</span><span class="p">.</span><span
+                        class="nc">scrollable-wrap</span> <span class="p">{</span><br/>  <span
+                        class="k">display</span><span class="p">:</span> <span class="kc">block</span><span
+                        class="p">;</span><br/>  <span class="k">width</span><span class="p">:</span> <span class="mi">800</span><span
+                        class="kt">px</span><span class="p">;</span><br/>  <span class="k">height</span><span class="p">:</span> <span
+                        class="mi">60</span><span class="kt">px</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/><span class="p">.</span><span class="nc">scrollable-wrap</span> <span
+                        class="p">.</span><span class="nc">scrollable</span> <span class="p">{</span><br/>  <span
+                        class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span
+                        class="p">;</span><br/>  <span class="k">overflow</span><span class="p">:</span> <span
+                        class="kc">hidden</span><span class="p">;</span><br/>  <span class="k">float</span><span
+                        class="p">:</span> <span class="kc">left</span><span class="p">;</span><br/>  <span class="k">width</span><span
+                        class="p">:</span> <span class="mi">730</span><span class="kt">px</span><span class="p">;</span><br/>  <span
+                        class="k">height</span><span class="p">:</span> <span class="mi">60</span><span
+                        class="kt">px</span><span class="p">;</span><br/><span class="p">}</span><br/><span class="c">/* playlist items == scrollable items */</span><br/><span
+                        class="p">.</span><span class="nc">scrollable</span> <span class="p">.</span><span class="nc">items</span> <span
+                        class="p">{</span><br/>  <span class="k">width</span><span class="p">:</span> <span class="mi">999</span><span
+                        class="kt">em</span><span class="p">;</span><br/>  <span class="k">position</span><span
+                        class="p">:</span> <span class="kc">absolute</span><span class="p">;</span><br/><span class="p">}</span><br/><span
+                        class="p">.</span><span class="nc">scrollable</span> <span class="p">.</span><span class="nc">items</span> <span
+                        class="nt">div</span> <span class="p">{</span><br/>  <span class="k">float</span><span
+                        class="p">:</span> <span class="kc">left</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/><span class="p">.</span><span class="nc">scrollable</span> <span
+                        class="p">.</span><span class="nc">items</span> <span class="nt">span</span> <span
+                        class="p">{</span><br/>  <span class="k">float</span><span class="p">:</span> <span class="kc">left</span><span
+                        class="p">;</span><br/>  <span class="k">padding</span><span class="p">:</span> <span
+                        class="mi">10</span><span class="kt">px</span><span class="p">;</span><br/>  <span class="k">margin</span><span
+                        class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span
+                        class="p">;</span><br/>  <span class="k">width</span><span class="p">:</span> <span class="mi">330</span><span
+                        class="kt">px</span><span class="p">;</span><br/>  <span class="k">color</span><span
+                        class="p">:</span> <span class="mh">#282828</span><span class="p">;</span><br/>  <span
+                        class="k">background-color</span><span class="p">:</span> <span class="nb">rgba</span><span
+                        class="p">(</span><span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">,</span> <span class="mf">0.2</span><span class="p">);</span><br/>  <span class="kp">-webkit-</span><span
+                        class="k">border-radius</span><span class="p">:</span> <span class="mi">10</span><span
+                        class="kt">px</span><span class="p">;</span><br/>  <span class="kp">-moz-</span><span class="k">border-radius</span><span
+                        class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span
+                        class="p">;</span><br/>  <span class="k">border-radius</span><span class="p">:</span> <span
+                        class="mi">10</span><span class="kt">px</span><span class="p">;</span><br/>  <span class="k">background</span><span
+                        class="p">:</span> <span class="bp">-webkit-</span><span class="nb">radial-gradient</span><span
+                        class="p">(</span><span class="mi">50</span><span class="kt">%</span> <span class="mi">50</span><span
+                        class="kt">%</span><span class="p">,</span> <span class="n">ellipse</span> <span class="n">closest</span><span
+                        class="o">-</span><span class="n">corner</span><span class="p">,</span> <span
+                        class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span class="mi">0</span><span
+                        class="kt">%</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">)</span> <span class="mi">100</span><span class="kt">%</span><span
+                        class="p">);</span><br/>  <span class="k">background</span><span class="p">:</span> <span
+                        class="bp">-moz-</span><span class="nb">radial-gradient</span><span class="p">(</span><span
+                        class="mi">50</span><span class="kt">%</span> <span class="mi">50</span><span
+                        class="kt">%</span><span class="p">,</span> <span class="n">ellipse</span> <span class="n">closest</span><span
+                        class="o">-</span><span class="n">corner</span><span class="p">,</span> <span
+                        class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span class="mi">0</span><span
+                        class="kt">%</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">)</span> <span class="mi">100</span><span class="kt">%</span><span
+                        class="p">);</span><br/>  <span class="k">background</span><span class="p">:</span> <span
+                        class="bp">-ms-</span><span class="nb">radial-gradient</span><span class="p">(</span><span
+                        class="mi">50</span><span class="kt">%</span> <span class="mi">50</span><span
+                        class="kt">%</span><span class="p">,</span> <span class="n">ellipse</span> <span class="n">closest</span><span
+                        class="o">-</span><span class="n">corner</span><span class="p">,</span> <span
+                        class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span class="mi">0</span><span
+                        class="kt">%</span><span class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">)</span> <span class="mi">100</span><span class="kt">%</span><span
+                        class="p">);</span><br/>  <span class="k">font-size</span><span class="p">:</span> <span
+                        class="mi">16</span><span class="kt">px</span><span class="p">;</span><br/>  <span class="k">font-weight</span><span
+                        class="p">:</span> <span class="kc">bold</span><span class="p">;</span><br/>  <span class="k">text-align</span><span
+                        class="p">:</span> <span class="kc">center</span><span class="p">;</span><br/>  <span class="k">cursor</span><span
+                        class="p">:</span> <span class="kc">pointer</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/><span class="p">.</span><span class="nc">scrollable</span> <span
+                        class="p">.</span><span class="nc">items</span> <span class="nt">span</span><span
+                        class="p">.</span><span class="nc">is-active</span> <span class="p">{</span><br/>  <span
+                        class="k">background</span><span class="p">:</span> <span class="bp">-webkit-</span><span
+                        class="nb">radial-gradient</span><span class="p">(</span><span class="mi">50</span><span
+                        class="kt">%</span> <span class="mi">50</span><span class="kt">%</span><span class="p">,</span> <span
+                        class="n">ellipse</span> <span class="n">closest</span><span class="o">-</span><span class="n">corner</span><span
+                        class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span
+                        class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">)</span> <span class="mi">0</span><span class="kt">%</span><span
+                        class="p">,</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span
+                        class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span
+                        class="mi">100</span><span class="kt">%</span><span class="p">);</span><br/>  <span class="k">background</span><span
+                        class="p">:</span> <span class="bp">-moz-</span><span class="nb">radial-gradient</span><span
+                        class="p">(</span><span class="mi">50</span><span class="kt">%</span> <span class="mi">50</span><span
+                        class="kt">%</span><span class="p">,</span> <span class="n">ellipse</span> <span class="n">closest</span><span
+                        class="o">-</span><span class="n">corner</span><span class="p">,</span> <span
+                        class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span
+                        class="mi">0</span><span class="kt">%</span><span class="p">,</span> <span
+                        class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span
+                        class="mi">100</span><span class="kt">%</span><span class="p">);</span><br/>  <span class="k">background</span><span
+                        class="p">:</span> <span class="bp">-ms-</span><span class="nb">radial-gradient</span><span
+                        class="p">(</span><span class="mi">50</span><span class="kt">%</span> <span class="mi">50</span><span
+                        class="kt">%</span><span class="p">,</span> <span class="n">ellipse</span> <span class="n">closest</span><span
+                        class="o">-</span><span class="n">corner</span><span class="p">,</span> <span
+                        class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span
+                        class="mi">0</span><span class="kt">%</span><span class="p">,</span> <span
+                        class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span
+                        class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                        class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span
+                        class="mi">100</span><span class="kt">%</span><span class="p">);</span><br/>  <span class="k">color</span><span
+                        class="p">:</span> <span class="mh">#f00</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/><span class="p">.</span><span class="nc">scrollable</span> <span
+                        class="p">.</span><span class="nc">items</span> <span class="nt">span</span><span
+                        class="p">.</span><span class="nc">is-paused</span> <span class="p">{</span><br/>  <span
+                        class="k">color</span><span class="p">:</span> <span class="mh">#900</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/><span class="c">/* scrollable prev and next buttons */</span><br/><span
+                        class="p">.</span><span class="nc">scrollable-wrap</span> <span class="nt">a</span><span
+                        class="p">.</span><span class="nc">prev</span><span class="o">,</span> <span
+                        class="p">.</span><span class="nc">scrollable-wrap</span> <span class="nt">a</span><span
+                        class="p">.</span><span class="nc">next</span> <span class="p">{</span><br/>  <span class="k">background</span><span
+                        class="p">:</span> <span class="nb">url</span><span class="p">(</span><span class="sx">//jquerytools.github.io/media/img/scrollable/arrow/hori_large.png</span><span
+                        class="p">)</span> <span class="kc">no-repeat</span><span class="p">;</span><br/>  <span
+                        class="k">display</span><span class="p">:</span> <span class="kc">block</span><span
+                        class="p">;</span><br/>  <span class="k">float</span><span class="p">:</span> <span class="kc">left</span><span
+                        class="p">;</span><br/>  <span class="k">width</span><span class="p">:</span> <span class="mi">30</span><span
+                        class="kt">px</span><span class="p">;</span><br/>  <span class="k">height</span><span class="p">:</span> <span
+                        class="mi">30</span><span class="kt">px</span><span class="p">;</span><br/>  <span class="k">margin</span><span
+                        class="p">:</span> <span class="mi">15</span><span class="kt">px</span> <span
+                        class="mi">0</span><span class="p">;</span><br/>  <span class="k">font-size</span><span
+                        class="p">:</span> <span class="mi">0</span><span class="p">;</span><br/>  <span class="k">cursor</span><span
+                        class="p">:</span> <span class="kc">pointer</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/><span class="p">.</span><span class="nc">scrollable-wrap</span> <span
+                        class="nt">a</span><span class="p">.</span><span class="nc">next</span> <span class="p">{</span><br/>  <span
+                        class="k">background-position</span><span class="p">:</span> <span class="mi">0</span> <span
+                        class="mi">-30</span><span class="kt">px</span><span class="p">;</span><br/>  <span class="k">clear</span><span
+                        class="p">:</span> <span class="kc">right</span><span class="p">;</span><br/>  <span class="k">margin-left</span><span
+                        class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/><span class="p">.</span><span class="nc">scrollable-wrap</span> <span
+                        class="nt">a</span><span class="p">.</span><span class="nc">prev</span><span
+                        class="p">:</span><span class="nd">hover</span> <span class="p">{</span><br/>  <span class="k">background-position</span><span
+                        class="p">:</span> <span class="mi">-30</span><span class="kt">px</span> <span
+                        class="mi">0</span><span class="p">;</span><br/><span class="p">}</span><br/><span
+                        class="p">.</span><span class="nc">scrollable-wrap</span> <span class="nt">a</span><span
+                        class="p">.</span><span class="nc">prev</span><span class="p">:</span><span
+                        class="nd">active</span> <span class="p">{</span><br/>  <span
+                        class="k">background-position</span><span class="p">:</span> <span class="mi">-60</span><span
+                        class="kt">px</span> <span class="mi">0</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/><span class="p">.</span><span class="nc">scrollable-wrap</span> <span
+                        class="nt">a</span><span class="p">.</span><span class="nc">next</span><span
+                        class="p">:</span><span class="nd">hover</span> <span class="p">{</span><br/>  <span class="k">background-position</span><span
+                        class="p">:</span> <span class="mi">-30</span><span class="kt">px</span> <span
+                        class="mi">-30</span><span class="kt">px</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/><span class="p">.</span><span class="nc">scrollable-wrap</span> <span
+                        class="nt">a</span><span class="p">.</span><span class="nc">next</span><span
+                        class="p">:</span><span class="nd">active</span> <span class="p">{</span><br/>  <span class="k">background-position</span><span
+                        class="p">:</span> <span class="mi">-60</span><span class="kt">px</span> <span
+                        class="mi">-30</span><span class="kt">px</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>CSS</figcaption>
+        </figure>
+    </div>
 
-<div class="footer">
-    <a href="#" onclick="document.getElementById('codepenform').submit()">Edit demo on codepen</a><br>
-  <span>Flash not available</span>
-  <hr >
 
-    <p><a href="index.html" >Demos in this section</a></p>
+    <h3 id="javascript-setup">&lt;script&gt;</h3>
 
-  <hr>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="nx">$</span><span class="p">(</span><span
+                        class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br/>  <span
+                        class="kd">var</span> <span class="nx">playlist</span> <span class="o">=</span> <span class="p">[],</span><br/>      <span
+                        class="nx">base</span> <span class="o">=</span> <span class="s2">&quot;//edge.flowplayer.org/night&quot;</span><span
+                        class="p">,</span><br/>      <span class="nx">videos</span> <span class="o">=</span> <span
+                        class="nx">$</span><span class="p">(</span><span
+                        class="s2">&quot;.scrollable span&quot;</span><span class="p">),</span><br/>      <span
+                        class="nx">scrollable</span><span class="p">,</span><br/>      <span
+                        class="nx">player</span><span class="p">,</span><br/>      <span class="nx">i</span><span
+                        class="p">;</span><br/>&nbsp;<br/>  <span class="c1">// build playlist from videos named night1 thru night6</span><br/>  <span
+                        class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span
+                        class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span
+                        class="o">&lt;</span> <span class="mi">7</span><span class="p">;</span> <span
+                        class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span
+                        class="p">{</span><br/>    <span class="nx">playlist</span><span class="p">.</span><span
+                        class="nx">push</span><span class="p">({</span><br/>      <span class="nx">sources</span><span
+                        class="o">:</span> <span class="p">[</span><br/>        <span class="p">{</span> <span
+                        class="nx">type</span><span class="o">:</span> <span
+                        class="s2">&quot;application/dash+xml&quot;</span><span class="p">,</span>  <span
+                        class="nx">src</span><span class="o">:</span> <span class="nx">base</span> <span
+                        class="o">+</span> <span class="nx">i</span> <span class="o">+</span> <span class="s2">&quot;.mpd&quot;</span> <span
+                        class="p">},</span><br/>        <span class="p">{</span> <span class="nx">type</span><span
+                        class="o">:</span> <span class="s2">&quot;application/x-mpegurl&quot;</span><span
+                        class="p">,</span> <span class="nx">src</span><span class="o">:</span> <span
+                        class="nx">base</span> <span class="o">+</span> <span class="nx">i</span> <span
+                        class="o">+</span> <span class="s2">&quot;.m3u8&quot;</span> <span class="p">},</span><br/>        <span
+                        class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;video/mp4&quot;</span><span
+                        class="p">,</span>             <span class="nx">src</span><span class="o">:</span> <span
+                        class="nx">base</span> <span class="o">+</span> <span class="nx">i</span> <span
+                        class="o">+</span> <span class="s2">&quot;.mp4&quot;</span> <span
+                        class="p">}</span><br/>      <span class="p">]</span><br/>    <span
+                        class="p">});</span><br/>  <span class="p">}</span><br/>&nbsp;<br/>  <span
+                        class="nx">$</span><span class="p">(</span><span class="s2">&quot;.scrollable&quot;</span><span
+                        class="p">).</span><span class="nx">scrollable</span><span class="p">({</span><br/>    <span
+                        class="nx">circular</span><span class="o">:</span> <span class="kc">true</span><br/>  <span
+                        class="p">});</span><br/>&nbsp;<br/>  <span class="nx">scrollable</span> <span
+                        class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.scrollable&quot;</span><span
+                        class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;scrollable&quot;</span><span
+                        class="p">);</span><br/>&nbsp;<br/>  <span class="nx">player</span> <span
+                        class="o">=</span> <span class="nx">flowplayer</span><span class="p">(</span><span
+                        class="nx">$</span><span class="p">(</span><span class="s2">&quot;#player&quot;</span><span
+                        class="p">),</span> <span class="p">{</span><br/>    <span class="c1">// loop the playlist in a circular scrollable</span><br/>    <span
+                        class="nx">loop</span><span class="o">:</span> <span class="kc">true</span><span
+                        class="p">,</span><br/>    <span class="nx">ratio</span><span class="o">:</span> <span
+                        class="mi">9</span><span class="o">/</span><span class="mi">16</span><span
+                        class="p">,</span><br/>    <span class="nx">splash</span><span class="o">:</span> <span
+                        class="kc">true</span><span class="p">,</span><br/>    <span class="nx">bgcolor</span><span
+                        class="o">:</span> <span class="s2">&quot;#333333&quot;</span><span
+                        class="p">,</span><br/>    <span class="nx">customPlaylist</span><span class="o">:</span> <span
+                        class="kc">true</span><span class="p">,</span><br/>    <span class="nx">playlist</span><span
+                        class="o">:</span> <span class="nx">playlist</span><br/>&nbsp;<br/>  <span
+                        class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;ready&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span
+                        class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span
+                        class="nx">video</span><span class="p">)</span> <span class="p">{</span><br/>    <span
+                        class="nx">videos</span><span class="p">.</span><span class="nx">each</span><span
+                        class="p">(</span><span class="kd">function</span> <span class="p">(</span><span
+                        class="nx">i</span><span class="p">)</span> <span class="p">{</span><br/>      <span class="kd">var</span> <span
+                        class="nx">active</span> <span class="o">=</span> <span class="nx">i</span> <span
+                        class="o">==</span> <span class="nx">video</span><span class="p">.</span><span
+                        class="nx">index</span><span class="p">;</span><br/>&nbsp;<br/>      <span
+                        class="nx">$</span><span class="p">(</span><span class="k">this</span><span
+                        class="p">).</span><span class="nx">toggleClass</span><span class="p">(</span><span class="s2">&quot;is-active&quot;</span><span
+                        class="p">,</span> <span class="nx">active</span><span class="p">)</span><br/>             <span
+                        class="p">.</span><span class="nx">toggleClass</span><span class="p">(</span><span class="s2">&quot;is-paused&quot;</span><span
+                        class="p">,</span> <span class="nx">active</span> <span class="o">&amp;&amp;</span> <span
+                        class="nx">api</span><span class="p">.</span><span class="nx">paused</span><span
+                        class="p">);</span><br/>    <span class="p">});</span><br/>&nbsp;<br/>  <span
+                        class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;pause resume&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span
+                        class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span
+                        class="p">{</span><br/>    <span class="nx">videos</span><span class="p">.</span><span
+                        class="nx">eq</span><span class="p">(</span><span class="nx">api</span><span
+                        class="p">.</span><span class="nx">video</span><span class="p">.</span><span
+                        class="nx">index</span><span class="p">).</span><span class="nx">toggleClass</span><span
+                        class="p">(</span><span class="s2">&quot;is-paused&quot;</span><span class="p">,</span> <span
+                        class="nx">e</span><span class="p">.</span><span class="nx">type</span> <span
+                        class="o">==</span> <span class="s2">&quot;pause&quot;</span><span class="p">);</span><br/>&nbsp;<br/>  <span
+                        class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;finish&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span
+                        class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span
+                        class="p">{</span><br/>    <span class="kd">var</span> <span class="nx">vindex</span> <span
+                        class="o">=</span> <span class="nx">api</span><span class="p">.</span><span
+                        class="nx">video</span><span class="p">.</span><span class="nx">index</span><span
+                        class="p">,</span><br/>        <span class="nx">currentpage</span> <span
+                        class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span
+                        class="nx">floor</span><span class="p">(</span><span class="nx">vindex</span> <span
+                        class="o">/</span> <span class="mi">2</span><span class="p">),</span><br/>        <span
+                        class="nx">scrollindex</span> <span class="o">=</span> <span class="nx">scrollable</span><span
+                        class="p">.</span><span class="nx">getIndex</span><span class="p">(),</span><br/>        <span
+                        class="nx">next</span><span class="p">;</span><br/>&nbsp;<br/>    <span class="c1">// advance scrollable every 2nd playlist item</span><br/>    <span
+                        class="k">if</span> <span class="p">(</span><span class="nx">vindex</span> <span
+                        class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span> <span
+                        class="o">&amp;&amp;</span> <span class="nx">scrollindex</span> <span class="o">==</span> <span
+                        class="nx">currentpage</span><span class="p">)</span> <span class="p">{</span><br/>      <span
+                        class="c1">// prefer circular movement when current item is visible</span><br/>      <span
+                        class="nx">scrollable</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span><br/>&nbsp;<br/>    <span
+                        class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span
+                        class="p">(</span><span class="nx">scrollindex</span> <span class="o">!=</span> <span
+                        class="nx">currentpage</span><span class="p">)</span> <span class="p">{</span><br/>      <span
+                        class="c1">// scroll to next item if not visible</span><br/>      <span
+                        class="nx">next</span> <span class="o">=</span> <span class="nx">vindex</span> <span class="o">&lt;</span> <span
+                        class="nx">playlist</span><span class="p">.</span><span class="nx">length</span> <span
+                        class="o">-</span> <span class="mi">1</span> <span class="o">?</span> <span
+                        class="nx">vindex</span> <span class="o">+</span> <span class="mi">1</span> <span
+                        class="o">:</span> <span class="mi">0</span><span class="p">;</span><br/>      <span class="nx">scrollable</span><span
+                        class="p">.</span><span class="nx">seekTo</span><span class="p">(</span><span
+                        class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span
+                        class="p">(</span><span class="nx">next</span> <span class="o">/</span> <span
+                        class="mi">2</span><span class="p">));</span><br/>    <span class="p">}</span><br/>  <span
+                        class="p">});</span><br/>&nbsp;<br/>  <span class="nx">videos</span><span
+                        class="p">.</span><span class="nx">click</span><span class="p">(</span><span
+                        class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br/>    <span
+                        class="kd">var</span> <span class="nx">vindex</span> <span class="o">=</span> <span class="nx">videos</span><span
+                        class="p">.</span><span class="nx">index</span><span class="p">(</span><span
+                        class="k">this</span><span class="p">);</span><br/>&nbsp;<br/>    <span
+                        class="k">if</span> <span class="p">(</span><span class="nx">player</span><span
+                        class="p">.</span><span class="nx">video</span><span class="p">.</span><span
+                        class="nx">index</span> <span class="o">===</span> <span class="nx">vindex</span><span
+                        class="p">)</span> <span class="p">{</span><br/>      <span class="nx">player</span><span
+                        class="p">.</span><span class="nx">toggle</span><span class="p">();</span><br/>    <span
+                        class="p">}</span> <span class="k">else</span> <span class="p">{</span><br/>      <span
+                        class="nx">player</span><span class="p">.</span><span class="nx">play</span><span
+                        class="p">(</span><span class="nx">vindex</span><span class="p">);</span><br/>    <span
+                        class="p">}</span><br/>  <span class="p">});</span><br/><span class="p">});</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>JavaScript</figcaption>
+        </figure>
+    </div>
 
-  <p><a href="../index.html" >Flowplayer Demos+</a></p>
 
-  <hr>
+    <h2 id="html-setup">&lt;body/&gt;</h2>
 
-  <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span
+                        class="o">=</span><span class="s">&quot;player&quot;</span><span class="p">&gt;&lt;/</span><span
+                        class="nt">div</span><span class="p">&gt;</span><br/>&nbsp;<br/><span class="p">&lt;</span><span
+                        class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;scrollable-wrap&quot;</span><span
+                        class="p">&gt;</span><br/>  <span class="p">&lt;</span><span class="nt">a</span> <span
+                        class="na">class</span><span class="o">=</span><span class="s">&quot;prev&quot;</span><span
+                        class="p">&gt;</span>prev<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br/>&nbsp;<br/>  <span
+                        class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span
+                        class="o">=</span><span class="s">&quot;scrollable&quot;</span><span class="p">&gt;</span><br/>    <span
+                        class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span
+                        class="o">=</span><span class="s">&quot;items&quot;</span><span class="p">&gt;</span><br/>      <span
+                        class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><br/>        <span
+                        class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>Video 1<span
+                        class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> <span class="p">&lt;</span><span
+                        class="nt">span</span><span class="p">&gt;</span>Video 2<span class="p">&lt;/</span><span
+                        class="nt">span</span><span class="p">&gt;</span><br/>      <span class="p">&lt;/</span><span
+                        class="nt">div</span><span class="p">&gt;</span><br/>&nbsp;<br/>      <span
+                        class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><br/>        <span
+                        class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>Video 3<span
+                        class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> <span class="p">&lt;</span><span
+                        class="nt">span</span><span class="p">&gt;</span>Video 4<span class="p">&lt;/</span><span
+                        class="nt">span</span><span class="p">&gt;</span><br/>      <span class="p">&lt;/</span><span
+                        class="nt">div</span><span class="p">&gt;</span><br/>&nbsp;<br/>      <span
+                        class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><br/>        <span
+                        class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>Video 5<span
+                        class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> <span class="p">&lt;</span><span
+                        class="nt">span</span><span class="p">&gt;</span>Video 6<span class="p">&lt;/</span><span
+                        class="nt">span</span><span class="p">&gt;</span><br/>      <span class="p">&lt;/</span><span
+                        class="nt">div</span><span class="p">&gt;</span><br/>    <span class="p">&lt;/</span><span
+                        class="nt">div</span><span class="p">&gt;</span><br/>  <span class="p">&lt;/</span><span
+                        class="nt">div</span><span class="p">&gt;</span><br/>&nbsp;<br/>  <span
+                        class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span
+                        class="o">=</span><span class="s">&quot;next&quot;</span><span class="p">&gt;</span>next<span
+                        class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br/><span class="p">&lt;/</span><span
+                        class="nt">div</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
+    <div class="footer">
 
-  <hr>
+        <p><a href="index.html">Demos in this section</a></p>
 
-  <p><a href="http://demos.flowplayer.org/v6/">Version 6 Demos</a></p>
-</div>
-   </div> <!-- end content -->
+        <hr>
+
+        <p><a href="../index.html">Flowplayer Demos+</a></p>
+
+        <hr>
+
+        <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
+
+        <hr>
+
+        <p><a href="http://demos.flowplayer.org/v6/">Version 6 Demos</a></p>
+    </div>
+</div> <!-- end content -->
 
 </body>
 </html>

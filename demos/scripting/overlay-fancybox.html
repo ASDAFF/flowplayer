@@ -1,194 +1,349 @@
-
 <!doctype html>
 
 <html>
 
 <head>
-   <meta charset="utf-8">
+    <meta charset="utf-8">
 
-      <title>Flowplayer · Overlay fancyBox</title>
-   
-   <!-- optimize mobile versions -->
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-      <!-- Flowplayer skin -->
-   <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css" >
-   
-   <!-- Minimal styling for this standalone page, can be removed -->
-   <link rel="stylesheet" href="../common/css/demo.css" >
-   <!-- Syntax highlighting of source code, can be removed -->
-   <link rel="stylesheet" href="../common/css/pygments.css" >
-      <!-- Specific stylesheet for this demo -->
-   <link rel="stylesheet" href="../common/ajax/libs/fancybox/2.1.5/jquery.fancybox.css" >
-   
-<!-- the overlay plugin fancybox vendor stylesheet -->
-<link rel="stylesheet"
-      href="../common/releases/overlay/vendors/flowplayer.overlay.fancybox.css" >
+    <title>Flowplayer · Overlay fancyBox</title>
+
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Flowplayer skin -->
+    <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css">
+
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../common/css/pygments.css">
+    <!-- Specific stylesheet for this demo -->
+    <link rel="stylesheet" href="../common/ajax/libs/fancybox/2.1.5/jquery.fancybox.css">
+
+    <!-- the overlay plugin fancybox vendor stylesheet -->
+    <link rel="stylesheet"
+          href="../common/releases/overlay/vendors/flowplayer.overlay.fancybox.css">
 
 
-<style>
-#content {
-  width: 800px;
-}
+    <style>
+        #content {
+            width: 800px;
+        }
 
-ul.triggers {
-  color: #00a6bc;
-  list-style: none;
-  font-size: 18px;
-  width: 7em;
-  margin-left: 7em;
-}
-ul.triggers li {
-  cursor: pointer;
-  background: url("../common/media/fp/img/fp5arrow.png") 0 2px no-repeat;
-  padding-left: 24px;
-  margin: 0.5ex 0;
-}
-ul.triggers li:hover {
-  color: #111;
-}
+        ul.triggers {
+            color: #00a6bc;
+            list-style: none;
+            font-size: 18px;
+            width: 7em;
+            margin-left: 7em;
+        }
 
-</style>
+        ul.triggers li {
+            cursor: pointer;
+            background: url("../common/media/fp/img/fp5arrow.png") 0 2px no-repeat;
+            padding-left: 24px;
+            margin: 0.5ex 0;
+        }
 
-      <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
-   <script src="../common/jquery/jquery-1.12.4.min.js" ></script>
-         <!-- Flowplayer library -->
-   <script src="../common/releases/7.0.4/flowplayer.min.js" ></script>
-         <!-- The hlsjs plugin for playback of HLS without Flash in modern browsers -->
-   <script src="../common/releases/hlsjs/flowplayer.hlsjs.min.js" ></script>
-               
-      <!-- Specific script for this demo -->
-   <script src="../common/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js" ></script>
-   
-<!-- the overlay plugin -->
-<script src="../common/releases/overlay/flowplayer.overlay.min.js" ></script>
-<!-- the overlay plugin fancybox vendor script -->
-<script src="../common/releases/overlay/vendors/flowplayer.overlay.fancybox.js" ></script>
+        ul.triggers li:hover {
+            color: #111;
+        }
 
-<script>
-$(function() {
+    </style>
 
-  var cdn = "//edge.flowplayer.org/";
+    <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
+    <script src="../common/jquery/jquery-1.12.4.min.js"></script>
+    <!-- Flowplayer library -->
+    <script src="../common/releases/7.0.4/flowplayer.min.js"></script>
+    <!-- The hlsjs plugin for playback of HLS without Flash in modern browsers -->
+    <script src="../common/releases/hlsjs/flowplayer.hlsjs.min.js"></script>
 
-  // videos are named night1 thru night7
-  // cycle through trigger elements with id="clip basename" each
-  $("ul.triggers:first > li").each(function (i, triggerEl) {
+    <!-- Specific script for this demo -->
+    <script src="../common/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
 
-    // obtain clip base name from id attribute of trigger
-    // and create a container element
-    var clipName = $(triggerEl).attr("id"),
-        container = $("<div/>");
+    <!-- the overlay plugin -->
+    <script src="../common/releases/overlay/flowplayer.overlay.min.js"></script>
+    <!-- the overlay plugin fancybox vendor script -->
+    <script src="../common/releases/overlay/vendors/flowplayer.overlay.fancybox.js"></script>
 
-    // append container to body
-    $("body").append(container);
+    <script>
+        $(function () {
 
-    // install flowplayer with overlay plugin into container
-    flowplayer(container, {
-      overlay: {
-        vendor: "fancybox",
-        trigger: "#" + clipName
-      },
-      hlsQualities: [-1, 1, 3, 6, 7],
-      ratio: 9/16,
-      clip: {
-        sources: [
-          { type: "application/x-mpegurl", src: cdn + clipName + ".m3u8" },
-          { type: "video/mp4",             src: cdn + clipName + ".mp4" }
-        ]
-      }
-    });
+            var cdn = "//edge.flowplayer.org/";
 
-  });
+            // videos are named night1 thru night7
+            // cycle through trigger elements with id="clip basename" each
+            $("ul.triggers:first > li").each(function (i, triggerEl) {
 
-});
-</script>
+                // obtain clip base name from id attribute of trigger
+                // and create a container element
+                var clipName = $(triggerEl).attr("id"),
+                    container = $("<div/>");
+
+                // append container to body
+                $("body").append(container);
+
+                // install flowplayer with overlay plugin into container
+                flowplayer(container, {
+                    overlay: {
+                        vendor: "fancybox",
+                        trigger: "#" + clipName
+                    },
+                    hlsQualities: [-1, 1, 3, 6, 7],
+                    ratio: 9 / 16,
+                    clip: {
+                        sources: [
+                            {type: "application/x-mpegurl", src: cdn + clipName + ".m3u8"},
+                            {type: "video/mp4", src: cdn + clipName + ".mp4"}
+                        ]
+                    }
+                });
+
+            });
+
+        });
+    </script>
 
 </head>
 
 <body>
 
-   <div id="content">
+<div id="content">
 
-      <h1>Flowplayer · Overlay fancyBox</h1>
+    <h1>Flowplayer · Overlay fancyBox</h1>
 
-<p class="doc">Click below to launch Flowplayer in an overlay by
-<a href="http://fancyapps.com/fancybox/">fancyBox</a> using the
-<a href="https://flowplayer.org/docs/plugins.html#overlay">overlay plugin</a> with its
-<a href="https://flowplayer.org/docs/plugins.html#overlay-fancybox">fancybox vendor components</a>.</p>
+    <p class="doc">Click below to launch Flowplayer in an overlay by
+        <a href="http://fancyapps.com/fancybox/">fancyBox</a> using the
+        <a href="https://flowplayer.org/docs/plugins.html#overlay">overlay plugin</a> with its
+        <a href="https://flowplayer.org/docs/plugins.html#overlay-fancybox">fancybox vendor components</a>.</p>
 
-<ul class="triggers">
-  <li id="night1">Video 1</li>
-  <li id="night2">Video 2</li>
-  <li id="night3">Video 3</li>
-  <li id="night4">Video 4</li>
-  <li id="night5">Video 5</li>
-  <li id="night6">Video 6</li>
-  <li id="night7">Video 7</li>
-</ul>
+    <ul class="triggers">
+        <li id="night1">Video 1</li>
+        <li id="night2">Video 2</li>
+        <li id="night3">Video 3</li>
+        <li id="night4">Video 4</li>
+        <li id="night5">Video 5</li>
+        <li id="night6">Video 6</li>
+        <li id="night7">Video 7</li>
+    </ul>
 
-<h2 id="head-setup">&lt;head/&gt;</h2>
+    <h2 id="head-setup">&lt;head/&gt;</h2>
 
-<p class="doc">How to load the assets for Flowplayer in a fancyBox:</p>
+    <p class="doc">How to load the assets for Flowplayer in a fancyBox:</p>
 
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="c">&lt;!-- the player skin as usual --&gt;</span><br /><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/7.0.4/skin/skin.css&quot;</span><span class="p">&gt;</span><br /><span class="c">&lt;!-- Add fancyBox main stylesheet --&gt;</span><br /><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span><br />      <span class="na">href</span><span class="o">=</span><span class="s">&quot;//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.css&quot;</span><span class="p">&gt;</span><br /><span class="c">&lt;!-- the overlay plugin fancybox vendor stylesheet --&gt;</span><br /><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span><br />      <span class="na">href</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/overlay/vendors/flowplayer.overlay.fancybox.css&quot;</span><span class="p">&gt;</span><br />&nbsp;<br /><span class="c">&lt;!-- ... --&gt;</span><br /><span class="c">&lt;!-- the jQuery library --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//code.jquery.com/jquery-1.12.4.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /><span class="c">&lt;!-- the Flowplayer script as usual --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/7.0.4/flowplayer.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /><span class="c">&lt;!-- The hlsjs plugin for playback of HLS without Flash in modern browsers --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /><span class="c">&lt;!-- the fancybox script --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /><span class="c">&lt;!-- the overlay plugin --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/overlay/flowplayer.overlay.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /><span class="c">&lt;!-- the overlay plugin fancybox vendor script --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/overlay/vendors/flowplayer.overlay.fancybox.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="c">&lt;!-- the player skin as usual --&gt;</span><br/><span class="p">&lt;</span><span
+                        class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span
+                        class="na">href</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/7.0.4/skin/skin.css&quot;</span><span
+                        class="p">&gt;</span><br/><span
+                        class="c">&lt;!-- Add fancyBox main stylesheet --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span
+                        class="o">=</span><span class="s">&quot;stylesheet&quot;</span><br/>      <span
+                        class="na">href</span><span class="o">=</span><span class="s">&quot;//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.css&quot;</span><span
+                        class="p">&gt;</span><br/><span class="c">&lt;!-- the overlay plugin fancybox vendor stylesheet --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span
+                        class="o">=</span><span class="s">&quot;stylesheet&quot;</span><br/>      <span
+                        class="na">href</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/overlay/vendors/flowplayer.overlay.fancybox.css&quot;</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/><span class="c">&lt;!-- ... --&gt;</span><br/><span
+                        class="c">&lt;!-- the jQuery library --&gt;</span><br/><span class="p">&lt;</span><span
+                        class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//code.jquery.com/jquery-1.12.4.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/><span
+                        class="c">&lt;!-- the Flowplayer script as usual --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span
+                        class="s">&quot;//releases.flowplayer.org/7.0.4/flowplayer.min.js&quot;</span><span class="p">&gt;&lt;/</span><span
+                        class="nt">script</span><span class="p">&gt;</span><br/><span class="c">&lt;!-- The hlsjs plugin for playback of HLS without Flash in modern browsers --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/><span
+                        class="c">&lt;!-- the fancybox script --&gt;</span><br/><span class="p">&lt;</span><span
+                        class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/><span
+                        class="c">&lt;!-- the overlay plugin --&gt;</span><br/><span class="p">&lt;</span><span
+                        class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/overlay/flowplayer.overlay.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/><span
+                        class="c">&lt;!-- the overlay plugin fancybox vendor script --&gt;</span><br/><span class="p">&lt;</span><span
+                        class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/overlay/vendors/flowplayer.overlay.fancybox.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
 
 
-<h3 id="css-setup">&lt;style&gt;</h3>
+    <h3 id="css-setup">&lt;style&gt;</h3>
 
-<p class="doc">Styling of the trigger elements:</p>
+    <p class="doc">Styling of the trigger elements:</p>
 
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="nt">ul</span><span class="p">.</span><span class="nc">triggers</span> <span class="p">{</span><br />  <span class="k">color</span><span class="p">:</span> <span class="mh">#00a6bc</span><span class="p">;</span><br />  <span class="k">list-style</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span><br />  <span class="k">font-size</span><span class="p">:</span> <span class="mi">18</span><span class="kt">px</span><span class="p">;</span><br />  <span class="k">width</span><span class="p">:</span> <span class="mi">7</span><span class="kt">em</span><span class="p">;</span><br />  <span class="k">margin-left</span><span class="p">:</span> <span class="mi">7</span><span class="kt">em</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="nt">ul</span><span class="p">.</span><span class="nc">triggers</span> <span class="nt">li</span> <span class="p">{</span><br />  <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span><br />  <span class="k">background</span><span class="p">:</span> <span class="nb">url</span><span class="p">(</span><span class="sx">//d12zt1n3pd4xhr.cloudfront.net/fp/img/fp5arrow.png</span><span class="p">)</span> <span class="mi">0</span> <span class="mi">2</span><span class="kt">px</span> <span class="kc">no-repeat</span><span class="p">;</span><br />  <span class="k">padding-left</span><span class="p">:</span> <span class="mi">24</span><span class="kt">px</span><span class="p">;</span><br />  <span class="k">margin</span><span class="p">:</span> <span class="mf">0.5</span><span class="kt">ex</span> <span class="mi">0</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="nt">ul</span><span class="p">.</span><span class="nc">triggers</span> <span class="nt">li</span><span class="p">:</span><span class="nd">hover</span> <span class="p">{</span><br />  <span class="k">color</span><span class="p">:</span> <span class="mh">#111</span><span class="p">;</span><br /><span class="p">}</span><br /></pre></div><br /><figcaption>CSS</figcaption></figure></div>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="nt">ul</span><span class="p">.</span><span
+                        class="nc">triggers</span> <span class="p">{</span><br/>  <span class="k">color</span><span
+                        class="p">:</span> <span class="mh">#00a6bc</span><span class="p">;</span><br/>  <span
+                        class="k">list-style</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span><br/>  <span
+                        class="k">font-size</span><span class="p">:</span> <span class="mi">18</span><span
+                        class="kt">px</span><span class="p">;</span><br/>  <span class="k">width</span><span
+                        class="p">:</span> <span class="mi">7</span><span class="kt">em</span><span
+                        class="p">;</span><br/>  <span class="k">margin-left</span><span class="p">:</span> <span
+                        class="mi">7</span><span class="kt">em</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/><span class="nt">ul</span><span class="p">.</span><span class="nc">triggers</span> <span
+                        class="nt">li</span> <span class="p">{</span><br/>  <span class="k">cursor</span><span
+                        class="p">:</span> <span class="kc">pointer</span><span class="p">;</span><br/>  <span
+                        class="k">background</span><span class="p">:</span> <span class="nb">url</span><span
+                        class="p">(</span><span
+                        class="sx">//d12zt1n3pd4xhr.cloudfront.net/fp/img/fp5arrow.png</span><span
+                        class="p">)</span> <span class="mi">0</span> <span class="mi">2</span><span class="kt">px</span> <span
+                        class="kc">no-repeat</span><span class="p">;</span><br/>  <span
+                        class="k">padding-left</span><span class="p">:</span> <span class="mi">24</span><span
+                        class="kt">px</span><span class="p">;</span><br/>  <span class="k">margin</span><span class="p">:</span> <span
+                        class="mf">0.5</span><span class="kt">ex</span> <span class="mi">0</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/><span class="nt">ul</span><span
+                        class="p">.</span><span class="nc">triggers</span> <span class="nt">li</span><span
+                        class="p">:</span><span class="nd">hover</span> <span class="p">{</span><br/>  <span class="k">color</span><span
+                        class="p">:</span> <span class="mh">#111</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>CSS</figcaption>
+        </figure>
+    </div>
 
 
-<h3 id="javascript-setup">&lt;script&gt;</h3>
+    <h3 id="javascript-setup">&lt;script&gt;</h3>
 
-<p class="doc">Here all player containers and players are created and bound to their respective
-overlay trigger elements via JavaScript. The hard work is done by the Overlay plugin components and
-fancyBox.</p>
+    <p class="doc">Here all player containers and players are created and bound to their respective
+        overlay trigger elements via JavaScript. The hard work is done by the Overlay plugin components and
+        fancyBox.</p>
 
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span><br />&nbsp;<br />  <span class="kd">var</span> <span class="nx">cdn</span> <span class="o">=</span> <span class="s2">&quot;//edge.flowplayer.org/&quot;</span><span class="p">;</span><br />&nbsp;<br />  <span class="c1">// videos are named night1 thru night7</span><br />  <span class="c1">// cycle through trigger elements with id=&quot;clip basename&quot; each</span><br />  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;ul.triggers:first &gt; li&quot;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">triggerEl</span><span class="p">)</span> <span class="p">{</span><br />&nbsp;<br />    <span class="c1">// obtain clip base name from id attribute of trigger</span><br />    <span class="c1">// and create a container element</span><br />    <span class="kd">var</span> <span class="nx">clipName</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">triggerEl</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">),</span><br />        <span class="nx">container</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;&lt;div/&gt;&quot;</span><span class="p">);</span><br />&nbsp;<br />    <span class="c1">// append container to body</span><br />    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;body&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">container</span><span class="p">);</span><br />&nbsp;<br />    <span class="c1">// install flowplayer with overlay plugin into container</span><br />    <span class="nx">flowplayer</span><span class="p">(</span><span class="nx">container</span><span class="p">,</span> <span class="p">{</span><br />      <span class="nx">overlay</span><span class="o">:</span> <span class="p">{</span><br />        <span class="nx">vendor</span><span class="o">:</span> <span class="s2">&quot;fancybox&quot;</span><span class="p">,</span><br />        <span class="nx">trigger</span><span class="o">:</span> <span class="s2">&quot;#&quot;</span> <span class="o">+</span> <span class="nx">clipName</span><br />      <span class="p">},</span><br />      <span class="nx">hlsQualities</span><span class="o">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span><br />      <span class="nx">ratio</span><span class="o">:</span> <span class="mi">9</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span><br />      <span class="nx">clip</span><span class="o">:</span> <span class="p">{</span><br />        <span class="nx">sources</span><span class="o">:</span> <span class="p">[</span><br />          <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;application/x-mpegurl&quot;</span><span class="p">,</span> <span class="nx">src</span><span class="o">:</span> <span class="nx">cdn</span> <span class="o">+</span> <span class="nx">clipName</span> <span class="o">+</span> <span class="s2">&quot;.m3u8&quot;</span> <span class="p">},</span><br />          <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;video/mp4&quot;</span><span class="p">,</span>             <span class="nx">src</span><span class="o">:</span> <span class="nx">cdn</span> <span class="o">+</span> <span class="nx">clipName</span> <span class="o">+</span> <span class="s2">&quot;.mp4&quot;</span> <span class="p">}</span><br />        <span class="p">]</span><br />      <span class="p">}</span><br />    <span class="p">});</span><br />&nbsp;<br />  <span class="p">});</span><br />&nbsp;<br /><span class="p">});</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></div>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span
+                        class="p">()</span> <span class="p">{</span><br/>&nbsp;<br/>  <span class="kd">var</span> <span
+                        class="nx">cdn</span> <span class="o">=</span> <span class="s2">&quot;//edge.flowplayer.org/&quot;</span><span
+                        class="p">;</span><br/>&nbsp;<br/>  <span
+                        class="c1">// videos are named night1 thru night7</span><br/>  <span class="c1">// cycle through trigger elements with id=&quot;clip basename&quot; each</span><br/>  <span
+                        class="nx">$</span><span class="p">(</span><span class="s2">&quot;ul.triggers:first &gt; li&quot;</span><span
+                        class="p">).</span><span class="nx">each</span><span class="p">(</span><span
+                        class="kd">function</span> <span class="p">(</span><span class="nx">i</span><span
+                        class="p">,</span> <span class="nx">triggerEl</span><span class="p">)</span> <span
+                        class="p">{</span><br/>&nbsp;<br/>    <span class="c1">// obtain clip base name from id attribute of trigger</span><br/>    <span
+                        class="c1">// and create a container element</span><br/>    <span class="kd">var</span> <span
+                        class="nx">clipName</span> <span class="o">=</span> <span class="nx">$</span><span
+                        class="p">(</span><span class="nx">triggerEl</span><span class="p">).</span><span class="nx">attr</span><span
+                        class="p">(</span><span class="s2">&quot;id&quot;</span><span
+                        class="p">),</span><br/>        <span class="nx">container</span> <span class="o">=</span> <span
+                        class="nx">$</span><span class="p">(</span><span class="s2">&quot;&lt;div/&gt;&quot;</span><span
+                        class="p">);</span><br/>&nbsp;<br/>    <span class="c1">// append container to body</span><br/>    <span
+                        class="nx">$</span><span class="p">(</span><span class="s2">&quot;body&quot;</span><span
+                        class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">container</span><span
+                        class="p">);</span><br/>&nbsp;<br/>    <span class="c1">// install flowplayer with overlay plugin into container</span><br/>    <span
+                        class="nx">flowplayer</span><span class="p">(</span><span class="nx">container</span><span
+                        class="p">,</span> <span class="p">{</span><br/>      <span class="nx">overlay</span><span
+                        class="o">:</span> <span class="p">{</span><br/>        <span class="nx">vendor</span><span
+                        class="o">:</span> <span class="s2">&quot;fancybox&quot;</span><span class="p">,</span><br/>        <span
+                        class="nx">trigger</span><span class="o">:</span> <span class="s2">&quot;#&quot;</span> <span
+                        class="o">+</span> <span class="nx">clipName</span><br/>      <span class="p">},</span><br/>      <span
+                        class="nx">hlsQualities</span><span class="o">:</span> <span class="p">[</span><span
+                        class="o">-</span><span class="mi">1</span><span class="p">,</span> <span
+                        class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span
+                        class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span
+                        class="mi">7</span><span class="p">],</span><br/>      <span class="nx">ratio</span><span
+                        class="o">:</span> <span class="mi">9</span><span class="o">/</span><span
+                        class="mi">16</span><span class="p">,</span><br/>      <span class="nx">clip</span><span
+                        class="o">:</span> <span class="p">{</span><br/>        <span class="nx">sources</span><span
+                        class="o">:</span> <span class="p">[</span><br/>          <span class="p">{</span> <span
+                        class="nx">type</span><span class="o">:</span> <span class="s2">&quot;application/x-mpegurl&quot;</span><span
+                        class="p">,</span> <span class="nx">src</span><span class="o">:</span> <span
+                        class="nx">cdn</span> <span class="o">+</span> <span class="nx">clipName</span> <span class="o">+</span> <span
+                        class="s2">&quot;.m3u8&quot;</span> <span class="p">},</span><br/>          <span
+                        class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;video/mp4&quot;</span><span
+                        class="p">,</span>             <span class="nx">src</span><span class="o">:</span> <span
+                        class="nx">cdn</span> <span class="o">+</span> <span class="nx">clipName</span> <span class="o">+</span> <span
+                        class="s2">&quot;.mp4&quot;</span> <span class="p">}</span><br/>        <span class="p">]</span><br/>      <span
+                        class="p">}</span><br/>    <span class="p">});</span><br/>&nbsp;<br/>  <span
+                        class="p">});</span><br/>&nbsp;<br/><span class="p">});</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>JavaScript</figcaption>
+        </figure>
+    </div>
 
 
-<h2 id="html-setup">&lt;body/&gt;</h2>
+    <h2 id="html-setup">&lt;body/&gt;</h2>
 
-<p class="doc">The trigger elements:</p>
+    <p class="doc">The trigger elements:</p>
 
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;triggers&quot;</span><span class="p">&gt;</span><br />  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;night1&quot;</span><span class="p">&gt;</span>Video 1<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span><br />  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;night2&quot;</span><span class="p">&gt;</span>Video 2<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span><br />  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;night3&quot;</span><span class="p">&gt;</span>Video 3<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span><br />  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;night4&quot;</span><span class="p">&gt;</span>Video 4<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span><br />  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;night5&quot;</span><span class="p">&gt;</span>Video 5<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span><br />  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;night6&quot;</span><span class="p">&gt;</span>Video 6<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span><br />  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;night7&quot;</span><span class="p">&gt;</span>Video 7<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span><br /><span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">&lt;</span><span class="nt">ul</span> <span
+                        class="na">class</span><span class="o">=</span><span class="s">&quot;triggers&quot;</span><span
+                        class="p">&gt;</span><br/>  <span class="p">&lt;</span><span class="nt">li</span> <span
+                        class="na">id</span><span class="o">=</span><span class="s">&quot;night1&quot;</span><span
+                        class="p">&gt;</span>Video 1<span class="p">&lt;/</span><span class="nt">li</span><span
+                        class="p">&gt;</span><br/>  <span class="p">&lt;</span><span class="nt">li</span> <span
+                        class="na">id</span><span class="o">=</span><span class="s">&quot;night2&quot;</span><span
+                        class="p">&gt;</span>Video 2<span class="p">&lt;/</span><span class="nt">li</span><span
+                        class="p">&gt;</span><br/>  <span class="p">&lt;</span><span class="nt">li</span> <span
+                        class="na">id</span><span class="o">=</span><span class="s">&quot;night3&quot;</span><span
+                        class="p">&gt;</span>Video 3<span class="p">&lt;/</span><span class="nt">li</span><span
+                        class="p">&gt;</span><br/>  <span class="p">&lt;</span><span class="nt">li</span> <span
+                        class="na">id</span><span class="o">=</span><span class="s">&quot;night4&quot;</span><span
+                        class="p">&gt;</span>Video 4<span class="p">&lt;/</span><span class="nt">li</span><span
+                        class="p">&gt;</span><br/>  <span class="p">&lt;</span><span class="nt">li</span> <span
+                        class="na">id</span><span class="o">=</span><span class="s">&quot;night5&quot;</span><span
+                        class="p">&gt;</span>Video 5<span class="p">&lt;/</span><span class="nt">li</span><span
+                        class="p">&gt;</span><br/>  <span class="p">&lt;</span><span class="nt">li</span> <span
+                        class="na">id</span><span class="o">=</span><span class="s">&quot;night6&quot;</span><span
+                        class="p">&gt;</span>Video 6<span class="p">&lt;/</span><span class="nt">li</span><span
+                        class="p">&gt;</span><br/>  <span class="p">&lt;</span><span class="nt">li</span> <span
+                        class="na">id</span><span class="o">=</span><span class="s">&quot;night7&quot;</span><span
+                        class="p">&gt;</span>Video 7<span class="p">&lt;/</span><span class="nt">li</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
 
 
-<div class="doc">
-  <p>See also these overlay alternatives:</p>
+    <div class="doc">
+        <p>See also these overlay alternatives:</p>
 
-  <ul>
-    <li><a href="https://flowplayer.org/demos/layout/#overlay-demo">Flowplayer native overlay</a></li>
+        <ul>
+            <li><a href="https://flowplayer.org/demos/layout/#overlay-demo">Flowplayer native overlay</a></li>
 
-    <li><a href="overlay-jquerytools.html" >Overlay jQueryTools</a></li>
-  </ul>
+            <li><a href="overlay-jquerytools.html">Overlay jQueryTools</a></li>
+        </ul>
 
-  <p>The overlay plugin takes care that the player is properly loaded/unloaded the corresponding
-  (before)load/(before)close events of the overlay. This is mandatory to avoid video buffering or
-  playin in the background and prevents errors when the Flash engine is running, especially in
-  Internet Explorer.</p>
-</div>
+        <p>The overlay plugin takes care that the player is properly loaded/unloaded the corresponding
+            (before)load/(before)close events of the overlay. This is mandatory to avoid video buffering or
+            playin in the background and prevents errors when the Flash engine is running, especially in
+            Internet Explorer.</p>
+    </div>
 
 
+    <div class="footer">
+        <p><a href="index.html">Demos in this section</a></p>
 
-<div class="footer">
-    <p><a href="index.html" >Demos in this section</a></p>
+        <hr>
 
-  <hr>
+        <p><a href="../index.html">Flowplayer Demos+</a></p>
 
-  <p><a href="../index.html" >Flowplayer Demos+</a></p>
+        <hr>
 
-  <hr>
+        <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
 
-  <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
+        <hr>
 
-  <hr>
-
-  <p><a href="../v6/index.html" >Version 6 Demos</a></p>
-</div>
-   </div> <!-- end content -->
+        <p><a href="../v6/index.html">Version 6 Demos</a></p>
+    </div>
+</div> <!-- end content -->
 
 </body>
 </html>

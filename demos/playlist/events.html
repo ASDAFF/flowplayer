@@ -1,203 +1,379 @@
-
 <!doctype html>
 
 <html>
 
 <head>
-   <meta charset="utf-8">
+    <meta charset="utf-8">
 
-      <title>Flowplayer · Playlist events</title>
-   
-   <!-- optimize mobile versions -->
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-      <!-- Flowplayer skin -->
-   <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css" >
-   
-   <!-- Minimal styling for this standalone page, can be removed -->
-   <link rel="stylesheet" href="../common/css/demo.css" >
-   <!-- Syntax highlighting of source code, can be removed -->
-   <link rel="stylesheet" href="../common/css/pygments.css" >
-   
-<style>
-.flowplayer {
-   background-color: #036;
-   /* allow room for playlist buttons */
-   margin-bottom: 100px;
-}
+    <title>Flowplayer · Playlist events</title>
 
-.flowplayer .fp-playlist {
-   position: absolute;
-   bottom: -100px;
-   width: 100%;
-   text-align: center;
-}
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-.flowplayer .fp-playlist a {
-   display: inline-block;
-   width: 70px;
-   height: 70px;
-   border-radius: 70px;
-   background-color: #666;
-   margin: 15px;
-}
+    <!-- Flowplayer skin -->
+    <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css">
 
-.flowplayer .fp-playlist a.is-active {
-   background-color: #eee;
-}
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../common/css/pygments.css">
 
-.flowplayer.is-paused .fp-playlist a.is-active {
-   background-color: #ccc;
-}
+    <style>
+        .flowplayer {
+            background-color: #036;
+            /* allow room for playlist buttons */
+            margin-bottom: 100px;
+        }
 
-.flowplayer a.fp-prev,
-.flowplayer a.fp-next {
-   position: absolute;
-   filter: alpha(opacity=100);
-   opacity: 1;
-   color: #00abcd !important;
-   bottom: -60px;
-   font-size: 20px;
-   display: none;
-   cursor: pointer;
-}
+        .flowplayer .fp-playlist {
+            position: absolute;
+            bottom: -100px;
+            width: 100%;
+            text-align: center;
+        }
 
-.flowplayer .fp-prev {
-   left: 0;
-}
-.flowplayer .fp-next {
-   right: 0;
-}
+        .flowplayer .fp-playlist a {
+            display: inline-block;
+            width: 70px;
+            height: 70px;
+            border-radius: 70px;
+            background-color: #666;
+            margin: 15px;
+        }
 
-.flowplayer.is-ready .fp-next,
-.flowplayer.is-ready .fp-prev {
-   display: block;
-}
+        .flowplayer .fp-playlist a.is-active {
+            background-color: #eee;
+        }
 
-/* event info box */
-#info {
-   background-color: #333;
-   font-family: monaco, monospace;
-   max-width: 300px;
-   min-height: 100px;
-   margin: 0 auto;
-   color: #eee;
-   padding: 10px;
-}
+        .flowplayer.is-paused .fp-playlist a.is-active {
+            background-color: #ccc;
+        }
 
-#info p {
-   margin: 0;
-}
-</style>
+        .flowplayer a.fp-prev,
+        .flowplayer a.fp-next {
+            position: absolute;
+            filter: alpha(opacity=100);
+            opacity: 1;
+            color: #00abcd !important;
+            bottom: -60px;
+            font-size: 20px;
+            display: none;
+            cursor: pointer;
+        }
 
-      <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
-   <script src="../common/jquery/jquery-1.12.4.min.js" ></script>
-         <!-- Flowplayer library -->
-   <script src="../common/releases/7.0.4/flowplayer.min.js" ></script>
-         <!-- The hlsjs plugin for playback of HLS without Flash in modern browsers -->
-   <script src="../common/releases/hlsjs/flowplayer.hlsjs.min.js" ></script>
-               
-   
-<script>
-// listen to playlist events
-$(function() {
+        .flowplayer .fp-prev {
+            left: 0;
+        }
 
-   function log() {
-      $("#info").append("<p>" + [].slice.call(arguments).join(", ") + "</p>");
-   }
+        .flowplayer .fp-next {
+            right: 0;
+        }
 
-   flowplayer().on("load ready", function(e, api) {
-      var video = api.video;
-      log(e.type, video.index, "is_last: " + video.is_last);
+        .flowplayer.is-ready .fp-next,
+        .flowplayer.is-ready .fp-prev {
+            display: block;
+        }
 
-   }).on("cuepoint", function(e, api, cuepoint) {
-      log("clip " + api.video.index, "cuepoint " + cuepoint.time);
+        /* event info box */
+        #info {
+            background-color: #333;
+            font-family: monaco, monospace;
+            max-width: 300px;
+            min-height: 100px;
+            margin: 0 auto;
+            color: #eee;
+            padding: 10px;
+        }
 
-   });
+        #info p {
+            margin: 0;
+        }
+    </style>
 
-});
-</script>
+    <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
+    <script src="../common/jquery/jquery-1.12.4.min.js"></script>
+    <!-- Flowplayer library -->
+    <script src="../common/releases/7.0.4/flowplayer.min.js"></script>
+    <!-- The hlsjs plugin for playback of HLS without Flash in modern browsers -->
+    <script src="../common/releases/hlsjs/flowplayer.hlsjs.min.js"></script>
+
+
+    <script>
+        // listen to playlist events
+        $(function () {
+
+            function log() {
+                $("#info").append("<p>" + [].slice.call(arguments).join(", ") + "</p>");
+            }
+
+            flowplayer().on("load ready", function (e, api) {
+                var video = api.video;
+                log(e.type, video.index, "is_last: " + video.is_last);
+
+            }).on("cuepoint", function (e, api, cuepoint) {
+                log("clip " + api.video.index, "cuepoint " + cuepoint.time);
+
+            });
+
+        });
+    </script>
 
 </head>
 
 <body>
 
-   <div id="content">
+<div id="content">
 
-      <h1>Flowplayer · Playlist events</h1>
+    <h1>Flowplayer · Playlist events</h1>
 
-<div data-ratio="0.5625" data-bgcolor="#333333" class="flowplayer fp-custom-playlist is-splash">
+    <div data-ratio="0.5625" data-bgcolor="#333333" class="flowplayer fp-custom-playlist is-splash">
 
-   <video>
-      <source type="application/x-mpegurl" src="http://edge.flowplayer.org/night1.m3u8">
-      <source type="video/mp4"             src="http://edge.flowplayer.org/night1.mp4">
-   </video>
+        <video>
+            <source type="application/x-mpegurl" src="http://edge.flowplayer.org/night1.m3u8">
+            <source type="video/mp4" src="http://edge.flowplayer.org/night1.mp4">
+        </video>
 
-   <div class="fp-playlist">
-      <a href="http://edge.flowplayer.org/night1.mp4" data-cuepoints="[0.3, 0.9]"></a>
-      <a href="http://edge.flowplayer.org/night3.mp4" data-cuepoints="[1, 1.5]"></a>
-      <a href="http://edge.flowplayer.org/night5.mp4"></a>
-      <a href="http://edge.flowplayer.org/night6.mp4"></a>
-   </div>
+        <div class="fp-playlist">
+            <a href="http://edge.flowplayer.org/night1.mp4" data-cuepoints="[0.3, 0.9]"></a>
+            <a href="http://edge.flowplayer.org/night3.mp4" data-cuepoints="[1, 1.5]"></a>
+            <a href="http://edge.flowplayer.org/night5.mp4"></a>
+            <a href="http://edge.flowplayer.org/night6.mp4"></a>
+        </div>
 
-   <a class="fp-prev">prev</a>
-   <a class="fp-next">next</a>
+        <a class="fp-prev">prev</a>
+        <a class="fp-next">next</a>
 
-</div>
+    </div>
 
-<div id="info"></div>
+    <div id="info"></div>
 
-<h2 id="head-setup">&lt;head/&gt;</h2>
+    <h2 id="head-setup">&lt;head/&gt;</h2>
 
-<p class="doc">For smoother <a href="https://flowplayer.org/docs/setup.html#hls">HLS</a> playback in modern browsers we load the
-<a href="https://flowplayer.org/docs/plugins.html#hlsjs">hlsjs plugin</a>.
-</p>
+    <p class="doc">For smoother <a href="https://flowplayer.org/docs/setup.html#hls">HLS</a> playback in modern browsers
+        we load the
+        <a href="https://flowplayer.org/docs/plugins.html#hlsjs">hlsjs plugin</a>.
+    </p>
 
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="c">&lt;!-- Flowplayer library --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/7.0.4/flowplayer.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /><span class="c">&lt;!-- Flowplayer hlsjs engine --&gt;</span><br /><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
-
-
-<h3 id="css-setup">&lt;style&gt;</h3>
-
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">{</span><br />   <span class="k">background-color</span><span class="p">:</span> <span class="mh">#036</span><span class="p">;</span><br />   <span class="c">/* allow room for playlist buttons */</span><br />   <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span><br /><span class="p">}</span><br />&nbsp;<br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-playlist</span> <span class="p">{</span><br />   <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span><br />   <span class="k">bottom</span><span class="p">:</span> <span class="mi">-100</span><span class="kt">px</span><span class="p">;</span><br />   <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span><br />   <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span><br /><span class="p">}</span><br />&nbsp;<br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-playlist</span> <span class="nt">a</span> <span class="p">{</span><br />   <span class="k">display</span><span class="p">:</span> <span class="kc">inline-block</span><span class="p">;</span><br />   <span class="k">width</span><span class="p">:</span> <span class="mi">70</span><span class="kt">px</span><span class="p">;</span><br />   <span class="k">height</span><span class="p">:</span> <span class="mi">70</span><span class="kt">px</span><span class="p">;</span><br />   <span class="k">border-radius</span><span class="p">:</span> <span class="mi">70</span><span class="kt">px</span><span class="p">;</span><br />   <span class="k">background-color</span><span class="p">:</span> <span class="mh">#666</span><span class="p">;</span><br />   <span class="k">margin</span><span class="p">:</span> <span class="mi">15</span><span class="kt">px</span><span class="p">;</span><br /><span class="p">}</span><br />&nbsp;<br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-playlist</span> <span class="nt">a</span><span class="p">.</span><span class="nc">is-active</span> <span class="p">{</span><br />   <span class="k">background-color</span><span class="p">:</span> <span class="mh">#eee</span><span class="p">;</span><br /><span class="p">}</span><br />&nbsp;<br /><span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">is-paused</span> <span class="p">.</span><span class="nc">fp-playlist</span> <span class="nt">a</span><span class="p">.</span><span class="nc">is-active</span> <span class="p">{</span><br />   <span class="k">background-color</span><span class="p">:</span> <span class="mh">#ccc</span><span class="p">;</span><br /><span class="p">}</span><br />&nbsp;<br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="nt">a</span><span class="p">.</span><span class="nc">fp-prev</span><span class="o">,</span><br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="nt">a</span><span class="p">.</span><span class="nc">fp-next</span> <span class="p">{</span><br />   <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span><br />   <span class="k">filter</span><span class="p">:</span> <span class="nf">alpha</span><span class="p">(</span><span class="n">opacity</span><span class="err">=</span><span class="mi">100</span><span class="p">);</span><br />   <span class="k">opacity</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span><br />   <span class="k">color</span><span class="p">:</span> <span class="mh">#00abcd</span> <span class="cp">!important</span><span class="p">;</span><br />   <span class="k">bottom</span><span class="p">:</span> <span class="mi">-60</span><span class="kt">px</span><span class="p">;</span><br />   <span class="k">font-size</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span><br />   <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span><br />   <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span><br /><span class="p">}</span><br />&nbsp;<br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-prev</span> <span class="p">{</span><br />   <span class="k">left</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-next</span> <span class="p">{</span><br />   <span class="k">right</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span><br /><span class="p">}</span><br />&nbsp;<br /><span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">is-ready</span> <span class="p">.</span><span class="nc">fp-next</span><span class="o">,</span><br /><span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">is-ready</span> <span class="p">.</span><span class="nc">fp-prev</span> <span class="p">{</span><br />   <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span><br /><span class="p">}</span><br />&nbsp;<br /><span class="c">/* event info box */</span><br /><span class="p">#</span><span class="nn">info</span> <span class="p">{</span><br />   <span class="k">background-color</span><span class="p">:</span> <span class="mh">#333</span><span class="p">;</span><br />   <span class="k">font-family</span><span class="p">:</span> <span class="n">monaco</span><span class="p">,</span> <span class="kc">monospace</span><span class="p">;</span><br />   <span class="k">max-width</span><span class="p">:</span> <span class="mi">300</span><span class="kt">px</span><span class="p">;</span><br />   <span class="k">min-height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span><br />   <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span> <span class="kc">auto</span><span class="p">;</span><br />   <span class="k">color</span><span class="p">:</span> <span class="mh">#eee</span><span class="p">;</span><br />   <span class="k">padding</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span><br /><span class="p">}</span><br />&nbsp;<br /><span class="p">#</span><span class="nn">info</span> <span class="nt">p</span> <span class="p">{</span><br />   <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span><br /><span class="p">}</span><br /></pre></div><br /><figcaption>CSS</figcaption></figure></div>
-
-
-<h3 id="javascript-setup">&lt;script&gt;</h3>
-
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="c1">// listen to playlist events</span><br /><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span><br />&nbsp;<br />   <span class="kd">function</span> <span class="nx">log</span><span class="p">()</span> <span class="p">{</span><br />      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#info&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;&lt;p&gt;&quot;</span> <span class="o">+</span> <span class="p">[].</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="p">);</span><br />   <span class="p">}</span><br />&nbsp;<br />   <span class="nx">flowplayer</span><span class="p">().</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;load ready&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span class="p">{</span><br />      <span class="kd">var</span> <span class="nx">video</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">video</span><span class="p">;</span><br />      <span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">type</span><span class="p">,</span> <span class="nx">video</span><span class="p">.</span><span class="nx">index</span><span class="p">,</span> <span class="s2">&quot;is_last: &quot;</span> <span class="o">+</span> <span class="nx">video</span><span class="p">.</span><span class="nx">is_last</span><span class="p">);</span><br />&nbsp;<br />   <span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;cuepoint&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span class="nx">cuepoint</span><span class="p">)</span> <span class="p">{</span><br />      <span class="nx">log</span><span class="p">(</span><span class="s2">&quot;clip &quot;</span> <span class="o">+</span> <span class="nx">api</span><span class="p">.</span><span class="nx">video</span><span class="p">.</span><span class="nx">index</span><span class="p">,</span> <span class="s2">&quot;cuepoint &quot;</span> <span class="o">+</span> <span class="nx">cuepoint</span><span class="p">.</span><span class="nx">time</span><span class="p">);</span><br />&nbsp;<br />   <span class="p">});</span><br />&nbsp;<br /><span class="p">});</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></div>
-
-
-<h2 id="html-setup">&lt;body/&gt;</h2>
-
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-ratio</span><span class="o">=</span><span class="s">&quot;0.5625&quot;</span> <span class="na">data-bgcolor</span><span class="o">=</span><span class="s">&quot;#333333&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;flowplayer fp-custom-playlist is-splash&quot;</span><span class="p">&gt;</span><br />&nbsp;<br />   <span class="p">&lt;</span><span class="nt">video</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;application/x-mpegurl&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/night1.m3u8&quot;</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span>             <span class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/night1.mp4&quot;</span><span class="p">&gt;</span><br />   <span class="p">&lt;/</span><span class="nt">video</span><span class="p">&gt;</span><br />&nbsp;<br />   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;fp-playlist&quot;</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/night1.mp4&quot;</span> <span class="na">data-cuepoints</span><span class="o">=</span><span class="s">&quot;[0.3, 0.9]&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/night3.mp4&quot;</span> <span class="na">data-cuepoints</span><span class="o">=</span><span class="s">&quot;[1, 1.5]&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/night5.mp4&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br />      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/night6.mp4&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br />   <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />&nbsp;<br />   <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;fp-prev&quot;</span><span class="p">&gt;</span>prev<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br />   <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;fp-next&quot;</span><span class="p">&gt;</span>next<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br />&nbsp;<br /><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br />&nbsp;<br /><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;info&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
-
-
-
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="c">&lt;!-- Flowplayer library --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span
+                        class="s">&quot;//releases.flowplayer.org/7.0.4/flowplayer.min.js&quot;</span><span class="p">&gt;&lt;/</span><span
+                        class="nt">script</span><span class="p">&gt;</span><br/><span class="c">&lt;!-- Flowplayer hlsjs engine --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
 
 
-<form id="codepenform" method="POST" action="http://codepen.io/pen/define?data={" target="_blank">
-  <input type="hidden" name="data" value='{"title": "New pen based on Playlist events", "js_external": "//code.jquery.com/jquery-1.12.4.min.js;//releases.flowplayer.org/7.0.4/flowplayer.min.js;//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js", "js": "// listen to playlist events\n$(function() {\n\n   function log() {\n      $(\"#info\").append(\"<p>\" + [].slice.call(arguments).join(\", \") + \"</p>\");\n   }\n\n   flowplayer().on(\"load ready\", function(e, api) {\n      var video = api.video;\n      log(e.type, video.index, \"is_last: \" + video.is_last);\n\n   }).on(\"cuepoint\", function(e, api, cuepoint) {\n      log(\"clip \" + api.video.index, \"cuepoint \" + cuepoint.time);\n\n   });\n\n});\n", "html": "<div data-ratio=\"0.5625\" data-bgcolor=\"#333333\" class=\"flowplayer fp-custom-playlist is-splash\">\n\n   <video>\n      <source type=\"application/x-mpegurl\" src="../index.htm" //edge.flowplayer.org/night1.m3u8/"">\n      <source type=\"video/mp4\"             src="../index.htm" //edge.flowplayer.org/night1.mp4/"">\n   </video>\n\n   <div class=\"fp-playlist\">\n      <a href="../index.htm" //edge.flowplayer.org/night1.mp4/"" data-cuepoints=\"[0.3, 0.9]\"></a>\n      <a href="../index.htm" //edge.flowplayer.org/night3.mp4/"" data-cuepoints=\"[1, 1.5]\"></a>\n      <a href="../index.htm" //edge.flowplayer.org/night5.mp4/""></a>\n      <a href="../index.htm" //edge.flowplayer.org/night6.mp4/""></a>\n   </div>\n\n   <a class=\"fp-prev\">prev</a>\n   <a class=\"fp-next\">next</a>\n\n</div>\n\n<div id=\"info\"></div>\n", "css_external": "//releases.flowplayer.org/7.0.4/skin/skin.css;http://demos.flowplayer.org/media/css/codepen.css", "css": ".flowplayer {\n   background-color: #036;\n   /* allow room for playlist buttons */\n   margin-bottom: 100px;\n}\n\n.flowplayer .fp-playlist {\n   position: absolute;\n   bottom: -100px;\n   width: 100%;\n   text-align: center;\n}\n\n.flowplayer .fp-playlist a {\n   display: inline-block;\n   width: 70px;\n   height: 70px;\n   border-radius: 70px;\n   background-color: #666;\n   margin: 15px;\n}\n\n.flowplayer .fp-playlist a.is-active {\n   background-color: #eee;\n}\n\n.flowplayer.is-paused .fp-playlist a.is-active {\n   background-color: #ccc;\n}\n\n.flowplayer a.fp-prev,\n.flowplayer a.fp-next {\n   position: absolute;\n   filter: alpha(opacity=100);\n   opacity: 1;\n   color: #00abcd !important;\n   bottom: -60px;\n   font-size: 20px;\n   display: none;\n   cursor: pointer;\n}\n\n.flowplayer .fp-prev {\n   left: 0;\n}\n.flowplayer .fp-next {\n   right: 0;\n}\n\n.flowplayer.is-ready .fp-next,\n.flowplayer.is-ready .fp-prev {\n   display: block;\n}\n\n/* event info box */\n#info {\n   background-color: #333;\n   font-family: monaco, monospace;\n   max-width: 300px;\n   min-height: 100px;\n   margin: 0 auto;\n   color: #eee;\n   padding: 10px;\n}\n\n#info p {\n   margin: 0;\n}\n"}'>
-</form>
+    <h3 id="css-setup">&lt;style&gt;</h3>
 
-<div class="footer">
-    <a href="#" onclick="document.getElementById('codepenform').submit()">Edit demo on codepen</a><br>
-  <span>Flash not available</span>
-  <hr >
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">{</span><br/>   <span class="k">background-color</span><span class="p">:</span> <span
+                        class="mh">#036</span><span class="p">;</span><br/>   <span class="c">/* allow room for playlist buttons */</span><br/>   <span
+                        class="k">margin-bottom</span><span class="p">:</span> <span class="mi">100</span><span
+                        class="kt">px</span><span class="p">;</span><br/><span class="p">}</span><br/>&nbsp;<br/><span
+                        class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-playlist</span> <span
+                        class="p">{</span><br/>   <span class="k">position</span><span class="p">:</span> <span
+                        class="kc">absolute</span><span class="p">;</span><br/>   <span class="k">bottom</span><span
+                        class="p">:</span> <span class="mi">-100</span><span class="kt">px</span><span
+                        class="p">;</span><br/>   <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span
+                        class="kt">%</span><span class="p">;</span><br/>   <span class="k">text-align</span><span
+                        class="p">:</span> <span class="kc">center</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/>&nbsp;<br/><span class="p">.</span><span
+                        class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-playlist</span> <span
+                        class="nt">a</span> <span class="p">{</span><br/>   <span class="k">display</span><span
+                        class="p">:</span> <span class="kc">inline-block</span><span class="p">;</span><br/>   <span
+                        class="k">width</span><span class="p">:</span> <span class="mi">70</span><span
+                        class="kt">px</span><span class="p">;</span><br/>   <span class="k">height</span><span
+                        class="p">:</span> <span class="mi">70</span><span class="kt">px</span><span
+                        class="p">;</span><br/>   <span class="k">border-radius</span><span class="p">:</span> <span
+                        class="mi">70</span><span class="kt">px</span><span class="p">;</span><br/>   <span class="k">background-color</span><span
+                        class="p">:</span> <span class="mh">#666</span><span class="p">;</span><br/>   <span class="k">margin</span><span
+                        class="p">:</span> <span class="mi">15</span><span class="kt">px</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/>&nbsp;<br/><span class="p">.</span><span
+                        class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-playlist</span> <span
+                        class="nt">a</span><span class="p">.</span><span class="nc">is-active</span> <span
+                        class="p">{</span><br/>   <span class="k">background-color</span><span class="p">:</span> <span
+                        class="mh">#eee</span><span class="p">;</span><br/><span class="p">}</span><br/>&nbsp;<br/><span
+                        class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">is-paused</span> <span
+                        class="p">.</span><span class="nc">fp-playlist</span> <span class="nt">a</span><span
+                        class="p">.</span><span class="nc">is-active</span> <span class="p">{</span><br/>   <span
+                        class="k">background-color</span><span class="p">:</span> <span class="mh">#ccc</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/>&nbsp;<br/><span class="p">.</span><span
+                        class="nc">flowplayer</span> <span class="nt">a</span><span class="p">.</span><span class="nc">fp-prev</span><span
+                        class="o">,</span><br/><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="nt">a</span><span class="p">.</span><span class="nc">fp-next</span> <span
+                        class="p">{</span><br/>   <span class="k">position</span><span class="p">:</span> <span
+                        class="kc">absolute</span><span class="p">;</span><br/>   <span class="k">filter</span><span
+                        class="p">:</span> <span class="nf">alpha</span><span class="p">(</span><span
+                        class="n">opacity</span><span class="err">=</span><span class="mi">100</span><span
+                        class="p">);</span><br/>   <span class="k">opacity</span><span class="p">:</span> <span
+                        class="mi">1</span><span class="p">;</span><br/>   <span class="k">color</span><span
+                        class="p">:</span> <span class="mh">#00abcd</span> <span class="cp">!important</span><span
+                        class="p">;</span><br/>   <span class="k">bottom</span><span class="p">:</span> <span
+                        class="mi">-60</span><span class="kt">px</span><span class="p">;</span><br/>   <span class="k">font-size</span><span
+                        class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span
+                        class="p">;</span><br/>   <span class="k">display</span><span class="p">:</span> <span
+                        class="kc">none</span><span class="p">;</span><br/>   <span class="k">cursor</span><span
+                        class="p">:</span> <span class="kc">pointer</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/>&nbsp;<br/><span class="p">.</span><span
+                        class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-prev</span> <span
+                        class="p">{</span><br/>   <span class="k">left</span><span class="p">:</span> <span
+                        class="mi">0</span><span class="p">;</span><br/><span class="p">}</span><br/><span
+                        class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-next</span> <span
+                        class="p">{</span><br/>   <span class="k">right</span><span class="p">:</span> <span class="mi">0</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/>&nbsp;<br/><span class="p">.</span><span
+                        class="nc">flowplayer</span><span class="p">.</span><span class="nc">is-ready</span> <span
+                        class="p">.</span><span class="nc">fp-next</span><span class="o">,</span><br/><span
+                        class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">is-ready</span> <span
+                        class="p">.</span><span class="nc">fp-prev</span> <span class="p">{</span><br/>   <span
+                        class="k">display</span><span class="p">:</span> <span class="kc">block</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/>&nbsp;<br/><span class="c">/* event info box */</span><br/><span
+                        class="p">#</span><span class="nn">info</span> <span class="p">{</span><br/>   <span class="k">background-color</span><span
+                        class="p">:</span> <span class="mh">#333</span><span class="p">;</span><br/>   <span class="k">font-family</span><span
+                        class="p">:</span> <span class="n">monaco</span><span class="p">,</span> <span class="kc">monospace</span><span
+                        class="p">;</span><br/>   <span class="k">max-width</span><span class="p">:</span> <span
+                        class="mi">300</span><span class="kt">px</span><span class="p">;</span><br/>   <span class="k">min-height</span><span
+                        class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span><br/>   <span
+                        class="k">margin</span><span class="p">:</span> <span class="mi">0</span> <span
+                        class="kc">auto</span><span class="p">;</span><br/>   <span class="k">color</span><span
+                        class="p">:</span> <span class="mh">#eee</span><span class="p">;</span><br/>   <span class="k">padding</span><span
+                        class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/>&nbsp;<br/><span class="p">#</span><span
+                        class="nn">info</span> <span class="nt">p</span> <span class="p">{</span><br/>   <span
+                        class="k">margin</span><span class="p">:</span> <span class="mi">0</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>CSS</figcaption>
+        </figure>
+    </div>
 
-    <p><a href="index.html" >Demos in this section</a></p>
 
-  <hr>
+    <h3 id="javascript-setup">&lt;script&gt;</h3>
 
-  <p><a href="../index.html" >Flowplayer Demos+</a></p>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="c1">// listen to playlist events</span><br/><span
+                        class="nx">$</span><span class="p">(</span><span class="kd">function</span><span
+                        class="p">()</span> <span class="p">{</span><br/>&nbsp;<br/>   <span class="kd">function</span> <span
+                        class="nx">log</span><span class="p">()</span> <span class="p">{</span><br/>      <span
+                        class="nx">$</span><span class="p">(</span><span class="s2">&quot;#info&quot;</span><span
+                        class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;&lt;p&gt;&quot;</span> <span
+                        class="o">+</span> <span class="p">[].</span><span class="nx">slice</span><span
+                        class="p">.</span><span class="nx">call</span><span class="p">(</span><span
+                        class="nx">arguments</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span
+                        class="s2">&quot;, &quot;</span><span class="p">)</span> <span class="o">+</span> <span
+                        class="s2">&quot;&lt;/p&gt;&quot;</span><span class="p">);</span><br/>   <span
+                        class="p">}</span><br/>&nbsp;<br/>   <span class="nx">flowplayer</span><span
+                        class="p">().</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;load ready&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span><span class="p">(</span><span
+                        class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span
+                        class="p">{</span><br/>      <span class="kd">var</span> <span class="nx">video</span> <span
+                        class="o">=</span> <span class="nx">api</span><span class="p">.</span><span
+                        class="nx">video</span><span class="p">;</span><br/>      <span class="nx">log</span><span
+                        class="p">(</span><span class="nx">e</span><span class="p">.</span><span
+                        class="nx">type</span><span class="p">,</span> <span class="nx">video</span><span
+                        class="p">.</span><span class="nx">index</span><span class="p">,</span> <span class="s2">&quot;is_last: &quot;</span> <span
+                        class="o">+</span> <span class="nx">video</span><span class="p">.</span><span
+                        class="nx">is_last</span><span class="p">);</span><br/>&nbsp;<br/>   <span
+                        class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;cuepoint&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span><span class="p">(</span><span
+                        class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span
+                        class="nx">cuepoint</span><span class="p">)</span> <span class="p">{</span><br/>      <span
+                        class="nx">log</span><span class="p">(</span><span class="s2">&quot;clip &quot;</span> <span
+                        class="o">+</span> <span class="nx">api</span><span class="p">.</span><span
+                        class="nx">video</span><span class="p">.</span><span class="nx">index</span><span
+                        class="p">,</span> <span class="s2">&quot;cuepoint &quot;</span> <span class="o">+</span> <span
+                        class="nx">cuepoint</span><span class="p">.</span><span class="nx">time</span><span
+                        class="p">);</span><br/>&nbsp;<br/>   <span class="p">});</span><br/>&nbsp;<br/><span class="p">});</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>JavaScript</figcaption>
+        </figure>
+    </div>
 
-  <hr>
 
-  <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
+    <h2 id="html-setup">&lt;body/&gt;</h2>
 
-  <hr>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span
+                        class="na">data-ratio</span><span class="o">=</span><span
+                        class="s">&quot;0.5625&quot;</span> <span class="na">data-bgcolor</span><span class="o">=</span><span
+                        class="s">&quot;#333333&quot;</span> <span class="na">class</span><span class="o">=</span><span
+                        class="s">&quot;flowplayer fp-custom-playlist is-splash&quot;</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/>   <span class="p">&lt;</span><span class="nt">video</span><span
+                        class="p">&gt;</span><br/>      <span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;application/x-mpegurl&quot;</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//edge.flowplayer.org/night1.m3u8&quot;</span><span
+                        class="p">&gt;</span><br/>      <span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span>             <span
+                        class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/night1.mp4&quot;</span><span
+                        class="p">&gt;</span><br/>   <span class="p">&lt;/</span><span class="nt">video</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/>   <span class="p">&lt;</span><span
+                        class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;fp-playlist&quot;</span><span
+                        class="p">&gt;</span><br/>      <span class="p">&lt;</span><span class="nt">a</span> <span
+                        class="na">href</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/night1.mp4&quot;</span> <span
+                        class="na">data-cuepoints</span><span class="o">=</span><span
+                        class="s">&quot;[0.3, 0.9]&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span
+                        class="p">&gt;</span><br/>      <span class="p">&lt;</span><span class="nt">a</span> <span
+                        class="na">href</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/night3.mp4&quot;</span> <span
+                        class="na">data-cuepoints</span><span class="o">=</span><span
+                        class="s">&quot;[1, 1.5]&quot;</span><span class="p">&gt;&lt;/</span><span
+                        class="nt">a</span><span class="p">&gt;</span><br/>      <span class="p">&lt;</span><span
+                        class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/night5.mp4&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br/>      <span
+                        class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span
+                        class="o">=</span><span class="s">&quot;//edge.flowplayer.org/night6.mp4&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br/>   <span
+                        class="p">&lt;/</span><span class="nt">div</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/>   <span class="p">&lt;</span><span
+                        class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;fp-prev&quot;</span><span
+                        class="p">&gt;</span>prev<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br/>   <span
+                        class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span
+                        class="o">=</span><span class="s">&quot;fp-next&quot;</span><span class="p">&gt;</span>next<span
+                        class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br/>&nbsp;<br/><span
+                        class="p">&lt;/</span><span class="nt">div</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/><span class="p">&lt;</span><span
+                        class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;info&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
 
-  <p><a href="../v6/index.html" >Version 6 Demos</a></p>
-</div>
-   </div> <!-- end content -->
+    <div class="footer">
+
+        <p><a href="index.html">Demos in this section</a></p>
+
+        <hr>
+
+        <p><a href="../index.html">Flowplayer Demos+</a></p>
+
+        <hr>
+
+        <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
+
+        <hr>
+
+        <p><a href="../v6/index.html">Version 6 Demos</a></p>
+    </div>
+</div> <!-- end content -->
 
 </body>
 </html>
