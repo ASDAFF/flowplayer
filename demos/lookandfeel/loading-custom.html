@@ -1,120 +1,190 @@
-
 <!doctype html>
 
 <html>
 
 <head>
-   <meta charset="utf-8">
+    <meta charset="utf-8">
 
-      <title>Flowplayer · Custom loading animation</title>
-   
-   <!-- optimize mobile versions -->
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-      <!-- Flowplayer skin -->
-   <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css" >
-   
-   <!-- Minimal styling for this standalone page, can be removed -->
-   <link rel="stylesheet" href="../common/css/demo.css" >
-   <!-- Syntax highlighting of source code, can be removed -->
-   <link rel="stylesheet" href="../common/css/pygments.css" >
-   
-<style>
-.flowplayer {
-  background-color: #555;
-}
+    <title>Flowplayer · Custom loading animation</title>
 
-/* waiting element with custom graphic */
-.flowplayer .fp-waiting {
-  background: url("../common/img/loading.gif") no-repeat center center;
-  height: 100%;
-  display: none;
-}
-.flowplayer.is-loading .fp-waiting,
-.flowplayer.is-seeking .fp-waiting {
-  display: block;
-}
-.flowplayer .fp-waiting svg {
-  height: 0;
-}
-</style>
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-         <!-- Flowplayer library -->
-   <script src="../common/releases/7.0.4/flowplayer.min.js" ></script>
-                  
-   
-<script>
-window.onload = function () {
+    <!-- Flowplayer skin -->
+    <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css">
 
-  flowplayer("#player", {
-    splash: true,
-    ratio: 3/7,
-    clip: {
-      rtmp: "rtmp://r.demo.flowplayer.netdna-cdn.com/play",
-      title: "Buffalo Soldiers",
-      sources: [
-        { type: "video/mp4",
-          src: "http://p.demo.flowplayer.netdna-cdn.com/vod/demo.flowplayer/buffalo_soldiers.mp4" },
-        { type: "video/flash",
-          src: "mp4:vod/demo.flowplayer/buffalo_soldiers.mp4" }
-      ]
-    }
-  });
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../common/css/pygments.css">
 
-};
-</script>
+    <style>
+        .flowplayer {
+            background-color: #555;
+        }
+
+        /* waiting element with custom graphic */
+        .flowplayer .fp-waiting {
+            background: url("../common/img/loading.gif") no-repeat center center;
+            height: 100%;
+            display: none;
+        }
+
+        .flowplayer.is-loading .fp-waiting,
+        .flowplayer.is-seeking .fp-waiting {
+            display: block;
+        }
+
+        .flowplayer .fp-waiting svg {
+            height: 0;
+        }
+    </style>
+
+    <!-- Flowplayer library -->
+    <script src="../common/releases/7.0.4/flowplayer.min.js"></script>
+
+
+    <script>
+        window.onload = function () {
+
+            flowplayer("#player", {
+                splash: true,
+                ratio: 3 / 7,
+                clip: {
+                    rtmp: "rtmp://r.demo.flowplayer.netdna-cdn.com/play",
+                    title: "Buffalo Soldiers",
+                    sources: [
+                        {
+                            type: "video/mp4",
+                            src: "http://p.demo.flowplayer.netdna-cdn.com/vod/demo.flowplayer/buffalo_soldiers.mp4"
+                        },
+                        {
+                            type: "video/flash",
+                            src: "mp4:vod/demo.flowplayer/buffalo_soldiers.mp4"
+                        }
+                    ]
+                }
+            });
+
+        };
+    </script>
 
 </head>
 
 <body>
 
-   <div id="content">
+<div id="content">
 
-      <h1>Flowplayer · Custom loading animation</h1>
+    <h1>Flowplayer · Custom loading animation</h1>
 
-<div id="player"></div>
+    <div id="player"></div>
 
-<div class="info">
-  <p>A custom loading indicator using an animated GIF image.</p>
+    <div class="info">
+        <p>A custom loading indicator using an animated GIF image.</p>
 
-  <p>We use a long video to extend the loading time.</p>
-</div>
+        <p>We use a long video to extend the loading time.</p>
+    </div>
 
-<h2 id="head-setup">&lt;head/&gt;</h2>
+    <h2 id="head-setup">&lt;head/&gt;</h2>
 
-<h3 id="css-setup">&lt;style&gt;</h3>
+    <h3 id="css-setup">&lt;style&gt;</h3>
 
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">{</span><br />  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#555</span><span class="p">;</span><br /><span class="p">}</span><br />&nbsp;<br /><span class="c">/* waiting element with custom graphic */</span><br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-waiting</span> <span class="p">{</span><br />  <span class="k">background</span><span class="p">:</span> <span class="nb">url</span><span class="p">(</span><span class="sx">/media/img/loading.gif</span><span class="p">)</span> <span class="kc">no-repeat</span> <span class="kc">center</span> <span class="kc">center</span><span class="p">;</span><br />  <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span><br />  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">is-loading</span> <span class="p">.</span><span class="nc">fp-waiting</span><span class="o">,</span><br /><span class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">is-seeking</span> <span class="p">.</span><span class="nc">fp-waiting</span> <span class="p">{</span><br />  <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span><br /><span class="p">}</span><br /><span class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-waiting</span> <span class="nt">svg</span> <span class="p">{</span><br />  <span class="k">height</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span><br /><span class="p">}</span><br /></pre></div><br /><figcaption>CSS</figcaption></figure></div>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">{</span><br/>  <span class="k">background-color</span><span class="p">:</span> <span
+                        class="mh">#555</span><span class="p">;</span><br/><span class="p">}</span><br/>&nbsp;<br/><span
+                        class="c">/* waiting element with custom graphic */</span><br/><span class="p">.</span><span
+                        class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-waiting</span> <span
+                        class="p">{</span><br/>  <span class="k">background</span><span class="p">:</span> <span
+                        class="nb">url</span><span class="p">(</span><span class="sx">/media/img/loading.gif</span><span
+                        class="p">)</span> <span class="kc">no-repeat</span> <span class="kc">center</span> <span
+                        class="kc">center</span><span class="p">;</span><br/>  <span class="k">height</span><span
+                        class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span
+                        class="p">;</span><br/>  <span class="k">display</span><span class="p">:</span> <span
+                        class="kc">none</span><span class="p">;</span><br/><span class="p">}</span><br/><span class="p">.</span><span
+                        class="nc">flowplayer</span><span class="p">.</span><span class="nc">is-loading</span> <span
+                        class="p">.</span><span class="nc">fp-waiting</span><span class="o">,</span><br/><span
+                        class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">is-seeking</span> <span
+                        class="p">.</span><span class="nc">fp-waiting</span> <span class="p">{</span><br/>  <span
+                        class="k">display</span><span class="p">:</span> <span class="kc">block</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">.</span><span class="nc">fp-waiting</span> <span class="nt">svg</span> <span
+                        class="p">{</span><br/>  <span class="k">height</span><span class="p">:</span> <span class="mi">0</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>CSS</figcaption>
+        </figure>
+    </div>
 
 
-<h3 id="javascript-setup">&lt;script&gt;</h3>
+    <h3 id="javascript-setup">&lt;script&gt;</h3>
 
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br />&nbsp;<br />  <span class="nx">flowplayer</span><span class="p">(</span><span class="s2">&quot;#player&quot;</span><span class="p">,</span> <span class="p">{</span><br />    <span class="nx">splash</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span><br />    <span class="nx">ratio</span><span class="o">:</span> <span class="mi">3</span><span class="o">/</span><span class="mi">7</span><span class="p">,</span><br />    <span class="nx">clip</span><span class="o">:</span> <span class="p">{</span><br />      <span class="nx">rtmp</span><span class="o">:</span> <span class="s2">&quot;rtmp://r.demo.flowplayer.netdna-cdn.com/play&quot;</span><span class="p">,</span><br />      <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Buffalo Soldiers&quot;</span><span class="p">,</span><br />      <span class="nx">sources</span><span class="o">:</span> <span class="p">[</span><br />        <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;video/mp4&quot;</span><span class="p">,</span><br />          <span class="nx">src</span><span class="o">:</span> <span class="s2">&quot;http://p.demo.flowplayer.netdna-cdn.com/vod/demo.flowplayer/buffalo_soldiers.mp4&quot;</span> <span class="p">},</span><br />        <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;video/flash&quot;</span><span class="p">,</span><br />          <span class="nx">src</span><span class="o">:</span> <span class="s2">&quot;mp4:vod/demo.flowplayer/buffalo_soldiers.mp4&quot;</span> <span class="p">}</span><br />      <span class="p">]</span><br />    <span class="p">}</span><br />  <span class="p">});</span><br />&nbsp;<br /><span class="p">};</span><br /></pre></div><br /><figcaption>JavaScript</figcaption></figure></div>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="nb">window</span><span class="p">.</span><span
+                        class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span
+                        class="p">()</span> <span class="p">{</span><br/>&nbsp;<br/>  <span class="nx">flowplayer</span><span
+                        class="p">(</span><span class="s2">&quot;#player&quot;</span><span class="p">,</span> <span
+                        class="p">{</span><br/>    <span class="nx">splash</span><span class="o">:</span> <span
+                        class="kc">true</span><span class="p">,</span><br/>    <span class="nx">ratio</span><span
+                        class="o">:</span> <span class="mi">3</span><span class="o">/</span><span
+                        class="mi">7</span><span class="p">,</span><br/>    <span class="nx">clip</span><span class="o">:</span> <span
+                        class="p">{</span><br/>      <span class="nx">rtmp</span><span class="o">:</span> <span
+                        class="s2">&quot;rtmp://r.demo.flowplayer.netdna-cdn.com/play&quot;</span><span
+                        class="p">,</span><br/>      <span class="nx">title</span><span class="o">:</span> <span
+                        class="s2">&quot;Buffalo Soldiers&quot;</span><span class="p">,</span><br/>      <span
+                        class="nx">sources</span><span class="o">:</span> <span class="p">[</span><br/>        <span
+                        class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;video/mp4&quot;</span><span
+                        class="p">,</span><br/>          <span class="nx">src</span><span class="o">:</span> <span
+                        class="s2">&quot;http://p.demo.flowplayer.netdna-cdn.com/vod/demo.flowplayer/buffalo_soldiers.mp4&quot;</span> <span
+                        class="p">},</span><br/>        <span class="p">{</span> <span class="nx">type</span><span
+                        class="o">:</span> <span class="s2">&quot;video/flash&quot;</span><span class="p">,</span><br/>          <span
+                        class="nx">src</span><span class="o">:</span> <span class="s2">&quot;mp4:vod/demo.flowplayer/buffalo_soldiers.mp4&quot;</span> <span
+                        class="p">}</span><br/>      <span class="p">]</span><br/>    <span
+                        class="p">}</span><br/>  <span class="p">});</span><br/>&nbsp;<br/><span
+                        class="p">};</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>JavaScript</figcaption>
+        </figure>
+    </div>
 
 
-<h2 id="html-setup">&lt;body/&gt;</h2>
+    <h2 id="html-setup">&lt;body/&gt;</h2>
 
-<div class="codebox"><figure class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;player&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br /></pre></div><br /><figcaption>HTML</figcaption></figure></div>
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span
+                        class="o">=</span><span class="s">&quot;player&quot;</span><span class="p">&gt;&lt;/</span><span
+                        class="nt">div</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
 
 
+    <div class="footer">
+        <p><a href="index.html">Demos in this section</a></p>
 
+        <hr>
 
-<div class="footer">
-    <p><a href="index.html" >Demos in this section</a></p>
+        <p><a href="../index.html">Flowplayer Demos+</a></p>
 
-  <hr>
+        <hr>
 
-  <p><a href="../index.html" >Flowplayer Demos+</a></p>
+        <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
 
-  <hr>
+        <hr>
 
-  <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
-
-  <hr>
-
-  <p><a href="../v6/index.html" >Version 6 Demos</a></p>
-</div>
-   </div> <!-- end content -->
+        <p><a href="../v6/index.html">Version 6 Demos</a></p>
+    </div>
+</div> <!-- end content -->
 
 </body>
 </html>
