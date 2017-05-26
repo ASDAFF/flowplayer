@@ -195,16 +195,7 @@
         </figure>
     </div>
 
-
-    <form id="codepenform" method="POST" action="http://codepen.io/pen/define?data={" target="_blank">
-        <input type="hidden" name="data"
-               value='{"title": "New pen based on Load method", "js_external": "//code.jquery.com/jquery-1.12.4.min.js;//releases.flowplayer.org/7.0.4/flowplayer.min.js", "js": "flowplayer(function (api) {\n\n   api.on(\"load ready\", function (e, api, video) {\n     var log = $(\"<p/>\").text(e.type + \": \" + video.src + \", duration: \" +\n                              (video.duration || \"not available\"));\n\n     $(\"#log\").append(log);\n   });\n\n});\n\n$(function () {\n   // load clip object\n   $(\"button:first\").click(function () {\n      flowplayer(0).load({\n         sources: [\n           { type: \"video/webm\", src: \"//edge.flowplayer.org/functional.webm\" },\n           { type: \"video/mp4\",  src: \"//edge.flowplayer.org/functional.mp4\" }\n        ]\n      });\n   });\n\n   // string argument to load()\n   $(\"button:last\").click(function() {\n      flowplayer(0).load(\"//edge.flowplayer.org/playful.mp4\");\n   });\n\n});\n", "html": "<div data-ratio=\"0.4167\" class=\"flowplayer fp-slim\">\n   <video>\n<source type=\"video/webm\" src="../index.htm" //edge.flowplayer.org/bauhaus.webm/"">\n<source type=\"video/mp4\" src="../index.htm" //edge.flowplayer.org/bauhaus.mp4/"">\n   </video>\n</div>\n\n<p class=\"info\"><button>load(clip object)</button> <button>load(string)</button></p>\n\n<div id=\"log\"></div>\n", "css_external": "//releases.flowplayer.org/7.0.4/skin/skin.css;http://demos.flowplayer.org/media/css/codepen.css", "css": ".flowplayer {\n  background-color: #333;\n}\n"}'>
-    </form>
-
     <div class="footer">
-        <a href="#" onclick="document.getElementById('codepenform').submit()">Edit demo on codepen</a><br>
-        <span>Flash not available</span>
-        <hr>
 
         <p><a href="index.html">Demos in this section</a></p>
 

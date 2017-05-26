@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8"/>
+
+    <title>Flowplayer · Load method</title>
+
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Flowplayer skin -->
+    <link rel="stylesheet" href="lib/skin/skin.css">
+
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="css/demo.css">
+
+
+    <style>
+        .flowplayer {
+            background-color: #333;
+        }
+    </style>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <!-- Flowplayer library -->
+    <script src="lib/flowplayer.min.js"></script>
+
+
+    <script>
+        flowplayer(function (api) {
+
+            api.on("load ready", function (e, api, video) {
+                var log = $("<p/>").text(e.type + ": " + video.src + ", duration: " +
+                    (video.duration || "not available"));
+
+                $("#log").append(log);
+            });
+
+        });
+
+        $(function () {
+            // load clip object
+            $("button:first").click(function () {
+                flowplayer(0).load({
+                    sources: [
+                        {type: "video/webm", src: "http://edge.flowplayer.org/functional.webm"},
+                        {type: "video/mp4", src: "http://edge.flowplayer.org/functional.mp4"}
+                    ]
+                });
+            });
+
+            // string argument to load()
+            $("button:last").click(function () {
+                flowplayer(0).load("http://edge.flowplayer.org/playful.mp4");
+            });
+
+        });
+    </script>
+
+</head>
+
+<body>
+
+<div id="content">
+
+    <h1>Flowplayer · Load method</h1>
+
+    <div data-ratio="0.4167" class="flowplayer fp-slim">
+        <video>
+            <source type="video/webm" src="http://edge.flowplayer.org/bauhaus.webm">
+            <source type="video/mp4" src="http://edge.flowplayer.org/bauhaus.mp4">
+        </video>
+    </div>
+
+    <p class="info">
+        <button>load(clip object)</button>
+        <button>load(string)</button>
+    </p>
+
+    <div id="log"></div>
+</div>
+</body>
+</html>

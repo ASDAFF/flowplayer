@@ -14,6 +14,11 @@
             font: 12px "Lucida Grande", sans-serif;
         }
 
+        .player {
+            margin: auto;
+            width: 620px;
+        }
+
         .flowplayer {
             width: 620px;
             height: 350px;
@@ -32,6 +37,21 @@
 
         });
     </script>
+
+    <script>
+        flowplayer(function (api) {
+
+            api.on("load ready", function (e, api, video) {
+                var log = $("<p/>").text(e.type + ": " + video.src + ", duration: " +
+                    (video.duration || "not available"));
+
+                $("#log").append(log);
+            });
+
+        });
+
+    </script>
+
 </head>
 
 <body>
@@ -44,6 +64,9 @@
     </video>
 </div>
 
-<button>joo</button>
+<hr>
+
+<div id="log"></div>
+
 </body>
 </html>

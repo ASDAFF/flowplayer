@@ -288,16 +288,7 @@
         </figure>
     </div>
 
-
-    <form id="codepenform" method="POST" action="http://codepen.io/pen/define" target="_blank">
-        <input type="hidden" name="data"
-               value='{"title": "New pen based on Load event", "js_external": "//code.jquery.com/jquery-1.12.4.min.js;//releases.flowplayer.org/7.0.4/flowplayer.min.js", "js": "var fpEvents = \"load ready\",\n\n    fpLog = function (container, scope, type, video) {\n      var id = Number(container.data(\"flowplayer-instance-id\")),\n          bg = container.hasClass(\"js\") ? \"#e0ffcc\" :  \"#ffe9f5\",\n          msg = \"ID \" + id + \" \" + scope + \" on \" + type + \" - \" +\n                (video && video.src "--"  \"video object not available\");\n\n      $(\"#log\").append($(\"<p/>\").css({backgroundColor: bg}).text(msg));\n    };\n\n\n// global api setup\nflowplayer(function (api, root) {\n  fpLog($(root), \"GLOBAL init\", \"undefined\")\n\n  api.on(fpEvents, function (e, api, video) {\n    var vid = video || api.video;\n\n    fpLog($(root), \"GLOBAL event\", e.type, vid);\n  });\n});\n\n\n$(function () {\n  var jqueryContainer = $(\".player:first\"),\n      jsContainer = $(\".player:last\");\n\n  jqueryContainer.flowplayer({\n    ratio: 5/12\n  });\n\n  // api retrieval cannot be chained to installation\n  flowplayer(jqueryContainer).on(fpEvents, function (e, api, video) {\n    var vid = video || api.video;\n\n    fpLog(jqueryContainer, \"LOCAL event\", e.type, vid);\n  });\n\n\n  flowplayer(jsContainer[0], {\n    ratio: 5/12,\n    splash: true,\n    clip: {\n      title: \"JavaScript install, splash setup\",\n      sources: [\n        { type: \"video/webm\", src: \"//edge.flowplayer.org/functional.webm\" },\n        { type: \"video/mp4\",  src: \"//edge.flowplayer.org/functional.mp4\" }\n      ]\n    }\n\n  }).on(fpEvents, function (e, api, video) {\n    var vid = video || api.video;\n\n    fpLog(jsContainer, \"LOCAL event\", e.type, vid);\n  });\n\n});\n", "html": "<div class=\"player jquery is-closeable\">\n   <video data-title=\"jQuery manual install, poster setup\">\n<source type=\"video/webm\" src="../index.htm" //edge.flowplayer.org/playful.webm/"">\n<source type=\"video/mp4\" src="../index.htm" //edge.flowplayer.org/playful.mp4/"">\n   </video>\n</div>\n\n<div class=\"player js is-closeable\"></div>\n\n<div id=\"log\"></div>\n", "css_external": "//releases.flowplayer.org/7.0.4/skin/skin.css;http://demos.flowplayer.org/media/css/codepen.css", "css": ".flowplayer {\n  margin: 5px 0;\n}\n.flowplayer.jquery {\n  background-color: #ffe9f5;\n}\n.flowplayer.js {\n  background-color: #e0ffcc;\n}\n"}'>
-    </form>
-
     <div class="footer">
-        <a href="#" onclick="document.getElementById('codepenform').submit()">Edit demo on codepen</a><br>
-        <span>Flash not available</span>
-        <hr>
 
         <p><a href="index.html">Demos in this section</a></p>
 
