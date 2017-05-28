@@ -14,6 +14,14 @@
             font: 12px "Lucida Grande", sans-serif;
         }
 
+        #content {
+            text-align: center;
+        }
+
+        #log {
+
+        }
+
         .player {
             margin: auto;
             width: 620px;
@@ -41,8 +49,35 @@
     <script>
         flowplayer(function (api) {
 
+            api.on("load", function (e) {
+                $("#log").append($("<p/>").text("Загрузка видеофайла..."));
+                console.log(e);
+            }).on("ready", function (e) {
+                $("#log").append($("<p/>").text("Чтение видеофайла..."));
+                console.log(e);
+            }).on("resume", function (e) {
+                $("#log").append($("<p/>").text("Воспроизведение видео..."));
+                console.log(e);
+            }).on("pause", function (e) {
+                $("#log").append($("<p/>").text("Пауза..."));
+                console.log(e);
+            }).on("mute", function (e) {
+                $("#log").append($("<p/>").text(e.type));
+                console.log(e);
+            }).on("finish", function(e) {
+                $("#log").append($("<p/>").text("Финиш видео..."));
+                console.log(e);
+            }).on("error", function(e) {
+                $("#log").append($("<p/>").text("Ошибка видео..."));
+                console.log(e);
+            });
+
+        });
+
+        flowplayer(function (api) {
+
             api.on("load ready", function (e, api, video) {
-                var log = $("<p/>").text(e.type + ": " + video.src + ", duration: " +
+                var log = $("<p/>").text(e.type + ": " + video.type + ", duration: " +
                     (video.duration || "not available"));
 
                 $("#log").append(log);
@@ -55,18 +90,24 @@
 </head>
 
 <body>
+<div id="content">
+    <hr>
 
-<div class="player" title="The black video"
-     data-engine="flash" data-swf="lib/flowplayer.swf">
-    <video src="http://edge.flowplayer.org/black/470x250.mp4">
-        <source type="video/webm" src="https://edge.flowplayer.org/bauhaus.webm">
-        <source type="video/mp4" src="https://edge.flowplayer.org/bauhaus.mp4">
-    </video>
+    <div id="log"></div>
+
+    <hr>
+
+
+    <div class="player" title="The black video"
+         data-engine="flash" data-swf="lib/flowplayer.swf">
+        <video src="http://edge.flowplayer.org/black/470x250.mp4">
+            <source type="video/webm" src="https://edge.flowplayer.org/bauhaus.webm">
+            <source type="video/mp4" src="https://edge.flowplayer.org/bauhaus.mp4">
+        </video>
+    </div>
+
+
+
 </div>
-
-<hr>
-
-<div id="log"></div>
-
 </body>
 </html>
