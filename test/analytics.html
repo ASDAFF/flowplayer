@@ -47,43 +47,43 @@
     </script>
 
     <script>
+
         flowplayer(function (api) {
 
-            api.on("load", function (e) {
-                $("#log").append($("<p/>").text("Загрузка видеофайла..."));
-                console.log(e);
-            }).on("ready", function (e) {
-                $("#log").append($("<p/>").text("Чтение видеофайла..."));
-                console.log(e);
-            }).on("resume", function (e) {
-                $("#log").append($("<p/>").text("Воспроизведение видео..."));
-                console.log(e);
-            }).on("pause", function (e) {
+            api.on("load", function (e, api, video, err) {
+                $("#log").append($("<p/>").text(e.type + ": " + video.src));
+                console.log(e, api, err);
+            }).on("ready", function (e, object) {
+                $("#log").append($("<p/>").text("Тип: " + e.type + " Время: " + object.video.time));
+                console.log(e, api);
+            }).on("resume", function (e, object, video) {
+                $("#log").append($("<p/>").text("Тип: " + e.type));
+                if (object.video.time !== object.video.time) {
+                    $("#log").append($("<p/>").text("Начало"));
+                } else {
+                    $("#log").append($("<p/>").text("Продолжение"));
+                }
+                console.log(e, object);
+            }).on("pause", function (e, api, video) {
                 $("#log").append($("<p/>").text("Пауза..."));
-                console.log(e);
+                console.log(e, api);
             }).on("mute", function (e) {
                 $("#log").append($("<p/>").text(e.type));
                 console.log(e);
             }).on("finish", function(e) {
                 $("#log").append($("<p/>").text("Финиш видео..."));
                 console.log(e);
-            }).on("error", function(e) {
+            }).on("error", function(e, api, err) {
                 $("#log").append($("<p/>").text("Ошибка видео..."));
-                console.log(e);
+                if (err.code == 4 || err.code === 10) {
+                    $("#log").append($("<p/>").text("Ошибка пять!!!"));
+                }
+                console.log(e, err);
             });
 
         });
 
-        flowplayer(function (api) {
 
-            api.on("load ready", function (e, api, video) {
-                var log = $("<p/>").text(e.type + ": " + video.type + ", duration: " +
-                    (video.duration || "not available"));
-
-                $("#log").append(log);
-            });
-
-        });
 
     </script>
 
@@ -101,8 +101,7 @@
     <div class="player" title="The black video"
          data-engine="flash" data-swf="lib/flowplayer.swf">
         <video src="http://edge.flowplayer.org/black/470x250.mp4">
-            <source type="video/webm" src="https://edge.flowplayer.org/bauhaus.webm">
-            <source type="video/mp4" src="https://edge.flowplayer.org/bauhaus.mp4">
+            <source type="video/mp4" src="https://media.axprod.net/TestVectors/v6.1-MultiDRM-MultiKey/Manifest_1080p.mpd">
         </video>
     </div>
 
