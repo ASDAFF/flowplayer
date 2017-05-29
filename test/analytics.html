@@ -58,7 +58,7 @@
                 console.log(e, api);
             }).on("resume", function (e, object, video) {
                 $("#log").append($("<p/>").text("Тип: " + e.type));
-                if (object.video.time !== object.video.time) {
+                if (object.video.time !== object.video.time || object.video.time == 0) {
                     $("#log").append($("<p/>").text("Начало"));
                 } else {
                     $("#log").append($("<p/>").text("Продолжение"));
