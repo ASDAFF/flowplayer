@@ -1,7 +1,7 @@
 *   [JavaScript API](#javascript-api)
 *   [Доступ к глобальному API](#доступ-к-глобальному-API)
-    *   [Скриншот консоли](#console-screenshot)
-*   [Выборочный доступ к API](#selective-api-access)
+    *   [Скриншот консоли](#скриншот-консоли)
+*   [Выборочный доступ к API](#выборочный-доступ-к-api)
 *   [Мгновенный доступ к API](#instant-api-access)
 *   [Свойства](#properties)
     *   [Свойства расширений и плагинов](#extension-and-plugin-properties)
@@ -67,11 +67,11 @@ API предоставлен первым аргументом, и он выгл
 
 ## Скриншот консоли
 
-Via the second argument - called `root` above - you can access the root or container element of the player.
+Через второй аргумент, называемый `root`, вы можете получать доступ к root или контейнеру элемента плеера.
 
-*   **tip** The global `flowplayer` function is the only place to catch the initial `load` [event](#events) in non [splash](setup.md#splash) setups.
+*   **tip** Глобальная функция `flowplayer` - это единственное место, где можно поймать начальное [событие](#events) `load` в настройках без [splash](setup.md#splash).
 
-# Selective API access
+# Выборочный доступ API
 
 Once the players are installed initialized you can access specific player instances like this:
 
