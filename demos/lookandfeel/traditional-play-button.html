@@ -1,0 +1,196 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Flowplayer · Traditional play button</title>
+
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Flowplayer skin -->
+    <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css">
+
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../common/css/pygments.css">
+
+    <style>
+        /* never show pause action indicator */
+        .flowplayer .fp-pause {
+            display: none;
+        }
+
+        /* red brand color */
+        .flowplayer .fp-color {
+            background-color: #f00;
+        }
+
+        /* emphasize play button */
+        .flowplayer .fp-color-play {
+            fill: #f00;
+        }
+
+        .flowplayer {
+            background-image: url("../common/img/nature-timelapse.jpg");
+        }
+    </style>
+
+    <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
+    <script src="../common/jquery/jquery-1.12.4.min.js"></script>
+    <!-- Flowplayer library -->
+    <script src="../common/releases/7.0.4/flowplayer.min.js"></script>
+    <!-- The dashjs plugin for DASH support -->
+    <script src="../common/releases/dashjs/flowplayer.dashjs.min.js"></script>
+
+
+    <script>
+        flowplayer(function (api, root) {
+            // keep large scaled play button visible
+            api.on("pause", function () {
+                root.querySelector(".fp-play").className += " fp-visible";
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+
+<div id="content">
+
+    <h1>Flowplayer · Traditional play button</h1>
+
+    <div class="flowplayer fp-minimal no-volume"
+         data-aspect-ratio="12:5"
+         data-dash-qualities="false"
+         data-hls-qualities="false">
+        <video>
+            <source type="application/dash+xml" src="http://edge.flowplayer.org/nature.mpd">
+            <source type="application/x-mpegurl" src="http://edge.flowplayer.org/nature.m3u8">
+            <source type="video/mp4" src="http://edge.flowplayer.org/nature.mp4">
+        </video>
+    </div>
+
+    <p class="info">Traditional onscreen play button on pause</p>
+
+    <div class="doc">
+        <p>Usually Flowplayer 7 displays an onscreen play button only until playback is initiated. Pause
+            and play action indicators alert to the change of player state at the moment of pausing or
+            resuming. The content is visible without an obstruction in the center in paused state while the
+            controlbar featuring a play button is constantly visible.</p>
+
+        <p>The traditional approach with a centered onscreen play button can be achieved with one
+            <a href="#css-setup">CSS rule</a> and a minimal customization of the <code>pause</code>
+            <a href="https://flowplayer.org/api.html#events">event</a> in the global
+            <a href="https://flowplayer.org/api.html#global-api-access">JavaScript setup</a>.</p>
+    </div>
+
+    <h2 id="head-setup">&lt;head/&gt;</h2>
+
+    <h3 id="css-setup">&lt;style&gt;</h3>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="c">/* never show pause action indicator */</span><br/><span
+                        class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-pause</span> <span
+                        class="p">{</span><br/>  <span class="k">display</span><span class="p">:</span> <span
+                        class="kc">none</span><span class="p">;</span><br/><span class="p">}</span><br/>&nbsp;<br/><span
+                        class="c">/* red brand color */</span><br/><span class="p">.</span><span
+                        class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-color</span> <span
+                        class="p">{</span><br/>  <span class="k">background-color</span><span class="p">:</span> <span
+                        class="mh">#f00</span><span class="p">;</span><br/><span class="p">}</span><br/><span class="c">/* emphasize play button */</span><br/><span
+                        class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-color-play</span> <span
+                        class="p">{</span><br/>  <span class="n">fill</span><span class="p">:</span> <span class="mh">#f00</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/>&nbsp;<br/><span class="p">.</span><span
+                        class="nc">flowplayer</span> <span class="p">{</span><br/>  <span
+                        class="k">background-image</span><span class="p">:</span> <span class="nb">url</span><span
+                        class="p">(</span><span class="sx">/media/img/nature-timelapse.jpg</span><span
+                        class="p">);</span><br/><span class="p">}</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>CSS</figcaption>
+        </figure>
+    </div>
+
+
+    <h3 id="javascript-setup">&lt;script&gt;</h3>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="nx">flowplayer</span><span class="p">(</span><span
+                        class="kd">function</span> <span class="p">(</span><span class="nx">api</span><span
+                        class="p">,</span> <span class="nx">root</span><span class="p">)</span> <span class="p">{</span><br/>  <span
+                        class="c1">// keep large scaled play button visible</span><br/>  <span
+                        class="nx">api</span><span class="p">.</span><span class="nx">on</span><span
+                        class="p">(</span><span class="s2">&quot;pause&quot;</span><span class="p">,</span> <span
+                        class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br/>    <span
+                        class="nx">root</span><span class="p">.</span><span class="nx">querySelector</span><span
+                        class="p">(</span><span class="s2">&quot;.fp-play&quot;</span><span class="p">).</span><span
+                        class="nx">className</span> <span class="o">+=</span> <span
+                        class="s2">&quot; fp-visible&quot;</span><span class="p">;</span><br/>  <span
+                        class="p">});</span><br/><span class="p">});</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>JavaScript</figcaption>
+        </figure>
+    </div>
+
+
+    <h2 id="html-setup">&lt;body/&gt;</h2>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span
+                        class="na">class</span><span class="o">=</span><span class="s">&quot;flowplayer fp-minimal no-volume&quot;</span><br/>     <span
+                        class="na">data-aspect-ratio</span><span class="o">=</span><span
+                        class="s">&quot;12:5&quot;</span><br/>     <span class="na">data-dash-qualities</span><span
+                        class="o">=</span><span class="s">&quot;false&quot;</span><br/>     <span class="na">data-hls-qualities</span><span
+                        class="o">=</span><span class="s">&quot;false&quot;</span><span
+                        class="p">&gt;</span><br/>  <span class="p">&lt;</span><span class="nt">video</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;application/dash+xml&quot;</span>  <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//edge.flowplayer.org/nature.mpd&quot;</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;application/x-mpegurl&quot;</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//edge.flowplayer.org/nature.m3u8&quot;</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span>             <span
+                        class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/nature.mp4&quot;</span><span
+                        class="p">&gt;</span><br/>  <span class="p">&lt;/</span><span class="nt">video</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;/</span><span class="nt">div</span><span
+                        class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
+
+    <div class="footer">
+
+        <p><a href="index.html">Demos in this section</a></p>
+
+        <hr>
+
+        <p><a href="../index.html">Flowplayer Demos+</a></p>
+
+        <hr>
+
+        <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
+
+        <hr>
+
+        <p><a href="../v6/index.html">Version 6 Demos</a></p>
+    </div>
+</div> <!-- end content -->
+
+</body>
+</html>

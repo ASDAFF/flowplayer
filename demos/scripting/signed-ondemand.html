@@ -1,0 +1,509 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Flowplayer · AWS signed URLs on demand</title>
+
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Flowplayer skin -->
+    <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css">
+
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../common/css/pygments.css">
+
+    <style>
+        #player {
+            background-color: #000;
+            background-image: url("../common/media/img/minimalist.jpg");
+        }
+
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+            #player {
+                background-image: url("../common/media/img/minimalist@x2.jpg");
+            }
+        }
+
+        /* avoid vertical jumping due to delay of ajax call */
+        #player .fp-ratio {
+            padding-top: 41.67%;
+        }
+
+        /* only for signed url display */
+        .signed pre {
+            padding: 1.5ex 4px;
+            font-size: 12px;
+            overflow: scroll;
+            overflow-x: scroll;
+            overflow-y: visible;
+        }
+    </style>
+
+    <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
+    <script src="../common/jquery/jquery-1.12.4.min.js"></script>
+    <!-- Flowplayer library -->
+    <script src="../common/releases/7.0.4/flowplayer.min.js"></script>
+
+
+    <script>
+        $(function () {
+            var api,
+                vtype = "video/flash",
+
+                fpajax = function () {
+                    var flash = /flash/.test(vtype),
+                        // rtmp does not need long expiry time
+                        // devices not allowing autoplay or loading upon ajax
+                        // cannot load on demand
+                        expiry = flash ? 6 : flowplayer.support.firstframe ? 40 : 3600,
+                        // over http sign full url, over rtmp sign only server path
+                        videourl = (flash ? "" : "http://d2yz3vc7rxs49u.cloudfront.net/") +
+                            "bauhaus" +
+                            (flash ? "" : "." + vtype.replace("video/", ""));
+
+                    $.ajax({
+                        url: "http://flowplayer.blacktrash.org/getsignedurl.php?expires=" + expiry,
+                        data: {
+                            "movie": videourl
+                        },
+                        dataType: "text",
+
+                        success: function (data) {
+                            var clip = {
+                                sources: [
+                                    {type: vtype, src: (flash ? "mp4:" : "") + data}
+                                ]
+                            };
+
+                            if (api === undefined) {
+                                // initial install
+                                api = flowplayer("#player", {
+                                    ratio: false, // already set via CSS
+                                    share: false,
+                                    splash: true,
+                                    rtmp: "rtmp://s2istbhvi8cd52.cloudfront.net/cfx/st",
+                                    clip: clip
+
+                                }).on("ready", function (e, api, video) {
+                                    // show video info, for demo only
+                                    var expiry = new Date(video.src.replace(/.*Expires=(\d+).*/, "$1") * 1000);
+                                    $(".expires").text(" (expires at " + expiry.toLocaleTimeString() + "):");
+                                    $(".signed pre").text(video.url);
+
+                                }).on("finish", function (e, api) {
+                                    // refresh RTMP signature on replay
+                                    if (flash) {
+                                        api.one("resume", fpajax);
+                                    }
+
+                                });
+
+                                // now override the default ui click handle in splash state
+                                $("#player .fp-ui").on("click", function (e) {
+                                    if (api.splash) {
+                                        e.stopPropagation();
+
+                                        if (flowplayer.support.firstframe) {
+                                            // re-sign url
+                                            fpajax();
+                                        } else {
+                                            // load static url
+                                            api.load();
+                                        }
+                                    }
+                                });
+
+                            } else {
+                                api.load(clip);
+
+                            }
+                        }
+                    });
+
+                };
+
+
+            // determine video type so we need to retrieve only 1 source via ajax
+            // as 3 ajax calls would be very slow and expensive
+            // NOTE: the /forceflash/ conditional is only for testing!
+            // in production just use:
+            // if (flowplayer.support.video) {
+            if (!/forceflash/.test(location.search) && flowplayer.support.video) {
+                $(["video/webm", "video/mp4"]).each(function (i, type) {
+                    if (!!$("<video/>")[0].canPlayType(type).replace("no", "")) {
+                        vtype = type;
+                        return false;
+                    }
+                });
+            }
+
+            fpajax();
+
+        });
+
+        // For testing only!
+        $(function () {
+            if (flowplayer.support.flashVideo) {
+                $("p.info a").attr({
+                    href: "signed-ondemand.html" + (/forceflash/.test(location.search) ? "" : "?forceflash")
+                }).text(/forceflash/.test(location.search) ? "Try default source picking" : "Try Flash over RTMP");
+            } else {
+                $(".forceflash").hide();
+            }
+        });
+    </script>
+
+</head>
+
+<body>
+
+<div id="content">
+
+    <h1>Flowplayer · AWS signed URLs on demand</h1>
+
+    <div id="player" class="flowplayer fp-slim is-closeable">
+        <!-- avoid vertical jump due to ajax delay -->
+        <div class="fp-ratio"></div>
+    </div>
+
+    <p>Now playing<span class="expires">:</span></p>
+
+    <div class="signed">
+  <pre>
+resolved video.url will be displayed here
+</pre>
+    </div>
+
+    <p class="info forceflash"><a>&nbsp;</a></p>
+
+    <div class="doc">
+        <p>HTML5 video poses the following constraints in conjunction with AWS signed URLs:</p>
+
+        <ol>
+            <li>Seeking to unbuffered positions does not work when the URL has already expired. This is not
+                a Flowplayer specific issue, but affects HTML5 video in general, as can be verified at
+                <a href="../videotest/signedurl.html">this demo</a>. By consequence short expiry times cannot be
+                used; as a workaround we set the expiry time for HTML5 video to the duration of the movie. Flash
+                does not have this problem.<span class="forceflash"> For testing purposes you can switch to
+    force Flash over RTMP for comparison.</span></li>
+
+            <li>Devices which do not allow automatic playback on page load (e.g. iOS) also prevent video
+                loading as result of an ajax call. Therefore the expiry time is even longer, an estimated
+                maximum duration of a page visit.
+            </li>
+
+            <li>We use a <a href="https://flowplayer.org/docs/setup.html#splash">splash setup</a> to
+                demonstrate how the player can be loaded successfully on demand - except for case 2. above.
+                Reloading refreshed signed URLs can be tested by unloading the player - either by clicking the
+                close button or via the <code>q</code>
+                <a href="https://flowplayer.org/docs/setup.html#keyboard">keyboard shortcut</a>.
+            </li>
+        </ol>
+
+        <p><b>Summary:</b> The unavoidable workarounds described in 1. and 2. lower the effectiveness of
+            content protection dramatically. You have to decide whether it is worth the effort to implement
+            and maintain such an involved setup which suggests protection, but delivers on its promise only in
+            a limited way.</p>
+
+        <p>If you are serious about content protection a superior approach is
+            <a href="https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/StreamingMediaGuide/UsingHTTPLiveStreaming/UsingHTTPLiveStreaming.html#//apple_ref/doc/uid/TP40008332-CH102-SW15">encrypted
+                HLS</a>
+            because protection is an optional conceptual part of the media itself. Check out the
+            <a href="https://flowplayer.blacktrash.org/hls-crypt">demo</a>.
+    </div>
+
+    <h2 id="head-setup">&lt;head/&gt;</h2>
+
+    <h3 id="css-setup">&lt;style&gt;</h3>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">#</span><span class="nn">player</span> <span class="p">{</span><br/>  <span
+                        class="k">background-color</span><span class="p">:</span> <span class="mh">#000</span><span
+                        class="p">;</span><br/>  <span class="k">background-image</span><span class="p">:</span> <span
+                        class="nb">url</span><span class="p">(</span><span class="sx">//flowplayer.org/media/img/demos/minimalist.jpg</span><span
+                        class="p">);</span><br/><span class="p">}</span><br/><span class="p">@</span><span class="k">media</span><span
+                        class="o">(</span><span class="nt">-webkit-min-device-pixel-ratio</span><span class="o">:</span> <span
+                        class="nt">2</span><span class="o">),</span> <span class="o">(</span><span class="nt">min-resolution</span><span
+                        class="o">:</span> <span class="nt">2dppx</span><span class="o">)</span> <span
+                        class="p">{</span><br/>  <span class="p">#</span><span class="nn">player</span> <span class="p">{</span><br/>    <span
+                        class="k">background-image</span><span class="p">:</span> <span class="nb">url</span><span
+                        class="p">(</span><span
+                        class="sx">//flowplayer.org/media/img/demos/minimalist@x2.jpg</span><span
+                        class="p">);</span><br/>  <span class="p">}</span><br/><span class="p">}</span><br/><span
+                        class="c">/* avoid vertical jumping due to delay of ajax call */</span><br/><span
+                        class="p">#</span><span class="nn">player</span> <span class="p">.</span><span class="nc">fp-ratio</span> <span
+                        class="p">{</span><br/>  <span class="k">padding-top</span><span class="p">:</span> <span
+                        class="mf">41.67</span><span class="kt">%</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>CSS</figcaption>
+        </figure>
+    </div>
+
+
+    <h3 id="javascript-setup">&lt;script&gt;</h3>
+
+    <p class="doc">To save time consuming Ajax calls we mimic Flowplayer's
+        <a href="https://flowplayer.org/docs/setup.html#picking-order">video type picking</a> at page
+        load and set up only one video type.</p>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="nx">$</span><span class="p">(</span><span
+                        class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br/>  <span
+                        class="kd">var</span> <span class="nx">api</span><span class="p">,</span><br/>  <span
+                        class="nx">vtype</span> <span class="o">=</span> <span class="s2">&quot;video/flash&quot;</span><span
+                        class="p">,</span><br/>&nbsp;<br/>  <span class="nx">fpajax</span> <span
+                        class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span
+                        class="p">{</span><br/>    <span class="kd">var</span> <span class="nx">flash</span> <span
+                        class="o">=</span> <span class="sr">/flash/</span><span class="p">.</span><span
+                        class="nx">test</span><span class="p">(</span><span class="nx">vtype</span><span
+                        class="p">),</span><br/>    <span class="c1">// rtmp does not need long expiry time</span><br/>    <span
+                        class="c1">// devices not allowing autoplay or loading upon ajax</span><br/>    <span
+                        class="c1">// cannot load on demand</span><br/>    <span class="nx">expiry</span> <span
+                        class="o">=</span> <span class="nx">flash</span> <span class="o">?</span> <span
+                        class="mi">6</span> <span class="o">:</span> <span class="nx">flowplayer</span><span
+                        class="p">.</span><span class="nx">support</span><span class="p">.</span><span class="nx">firstframe</span> <span
+                        class="o">?</span> <span class="mi">40</span> <span class="o">:</span> <span
+                        class="mi">3600</span><span class="p">,</span><br/>    <span class="c1">// over http sign full url, over rtmp sign only server path</span><br/>    <span
+                        class="nx">videourl</span> <span class="o">=</span> <span class="p">(</span><span class="nx">flash</span> <span
+                        class="o">?</span> <span class="s2">&quot;&quot;</span> <span class="o">:</span> <span
+                        class="s2">&quot;http://d2yz3vc7rxs49u.cloudfront.net/&quot;</span><span
+                        class="p">)</span> <span class="o">+</span><br/>        <span
+                        class="s2">&quot;bauhaus&quot;</span> <span class="o">+</span><br/>        <span
+                        class="p">(</span><span class="nx">flash</span> <span class="o">?</span> <span class="s2">&quot;&quot;</span> <span
+                        class="o">:</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span
+                        class="nx">vtype</span><span class="p">.</span><span class="nx">replace</span><span
+                        class="p">(</span><span class="s2">&quot;video/&quot;</span><span class="p">,</span> <span
+                        class="s2">&quot;&quot;</span><span class="p">));</span><br/>&nbsp;<br/>    <span
+                        class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span><br/>      <span
+                        class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://flowplayer.blacktrash.org/getsignedurl.php?expires=&quot;</span> <span
+                        class="o">+</span> <span class="nx">expiry</span><span class="p">,</span><br/>      <span
+                        class="nx">data</span><span class="o">:</span> <span class="p">{</span><br/>        <span
+                        class="s2">&quot;movie&quot;</span><span class="o">:</span> <span
+                        class="nx">videourl</span><br/>      <span class="p">},</span><br/>      <span class="nx">dataType</span><span
+                        class="o">:</span> <span class="s2">&quot;text&quot;</span><span
+                        class="p">,</span><br/>&nbsp;<br/>      <span class="nx">success</span><span class="o">:</span> <span
+                        class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span
+                        class="p">)</span> <span class="p">{</span><br/>        <span class="kd">var</span> <span
+                        class="nx">clip</span> <span class="o">=</span> <span class="p">{</span><br/>          <span
+                        class="nx">sources</span><span class="o">:</span> <span class="p">[</span><br/>            <span
+                        class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span
+                        class="nx">vtype</span><span class="p">,</span> <span class="nx">src</span><span
+                        class="o">:</span> <span class="p">(</span><span class="nx">flash</span> <span
+                        class="o">?</span> <span class="s2">&quot;mp4:&quot;</span> <span class="o">:</span> <span
+                        class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span
+                        class="nx">data</span> <span class="p">}</span><br/>          <span class="p">]</span><br/>        <span
+                        class="p">};</span><br/>&nbsp;<br/>        <span class="k">if</span> <span
+                        class="p">(</span><span class="nx">api</span> <span class="o">===</span> <span class="kc">undefined</span><span
+                        class="p">)</span> <span class="p">{</span><br/>          <span
+                        class="c1">// initial install</span><br/>          <span class="nx">api</span> <span
+                        class="o">=</span> <span class="nx">flowplayer</span><span class="p">(</span><span class="s2">&quot;#player&quot;</span><span
+                        class="p">,</span> <span class="p">{</span><br/>            <span class="nx">ratio</span><span
+                        class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">// already set via CSS</span><br/>            <span
+                        class="nx">share</span><span class="o">:</span> <span class="kc">false</span><span
+                        class="p">,</span><br/>            <span class="nx">splash</span><span class="o">:</span> <span
+                        class="kc">true</span><span class="p">,</span><br/>            <span class="nx">rtmp</span><span
+                        class="o">:</span> <span
+                        class="s2">&quot;rtmp://s2istbhvi8cd52.cloudfront.net/cfx/st&quot;</span><span
+                        class="p">,</span><br/>            <span class="nx">clip</span><span class="o">:</span> <span
+                        class="nx">clip</span><br/>&nbsp;<br/>          <span class="p">}).</span><span
+                        class="nx">on</span><span class="p">(</span><span class="s2">&quot;ready&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span
+                        class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span
+                        class="nx">video</span><span class="p">)</span> <span class="p">{</span><br/>            <span
+                        class="c1">// show video info, for demo only</span><br/>            <span class="kd">var</span> <span
+                        class="nx">expiry</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span
+                        class="p">(</span><span class="nx">video</span><span class="p">.</span><span
+                        class="nx">src</span><span class="p">.</span><span class="nx">replace</span><span
+                        class="p">(</span><span class="sr">/.*Expires=(\d+).*/</span><span class="p">,</span> <span
+                        class="s2">&quot;$1&quot;</span><span class="p">)</span> <span class="o">*</span> <span
+                        class="mi">1000</span><span class="p">);</span><br/>            <span class="nx">$</span><span
+                        class="p">(</span><span class="s2">&quot;.expires&quot;</span><span class="p">).</span><span
+                        class="nx">text</span><span class="p">(</span><span class="s2">&quot; (expires at &quot;</span> <span
+                        class="o">+</span> <span class="nx">expiry</span><span class="p">.</span><span class="nx">toLocaleTimeString</span><span
+                        class="p">()</span> <span class="o">+</span> <span class="s2">&quot;):&quot;</span><span
+                        class="p">);</span><br/>            <span class="nx">$</span><span class="p">(</span><span
+                        class="s2">&quot;.signed pre&quot;</span><span class="p">).</span><span
+                        class="nx">text</span><span class="p">(</span><span class="nx">video</span><span
+                        class="p">.</span><span class="nx">url</span><span class="p">);</span><br/>&nbsp;<br/>          <span
+                        class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;finish&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span
+                        class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span
+                        class="p">{</span><br/>            <span
+                        class="c1">// refresh RTMP signature on replay</span><br/>            <span class="k">if</span> <span
+                        class="p">(</span><span class="nx">flash</span><span class="p">)</span> <span class="p">{</span><br/>              <span
+                        class="nx">api</span><span class="p">.</span><span class="nx">one</span><span class="p">(</span><span
+                        class="s2">&quot;resume&quot;</span><span class="p">,</span> <span class="nx">fpajax</span><span
+                        class="p">);</span><br/>            <span class="p">}</span><br/>&nbsp;<br/>          <span
+                        class="p">});</span><br/>&nbsp;<br/>          <span class="c1">// now override the default ui click handle in splash state</span><br/>          <span
+                        class="nx">$</span><span class="p">(</span><span
+                        class="s2">&quot;#player .fp-ui&quot;</span><span class="p">).</span><span
+                        class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span
+                        class="nx">e</span><span class="p">)</span> <span class="p">{</span><br/>            <span
+                        class="k">if</span> <span class="p">(</span><span class="nx">api</span><span
+                        class="p">.</span><span class="nx">splash</span><span class="p">)</span> <span
+                        class="p">{</span><br/>              <span class="nx">e</span><span class="p">.</span><span
+                        class="nx">stopPropagation</span><span class="p">();</span><br/>&nbsp;<br/>              <span
+                        class="k">if</span> <span class="p">(</span><span class="nx">flowplayer</span><span
+                        class="p">.</span><span class="nx">support</span><span class="p">.</span><span class="nx">firstframe</span><span
+                        class="p">)</span> <span class="p">{</span><br/>                <span
+                        class="c1">// re-sign url</span><br/>                <span class="nx">fpajax</span><span
+                        class="p">();</span><br/>              <span class="p">}</span> <span
+                        class="k">else</span> <span class="p">{</span><br/>                <span class="c1">// load static url</span><br/>                <span
+                        class="nx">api</span><span class="p">.</span><span class="nx">load</span><span
+                        class="p">();</span><br/>              <span class="p">}</span><br/>            <span class="p">}</span><br/>          <span
+                        class="p">});</span><br/>&nbsp;<br/>        <span class="p">}</span> <span class="k">else</span> <span
+                        class="p">{</span><br/>          <span class="nx">api</span><span class="p">.</span><span
+                        class="nx">load</span><span class="p">(</span><span class="nx">clip</span><span
+                        class="p">);</span><br/>&nbsp;<br/>        <span class="p">}</span><br/>      <span
+                        class="p">}</span><br/>    <span class="p">});</span><br/>&nbsp;<br/>  <span class="p">};</span><br/>&nbsp;<br/><br/>  <span
+                        class="c1">// determine video type so we need to retrieve only 1 source via ajax</span><br/>  <span
+                        class="c1">// as 3 ajax calls would be very slow and expensive</span><br/>  <span class="c1">// NOTE: the /forceflash/ conditional is only for testing!</span><br/>  <span
+                        class="c1">// in production just use:</span><br/>  <span class="c1">// if (flowplayer.support.video) {</span><br/>  <span
+                        class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="sr">/forceflash/</span><span
+                        class="p">.</span><span class="nx">test</span><span class="p">(</span><span
+                        class="nx">location</span><span class="p">.</span><span class="nx">search</span><span class="p">)</span> <span
+                        class="o">&amp;&amp;</span> <span class="nx">flowplayer</span><span class="p">.</span><span
+                        class="nx">support</span><span class="p">.</span><span class="nx">video</span><span
+                        class="p">)</span> <span class="p">{</span><br/>    <span class="nx">$</span><span
+                        class="p">([</span><span class="s2">&quot;video/webm&quot;</span><span class="p">,</span> <span
+                        class="s2">&quot;video/mp4&quot;</span><span class="p">]).</span><span
+                        class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span
+                        class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">type</span><span
+                        class="p">)</span> <span class="p">{</span><br/>      <span class="k">if</span> <span class="p">(</span><span
+                        class="o">!!</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;&lt;video/&gt;&quot;</span><span
+                        class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">canPlayType</span><span
+                        class="p">(</span><span class="nx">type</span><span class="p">).</span><span
+                        class="nx">replace</span><span class="p">(</span><span class="s2">&quot;no&quot;</span><span
+                        class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span> <span
+                        class="p">{</span><br/>        <span class="nx">vtype</span> <span class="o">=</span> <span
+                        class="nx">type</span><span class="p">;</span><br/>        <span class="k">return</span> <span
+                        class="kc">false</span><span class="p">;</span><br/>      <span class="p">}</span><br/>    <span
+                        class="p">});</span><br/>  <span class="p">}</span><br/>&nbsp;<br/>  <span
+                        class="nx">fpajax</span><span class="p">();</span><br/>&nbsp;<br/><span
+                        class="p">});</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>JavaScript</figcaption>
+        </figure>
+    </div>
+
+
+    <h2 id="html-setup">&lt;body/&gt;</h2>
+
+    <p class="doc">A HTML/CSS only splash setup using the <code>flowplayer</code> class, but without
+        VIDEO tag right at page load, before player install to avoid vertical jumping due to the Ajax query
+        delay:</p>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span
+                        class="o">=</span><span class="s">&quot;player&quot;</span> <span class="na">class</span><span
+                        class="o">=</span><span class="s">&quot;flowplayer fp-slim is-closeable&quot;</span><span
+                        class="p">&gt;</span><br/>   <span class="c">&lt;!-- avoid vertical jump due to ajax delay --&gt;</span><br/>   <span
+                        class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span
+                        class="o">=</span><span class="s">&quot;fp-ratio&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br/><span
+                        class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
+
+
+    <h2>getsignedurl.php</h2>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="cp">&lt;?php</span><br/><span class="nb">header</span><span
+                        class="p">(</span><span class="s1">&#39;Access-Control-Allow-Origin: *&#39;</span><span
+                        class="p">);</span><br/>&nbsp;<br/><span class="nv">$resource</span> <span
+                        class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;movie&#39;</span><span
+                        class="p">];</span><br/><span class="c1">// default expiry after 5 seconds</span><br/><span
+                        class="nv">$expires</span> <span class="o">=</span> <span class="nb">time</span><span class="p">()</span> <span
+                        class="o">+</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span
+                        class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;expires&#39;</span><span
+                        class="p">])</span> <span class="o">?</span> <span class="nv">$_GET</span><span
+                        class="p">[</span><span class="s1">&#39;expires&#39;</span><span class="p">]</span> <span
+                        class="o">:</span> <span class="mi">5</span><span class="p">);</span><br/>&nbsp;<br/><span
+                        class="c1">// key pair generated for cloudfront</span><br/><span
+                        class="nv">$keyPairId</span> <span class="o">=</span> <span class="s1">&#39;APKAJJZ2ZVCTME3I4VSQ&#39;</span><span
+                        class="p">;</span><br/>&nbsp;<br/><span class="nv">$json</span> <span class="o">=</span> <span
+                        class="s1">&#39;{&quot;Statement&quot;:[{&quot;Resource&quot;:&quot;&#39;</span> <span
+                        class="o">.</span> <span class="nv">$resource</span> <span class="o">.</span> <span class="s1">&#39;&quot;,&quot;Condition&quot;:{&quot;DateLessThan&quot;:{&quot;AWS:EpochTime&quot;:&#39;</span> <span
+                        class="o">.</span> <span class="nv">$expires</span> <span class="o">.</span> <span class="s1">&#39;}}}]}&#39;</span><span
+                        class="p">;</span><br/>&nbsp;<br/><span
+                        class="c1">// read cloudfront private key pair</span><br/><span class="nv">$fp</span> <span
+                        class="o">=</span> <span class="nb">fopen</span><span class="p">(</span><span class="s1">&#39;/home/user/awskeys/pk-&#39;</span> <span
+                        class="o">.</span> <span class="nv">$keyPairId</span> <span class="o">.</span> <span class="s1">&#39;.pem&#39;</span><span
+                        class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">);</span><br/><span
+                        class="nv">$priv_key</span> <span class="o">=</span> <span class="nb">fread</span><span
+                        class="p">(</span><span class="nv">$fp</span><span class="p">,</span> <span
+                        class="mi">8192</span><span class="p">);</span><br/><span class="nb">fclose</span><span
+                        class="p">(</span><span class="nv">$fp</span><span class="p">);</span><br/>&nbsp;<br/><span
+                        class="c1">// create the private key</span><br/><span class="nv">$key</span> <span
+                        class="o">=</span> <span class="nb">openssl_get_privatekey</span><span class="p">(</span><span
+                        class="nv">$priv_key</span><span class="p">);</span><br/>&nbsp;<br/><span class="c1">// sign the policy with the private key</span><br/><span
+                        class="c1">// depending on your php version you might have to use</span><br/><span class="c1">// openssl_sign($json, $signed_policy, $key, OPENSSL_ALGO_SHA1)</span><br/><span
+                        class="nb">openssl_sign</span><span class="p">(</span><span class="nv">$json</span><span
+                        class="p">,</span> <span class="nv">$signed_policy</span><span class="p">,</span> <span
+                        class="nv">$key</span><span class="p">);</span><br/>&nbsp;<br/><span
+                        class="nb">openssl_free_key</span><span class="p">(</span><span class="nv">$key</span><span
+                        class="p">);</span><br/>&nbsp;<br/><span class="c1">// create url safe signed policy</span><br/><span
+                        class="nv">$base64_signed_policy</span> <span class="o">=</span> <span
+                        class="nb">base64_encode</span><span class="p">(</span><span
+                        class="nv">$signed_policy</span><span class="p">);</span><br/><span class="nv">$signature</span> <span
+                        class="o">=</span> <span class="nb">str_replace</span><span class="p">(</span><span class="k">array</span><span
+                        class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span
+                        class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">),</span> <span class="k">array</span><span
+                        class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span
+                        class="p">,</span> <span class="s1">&#39;~&#39;</span><span class="p">),</span> <span
+                        class="nv">$base64_signed_policy</span><span class="p">);</span><br/>&nbsp;<br/><span
+                        class="c1">// construct the url</span><br/><span class="nv">$url</span> <span class="o">=</span> <span
+                        class="nv">$resource</span> <span class="o">.</span> <span class="s1">&#39;?Expires=&#39;</span> <span
+                        class="o">.</span> <span class="nv">$expires</span> <span class="o">.</span> <span class="s1">&#39;&amp;Signature=&#39;</span> <span
+                        class="o">.</span> <span class="nv">$signature</span> <span class="o">.</span> <span class="s1">&#39;&amp;Key-Pair-Id=&#39;</span> <span
+                        class="o">.</span> <span class="nv">$keyPairId</span><span
+                        class="p">;</span><br/>&nbsp;<br/><span class="k">echo</span> <span class="nv">$url</span><span
+                        class="p">;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>PHP</figcaption>
+        </figure>
+    </div>
+
+    <div class="footer">
+
+        <p><a href="index.html">Demos in this section</a></p>
+
+        <hr>
+
+        <p><a href="../index.html">Flowplayer Demos+</a></p>
+
+        <hr>
+
+        <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
+
+        <hr>
+
+        <p><a href="http://demos.flowplayer.org/v6/">Version 6 Demos</a></p>
+    </div>
+</div> <!-- end content -->
+
+</body>
+</html>

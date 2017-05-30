@@ -1,0 +1,460 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Flowplayer · Chapter navigation</title>
+
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Flowplayer skin -->
+    <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css">
+
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../common/css/pygments.css">
+
+    <style>
+        #player {
+            background-color: #001f1f;
+            background-image: url("../common/media/img/playful.jpg");
+        }
+
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+            #player {
+                background-image: url("../common/media/img/playful@x2.jpg");
+            }
+        }
+
+        #chapters {
+            margin: 26px 0 0 4%;
+        }
+
+        #chapters .cuepoint {
+            display: inline-block;
+            margin-right: 4%;
+            padding: 26px 4%;
+            background-color: #001f1f;
+            color: #eee;
+            text-shadow: 2px 2px 2px #111;
+            font-weight: bold;
+            font-size: 24px;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            background-size: cover;
+            cursor: pointer;
+        }
+
+        #chapters .cuepoint.active {
+            color: #f00;
+        }
+
+        #chapters .cuepoint0 {
+            background-image: url("../common/media/img/timeline/playful1.jpg");
+        }
+
+        #chapters .cuepoint1 {
+            background-image: url("../common/media/img/timeline/playful2.jpg");
+        }
+
+        #chapters .cuepoint2 {
+            background-image: url("../common/media/img/timeline/playful4.jpg");
+        }
+
+        #chapters .cuepoint3 {
+            background-image: url("../common/media/img/timeline/playful6.jpg");
+        }
+
+        #chapters .cuepoint4 {
+            background-image: url("../common/media/img/timeline/playful7.jpg");
+        }
+
+        #chapters .cuepoint5 {
+            background-image: url("../common/media/img/timeline/playful8.jpg");
+        }
+    </style>
+
+    <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
+    <script src="../common/jquery/jquery-1.12.4.min.js"></script>
+    <!-- Flowplayer library -->
+    <script src="../common/releases/7.0.4/flowplayer.min.js"></script>
+    <!-- The hlsjs plugin for playback of HLS without Flash in modern browsers -->
+    <script src="../common/releases/hlsjs/flowplayer.hlsjs.min.js"></script>
+
+
+    <script>
+        $(function () {
+            var elems = $("#chapters a"),
+
+                chaptertoggle = function (index) {
+                    elems.each(function (i) {
+                        $(this).toggleClass("active", index == i);
+                    });
+                },
+
+                clearchapters = function () {
+                    elems.removeClass("active");
+                },
+
+                api = flowplayer("#player", {
+                    ratio: 5 / 12,
+                    cuepoints: [5.5, 12, 17.5, 23.7, 27, 30.5],
+                    clip: {
+                        sources: [
+                            {type: "application/x-mpegurl", src: "http://edge.flowplayer.org/playful.m3u8"},
+                            {type: "video/mp4", src: "http://edge.flowplayer.org/playful.mp4"}
+                        ]
+                    },
+                    splash: true
+
+                }).on("cuepoint", function (e, api, cue) {
+                    chaptertoggle(cue.index);
+
+                }).on("beforeseek", function (e, api, pos) {
+                    if (pos < api.conf.cuepoints[0]) {
+                        clearchapters();
+
+                    } else {
+                        $.each(api.conf.cuepoints, function (index, cue) {
+                            if (index == api.conf.cuepoints.length - 1 ||
+                                pos >= cue && pos < api.conf.cuepoints[index + 1]) {
+
+                                chaptertoggle(index);
+                                return false;
+                            }
+                        });
+                    }
+
+                }).on("finish", function (e, api) {
+                    api.one("resume.replay", clearchapters);
+
+                }).on("unload", clearchapters);
+
+            elems.click(function (e) {
+                var cue = api.conf.cuepoints[elems.index(this)];
+
+                e.preventDefault();
+
+                chaptertoggle(cue.index);
+
+                if (api.ready) {
+                    api.seek(cue);
+                } else {
+                    api.one("ready.chapter", function (e, api) {
+                        api.seek(cue);
+                    });
+                    api.load();
+                }
+
+            });
+
+        });
+    </script>
+
+</head>
+
+<body>
+
+<div id="content">
+
+    <h1>Flowplayer · Chapter navigation</h1>
+
+    <div id="player" class="fp-playful is-closeable"></div>
+
+    <div id="chapters">
+        <a class="cuepoint cuepoint0">1</a>
+        <a class="cuepoint cuepoint1">2</a>
+        <a class="cuepoint cuepoint2">3</a>
+        <a class="cuepoint cuepoint3">4</a>
+        <a class="cuepoint cuepoint4">5</a>
+        <a class="cuepoint cuepoint5">6</a>
+    </div>
+
+    <p class="doc">A manual variant of the demo for
+        <a href="https://flowplayer.org/demos/timeline/#thumbs-demo">clickable cuepoints generation</a>.</p>
+
+    <h2 id="head-setup">&lt;head/&gt;</h2>
+
+    <p class="doc">For smoother <a href="https://flowplayer.org/docs/setup.html#hls">HLS</a> playback in modern browsers
+        we load the
+        <a href="https://flowplayer.org/docs/plugins.html#hlsjs">hlsjs plugin</a>.
+    </p>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="c">&lt;!-- Flowplayer library --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span
+                        class="s">&quot;//releases.flowplayer.org/7.0.4/flowplayer.min.js&quot;</span><span class="p">&gt;&lt;/</span><span
+                        class="nt">script</span><span class="p">&gt;</span><br/><span class="c">&lt;!-- Flowplayer hlsjs engine --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
+
+
+    <h3 id="css-setup">&lt;style&gt;</h3>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">#</span><span class="nn">player</span> <span class="p">{</span><br/>  <span
+                        class="k">background-color</span><span class="p">:</span> <span class="mh">#001f1f</span><span
+                        class="p">;</span><br/>  <span class="k">background-image</span><span class="p">:</span> <span
+                        class="nb">url</span><span class="p">(</span><span class="sx">//flowplayer.org/media/img/demos/playful.jpg</span><span
+                        class="p">);</span><br/><span class="p">}</span><br/><span class="p">@</span><span class="k">media</span><span
+                        class="o">(</span><span class="nt">-webkit-min-device-pixel-ratio</span><span class="o">:</span> <span
+                        class="nt">2</span><span class="o">),</span> <span class="o">(</span><span class="nt">min-resolution</span><span
+                        class="o">:</span> <span class="nt">2dppx</span><span class="o">)</span> <span
+                        class="p">{</span><br/>  <span class="p">#</span><span class="nn">player</span> <span class="p">{</span><br/>    <span
+                        class="k">background-image</span><span class="p">:</span> <span class="nb">url</span><span
+                        class="p">(</span><span class="sx">//flowplayer.org/media/img/demos/playful@x2.jpg</span><span
+                        class="p">);</span><br/>  <span class="p">}</span><br/><span
+                        class="p">}</span><br/>&nbsp;<br/><span class="p">#</span><span class="nn">chapters</span> <span
+                        class="p">{</span><br/>  <span class="k">margin</span><span class="p">:</span> <span class="mi">26</span><span
+                        class="kt">px</span> <span class="mi">0</span> <span class="mi">0</span> <span
+                        class="mi">4</span><span class="kt">%</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/><span class="p">#</span><span class="nn">chapters</span> <span class="p">.</span><span
+                        class="nc">cuepoint</span> <span class="p">{</span><br/>  <span class="k">display</span><span
+                        class="p">:</span> <span class="kc">inline-block</span><span class="p">;</span><br/>  <span
+                        class="k">margin-right</span><span class="p">:</span> <span class="mi">4</span><span class="kt">%</span><span
+                        class="p">;</span><br/>  <span class="k">padding</span><span class="p">:</span> <span
+                        class="mi">26</span><span class="kt">px</span> <span class="mi">4</span><span
+                        class="kt">%</span><span class="p">;</span><br/>  <span class="k">background-color</span><span
+                        class="p">:</span> <span class="mh">#001f1f</span><span class="p">;</span><br/>  <span
+                        class="k">color</span><span class="p">:</span> <span class="mh">#eee</span><span
+                        class="p">;</span><br/>  <span class="k">text-shadow</span><span class="p">:</span> <span
+                        class="mi">2</span><span class="kt">px</span> <span class="mi">2</span><span
+                        class="kt">px</span> <span class="mi">2</span><span class="kt">px</span> <span
+                        class="mh">#111</span><span class="p">;</span><br/>  <span class="k">font-weight</span><span
+                        class="p">:</span> <span class="kc">bold</span><span class="p">;</span><br/>  <span class="k">font-size</span><span
+                        class="p">:</span> <span class="mi">24</span><span class="kt">px</span><span
+                        class="p">;</span><br/>  <span class="kp">-webkit-</span><span
+                        class="k">background-size</span><span class="p">:</span> <span class="kc">cover</span><span
+                        class="p">;</span><br/>  <span class="kp">-moz-</span><span
+                        class="k">background-size</span><span class="p">:</span> <span class="kc">cover</span><span
+                        class="p">;</span><br/>  <span class="k">background-size</span><span class="p">:</span> <span
+                        class="kc">cover</span><span class="p">;</span><br/>  <span class="k">cursor</span><span
+                        class="p">:</span> <span class="kc">pointer</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/><span class="p">#</span><span class="nn">chapters</span> <span class="p">.</span><span
+                        class="nc">cuepoint</span><span class="p">.</span><span class="nc">active</span> <span
+                        class="p">{</span><br/>  <span class="k">color</span><span class="p">:</span> <span class="mh">#f00</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/><span class="p">#</span><span class="nn">chapters</span> <span
+                        class="p">.</span><span class="nc">cuepoint0</span> <span class="p">{</span><br/>  <span
+                        class="k">background-image</span><span class="p">:</span> <span class="nb">url</span><span
+                        class="p">(</span><span class="s2">&quot;//flowplayer.org/media/img/demos/timeline/playful1.jpg&quot;</span><span
+                        class="p">);</span><br/><span class="p">}</span><br/><span class="p">#</span><span class="nn">chapters</span> <span
+                        class="p">.</span><span class="nc">cuepoint1</span> <span class="p">{</span><br/>  <span
+                        class="k">background-image</span><span class="p">:</span> <span class="nb">url</span><span
+                        class="p">(</span><span class="s2">&quot;//flowplayer.org/media/img/demos/timeline/playful2.jpg&quot;</span><span
+                        class="p">);</span><br/><span class="p">}</span><br/><span class="p">#</span><span class="nn">chapters</span> <span
+                        class="p">.</span><span class="nc">cuepoint2</span> <span class="p">{</span><br/>  <span
+                        class="k">background-image</span><span class="p">:</span> <span class="nb">url</span><span
+                        class="p">(</span><span class="s2">&quot;//flowplayer.org/media/img/demos/timeline/playful4.jpg&quot;</span><span
+                        class="p">);</span><br/><span class="p">}</span><br/><span class="p">#</span><span class="nn">chapters</span> <span
+                        class="p">.</span><span class="nc">cuepoint3</span> <span class="p">{</span><br/>  <span
+                        class="k">background-image</span><span class="p">:</span> <span class="nb">url</span><span
+                        class="p">(</span><span class="s2">&quot;//flowplayer.org/media/img/demos/timeline/playful6.jpg&quot;</span><span
+                        class="p">);</span><br/><span class="p">}</span><br/><span class="p">#</span><span class="nn">chapters</span> <span
+                        class="p">.</span><span class="nc">cuepoint4</span> <span class="p">{</span><br/>  <span
+                        class="k">background-image</span><span class="p">:</span> <span class="nb">url</span><span
+                        class="p">(</span><span class="s2">&quot;//flowplayer.org/media/img/demos/timeline/playful7.jpg&quot;</span><span
+                        class="p">);</span><br/><span class="p">}</span><br/><span class="p">#</span><span class="nn">chapters</span> <span
+                        class="p">.</span><span class="nc">cuepoint5</span> <span class="p">{</span><br/>  <span
+                        class="k">background-image</span><span class="p">:</span> <span class="nb">url</span><span
+                        class="p">(</span><span class="s2">&quot;//flowplayer.org/media/img/demos/timeline/playful8.jpg&quot;</span><span
+                        class="p">);</span><br/><span class="p">}</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>CSS</figcaption>
+        </figure>
+    </div>
+
+
+    <h3 id="javascript-setup">&lt;script&gt;</h3>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="nx">$</span><span class="p">(</span><span
+                        class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br/>  <span
+                        class="kd">var</span> <span class="nx">elems</span> <span class="o">=</span> <span
+                        class="nx">$</span><span class="p">(</span><span class="s2">&quot;#chapters a&quot;</span><span
+                        class="p">),</span><br/>&nbsp;<br/>  <span class="nx">chaptertoggle</span> <span
+                        class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">index</span><span
+                        class="p">)</span> <span class="p">{</span><br/>    <span class="nx">elems</span><span
+                        class="p">.</span><span class="nx">each</span><span class="p">(</span><span
+                        class="kd">function</span> <span class="p">(</span><span class="nx">i</span><span
+                        class="p">)</span> <span class="p">{</span><br/>      <span class="nx">$</span><span
+                        class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">toggleClass</span><span
+                        class="p">(</span><span class="s2">&quot;active&quot;</span><span class="p">,</span> <span
+                        class="nx">index</span> <span class="o">==</span> <span class="nx">i</span><span
+                        class="p">);</span><br/>    <span class="p">});</span><br/>  <span class="p">},</span><br/>&nbsp;<br/>  <span
+                        class="nx">clearchapters</span> <span class="o">=</span> <span class="kd">function</span> <span
+                        class="p">()</span> <span class="p">{</span><br/>    <span class="nx">elems</span><span
+                        class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s2">&quot;active&quot;</span><span
+                        class="p">);</span><br/>  <span class="p">},</span><br/>&nbsp;<br/>  <span class="nx">api</span> <span
+                        class="o">=</span> <span class="nx">flowplayer</span><span class="p">(</span><span class="s2">&quot;#player&quot;</span><span
+                        class="p">,</span> <span class="p">{</span><br/>    <span class="nx">ratio</span><span
+                        class="o">:</span> <span class="mi">5</span><span class="o">/</span><span
+                        class="mi">12</span><span class="p">,</span><br/>    <span class="nx">cuepoints</span><span
+                        class="o">:</span> <span class="p">[</span><span class="mf">5.5</span><span
+                        class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span
+                        class="mf">17.5</span><span class="p">,</span> <span class="mf">23.7</span><span
+                        class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span
+                        class="mf">30.5</span><span class="p">],</span><br/>    <span class="nx">clip</span><span
+                        class="o">:</span> <span class="p">{</span><br/>      <span class="nx">sources</span><span
+                        class="o">:</span> <span class="p">[</span><br/>        <span class="p">{</span> <span
+                        class="nx">type</span><span class="o">:</span> <span class="s2">&quot;application/x-mpegurl&quot;</span><span
+                        class="p">,</span> <span class="nx">src</span><span class="o">:</span> <span class="s2">&quot;//edge.flowplayer.org/playful.m3u8&quot;</span> <span
+                        class="p">},</span><br/>        <span class="p">{</span> <span class="nx">type</span><span
+                        class="o">:</span> <span class="s2">&quot;video/mp4&quot;</span><span class="p">,</span>             <span
+                        class="nx">src</span><span class="o">:</span> <span class="s2">&quot;//edge.flowplayer.org/playful.mp4&quot;</span> <span
+                        class="p">}</span><br/>      <span class="p">]</span><br/>    <span class="p">},</span><br/>    <span
+                        class="nx">splash</span><span class="o">:</span> <span
+                        class="kc">true</span><br/>&nbsp;<br/>  <span class="p">}).</span><span
+                        class="nx">on</span><span class="p">(</span><span class="s2">&quot;cuepoint&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span
+                        class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span
+                        class="nx">cue</span><span class="p">)</span> <span class="p">{</span><br/>    <span class="nx">chaptertoggle</span><span
+                        class="p">(</span><span class="nx">cue</span><span class="p">.</span><span
+                        class="nx">index</span><span class="p">);</span><br/>&nbsp;<br/>  <span
+                        class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;beforeseek&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span
+                        class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span
+                        class="nx">pos</span><span class="p">)</span> <span class="p">{</span><br/>    <span class="k">if</span> <span
+                        class="p">(</span><span class="nx">pos</span> <span class="o">&lt;</span> <span
+                        class="nx">api</span><span class="p">.</span><span class="nx">conf</span><span
+                        class="p">.</span><span class="nx">cuepoints</span><span class="p">[</span><span
+                        class="mi">0</span><span class="p">])</span> <span class="p">{</span><br/>      <span
+                        class="nx">clearchapters</span><span class="p">();</span><br/>&nbsp;<br/>    <span
+                        class="p">}</span> <span class="k">else</span> <span class="p">{</span><br/>      <span
+                        class="nx">$</span><span class="p">.</span><span class="nx">each</span><span
+                        class="p">(</span><span class="nx">api</span><span class="p">.</span><span
+                        class="nx">conf</span><span class="p">.</span><span class="nx">cuepoints</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">index</span><span
+                        class="p">,</span> <span class="nx">cue</span><span class="p">)</span> <span
+                        class="p">{</span><br/>        <span class="k">if</span> <span class="p">(</span><span
+                        class="nx">index</span> <span class="o">==</span> <span class="nx">api</span><span
+                        class="p">.</span><span class="nx">conf</span><span class="p">.</span><span
+                        class="nx">cuepoints</span><span class="p">.</span><span class="nx">length</span> <span
+                        class="o">-</span> <span class="mi">1</span> <span class="o">||</span><br/>            <span
+                        class="nx">pos</span> <span class="o">&gt;=</span> <span class="nx">cue</span> <span class="o">&amp;&amp;</span> <span
+                        class="nx">pos</span> <span class="o">&lt;</span> <span class="nx">api</span><span
+                        class="p">.</span><span class="nx">conf</span><span class="p">.</span><span
+                        class="nx">cuepoints</span><span class="p">[</span><span class="nx">index</span> <span
+                        class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span
+                        class="p">{</span><br/>&nbsp;<br/>          <span class="nx">chaptertoggle</span><span
+                        class="p">(</span><span class="nx">index</span><span class="p">);</span><br/>          <span
+                        class="k">return</span> <span class="kc">false</span><span class="p">;</span><br/>        <span
+                        class="p">}</span><br/>      <span class="p">});</span><br/>    <span class="p">}</span><br/>&nbsp;<br/>  <span
+                        class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;finish&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span
+                        class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span
+                        class="p">{</span><br/>    <span class="nx">api</span><span class="p">.</span><span class="nx">one</span><span
+                        class="p">(</span><span class="s2">&quot;resume.replay&quot;</span><span
+                        class="p">,</span> <span class="nx">clearchapters</span><span
+                        class="p">);</span><br/>&nbsp;<br/>  <span class="p">}).</span><span class="nx">on</span><span
+                        class="p">(</span><span class="s2">&quot;unload&quot;</span><span class="p">,</span> <span
+                        class="nx">clearchapters</span><span class="p">);</span><br/>&nbsp;<br/>  <span
+                        class="nx">elems</span><span class="p">.</span><span class="nx">click</span><span
+                        class="p">(</span><span class="kd">function</span> <span class="p">(</span><span
+                        class="nx">e</span><span class="p">)</span> <span class="p">{</span><br/>    <span class="kd">var</span> <span
+                        class="nx">cue</span> <span class="o">=</span> <span class="nx">api</span><span
+                        class="p">.</span><span class="nx">conf</span><span class="p">.</span><span
+                        class="nx">cuepoints</span><span class="p">[</span><span class="nx">elems</span><span class="p">.</span><span
+                        class="nx">index</span><span class="p">(</span><span class="k">this</span><span
+                        class="p">)];</span><br/>    <br/>    <span class="nx">e</span><span class="p">.</span><span
+                        class="nx">preventDefault</span><span class="p">();</span><br/>&nbsp;<br/>    <span class="nx">chaptertoggle</span><span
+                        class="p">(</span><span class="nx">cue</span><span class="p">.</span><span
+                        class="nx">index</span><span class="p">);</span><br/>&nbsp;<br/>    <span
+                        class="k">if</span> <span class="p">(</span><span class="nx">api</span><span
+                        class="p">.</span><span class="nx">ready</span><span class="p">)</span> <span class="p">{</span><br/>      <span
+                        class="nx">api</span><span class="p">.</span><span class="nx">seek</span><span
+                        class="p">(</span><span class="nx">cue</span><span class="p">);</span><br/>    <span
+                        class="p">}</span> <span class="k">else</span> <span class="p">{</span><br/>      <span
+                        class="nx">api</span><span class="p">.</span><span class="nx">one</span><span class="p">(</span><span
+                        class="s2">&quot;ready.chapter&quot;</span><span class="p">,</span> <span
+                        class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span
+                        class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span
+                        class="p">{</span><br/>        <span class="nx">api</span><span class="p">.</span><span
+                        class="nx">seek</span><span class="p">(</span><span class="nx">cue</span><span
+                        class="p">);</span><br/>      <span class="p">});</span><br/>      <span
+                        class="nx">api</span><span class="p">.</span><span class="nx">load</span><span
+                        class="p">();</span><br/>    <span class="p">}</span><br/>&nbsp;<br/>  <span
+                        class="p">});</span><br/>&nbsp;<br/><span class="p">});</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>JavaScript</figcaption>
+        </figure>
+    </div>
+
+
+    <h2 id="html-setup">&lt;body/&gt;</h2>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span
+                        class="o">=</span><span class="s">&quot;player&quot;</span> <span class="na">class</span><span
+                        class="o">=</span><span class="s">&quot;fp-playful is-closeable&quot;</span><span class="p">&gt;&lt;/</span><span
+                        class="nt">div</span><span class="p">&gt;</span><br/>&nbsp;<br/><span class="p">&lt;</span><span
+                        class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;chapters&quot;</span><span
+                        class="p">&gt;</span><br/>   <span class="p">&lt;</span><span class="nt">a</span> <span
+                        class="na">class</span><span class="o">=</span><span
+                        class="s">&quot;cuepoint cuepoint0&quot;</span><span class="p">&gt;</span>1<span
+                        class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br/>   <span
+                        class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span
+                        class="o">=</span><span class="s">&quot;cuepoint cuepoint1&quot;</span><span
+                        class="p">&gt;</span>2<span class="p">&lt;/</span><span class="nt">a</span><span
+                        class="p">&gt;</span><br/>   <span class="p">&lt;</span><span class="nt">a</span> <span
+                        class="na">class</span><span class="o">=</span><span
+                        class="s">&quot;cuepoint cuepoint2&quot;</span><span class="p">&gt;</span>3<span
+                        class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br/>   <span
+                        class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span
+                        class="o">=</span><span class="s">&quot;cuepoint cuepoint3&quot;</span><span
+                        class="p">&gt;</span>4<span class="p">&lt;/</span><span class="nt">a</span><span
+                        class="p">&gt;</span><br/>   <span class="p">&lt;</span><span class="nt">a</span> <span
+                        class="na">class</span><span class="o">=</span><span
+                        class="s">&quot;cuepoint cuepoint4&quot;</span><span class="p">&gt;</span>5<span
+                        class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><br/>   <span
+                        class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span
+                        class="o">=</span><span class="s">&quot;cuepoint cuepoint5&quot;</span><span
+                        class="p">&gt;</span>6<span class="p">&lt;/</span><span class="nt">a</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;/</span><span class="nt">div</span><span
+                        class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
+
+    <div class="footer">
+
+        <p><a href="index.html">Demos in this section</a></p>
+
+        <hr>
+
+        <p><a href="../index.html">Flowplayer Demos+</a></p>
+
+        <hr>
+
+        <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
+
+        <hr>
+
+        <p><a href="../v6/index.html">Version 6 Demos</a></p>
+    </div>
+</div> <!-- end content -->
+
+</body>
+</html>

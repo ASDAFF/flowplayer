@@ -1,0 +1,400 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+
+    <title>Flowplayer · Feature detection</title>
+
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Flowplayer skin -->
+    <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css">
+
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../common/css/pygments.css">
+    <!-- Specific stylesheet for this demo -->
+    <link rel="stylesheet" href="../common/css/canplay.css">
+
+    <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
+    <script src="../common/jquery/jquery-1.12.4.min.js"></script>
+    <!-- Flowplayer library -->
+    <script src="../common/releases/7.0.4/flowplayer.min.js"></script>
+
+
+</head>
+
+<body>
+
+<div id="content">
+
+    <h1>Feature detection</h1>
+
+    <h2>Video tag browser compatibility test</h2>
+
+    <div class="doc">
+        <p>Video feature detection by browsers is rudimentary at best.</p>
+
+        <p>This table gives a rough overview over the most commonly used video types.</p>
+
+        <p>The result column shows what your browser returns for:</p>
+    </div>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;&lt;video/&gt;&quot;</span><span
+                        class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">canPlayType</span><span
+                        class="p">(</span><span class="nx">type</span><span class="p">);</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>JavaScript</figcaption>
+        </figure>
+    </div>
+
+
+    <div class="doc">
+        <p>where <code>type</code> is a possible value of a SOURCE tag's type attribute.</p>
+
+        <p>The types marked in <span class="rcmd">blue</span> are the ones recommended for use with
+            Flowplayer.</p></div>
+
+    <table>
+        <tr>
+            <th>format</th>
+
+            <th>suffix</th>
+
+            <th>video codec</th>
+
+            <th>profile</th>
+
+            <th>level</th>
+
+            <th>audio codec</th>
+
+            <th>profile</th>
+
+            <th>mime type; codecs</th>
+
+            <th>result</th>
+        </tr>
+
+        <tr>
+            <td rowspan="2">ogg</td>
+
+            <td rowspan="2">ogv</td>
+
+            <td rowspan="2" colspan="3">theora</td>
+
+            <td rowspan="2" colspan="2">vorbis</td>
+
+            <td class="vtype rcmd">video/ogg</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="vtype">video/ogg; codecs="theora, vorbis"</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td rowspan="6">webm</td>
+
+            <td rowspan="6">webm</td>
+
+            <td rowspan="3" colspan="3">vp8</td>
+
+            <td rowspan="2" colspan="2">vorbis</td>
+
+            <td class="vtype rcmd">video/webm</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="vtype">video/webm; codecs="vp8, vorbis"</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td rowspan="1" colspan="2">opus</td>
+
+            <td class="vtype rcmd">video/webm; codecs="vp8, opus"</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td rowspan="3" colspan="3">vp9</td>
+
+            <td rowspan="2" colspan="2">opus</td>
+
+            <td class="vtype">video/webm</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="vtype rcmd">video/webm; codecs="vp9, opus"</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td rowspan="1" colspan="2">vorbis</td>
+
+            <td class="vtype rcmd">video/webm; codecs="vp9, vorbis"</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td rowspan="2">hls</td>
+
+            <td rowspan="2">m3u8</td>
+
+            <td rowspan="2" colspan="3">avc</td>
+
+            <td rowspan="2" colspan="2">aac</td>
+
+            <td class="vtype rcmd">application/x-mpegurl</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="vtype">application/vnd.apple.mpegurl</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td rowspan="10">mpeg4 part 10</td>
+
+            <td rowspan="10">mp4, m4v, mov</td>
+
+            <td rowspan="10">avc</td>
+
+            <td colspan="2"></td>
+
+            <td rowspan="10">aac</td>
+
+            <td></td>
+
+            <td class="vtype rcmd">video/mp4</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td rowspan="2">baseline</td>
+
+            <td rowspan="2">1.3</td>
+
+            <td rowspan="2">lc</td>
+
+            <td class="vtype">video/mp4; codecs="avc1.66.13, mp4a.40.2"</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="vtype">video/mp4; codecs="avc1.42c00d, mp4a.40.2"</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td rowspan="3">baseline</td>
+
+            <td rowspan="2">3.0</td>
+
+            <td rowspan="7">hc</td>
+
+            <td class="vtype">video/mp4; codecs="avc1.66.30, mp4a.40.5"</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="vtype">video/mp4; codecs="avc1.42c01e, mp4a.40.5"</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>3.1</td>
+
+            <td class="vtype">video/mp4; codecs="avc1.42c01f, mp4a.40.5"</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td rowspan="3">main</td>
+
+            <td rowspan="2">3.0</td>
+
+            <td class="vtype">video/mp4; codecs="avc1.77.30, mp4a.40.5"</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="vtype">video/mp4; codecs="avc1.4d401e, mp4a.40.5"</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>3.1</td>
+
+            <td class="vtype">video/mp4; codecs="avc1.4d401f, mp4a.40.5"</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>high</td>
+
+            <td>4.1</td>
+
+            <td class="vtype">video/mp4; codecs="avc1.640029, mp4a.40.5"</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>m4v</td>
+
+            <td>m4v</td>
+
+            <td rowspan="2" colspan="5"></td>
+
+            <td class="vtype">video/x-m4v</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>mov</td>
+
+            <td>mov</td>
+
+            <td class="vtype">video/quicktime</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td rowspan="2">mpeg4 part 2</td>
+
+            <td>mp4, m4v, mov</td>
+
+            <td rowspan="2" colspan="3">mpeg4 visual</td>
+
+            <td colspan="2">mp3</td>
+
+            <td class="vtype">video/mp4; codecs="mp4v.20.8, mp4a.40.3"</td>
+
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>3gp</td>
+
+            <td colspan="2">amr</td>
+
+            <td class="vtype">video/mp4; codecs="mp4v.20.8, samr"</td>
+
+            <td></td>
+        </tr>
+    </table>
+
+    <div class="doc">
+        <p>The are many more
+            <a href="http://wiki.whatwg.org/wiki/Video_type_parameters">types and combinations</a> available,
+            but in almost all cases the four recommended types are sufficient as type specification. You can
+            for instance declare a video which is served with the <code>video/x-m4v</code>
+            <a href="https://flowplayer.org/docs/setup.html#mime-types">mime type</a> as
+            <code>video/mp4</code>.</p>
+
+        <p>The <code>codecs</code> specification could be used for fine-grained feature detection - in
+            theory. In practice it does not influence the JavaScript <code>canPlayType()</code> results from
+            browsers, for instance:</p>
+
+        <ul>
+            <li>
+                Even an old iPhone will return <code>probably</code> for a high MP4 profile which it is
+                definitely not capable to play.
+            </li>
+
+            <li>
+                Firefox'
+                <a href="https://github.com/cisco/openh264/blob/master/README.md#decoder-features">MP4 decoder</a>
+                currently supports only the H264 Baseline profile and cannot play AAC HE audio, in spite of
+                claiming to do so.
+            </li>
+        </ul>
+
+        <p>The codecs specifications do work however for HLS, i.e., inside m3u8 files. For <a href=
+                                                                                                      "http://developer.apple.com/library/ios/#documentation/networkinginternet/conceptual/streamingmediaguide/FrequentlyAskedQuestions/FrequentlyAskedQuestions.html">backwards
+            compatibility</a> with older iOS versions you might want to favour the old notation over the new one,
+            for instance <code>avc1.66.30</code> instead of <code>avc1.42c01e</code> for Baseline, Level
+            3.0.</p>
+
+        <p>WEBM: vp9 is the <a href="http://www.webmproject.org/vp9/">next generation</a> vp8 codec and
+            only supported in recent browsers. For backwards-compatibility ou should offer vp8 with the short
+            <code>video/webm</code> type specification.</p>
+
+        <p>HLS: <code>application/apple.vnd.mpegurl</code> is a valid mime type, but it will not be
+            recognized by any browser.</p>
+
+        <p>Flash does not play back MPEG-4 Part 2.</p>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+            var video = $("<video/>")[0];
+
+            $("td").each(function (i) {
+                var cell = $(this), next;
+
+                if (cell.hasClass("vtype")) {
+                    $("td").eq(i + 1)
+                        .text(video.canPlayType(cell.text()))
+                        .addClass("res");
+                }
+            });
+        });
+    </script>
+
+
+    <div class="footer">
+        <p><a href="index.html">Demos in this section</a></p>
+
+        <hr>
+
+        <p><a href="../index.html">Flowplayer Demos+</a></p>
+
+        <hr>
+
+        <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
+
+        <hr>
+
+        <p><a href="../v6/index.html">Version 6 Demos</a></p>
+    </div>
+</div> <!-- end content -->
+
+</body>
+</html>

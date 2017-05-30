@@ -1,0 +1,319 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Flowplayer · Disable seeking</title>
+
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Flowplayer skin -->
+    <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css">
+
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../common/css/pygments.css">
+
+    <style>
+        .flowplayer {
+            background-color: #333;
+        }
+
+        /* override cursor: col-resize */
+        .flowplayer .fp-buffer,
+        .flowplayer .fp-progress {
+            cursor: default;
+        }
+
+        /* disabled timeline progress bar color */
+        .flowplayer .fp-progress {
+            background-color: #999;
+        }
+    </style>
+
+    <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
+    <script src="../common/jquery/jquery-1.12.4.min.js"></script>
+    <!-- Flowplayer library -->
+    <script src="../common/releases/7.0.4/flowplayer.min.js"></script>
+
+
+    <script>
+        flowplayer(function (api, root) {
+
+            if (flowplayer.support.inlineVideo) {
+                // standard seek prevention, also via keyboard
+                api.on("beforeseek", function (e) {
+                    e.preventDefault();
+                });
+
+                // prevent seek attempts having any visible effect
+                $(".fp-buffer, .fp-progress", root).on("mousedown touchstart", function (e) {
+                    e.stopPropagation();
+                });
+
+                // do not show touch button on touch devices
+                $(root).removeClass("is-touch");
+
+            } else {
+                // the generic player does not allow a beforeseek listener
+                // therefore we have to work with a separate timer to grab the
+                // playback position before seek and set a fake seeking state
+                var timer,
+                    ct = 0,
+                    seekback = false;
+
+                api.on("ready", function (e, api) {
+                    timer = setInterval(function () {
+                        if (!seekback) {
+                            ct = api.video.time;
+                        }
+                    }, 250);
+
+                }).on("seek", function (e, api) {
+                    if (!seekback) {
+                        var pos = ct;
+
+                        seekback = true;
+                        if (api.paused) {
+                            api.resume();
+                        }
+                        api.seek(pos, function () {
+                            seekback = false;
+                        });
+                    }
+
+                }).on("unload", function () {
+                    clearInterval(timer);
+
+                });
+            }
+        });
+    </script>
+
+</head>
+
+<body>
+
+<div id="content">
+
+    <h1>Flowplayer · Disable seeking</h1>
+
+    <div data-ratio="0.4167"
+         data-rtmp="rtmp://s3b78u0kbtx79q.cloudfront.net/cfx/st"
+         class="flowplayer fp-outlined">
+
+        <video>
+            <source type="video/webm" src="http://edge.flowplayer.org/functional.webm">
+            <source type="video/mp4" src="http://edge.flowplayer.org/functional.mp4">
+            <source type="video/flash" src="http://demos.flowplayer.org/lookandfeel/mp4:functional">
+        </video>
+
+    </div>
+
+    <p class="info">Seeking is disabled while the remaining API is still available.</p>
+
+    <h2 id="head-setup">&lt;head/&gt;</h2>
+
+    <h3 id="css-setup">&lt;style&gt;</h3>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">{</span><br/>  <span class="k">background-color</span><span class="p">:</span> <span
+                        class="mh">#333</span><span class="p">;</span><br/><span class="p">}</span><br/>&nbsp;<br/><span
+                        class="c">/* override cursor: col-resize */</span><br/><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">.</span><span class="nc">fp-buffer</span><span class="o">,</span><br/><span class="p">.</span><span
+                        class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-progress</span> <span
+                        class="p">{</span><br/>  <span class="k">cursor</span><span class="p">:</span> <span class="kc">default</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/><span class="c">/* disabled timeline progress bar color */</span><br/><span
+                        class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-progress</span> <span
+                        class="p">{</span><br/>  <span class="k">background-color</span><span class="p">:</span> <span
+                        class="mh">#999</span><span class="p">;</span><br/><span class="p">}</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>CSS</figcaption>
+        </figure>
+    </div>
+
+
+    <h3 id="javascript-setup">&lt;script&gt;</h3>
+
+    <div class="doc">
+        <p>Preventing the seek in the <code>beforeseek</code>
+            <a href="https://flowplayer.org/docs/api.html#events">event</a> suffices with regard to
+            functionality. We add some fine tuning of the visual aspect which cannot be done with
+            <a href="#css-setup">CSS alone</a> to communicate to the user that the restriction is
+            intentional.</p>
+
+        <p>For devices which do support inline playback the <code>beforeseek</code> event is available.
+            Workaround: Revert the seek which just happened.</p>
+    </div>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="nx">flowplayer</span><span class="p">(</span><span
+                        class="kd">function</span> <span class="p">(</span><span class="nx">api</span><span
+                        class="p">,</span> <span class="nx">root</span><span class="p">)</span> <span class="p">{</span><br/>&nbsp;<br/>  <span
+                        class="k">if</span> <span class="p">(</span><span class="nx">flowplayer</span><span
+                        class="p">.</span><span class="nx">support</span><span class="p">.</span><span class="nx">inlineVideo</span><span
+                        class="p">)</span> <span class="p">{</span><br/>    <span class="c1">// standard seek prevention, also via keyboard</span><br/>    <span
+                        class="nx">api</span><span class="p">.</span><span class="nx">on</span><span
+                        class="p">(</span><span class="s2">&quot;beforeseek&quot;</span><span class="p">,</span> <span
+                        class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span
+                        class="p">)</span> <span class="p">{</span><br/>      <span class="nx">e</span><span
+                        class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span><br/>    <span
+                        class="p">});</span><br/>&nbsp;<br/>    <span class="c1">// prevent seek attempts having any visible effect</span><br/>    <span
+                        class="nx">$</span><span class="p">(</span><span
+                        class="s2">&quot;.fp-buffer, .fp-progress&quot;</span><span class="p">,</span> <span class="nx">root</span><span
+                        class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;mousedown touchstart&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span
+                        class="nx">e</span><span class="p">)</span> <span class="p">{</span><br/>       <span
+                        class="nx">e</span><span class="p">.</span><span class="nx">stopPropagation</span><span
+                        class="p">();</span><br/>    <span class="p">});</span><br/>&nbsp;<br/>    <span class="c1">// do not show touch button on touch devices</span><br/>    <span
+                        class="nx">$</span><span class="p">(</span><span class="nx">root</span><span class="p">).</span><span
+                        class="nx">removeClass</span><span class="p">(</span><span
+                        class="s2">&quot;is-touch&quot;</span><span class="p">);</span><br/>&nbsp;<br/>  <span
+                        class="p">}</span> <span class="k">else</span> <span class="p">{</span><br/>    <span
+                        class="c1">// the generic player does not allow a beforeseek listener</span><br/>    <span
+                        class="c1">// therefore we have to work with a separate timer to grab the</span><br/>    <span
+                        class="c1">// playback position before seek and set a fake seeking state</span><br/>    <span
+                        class="kd">var</span> <span class="nx">timer</span><span class="p">,</span><br/>        <span
+                        class="nx">ct</span> <span class="o">=</span> <span class="mi">0</span><span
+                        class="p">,</span><br/>        <span class="nx">seekback</span> <span class="o">=</span> <span
+                        class="kc">false</span><span class="p">;</span><br/>&nbsp;<br/>    <span
+                        class="nx">api</span><span class="p">.</span><span class="nx">on</span><span
+                        class="p">(</span><span class="s2">&quot;ready&quot;</span><span class="p">,</span> <span
+                        class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span
+                        class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span
+                        class="p">{</span><br/>      <span class="nx">timer</span> <span class="o">=</span> <span
+                        class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span> <span
+                        class="p">()</span> <span class="p">{</span><br/>        <span class="k">if</span> <span
+                        class="p">(</span><span class="o">!</span><span class="nx">seekback</span><span
+                        class="p">)</span> <span class="p">{</span><br/>          <span class="nx">ct</span> <span
+                        class="o">=</span> <span class="nx">api</span><span class="p">.</span><span
+                        class="nx">video</span><span class="p">.</span><span class="nx">time</span><span
+                        class="p">;</span><br/>        <span class="p">}</span><br/>      <span
+                        class="p">},</span> <span class="mi">250</span><span
+                        class="p">);</span><br/>&nbsp;<br/>    <span class="p">}).</span><span class="nx">on</span><span
+                        class="p">(</span><span class="s2">&quot;seek&quot;</span><span class="p">,</span> <span
+                        class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span
+                        class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span
+                        class="p">{</span><br/>      <span class="k">if</span> <span class="p">(</span><span
+                        class="o">!</span><span class="nx">seekback</span><span class="p">)</span> <span
+                        class="p">{</span><br/>        <span class="kd">var</span> <span class="nx">pos</span> <span
+                        class="o">=</span> <span class="nx">ct</span><span
+                        class="p">;</span><br/>&nbsp;<br/>        <span class="nx">seekback</span> <span
+                        class="o">=</span> <span class="kc">true</span><span class="p">;</span><br/>        <span
+                        class="k">if</span> <span class="p">(</span><span class="nx">api</span><span
+                        class="p">.</span><span class="nx">paused</span><span class="p">)</span> <span
+                        class="p">{</span><br/>          <span class="nx">api</span><span class="p">.</span><span
+                        class="nx">resume</span><span class="p">();</span><br/>        <span class="p">}</span><br/>        <span
+                        class="nx">api</span><span class="p">.</span><span class="nx">seek</span><span
+                        class="p">(</span><span class="nx">pos</span><span class="p">,</span> <span
+                        class="kd">function</span> <span class="p">()</span> <span
+                        class="p">{</span><br/>          <span class="nx">seekback</span> <span class="o">=</span> <span
+                        class="kc">false</span><span class="p">;</span><br/>        <span class="p">});</span><br/>      <span
+                        class="p">}</span><br/>&nbsp;<br/>    <span class="p">}).</span><span class="nx">on</span><span
+                        class="p">(</span><span class="s2">&quot;unload&quot;</span><span class="p">,</span> <span
+                        class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br/>      <span
+                        class="nx">clearInterval</span><span class="p">(</span><span class="nx">timer</span><span
+                        class="p">);</span><br/>&nbsp;<br/>    <span class="p">});</span><br/>  <span class="p">}</span><br/><span
+                        class="p">});</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>JavaScript</figcaption>
+        </figure>
+    </div>
+
+
+    <h2 id="html-setup">&lt;body/&gt;</h2>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span
+                        class="na">data-ratio</span><span class="o">=</span><span
+                        class="s">&quot;0.4167&quot;</span><br/>     <span class="na">data-rtmp</span><span
+                        class="o">=</span><span class="s">&quot;rtmp://s3b78u0kbtx79q.cloudfront.net/cfx/st&quot;</span><br/>     <span
+                        class="na">class</span><span class="o">=</span><span class="s">&quot;flowplayer fp-outlined&quot;</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/>   <span class="p">&lt;</span><span class="nt">video</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;video/webm&quot;</span> <span class="na">src</span><span class="o">=</span><span
+                        class="s">&quot;//edge.flowplayer.org/functional.webm&quot;</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span> <span
+                        class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/functional.mp4&quot;</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;video/flash&quot;</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;mp4:functional&quot;</span><span
+                        class="p">&gt;</span><br/>   <span class="p">&lt;/</span><span class="nt">video</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/><span class="p">&lt;/</span><span
+                        class="nt">div</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
+
+
+    <h2>Preventing seek in one direction only</h2>
+
+    <p class="doc">If you only want to prevent seeking in one direction, do not override UI effects
+        which are part of disabling seeking altogether. For instance, to disable forward seeking only, just
+        set up the API like this:</p>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="nx">flowplayer</span><span class="p">(</span><span
+                        class="kd">function</span> <span class="p">(</span><span class="nx">api</span><span
+                        class="p">,</span> <span class="nx">root</span><span class="p">)</span> <span class="p">{</span><br/>  <span
+                        class="nx">api</span><span class="p">.</span><span class="nx">on</span><span
+                        class="p">(</span><span class="s2">&quot;beforeseek&quot;</span><span class="p">,</span> <span
+                        class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span
+                        class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span
+                        class="nx">target</span><span class="p">)</span> <span class="p">{</span><br/>    <span
+                        class="c1">// prevent seeking beyond current position</span><br/>    <span
+                        class="k">if</span> <span class="p">(</span><span class="nx">target</span> <span
+                        class="o">&gt;=</span> <span class="nx">api</span><span class="p">.</span><span
+                        class="nx">video</span><span class="p">.</span><span class="nx">time</span><span
+                        class="p">)</span> <span class="p">{</span><br/>      <span class="nx">e</span><span
+                        class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span><br/>    <span
+                        class="p">});</span><br/>  <span class="p">});</span><br/><span class="p">});</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>JavaScript</figcaption>
+        </figure>
+    </div>
+
+
+    <p class="doc">Compare with <a href="../scripting/preview.html">this demo</a> for another
+        <code>onbeforeseek</code> scenario.</p>
+
+    <div class="footer">
+        <p><a href="index.html">Demos in this section</a></p>
+
+        <hr>
+
+        <p><a href="../index.html">Flowplayer Demos+</a></p>
+
+        <hr>
+
+        <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
+
+        <hr>
+
+        <p><a href="http://demos.flowplayer.org/v6/">Version 6 Demos</a></p>
+    </div>
+</div> <!-- end content -->
+
+</body>
+</html>

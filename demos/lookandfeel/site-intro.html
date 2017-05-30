@@ -1,0 +1,167 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Flowplayer · Site intro</title>
+
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Flowplayer commercial skin -->
+    <link rel="stylesheet" href="../common/releases/7.0.4/commercial/skin/skin.css">
+
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../common/css/pygments.css">
+
+    <style>
+        /* make room for countdown and show it below player */
+        .flowplayer {
+            margin-bottom: 80px;
+            overflow: visible;
+            background-color: #004d80;
+        }
+
+        /* discourage no-op clicks on player area */
+        .flowplayer * {
+            cursor: default !important;
+        }
+
+        /* hide all header elements */
+        .flowplayer .fp-header {
+            display: none;
+        }
+
+        /* hide play/pause button and timestamp */
+        .flowplayer .fp-play,
+        .flowplayer .fp-pause,
+        .flowplayer .fp-timestamp {
+            visibility: hidden !important;
+        }
+
+        /* do not hide minimal timeline controls */
+        .flowplayer.is-ready .fp-controls {
+            opacity: 1;
+        }
+
+        /* the countdown area */
+        .flowplayer.is-inverted.is-ready .fp-remaining {
+            position: absolute;
+            top: 110%; /* below player */
+            display: block;
+            font-size: 200%;
+            left: 20px;
+            width: 4em;
+            height: 4ex;
+            padding: 0.5ex 0 1ex 0;
+            background-color: #333;
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+            border-radius: 8px;
+            -webkit-box-shadow: 0 0 15px #000;
+            -moz-box-shadow: 0 0 15px #000;
+            box-shadow: 0 0 15px #000;
+        }
+
+        /* custom context menu */
+        .flowplayer .fp-context-menu.fp-menu * {
+            text-align: center !important;
+        }
+
+        .flowplayer .fp-context-menu.fp-menu .heading {
+            color: #eee;
+            font-weight: bold;
+        }
+
+        .flowplayer .fp-context-menu.fp-menu a {
+            cursor: pointer !important;
+        }</style>
+
+    <!-- Flowplayer commercial library -->
+    <script src="../common/releases/7.0.4/commercial/flowplayer.min.js"></script>
+    <!-- The hlsjs plugin for playback of HLS without Flash in modern browsers -->
+    <script src="../common/releases/hlsjs/flowplayer.hlsjs.min.js"></script>
+
+
+    <script>
+        window.onload = function () {
+
+            flowplayer("#player", {
+                autoplay: true,
+                keyboard: false,
+                ratio: 5 / 12,
+                logo: "https://flowplayer.org/media/img/mylogo.png",
+                key: "$775445646737769",
+                clip: {
+                    hlsQualities: false,
+                    hlsjs: {
+                        startLevel: -1
+                    },
+                    sources: [
+                        {type: "application/x-mpegurl", src: "http://edge.flowplayer.org/nature.m3u8"},
+                        {type: "video/mp4", src: "http://edge.flowplayer.org/nature.mp4"}
+                    ]
+                }
+
+            }).on("ready", function (e, api) {
+                // to avoid getting stuck on devices which do not allow autoplay
+                // we delay disabling the api
+                api.disable(true);
+
+            }).on("finish", function () {
+                // redirect to this page
+                location.href = "site-intro-doc.html";
+
+            });
+
+        };</script>
+
+</head>
+
+<body>
+
+<div id="content">
+
+    <h1>Flowplayer · Site intro</h1>
+
+    <div id="player" class="fp-minimal is-inverted">
+        <div class="fp-context-menu fp-menu">
+            <span class="heading">Custom context menu</span><br>
+            <a href="site-intro-doc.html">skip this intro &#8658;</a>
+        </div>
+    </div>
+
+    <div class="info">
+        <p>This demo simulates a video welcome page to a website.</p>
+
+        <p>All user interaction with the player is disabled, except via the customized
+            <a href="https://flowplayer.org/docs/skinning.html#context-menu">context menu</a> which
+            offers to skip the intro.</p>
+
+        <p>At the end of the video you will be redirected to the documentation for this demo.</p>
+    </div>
+
+
+    <div class="footer">
+        <p><a href="index.html">Demos in this section</a></p>
+
+        <hr>
+
+        <p><a href="../index.html">Flowplayer Demos+</a></p>
+
+        <hr>
+
+        <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
+
+        <hr>
+
+        <p><a href="http://demos.flowplayer.org/v6/">Version 6 Demos</a></p>
+    </div>
+</div> <!-- end content -->
+
+</body>
+</html>

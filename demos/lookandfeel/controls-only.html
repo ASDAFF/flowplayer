@@ -1,0 +1,226 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Flowplayer · Controls only</title>
+
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Flowplayer skin -->
+    <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css">
+
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../common/css/pygments.css">
+
+    <style>
+        /* default cursor for screen */
+        .flowplayer .fp-ui {
+            cursor: default;
+        }
+
+        /* re-instate pointer cursor for controls
+         * and header control elements */
+        .flowplayer .fp-controls,
+        .flowplayer .fp-header > * {
+            cursor: pointer;
+        }
+
+        /* for devices which enforce a splash setup, e.g. iOS */
+        .is-splash.flowplayer {
+            /* background color similar to first frame of video
+               could also be a background image */
+            background-color: #001f1f;
+        }
+
+        /* show the controls in poster and splash state */
+        .is-poster.flowplayer .fp-controls,
+        .is-splash.flowplayer .fp-controls,
+        .is-splash.flowplayer .fp-timeline {
+            display: -ms-flexbox !important;
+            display: -webkit-flex !important;
+            display: flex !important;
+        }
+
+        .is-splash.flowplayer .fp-timeline,
+        .is-splash.flowplayer .fp-progress {
+            /* no-op timeline overpainted with playful controls color */
+            background-color: #006680;
+        }
+
+    </style>
+
+    <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
+    <script src="../common/jquery/jquery-1.12.4.min.js"></script>
+    <!-- Flowplayer library -->
+    <script src="../common/releases/7.0.4/flowplayer.min.js"></script>
+
+
+    <script>
+        flowplayer(function (api, root) {
+            // remove big play/pause button
+            $(".fp-ui>.fp-play, .fp-ui>.fp-pause", root).remove();
+
+            // disable click on screen
+            $(".fp-ui", root).click(function (ev) {
+                // but do not disable click on other UI elements
+                // i.e. confine to parent element with class="fp-ui"
+                if ($(ev.target).hasClass("fp-ui")) {
+                    ev.stopPropagation();
+                }
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+
+<div id="content">
+
+    <h1>Flowplayer · Controls only</h1>
+
+    <div class="flowplayer fp-playful" data-ratio="0.4167">
+        <video>
+            <source type="video/webm" src="http://edge.flowplayer.org/playful.webm">
+            <source type="video/mp4" src="http://edge.flowplayer.org/playful.mp4">
+        </video>
+    </div>
+
+    <div class="info">
+        <p>Click on screen does not toggle pause/resume.</p>
+
+        <p>Use the controlbar's play button instead.</p>
+    </div>
+
+    <h2 id="head-setup">&lt;head/&gt;</h2>
+
+    <h3 id="css-setup">&lt;style&gt;</h3>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="c">/* default cursor for screen */</span><br/><span
+                        class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-ui</span> <span
+                        class="p">{</span><br/>  <span class="k">cursor</span><span class="p">:</span> <span class="kc">default</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/><span class="c">/* re-instate pointer cursor for controls</span><br/><span
+                        class="c"> * and header control elements */</span><br/><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">.</span><span class="nc">fp-controls</span><span class="o">,</span><br/><span
+                        class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-header</span><span
+                        class="o">&gt;*</span> <span class="p">{</span><br/>  <span class="k">cursor</span><span
+                        class="p">:</span> <span class="kc">pointer</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/>&nbsp;<br/><span class="c">/* for devices which enforce a splash setup, e.g. iOS */</span><br/><span
+                        class="p">.</span><span class="nc">is-splash</span><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">{</span><br/>  <span
+                        class="c">/* background color similar to first frame of video</span><br/><span class="c">     could also be a background image */</span><br/>  <span
+                        class="k">background-color</span><span class="p">:</span> <span class="mh">#001f1f</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/><span class="c">/* show the controls in poster and splash state */</span><br/><span
+                        class="p">.</span><span class="nc">is-poster</span><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">.</span><span class="nc">fp-controls</span><span class="o">,</span><br/><span
+                        class="p">.</span><span class="nc">is-splash</span><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">.</span><span class="nc">fp-controls</span><span class="o">,</span><br/><span
+                        class="p">.</span><span class="nc">is-splash</span><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">.</span><span class="nc">fp-timeline</span> <span class="p">{</span><br/>  <span
+                        class="k">display</span><span class="p">:</span> <span class="bp">-ms-</span><span class="n">flexbox</span> <span
+                        class="cp">!important</span><span class="p">;</span><br/>  <span class="k">display</span><span
+                        class="p">:</span> <span class="bp">-webkit-</span><span class="kc">flex</span> <span
+                        class="cp">!important</span><span class="p">;</span><br/>  <span class="k">display</span><span
+                        class="p">:</span> <span class="kc">flex</span> <span class="cp">!important</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/><span class="p">.</span><span class="nc">is-splash</span><span
+                        class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-timeline</span><span
+                        class="o">,</span><br/><span class="p">.</span><span class="nc">is-splash</span><span class="p">.</span><span
+                        class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-progress</span> <span
+                        class="p">{</span><br/>  <span class="c">/* no-op timeline overpainted with playful controls color */</span><br/>  <span
+                        class="k">background-color</span><span class="p">:</span> <span class="mh">#006680</span><span
+                        class="p">;</span><br/><span class="p">}</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>CSS</figcaption>
+        </figure>
+    </div>
+
+
+    <h3 id="javascript-setup">&lt;script&gt;</h3>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="nx">flowplayer</span><span class="p">(</span><span
+                        class="kd">function</span> <span class="p">(</span><span class="nx">api</span><span
+                        class="p">,</span> <span class="nx">root</span><span class="p">)</span> <span class="p">{</span><br/>  <span
+                        class="c1">// remove big play/pause button</span><br/>  <span class="nx">$</span><span
+                        class="p">(</span><span
+                        class="s2">&quot;.fp-ui&gt;.fp-play, .fp-ui&gt;.fp-pause&quot;</span><span
+                        class="p">,</span> <span class="nx">root</span><span class="p">).</span><span
+                        class="nx">remove</span><span class="p">();</span><br/>&nbsp;<br/>  <span class="c1">// disable click on screen</span><br/>  <span
+                        class="nx">$</span><span class="p">(</span><span class="s2">&quot;.fp-ui&quot;</span><span
+                        class="p">,</span> <span class="nx">root</span><span class="p">).</span><span
+                        class="nx">click</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span
+                        class="nx">ev</span><span class="p">)</span> <span class="p">{</span><br/>    <span class="c1">// but do not disable click on other UI elements</span><br/>    <span
+                        class="c1">// i.e. confine to parent element with class=&quot;fp-ui&quot;</span><br/>    <span
+                        class="k">if</span> <span class="p">(</span><span class="nx">$</span><span
+                        class="p">(</span><span class="nx">ev</span><span class="p">.</span><span
+                        class="nx">target</span><span class="p">).</span><span class="nx">hasClass</span><span
+                        class="p">(</span><span class="s2">&quot;fp-ui&quot;</span><span class="p">))</span> <span
+                        class="p">{</span><br/>      <span class="nx">ev</span><span class="p">.</span><span class="nx">stopPropagation</span><span
+                        class="p">();</span><br/>    <span class="p">}</span><br/>  <span class="p">});</span><br/><span
+                        class="p">});</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>JavaScript</figcaption>
+        </figure>
+    </div>
+
+
+    <h2 id="html-setup">&lt;body/&gt;</h2>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span
+                        class="na">class</span><span class="o">=</span><span
+                        class="s">&quot;flowplayer fp-playful&quot;</span> <span class="na">data-ratio</span><span
+                        class="o">=</span><span class="s">&quot;0.4167&quot;</span><span
+                        class="p">&gt;</span><br/>   <span class="p">&lt;</span><span class="nt">video</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;video/webm&quot;</span> <span class="na">src</span><span class="o">=</span><span
+                        class="s">&quot;//edge.flowplayer.org/playful.webm&quot;</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span> <span
+                        class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/playful.mp4&quot;</span><span
+                        class="p">&gt;</span><br/>   <span class="p">&lt;/</span><span class="nt">video</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;/</span><span class="nt">div</span><span
+                        class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
+
+
+    <div class="footer">
+
+        <p><a href="index.html">Demos in this section</a></p>
+
+        <hr>
+
+        <p><a href="../index.html">Flowplayer Demos+</a></p>
+
+        <hr>
+
+        <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
+
+        <hr>
+
+        <p><a href="../v6/index.html">Version 6 Demos</a></p>
+    </div>
+</div> <!-- end content -->
+
+</body>
+</html>
