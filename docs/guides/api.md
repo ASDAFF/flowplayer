@@ -9,13 +9,13 @@
     *   [Extension and plugin video properties](#extension-and-plugin-video-properties)
 *   [Методы](#methods)
     *   [Методы расширений](#extension-methods)
-*   + [Load method](#load-method)
+*   [Load method](#load-method)
     *   [Load player](#load-player)
     *   [Load video](#load-video)
 *   [События](#события)
     *   [Error codes](#error-codes)
     *   [Extension events](#extension-events)
-*   + [Attaching events](#attaching-events)
+*   [Attaching events](#attaching-events)
     *   [API event binding](#api-event-binding)
     *   [jQuery event binding](#jquery-event-binding)
     *   [Name space](#name-space)
@@ -57,15 +57,15 @@ flowplayer(function (api, root) {
 
 Смотреть [автономную демонстрацию](https://flowplayer.org/standalone/api/access.html).
 
-Эта анонимная функция обратного вызова предоставляется библиотекой Flowplayer и вызывается каждый раз, когда создается экземпляр Flowplayer. Считайте что это как «мини-плагин».This anonymous callback function is provided by the Flowplayer library and is called every time a Flowplayer instance is created. Think of it as a "mini-plugin".
+Эта анонимная функция обратного вызова предоставляется библиотекой Flowplayer и вызывается каждый раз, когда создается экземпляр Flowplayer. Считайте что это как «мини-плагин».
 
-You use it to customize the default **behaviour** of all players on your page in a similar manner as you set [global configuration](setup.md#global-javascript-configuration) options, and thus it should be called right after the flowplayer script is included in the [HEAD section](setup.md#prerequisites) of the page and _before_ the page is loaded - before the [DOM](http://www.w3schools.com/js/js_htmldom.asp) (Document Object Model) is ready.
+Вы используете ее для настройки _поведения_ по умолчанию для всех проигрывателей на своей странице аналогичным образом, как вы устанавливаете параметры [глобальной конфигурации](setup.md#global-javascript-configuration), и поэтому его следует вызывать сразу после того, как скрипт flowplayer включен на странице в [секцию HEAD](setup.md#prerequisites) и до загрузки страницы - _до того_, как [DOM](http://www.w3schools.com/js/js_htmldom.asp) (Document Object Model) будет готов.
 
-The API is provided by the first argument and it looks like this in the browser console:
+API предоставлен первым аргументом, и он выглядит в консоли браузера вот так:
 
 ![alt-текст](../img/consol.png)
 
-## Console screenshot
+## Скриншот консоли
 
 Via the second argument - called `root` above - you can access the root or container element of the player.
 
