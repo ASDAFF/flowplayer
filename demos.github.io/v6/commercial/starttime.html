@@ -1,0 +1,411 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Flowplayer · Start time</title>
+
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- The "functional" skin - choose from: "functional.css", "minimalist.css", "playful.css" -->
+    <link rel="stylesheet" href="../../common/releases/6.0.5/commercial/skin/functional.css">
+
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../../common/css/pygments.css">
+
+    <style>
+        #content {
+            max-width: 768px; /* narrower for 4/3 aspect ratio */
+        }
+
+        .flowplayer {
+            background-color: #333;
+        }
+
+        /* splash for devices not allowing autoplay */
+        .flowplayer.is-splash {
+            background-image: url("../../common/media/img/ccc.jpg");
+        }
+
+        /* custom context menu, styling similar to embed code */
+        .flowplayer .fp-context-menu {
+            color: #999;
+            background-color: #333;
+            width: 34em;
+            border: 5px solid transparent;
+            padding: 3px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            -webkit-box-shadow: 0 0 3px #ccc;
+            -moz-box-shadow: 0 0 3px #ccc;
+            box-shadow: 0 0 3px #ccc;
+        }
+
+        .flowplayer .fp-context-menu textarea {
+            width: 100%;
+            height: 20px;
+            font-size: 14px;
+            color: #ffa500;
+            background-color: transparent;
+            margin-top: 1ex;
+            border: 0;
+            outline: 0;
+            white-space: nowrap;
+            resize: none;
+            overflow: hidden;
+        }
+    </style>
+
+    <!-- Flowplayer commercial library -->
+    <script src="../../common/releases/6.0.5/commercial/flowplayer.min.js"></script>
+    <!-- The hlsjs plugin for playback of HLS without Flash in modern browsers -->
+    <script src="../../common/releases/hlsjs/flowplayer.hlsjs.min.js"></script>
+    <!-- the thumbnails plugin -->
+    <script src="../../common/releases/thumbnails/flowplayer.thumbnails.min.js"></script>
+
+
+    <script>
+        // ensure that DOM is ready
+        window.onload = function () {
+
+            var container = document.getElementById("player"),
+
+                player = flowplayer(container, {
+                    key: "$130763224349944, $289122895653393",
+                    ratio: 3 / 4,
+                    autoplay: true,
+                    clip: {
+                        title: "Cowboy Canoe Coma",
+                        sources: [
+                            {
+                                type: "application/x-mpegurl",
+                                src: "http://d12zt1n3pd4xhr.cloudfront.net/ccc.m3u8"
+                            },
+                            {
+                                type: "video/mp4",
+                                src: "http://d12zt1n3pd4xhr.cloudfront.net/ccc.mp4"
+                            }
+                        ]
+                    },
+                    // configure the thumbnails plugin
+                    thumbnails: {
+                        template: "//d12zt1n3pd4xhr.cloudfront.net/ccc/thumbs/{time}.jpg",
+                        height: 50,
+                        interval: 10
+                    }
+
+                    // seek to start time if given once
+                }).one("ready", function (e, api, video) {
+                    // http://demos.flowplayer.org/api/starttime.html#t={seconds}
+                    var hash = window.location.hash,
+                        pos = hash.substr(3);
+                    ;
+
+                    if (hash.indexOf("#t=") === 0 && !isNaN(pos)) {
+                        // 1 decimal precision
+                        pos = Math.round(parseFloat(pos) * 10) / 10;
+                        if (pos < video.duration) {
+                            api.seek(pos);
+                        }
+                    }
+
+                });
+
+            // use Flowplayer API internal event binding
+            flowplayer.bean.on(container, "contextmenu", function () {
+                var textarea = container.querySelector(".fp-context-menu")
+                        .getElementsByTagName("textarea")[0],
+                    pos = player.video.time,
+                    hash = pos && !isNaN(pos) ? "#t=" + (Math.round(pos * 10) / 10) : "";
+
+                textarea.innerHTML = window.location.origin + window.location.pathname + hash;
+                textarea.select();
+            });
+
+        };
+    </script>
+
+</head>
+
+<body>
+
+<div id="content">
+
+    <h1>Flowplayer · Start time</h1>
+
+    <div id="player">
+        <!-- custom context menu -->
+        <div class="fp-context-menu">
+            <label>Copy URL of current playback position:</label>
+
+            <textarea></textarea>
+        </div>
+    </div>
+
+    <div class="info">
+        <p>Playback starts at time in seconds given in the URL's
+            <a href="https://en.wikipedia.org/wiki/Fragment_identifier">fragment identifier</a>.</p>
+
+        <p>Right clicking on the player screen will display a custom
+            <a href="https://flowplayer.org/skinning.html#context-menu">context menu</a> offering the
+            viewer to copy the link to this page with the video starting at the current playback position.</p>
+    </div>
+
+    <h2 id="head-setup">&lt;head/&gt;</h2>
+
+    <p class="doc">For smoother <a href="https://flowplayer.org/v6docs/setup.html#hls">HLS</a> playback in modern
+        browsers we load the
+        <a href="https://flowplayer.org/v6docs/plugins.html#hlsjs">hlsjs plugin</a>.
+    </p>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="c">&lt;!-- Flowplayer library --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span
+                        class="s">&quot;//releases.flowplayer.org/6.0.5/flowplayer.min.js&quot;</span><span class="p">&gt;&lt;/</span><span
+                        class="nt">script</span><span class="p">&gt;</span><br/><span class="c">&lt;!-- Flowplayer hlsjs engine --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
+
+
+    <p class="doc">For a long video the
+        <a href="https://flowplayer.org/v6docs/plugins.html#thumbnails">thumbnails plugin</a> comes in
+        handy to get a visual preview on the timeline:</p>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="c">&lt;!-- Flowplayer thumbnails plugin --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//releases.flowplayer.org/thumbnails/flowplayer.thumbnails.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
+
+
+    <h3 id="css-setup">&lt;style&gt;</h3>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">{</span><br/>  <span class="k">background-color</span><span class="p">:</span> <span
+                        class="mh">#333</span><span class="p">;</span><br/><span class="p">}</span><br/><span class="c">/* splash for devices not allowing autoplay */</span><br/><span
+                        class="p">.</span><span class="nc">flowplayer</span><span class="p">.</span><span class="nc">is-splash</span> <span
+                        class="p">{</span><br/>  <span class="k">background-image</span><span class="p">:</span> <span
+                        class="nb">url</span><span class="p">(</span><span class="sx">//d12zt1n3pd4xhr.cloudfront.net/img/ccc.jpg</span><span
+                        class="p">);</span><br/><span class="p">}</span><br/>&nbsp;<br/><span class="c">/* custom context menu, styling similar to embed code */</span><br/><span
+                        class="p">.</span><span class="nc">flowplayer</span> <span class="p">.</span><span class="nc">fp-context-menu</span> <span
+                        class="p">{</span><br/>  <span class="k">color</span><span class="p">:</span> <span class="mh">#999</span><span
+                        class="p">;</span><br/>  <span class="k">background-color</span><span class="p">:</span> <span
+                        class="mh">#333</span><span class="p">;</span><br/>  <span class="k">width</span><span
+                        class="p">:</span> <span class="mi">34</span><span class="kt">em</span><span
+                        class="p">;</span><br/>  <span class="k">border</span><span class="p">:</span> <span class="mi">5</span><span
+                        class="kt">px</span> <span class="kc">solid</span> <span class="kc">transparent</span><span
+                        class="p">;</span><br/>  <span class="k">padding</span><span class="p">:</span> <span
+                        class="mi">3</span><span class="kt">px</span><span class="p">;</span><br/>  <span class="kp">-webkit-</span><span
+                        class="k">border-radius</span><span class="p">:</span> <span class="mi">3</span><span
+                        class="kt">px</span><span class="p">;</span><br/>  <span class="kp">-moz-</span><span class="k">border-radius</span><span
+                        class="p">:</span> <span class="mi">3</span><span class="kt">px</span><span
+                        class="p">;</span><br/>  <span class="k">border-radius</span><span class="p">:</span> <span
+                        class="mi">3</span><span class="kt">px</span><span class="p">;</span><br/>  <span class="kp">-webkit-</span><span
+                        class="k">box-shadow</span><span class="p">:</span> <span class="mi">0</span> <span
+                        class="mi">0</span> <span class="mi">3</span><span class="kt">px</span> <span
+                        class="mh">#ccc</span><span class="p">;</span><br/>  <span class="kp">-moz-</span><span
+                        class="k">box-shadow</span><span class="p">:</span> <span class="mi">0</span> <span
+                        class="mi">0</span> <span class="mi">3</span><span class="kt">px</span> <span
+                        class="mh">#ccc</span><span class="p">;</span><br/>  <span class="k">box-shadow</span><span
+                        class="p">:</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">3</span><span
+                        class="kt">px</span> <span class="mh">#ccc</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">.</span><span class="nc">fp-context-menu</span> <span class="nt">textarea</span> <span
+                        class="p">{</span><br/>  <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span
+                        class="kt">%</span><span class="p">;</span><br/>  <span class="k">height</span><span
+                        class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span
+                        class="p">;</span><br/>  <span class="k">font-size</span><span class="p">:</span> <span
+                        class="mi">14</span><span class="kt">px</span><span class="p">;</span> <br/>  <span class="k">color</span><span
+                        class="p">:</span> <span class="mh">#ffa500</span><span class="p">;</span><br/>  <span
+                        class="k">background-color</span><span class="p">:</span> <span
+                        class="kc">transparent</span><span class="p">;</span><br/>  <span
+                        class="k">margin-top</span><span class="p">:</span> <span class="mi">1</span><span
+                        class="kt">ex</span><span class="p">;</span><br/>  <span class="k">border</span><span class="p">:</span> <span
+                        class="mi">0</span><span class="p">;</span><br/>  <span class="k">outline</span><span class="p">:</span> <span
+                        class="mi">0</span><span class="p">;</span><br/>  <span class="k">white-space</span><span
+                        class="p">:</span> <span class="kc">nowrap</span><span class="p">;</span><br/>  <span class="k">resize</span><span
+                        class="p">:</span> <span class="kc">none</span><span class="p">;</span><br/>  <span class="k">overflow</span><span
+                        class="p">:</span> <span class="kc">hidden</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>CSS</figcaption>
+        </figure>
+    </div>
+
+
+    <h3 id="javascript-setup">&lt;script&gt;</h3>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="c1">// ensure that DOM is ready</span><br/><span class="nb">window</span><span
+                        class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span
+                        class="p">()</span> <span class="p">{</span><br/>&nbsp;<br/>  <span class="kd">var</span> <span
+                        class="nx">container</span> <span class="o">=</span> <span class="nb">document</span><span
+                        class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span
+                        class="s2">&quot;player&quot;</span><span class="p">),</span><br/>&nbsp;<br/>  <span class="nx">player</span> <span
+                        class="o">=</span> <span class="nx">flowplayer</span><span class="p">(</span><span class="nx">container</span><span
+                        class="p">,</span> <span class="p">{</span><br/>    <span class="nx">key</span><span
+                        class="o">:</span> <span class="s2">&quot;$130763224349944, $289122895653393&quot;</span><span
+                        class="p">,</span><br/>    <span class="nx">ratio</span><span class="o">:</span> <span
+                        class="mi">3</span><span class="o">/</span><span class="mi">4</span><span
+                        class="p">,</span><br/>    <span class="nx">autoplay</span><span class="o">:</span> <span
+                        class="kc">true</span><span class="p">,</span><br/>    <span class="nx">clip</span><span
+                        class="o">:</span> <span class="p">{</span><br/>      <span class="nx">title</span><span
+                        class="o">:</span> <span class="s2">&quot;Cowboy Canoe Coma&quot;</span><span class="p">,</span><br/>      <span
+                        class="nx">sources</span><span class="o">:</span> <span class="p">[</span><br/>        <span
+                        class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;application/x-mpegurl&quot;</span><span
+                        class="p">,</span><br/>          <span class="nx">src</span><span class="o">:</span>  <span
+                        class="s2">&quot;//d12zt1n3pd4xhr.cloudfront.net/ccc.m3u8&quot;</span> <span class="p">},</span><br/>        <span
+                        class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;video/mp4&quot;</span><span
+                        class="p">,</span><br/>          <span class="nx">src</span><span class="o">:</span>  <span
+                        class="s2">&quot;//d12zt1n3pd4xhr.cloudfront.net/ccc.mp4&quot;</span> <span
+                        class="p">}</span><br/>      <span class="p">]</span><br/>    <span class="p">},</span><br/>    <span
+                        class="c1">// configure the thumbnails plugin</span><br/>    <span
+                        class="nx">thumbnails</span><span class="o">:</span> <span class="p">{</span><br/>      <span
+                        class="nx">template</span><span class="o">:</span> <span class="s2">&quot;//d12zt1n3pd4xhr.cloudfront.net/ccc/thumbs/{time}.jpg&quot;</span><span
+                        class="p">,</span><br/>      <span class="nx">height</span><span class="o">:</span> <span
+                        class="mi">50</span><span class="p">,</span><br/>      <span class="nx">interval</span><span
+                        class="o">:</span> <span class="mi">10</span><br/>    <span class="p">}</span><br/>&nbsp;<br/>  <span
+                        class="c1">// seek to start time if given once</span><br/>  <span class="p">}).</span><span
+                        class="nx">one</span><span class="p">(</span><span class="s2">&quot;ready&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span
+                        class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span
+                        class="nx">video</span><span class="p">)</span> <span class="p">{</span><br/>    <span
+                        class="c1">// http://demos.flowplayer.org/api/starttime.html#t={seconds}</span><br/>    <span
+                        class="kd">var</span> <span class="nx">hash</span> <span class="o">=</span> <span class="nb">window</span><span
+                        class="p">.</span><span class="nx">location</span><span class="p">.</span><span
+                        class="nx">hash</span><span class="p">,</span><br/>        <span class="nx">pos</span> <span
+                        class="o">=</span> <span class="nx">hash</span><span class="p">.</span><span
+                        class="nx">substr</span><span class="p">(</span><span class="mi">3</span><span
+                        class="p">);;</span><br/>&nbsp;<br/>    <span class="k">if</span> <span class="p">(</span><span
+                        class="nx">hash</span><span class="p">.</span><span class="nx">indexOf</span><span
+                        class="p">(</span><span class="s2">&quot;#t=&quot;</span><span class="p">)</span> <span
+                        class="o">===</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span
+                        class="o">!</span><span class="nb">isNaN</span><span class="p">(</span><span
+                        class="nx">pos</span><span class="p">))</span> <span class="p">{</span><br/>      <span
+                        class="c1">// 1 decimal precision</span><br/>      <span class="nx">pos</span> <span
+                        class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span
+                        class="nx">round</span><span class="p">(</span><span class="nb">parseFloat</span><span
+                        class="p">(</span><span class="nx">pos</span><span class="p">)</span> <span
+                        class="o">*</span> <span class="mi">10</span><span class="p">)</span> <span
+                        class="o">/</span> <span class="mi">10</span><span class="p">;</span><br/>      <span class="k">if</span> <span
+                        class="p">(</span><span class="nx">pos</span> <span class="o">&lt;</span> <span
+                        class="nx">video</span><span class="p">.</span><span class="nx">duration</span><span
+                        class="p">)</span> <span class="p">{</span><br/>        <span class="nx">api</span><span
+                        class="p">.</span><span class="nx">seek</span><span class="p">(</span><span
+                        class="nx">pos</span><span class="p">);</span><br/>      <span class="p">}</span><br/>    <span
+                        class="p">}</span><br/>&nbsp;<br/>  <span class="p">});</span><br/>&nbsp;<br/>  <span
+                        class="c1">// use Flowplayer API internal event binding</span><br/>  <span
+                        class="nx">flowplayer</span><span class="p">.</span><span class="nx">bean</span><span class="p">.</span><span
+                        class="nx">on</span><span class="p">(</span><span class="nx">container</span><span
+                        class="p">,</span> <span class="s2">&quot;contextmenu&quot;</span><span class="p">,</span> <span
+                        class="kd">function</span> <span class="p">()</span> <span class="p">{</span><br/>    <span
+                        class="kd">var</span> <span class="nx">textarea</span> <span class="o">=</span> <span
+                        class="nx">container</span><span class="p">.</span><span class="nx">querySelector</span><span
+                        class="p">(</span><span class="s2">&quot;.fp-context-menu&quot;</span><span
+                        class="p">)</span><br/>                            <span class="p">.</span><span class="nx">getElementsByTagName</span><span
+                        class="p">(</span><span class="s2">&quot;textarea&quot;</span><span class="p">)[</span><span
+                        class="mi">0</span><span class="p">],</span><br/>        <span class="nx">pos</span> <span
+                        class="o">=</span> <span class="nx">player</span><span class="p">.</span><span
+                        class="nx">video</span><span class="p">.</span><span class="nx">time</span><span
+                        class="p">,</span><br/>        <span class="nx">hash</span> <span class="o">=</span> <span
+                        class="nx">pos</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span
+                        class="nb">isNaN</span><span class="p">(</span><span class="nx">pos</span><span
+                        class="p">)</span> <span class="o">?</span> <span class="s2">&quot;#t=&quot;</span> <span
+                        class="o">+</span> <span class="p">(</span><span class="nb">Math</span><span
+                        class="p">.</span><span class="nx">round</span><span class="p">(</span><span
+                        class="nx">pos</span> <span class="o">*</span> <span class="mi">10</span><span
+                        class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span
+                        class="p">)</span> <span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">;</span><br/>&nbsp;<br/>    <span
+                        class="nx">textarea</span><span class="p">.</span><span class="nx">innerHTML</span> <span
+                        class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span
+                        class="p">.</span><span class="nx">origin</span> <span class="o">+</span> <span class="nb">window</span><span
+                        class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">pathname</span> <span
+                        class="o">+</span> <span class="nx">hash</span><span class="p">;</span><br/>    <span
+                        class="nx">textarea</span><span class="p">.</span><span class="nx">select</span><span class="p">();</span><br/>  <span
+                        class="p">});</span><br/>&nbsp;<br/><span class="p">};</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>JavaScript</figcaption>
+        </figure>
+    </div>
+
+
+    <div class="doc">
+        <p>With more than one player on the page or a playlist consider using a query with 2
+            parameters and
+            <a href="http://www.w3schools.com/jsref/prop_loc_search.asp">location.search</a> to parse and
+            evaluate it. - See also <a href="../../playlist/linkable.html">this demo</a>.</p>
+
+        <p>The Free player does not allow to customize the context menu, but something similar can be
+            implemented using an overlaying widget with a click handler.</p>
+    </div>
+
+    <h2 id="html-setup">&lt;body/&gt;</h2>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span
+                        class="o">=</span><span class="s">&quot;player&quot;</span><span
+                        class="p">&gt;</span><br/>  <span
+                        class="c">&lt;!-- custom context menu --&gt;</span><br/>  <span class="p">&lt;</span><span
+                        class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;fp-context-menu&quot;</span><span
+                        class="p">&gt;</span><br/>    <span class="p">&lt;</span><span class="nt">label</span><span
+                        class="p">&gt;</span>Copy URL of current playback position:<span class="p">&lt;/</span><span
+                        class="nt">label</span><span class="p">&gt;</span><br/>                    <br/>    <span
+                        class="p">&lt;</span><span class="nt">textarea</span><span class="p">&gt;&lt;/</span><span
+                        class="nt">textarea</span><span class="p">&gt;</span><br/>  <span class="p">&lt;/</span><span
+                        class="nt">div</span><span class="p">&gt;</span><br/><span class="p">&lt;/</span><span
+                        class="nt">div</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
+
+
+    <div class="footer">
+        <p><a href="index.html">Demos in this section</a></p>
+
+        <hr>
+
+        <p><a href="../index.html">Version 6 Demos</a></p>
+
+        <p><a href="../../index.html">Flowplayer Demos+</a></p>
+
+        <hr>
+
+        <p><a href="https://flowplayer.org/v6docs/">Version 6 Docs</a></p>
+    </div>
+</div> <!-- end content -->
+
+</body>
+</html>

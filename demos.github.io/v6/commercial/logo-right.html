@@ -1,0 +1,159 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Flowplayer · Logo on the right</title>
+
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- The "functional" skin - choose from: "functional.css", "minimalist.css", "playful.css" -->
+    <link rel="stylesheet" href="../../common/releases/6.0.5/commercial/skin/functional.css">
+
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../../common/css/pygments.css">
+
+    <style>
+        .flowplayer {
+            background: url("../../common/media/img/functional.jpg") no-repeat;
+        }
+
+        .flowplayer .fp-logo {
+            /* logo always visible, even on origin domain */
+            display: block;
+            opacity: 1 !important;
+
+            left: auto; /* avoid logo being stuck on left side */
+            right: 3%;
+        }
+    </style>
+
+    <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
+    <script src="../../common/jquery/jquery-1.12.4.min.js"></script>
+    <!-- Flowplayer commercial library -->
+    <script src="../../common/releases/6.0.5/commercial/flowplayer.min.js"></script>
+    <!-- The hlsjs plugin for playback of HLS without Flash in modern browsers -->
+    <script src="../../common/releases/hlsjs/flowplayer.hlsjs.min.js"></script>
+
+
+</head>
+
+<body>
+
+<div id="content">
+
+    <h1>Flowplayer · Logo on the right</h1>
+
+    <div class="flowplayer is-splash"
+         data-key="$130763224349944"
+         data-logo="//flowplayer.org/media/img/mylogo.png"
+         data-ratio="0.4167">
+        <video>
+            <source type="application/x-mpegurl" src="http://edge.flowplayer.org/functional.m3u8">
+            <source type="application/x-mpegurl" src="http://edge.flowplayer.org/functional.m3u8">
+            <source type="video/mp4" src="http://edge.flowplayer.org/functional.mp4">
+        </video>
+    </div>
+
+    <h2 id="head-setup">&lt;head/&gt;</h2>
+
+    <p class="doc">For smoother <a href="https://flowplayer.org/v6docs/setup.html#hls">HLS</a> playback in modern
+        browsers we load the
+        <a href="https://flowplayer.org/v6docs/plugins.html#hlsjs">hlsjs plugin</a>.
+    </p>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="c">&lt;!-- Flowplayer library --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span
+                        class="s">&quot;//releases.flowplayer.org/6.0.5/flowplayer.min.js&quot;</span><span class="p">&gt;&lt;/</span><span
+                        class="nt">script</span><span class="p">&gt;</span><br/><span class="c">&lt;!-- Flowplayer hlsjs engine --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
+
+
+    <h3 id="css-setup">&lt;style&gt;</h3>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">.</span><span class="nc">fp-logo</span> <span class="p">{</span><br/>  <span
+                        class="c">/* logo always visible, even on origin domain */</span><br/>  <span
+                        class="k">display</span><span class="p">:</span> <span class="kc">block</span><span
+                        class="p">;</span><br/>  <span class="k">opacity</span><span class="p">:</span> <span
+                        class="mi">1</span> <span class="cp">!important</span><span class="p">;</span><br/>&nbsp;<br/>  <span
+                        class="k">left</span><span class="p">:</span> <span class="kc">auto</span><span
+                        class="p">;</span> <span class="c">/* avoid logo being stuck on left side */</span><br/>  <span
+                        class="k">right</span><span class="p">:</span> <span class="mi">3</span><span
+                        class="kt">%</span><span class="p">;</span><br/><span class="p">}</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>CSS</figcaption>
+        </figure>
+    </div>
+
+
+    <h2 id="html-setup">&lt;body/&gt;</h2>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span
+                        class="na">class</span><span class="o">=</span><span
+                        class="s">&quot;flowplayer is-splash&quot;</span><br/>     <span class="na">data-key</span><span
+                        class="o">=</span><span class="s">&quot;$130763224349944&quot;</span><br/>     <span class="na">data-logo</span><span
+                        class="o">=</span><span class="s">&quot;//flowplayer.org/media/img/mylogo.png&quot;</span><br/>     <span
+                        class="na">data-ratio</span><span class="o">=</span><span
+                        class="s">&quot;0.4167&quot;</span><span class="p">&gt;</span><br/>   <span
+                        class="p">&lt;</span><span class="nt">video</span><span class="p">&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;application/x-mpegurl&quot;</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//edge.flowplayer.org/functional.m3u8&quot;</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;application/x-mpegurl&quot;</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//edge.flowplayer.org/functional.m3u8&quot;</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span> <span
+                        class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/functional.mp4&quot;</span><span
+                        class="p">&gt;</span><br/>   <span class="p">&lt;/</span><span class="nt">video</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;/</span><span class="nt">div</span><span
+                        class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
+
+
+    <div class="footer">
+        <p><a href="index.html">Demos in this section</a></p>
+
+        <hr>
+
+        <p><a href="../index.html">Version 6 Demos</a></p>
+
+        <p><a href="../../index.html">Flowplayer Demos+</a></p>
+
+        <hr>
+
+        <p><a href="https://flowplayer.org/v6docs/">Version 6 Docs</a></p>
+    </div>
+</div> <!-- end content -->
+
+</body>
+</html>

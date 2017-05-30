@@ -1,0 +1,261 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>AdSense for Flowplayer · Image/Text advert</title>
+
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- The "playful" skin - choose from: "functional.css", "minimalist.css", "playful.css" -->
+    <link rel="stylesheet" href="../../common/releases/6.0.5/skin/playful.css">
+
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../../common/css/pygments.css">
+
+    <style>
+        .flowplayer {
+            background-image: url("../../common/media/img/logo-blue.png");
+            background-size: 95%;
+            background-color: #fff !important;
+            -webkit-box-shadow: 0 0 20px #b8b8b8;
+            -moz-box-shadow: 0 0 20px #b8b8b8;
+            box-shadow: 0 0 20px #b8b8b8;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        ul li {
+            margin-bottom: 1ex;
+        }
+    </style>
+
+    <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
+    <script src="../../common/jquery/jquery-1.12.4.min.js"></script>
+    <!-- Flowplayer library -->
+    <script src="../../common/releases/6.0.5/flowplayer.min.js"></script>
+    <!-- The hlsjs plugin for playback of HLS without Flash in modern browsers -->
+    <script src="../../common/releases/hlsjs/flowplayer.hlsjs.min.js"></script>
+
+
+    <!-- load the AdSense assets after the Flowplayer assets -->
+    <script src="../../common/imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+    <script src="../../common/releases/asf/flowplayer.org/2.1.6/asf.min.js"></script>
+
+</head>
+
+<body>
+
+<div id="content">
+
+    <h1>Flowplayer · Image/Text advert</h1>
+
+    <div class="flowplayer" data-ratio="0.4167">
+
+        <!-- specific AdSense for Video configuration nested inside the player container -->
+        <script>
+            flowplayer_ima.conf({
+                // this should only be set when you are testing your installation
+                adtest: true,
+
+                // make the Google robots crawl the current page
+                description_url: location.href,
+
+                // adverts configuration
+                ads: [{
+                    // 3 seconds into the video ...
+                    time: 3,
+
+                    // ... we request an advert of type image or type text
+                    ad_type: "image_text"
+                }]
+            });
+        </script>
+
+        <video>
+            <source type="application/x-mpegurl" src="http://edge.flowplayer.org/playful.m3u8">
+            <source type="application/x-mpegurl" src="http://edge.flowplayer.org/playful.m3u8">
+            <source type="video/mp4" src="http://edge.flowplayer.org/playful.mp4">
+        </video>
+
+    </div>
+
+    <div class="info">
+        <p>This shows a non linear image or text advert at 3 seconds into the video.</p>
+
+        <p><a href="https://flowplayer.org/v6docs/asf.html#adsense-for-flowplayer">JavaScript install alternative</a>
+        </p>
+    </div>
+
+    <h2>&lt;head/&gt;</h2>
+
+    <p class="doc">Include the ASF assets after loading all other Flowplayer assets:</p>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span
+                        class="c">&lt;!-- jQuery required for VIDEO tag based installations --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//code.jquery.com/jquery-1.12.4.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/><span
+                        class="c">&lt;!-- Flowplayer --&gt;</span><br/><span class="p">&lt;</span><span class="nt">script</span> <span
+                        class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/7.0.4/flowplayer.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/><span
+                        class="c">&lt;!-- Flowplayer hlsjs plugin --&gt;</span><br/><span class="p">&lt;</span><span
+                        class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/><span
+                        class="c">&lt;!-- Google IMA SDK --&gt;</span><br/><span class="p">&lt;</span><span class="nt">script</span> <span
+                        class="na">src</span><span class="o">=</span><span class="s">&quot;//imasdk.googleapis.com/js/sdkloader/ima3.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/><span
+                        class="c">&lt;!-- Flowplayer ASF plugin --&gt;</span><br/><span class="p">&lt;</span><span
+                        class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/asf/flowplayer.org/2.1.6/asf.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
+
+
+    <div class="doc">
+        <p><code>asf.min.js</code> is the AdSense plugin for Flowplayer - you will get your own version of
+            it when you sign up with our AdSense program. This plugin will be tied to your personal ad slot so
+            that the ad impressions and clicks will be associated with your account, and the ad revenue will
+            be assigned to you.</p>
+
+        <p>This page uses
+            //releases.flowplayer.org/asf/flowplayer.org/2.1.6/asf.min.js which was built for
+            the <strong>flowplayer.org</strong> domain and its subdomains. Make sure you are using the build
+            we created for you, otherwise you will not see any revenues.</p>
+    </div>
+
+    <h3 id="css-setup">&lt;style&gt;</h3>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">{</span><br/>   <span class="k">background-image</span><span class="p">:</span> <span
+                        class="nb">url</span><span class="p">(</span><span class="sx">//flowplayer.org/media/img/logo-blue.png</span><span
+                        class="p">);</span><br/>   <span class="k">background-size</span><span class="p">:</span> <span
+                        class="mi">95</span><span class="kt">%</span><span class="p">;</span><br/>   <span class="k">background-color</span><span
+                        class="p">:</span> <span class="mh">#fff</span> <span class="cp">!important</span><span
+                        class="p">;</span><br/>   <span class="kp">-webkit-</span><span class="k">box-shadow</span><span
+                        class="p">:</span> <span class="mi">0</span> <span class="mi">0</span> <span
+                        class="mi">20</span><span class="kt">px</span> <span class="mh">#b8b8b8</span><span
+                        class="p">;</span><br/>   <span class="kp">-moz-</span><span class="k">box-shadow</span><span
+                        class="p">:</span> <span class="mi">0</span> <span class="mi">0</span> <span
+                        class="mi">20</span><span class="kt">px</span> <span class="mh">#b8b8b8</span><span
+                        class="p">;</span><br/>   <span class="k">box-shadow</span><span class="p">:</span> <span
+                        class="mi">0</span> <span class="mi">0</span> <span class="mi">20</span><span
+                        class="kt">px</span> <span class="mh">#b8b8b8</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>CSS</figcaption>
+        </figure>
+    </div>
+
+
+    <h3>Player container and ads configuration</h3>
+
+    <p class="doc">The player container with the ASF configuration in an
+        <a href="https://flowplayer.org/v6docs/asf.html#flowplayer_imaconf">inline SCRIPT tag</a>:</p>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span
+                        class="na">class</span><span class="o">=</span><span
+                        class="s">&quot;flowplayer&quot;</span> <span class="na">data-ratio</span><span
+                        class="o">=</span><span class="s">&quot;0.4167&quot;</span><span class="p">&gt;</span><br/>&nbsp;<br/>   <span
+                        class="c">&lt;!-- specific AdSense for Video configuration nested inside the player container --&gt;</span><br/>   <span
+                        class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><br/>   <span
+                        class="nx">flowplayer_ima</span><span class="p">.</span><span class="nx">conf</span><span
+                        class="p">({</span><br/>     <span class="c1">// this should only be set when you are testing your installation</span><br/>     <span
+                        class="nx">adtest</span><span class="o">:</span> <span class="kc">true</span><span
+                        class="p">,</span><br/>&nbsp;<br/>     <span class="c1">// make the Google robots crawl the current page</span><br/>     <span
+                        class="nx">description_url</span><span class="o">:</span> <span class="nx">location</span><span
+                        class="p">.</span><span class="nx">href</span><span class="p">,</span><br/>&nbsp;<br/>     <span
+                        class="c1">// adverts configuration</span><br/>     <span class="nx">ads</span><span
+                        class="o">:</span> <span class="p">[{</span><br/>       <span class="c1">// 3 seconds into the video ...</span><br/>       <span
+                        class="nx">time</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span><br/>&nbsp;<br/>       <span
+                        class="c1">// ... we request an advert of type image or type text</span><br/>       <span
+                        class="nx">ad_type</span><span class="o">:</span> <span class="s2">&quot;image_text&quot;</span><br/>     <span
+                        class="p">}]</span><br/>   <span class="p">});</span><br/>   <span class="p">&lt;/</span><span
+                        class="nt">script</span><span class="p">&gt;</span><br/>&nbsp;<br/>   <span
+                        class="p">&lt;</span><span class="nt">video</span><span class="p">&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;application/x-mpegurl&quot;</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//edge.flowplayer.org/playful.m3u8&quot;</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;application/x-mpegurl&quot;</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//edge.flowplayer.org/playful.m3u8&quot;</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span> <span
+                        class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/playful.mp4&quot;</span><span
+                        class="p">&gt;</span><br/>   <span class="p">&lt;/</span><span class="nt">video</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/><span class="p">&lt;/</span><span
+                        class="nt">div</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
+
+
+    <div class="doc">
+
+        <p id="ad_type"><code>ad_type</code> defines what types of ads will be requested and shown.
+            Here we only show image and text adverts. If you don't specify the ad_type value at all it
+            will show video, image and text ads because the default ad_type value is
+            <code>"video_image_text"</code>.</p>
+
+        <h2>AdSense for Flowplayer demos</h2>
+
+        <ul>
+            <li><a href="image_text.html">Image/Text advert</a></li>
+
+            <li><a href="trueview.html">TrueView video advert</a></li>
+
+            <li><a href="videoad.html">Mid-roll video advert</a></li>
+
+            <li><a href="embedded-ads.html">Embedded adverts</a></li>
+
+            <li><a href="intro-ad-feature.html">Intro before feature with advert</a></li>
+
+            <li><a href="live.html">Adverts for live stream</a></li>
+
+            <li><a href="vast.html">VAST plugin</a></li>
+        </ul>
+    </div>
+
+
+    <div class="footer">
+        <p><a href="index.html">Demos in this section</a></p>
+
+        <hr>
+
+        <p><a href="../index.html">Version 6 Demos</a></p>
+
+        <p><a href="../../index.html">Flowplayer Demos+</a></p>
+
+        <hr>
+
+        <p><a href="https://flowplayer.org/v6docs/">Version 6 Docs</a></p>
+    </div>
+</div> <!-- end content -->
+
+</body>
+</html>

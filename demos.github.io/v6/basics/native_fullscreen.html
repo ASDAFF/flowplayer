@@ -1,0 +1,105 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Flowplayer · Native fullscreen on mobile devices</title>
+
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- The "functional" skin - choose from: "functional.css", "minimalist.css", "playful.css" -->
+    <link rel="stylesheet" href="../../common/releases/6.0.5/skin/functional.css">
+
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../../common/css/pygments.css">
+
+    <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
+    <script src="../../common/jquery/jquery-1.12.4.min.js"></script>
+    <!-- Flowplayer library -->
+    <script src="../../common/releases/6.0.5/flowplayer.min.js"></script>
+
+
+</head>
+
+<body>
+
+<div id="content">
+
+    <h1>Flowplayer · Native fullscreen on mobile devices</h1>
+
+    <div class="flowplayer" data-native_fullscreen="true" data-ratio="0.4167">
+        <video>
+            <source type="video/webm" src="http://edge.flowplayer.org/functional.webm">
+            <source type="video/mp4" src="http://edge.flowplayer.org/functional.mp4">
+        </video>
+    </div>
+
+    <h2 id="html-setup">&lt;body/&gt;</h2>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span
+                        class="na">class</span><span class="o">=</span><span
+                        class="s">&quot;flowplayer&quot;</span> <span class="na">data-native_fullscreen</span><span
+                        class="o">=</span><span class="s">&quot;true&quot;</span> <span
+                        class="na">data-ratio</span><span class="o">=</span><span
+                        class="s">&quot;0.4167&quot;</span><span class="p">&gt;</span><br/>   <span
+                        class="p">&lt;</span><span class="nt">video</span><span class="p">&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;video/webm&quot;</span> <span class="na">src</span><span class="o">=</span><span
+                        class="s">&quot;//edge.flowplayer.org/functional.webm&quot;</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span class="s">&quot;video/mp4&quot;</span> <span
+                        class="na">src</span><span class="o">=</span><span class="s">&quot;//edge.flowplayer.org/functional.mp4&quot;</span><span
+                        class="p">&gt;</span><br/>   <span class="p">&lt;/</span><span class="nt">video</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;/</span><span class="nt">div</span><span
+                        class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
+
+
+    <p class="doc">Often you want to apply this kind of setting to all players on the page. Then it is
+        more convenient to do so in the
+        <a href="https://flowplayer.org/v6docs/setup.html#global-configuration">global JavaScript configuration</a>:
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="nx">flowplayer</span><span class="p">.</span><span class="nx">conf</span> <span
+                        class="o">=</span> <span class="p">{</span><br/>   <span
+                        class="nx">native_fullscreen</span><span class="o">:</span> <span
+                        class="kc">true</span><br/><span class="p">};</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>JavaScript</figcaption>
+        </figure>
+    </div>
+
+
+    <div class="footer">
+
+        <p><a href="index.html">Demos in this section</a></p>
+
+        <hr>
+
+        <p><a href="../index.html">Version 6 Demos</a></p>
+
+        <p><a href="../../index.html">Flowplayer Demos+</a></p>
+
+        <hr>
+
+        <p><a href="https://flowplayer.org/v6docs/">Version 6 Docs</a></p>
+    </div>
+</div> <!-- end content -->
+
+</body>
+</html>

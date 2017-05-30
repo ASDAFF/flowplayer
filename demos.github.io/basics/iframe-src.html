@@ -1,0 +1,54 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Flowplayer · iframe src</title>
+
+    <!-- The Flowplayer skin -->
+    <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css">
+
+    <style>
+        body, html {
+            /* no scrollbars */
+            overflow: hidden;
+
+            /* pin player to top left corner of page/iframe */
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+    <!-- Flowplayer depends on jquery for VIDEO tag based installations -->
+    <script src="../common/jquery/jquery-1.12.4.min.js"></script>
+    <!-- Flowplayer library -->
+    <script src="../common/releases/7.0.4/flowplayer.min.js"></script>
+    <!-- The hlsjs plugin for playback of HLS without Flash in modern browsers -->
+    <script src="../common/releases/hlsjs/flowplayer.hlsjs.min.js"></script>
+
+    <script>
+        flowplayer.conf = {
+            fullscreen: true,
+            // iOS allows only native fullscreen from within iframes
+            native_fullscreen: true
+        };
+    </script>
+
+</head>
+
+<body>
+
+<div class="flowplayer" data-ratio="0.4167">
+
+    <video>
+        <source type="application/x-mpegurl" src="http://edge.flowplayer.org/functional.m3u8">
+        <source type="video/webm" src="http://edge.flowplayer.org/functional.webm">
+        <source type="video/mp4" src="http://edge.flowplayer.org/functional.mp4">
+    </video>
+
+</div>
+
+</body>
+</html>

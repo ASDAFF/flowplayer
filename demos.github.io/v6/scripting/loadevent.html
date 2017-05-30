@@ -1,0 +1,306 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Flowplayer · Delayed video start</title>
+
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- The "functional" skin - choose from: "functional.css", "minimalist.css", "playful.css" -->
+    <link rel="stylesheet" href="../../common/releases/6.0.5/skin/functional.css">
+
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../../common/css/pygments.css">
+
+    <style>
+        #player {
+            background-image: url("../../common/media/img/functional.jpg");
+        }
+
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+            #player {
+                background-image: url("../../common/media/img/functional@x2.jpg");
+            }
+        }
+    </style>
+
+    <!-- Flowplayer library -->
+    <script src="../../common/releases/6.0.5/flowplayer.min.js"></script>
+    <!-- The hlsjs plugin for playback of HLS without Flash in modern browsers -->
+    <script src="../../common/releases/hlsjs/flowplayer.hlsjs.min.js"></script>
+
+
+    <script>
+        window.onload = function () {
+            var autoplayallowed = flowplayer.support.firstframe,
+                container = document.getElementById("player");
+
+            flowplayer(container, {
+                splash: true,
+                ratio: 5 / 12,
+                clip: {
+                    sources: [
+                        {type: "application/x-mpegurl", src: "http://edge.flowplayer.org/functional.m3u8"},
+                        {type: "video/mp4", src: "http://edge.flowplayer.org/functional.mp4"}
+                    ]
+                }
+
+            }).one("load progress", function (e, api, video) {
+                if (autoplayallowed && e.type == "load") {
+                    e.preventDefault();
+                    api.loading = false;
+
+                } else if (!autoplayallowed && e.type == "progress") {
+                    // hack: pause after load at first progress
+                    api.pause();
+
+                }
+
+                if (autoplayallowed && e.type == "load" || !autoplayallowed && e.type == "progress") {
+                    var seconds = 5,
+                        state = document.getElementById("loading"),
+
+                        timer = setInterval(function () {
+                            seconds--;
+                            state.innerHTML = "Your video will start in " + seconds + " seconds ...";
+
+                            if (seconds === 0) {
+                                clearInterval(timer);
+                                api.load();
+
+                                if (!autoplayallowed && e.type == "progress") {
+                                    // hack to hide engine in paused state
+                                    container.className = container.className.replace("hide-engine", "");
+
+                                }
+
+                                state.innerHTML = "Your video is now playing.";
+                            }
+                        }, 1000);
+                }
+
+            }).one("ready", function (e, api) {
+                if (!autoplayallowed) {
+                    // hack to hide engine and pretend loading in paused state
+                    container.className = container.className + " is-splash is-loading";
+                }
+
+            });
+
+        };
+    </script>
+
+</head>
+
+<body>
+
+<div id="content">
+
+    <h1>Flowplayer · Delayed video start</h1>
+
+    <div id="player"></div>
+
+    <p id="loading" class="info">&nbsp;</p>
+
+    <h2 id="head-setup">&lt;head/&gt;</h2>
+
+    <p class="doc">For smoother <a href="https://flowplayer.org/v6docs/setup.html#hls">HLS</a> playback in modern
+        browsers we load the
+        <a href="https://flowplayer.org/v6docs/plugins.html#hlsjs">hlsjs plugin</a>.
+    </p>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="c">&lt;!-- Flowplayer library --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span
+                        class="s">&quot;//releases.flowplayer.org/6.0.5/flowplayer.min.js&quot;</span><span class="p">&gt;&lt;/</span><span
+                        class="nt">script</span><span class="p">&gt;</span><br/><span class="c">&lt;!-- Flowplayer hlsjs engine --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
+
+
+    <h3 id="css-setup">&lt;style&gt;</h3>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">#</span><span class="nn">player</span> <span class="p">{</span><br/>  <span
+                        class="k">background-image</span><span class="p">:</span> <span class="nb">url</span><span
+                        class="p">(</span><span class="sx">//flowplayer.org/media/img/demos/functional.jpg</span><span
+                        class="p">);</span><br/><span class="p">}</span><br/><span class="p">@</span><span class="k">media</span><span
+                        class="o">(</span><span class="nt">-webkit-min-device-pixel-ratio</span><span class="o">:</span> <span
+                        class="nt">2</span><span class="o">),</span> <span class="o">(</span><span class="nt">min-resolution</span><span
+                        class="o">:</span> <span class="nt">2dppx</span><span class="o">)</span> <span
+                        class="p">{</span><br/>  <span class="p">#</span><span class="nn">player</span> <span class="p">{</span><br/>    <span
+                        class="k">background-image</span><span class="p">:</span> <span class="nb">url</span><span
+                        class="p">(</span><span
+                        class="sx">//flowplayer.org/media/img/demos/functional@x2.jpg</span><span
+                        class="p">);</span><br/>  <span class="p">}</span><br/><span class="p">}</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>CSS</figcaption>
+        </figure>
+    </div>
+
+
+    <h3 id="javascript-setup">&lt;script&gt;</h3>
+
+    <div class="doc">
+        <p>Note: On devices which do not allow autoplay the video must be loaded immediately. In this case
+            we simulate the loading state in paused state.</p>
+
+        <p>On devices which do not
+            <a href="https://flowplayer.org/v6docs/api.html#flowplayersupport">inline playback</a> the
+            generic player waits on the first frame, but during that period playback can be started
+            manually.</p>
+    </div>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="nb">window</span><span class="p">.</span><span
+                        class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span
+                        class="p">()</span> <span class="p">{</span><br/>  <span class="kd">var</span> <span class="nx">autoplayallowed</span> <span
+                        class="o">=</span> <span class="nx">flowplayer</span><span class="p">.</span><span class="nx">support</span><span
+                        class="p">.</span><span class="nx">firstframe</span><span class="p">,</span><br/>      <span
+                        class="nx">container</span> <span class="o">=</span> <span class="nb">document</span><span
+                        class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span
+                        class="s2">&quot;player&quot;</span><span class="p">);</span><br/>&nbsp;<br/>  <span class="nx">flowplayer</span><span
+                        class="p">(</span><span class="nx">container</span><span class="p">,</span> <span
+                        class="p">{</span><br/>    <span class="nx">splash</span><span class="o">:</span> <span
+                        class="kc">true</span><span class="p">,</span><br/>    <span class="nx">ratio</span><span
+                        class="o">:</span> <span class="mi">5</span><span class="o">/</span><span
+                        class="mi">12</span><span class="p">,</span><br/>    <span class="nx">clip</span><span
+                        class="o">:</span> <span class="p">{</span><br/>      <span class="nx">sources</span><span
+                        class="o">:</span> <span class="p">[</span><br/>        <span class="p">{</span> <span
+                        class="nx">type</span><span class="o">:</span> <span class="s2">&quot;application/x-mpegurl&quot;</span><span
+                        class="p">,</span> <span class="nx">src</span><span class="o">:</span> <span class="s2">&quot;//edge.flowplayer.org/functional.m3u8&quot;</span> <span
+                        class="p">},</span><br/>        <span class="p">{</span> <span class="nx">type</span><span
+                        class="o">:</span> <span class="s2">&quot;video/mp4&quot;</span><span class="p">,</span>             <span
+                        class="nx">src</span><span class="o">:</span> <span class="s2">&quot;//edge.flowplayer.org/functional.mp4&quot;</span> <span
+                        class="p">}</span><br/>      <span class="p">]</span><br/>    <span class="p">}</span><br/>&nbsp;<br/>  <span
+                        class="p">}).</span><span class="nx">one</span><span class="p">(</span><span class="s2">&quot;load progress&quot;</span><span
+                        class="p">,</span> <span class="kd">function</span><span class="p">(</span><span
+                        class="nx">e</span><span class="p">,</span> <span class="nx">api</span><span class="p">,</span> <span
+                        class="nx">video</span><span class="p">)</span> <span class="p">{</span><br/>    <span
+                        class="k">if</span> <span class="p">(</span><span class="nx">autoplayallowed</span> <span
+                        class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">type</span> <span
+                        class="o">==</span> <span class="s2">&quot;load&quot;</span><span class="p">)</span> <span
+                        class="p">{</span><br/>      <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span
+                        class="p">();</span><br/>      <span class="nx">api</span><span class="p">.</span><span
+                        class="nx">loading</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span><br/>&nbsp;<br/>    <span
+                        class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span
+                        class="p">(</span><span class="o">!</span><span class="nx">autoplayallowed</span> <span
+                        class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">type</span> <span
+                        class="o">==</span> <span class="s2">&quot;progress&quot;</span><span class="p">)</span> <span
+                        class="p">{</span><br/>      <span class="c1">// hack: pause after load at first progress</span><br/>      <span
+                        class="nx">api</span><span class="p">.</span><span class="nx">pause</span><span
+                        class="p">();</span><br/>&nbsp;<br/>    <span class="p">}</span><br/>&nbsp;<br/>    <span
+                        class="k">if</span> <span class="p">(</span><span class="nx">autoplayallowed</span> <span
+                        class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">type</span> <span
+                        class="o">==</span> <span class="s2">&quot;load&quot;</span> <span class="o">||</span> <span
+                        class="o">!</span><span class="nx">autoplayallowed</span> <span
+                        class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">type</span> <span
+                        class="o">==</span> <span class="s2">&quot;progress&quot;</span><span class="p">)</span> <span
+                        class="p">{</span><br/>      <span class="kd">var</span> <span class="nx">seconds</span> <span
+                        class="o">=</span> <span class="mi">5</span><span class="p">,</span><br/>          <span
+                        class="nx">state</span> <span class="o">=</span> <span class="nb">document</span><span
+                        class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span
+                        class="s2">&quot;loading&quot;</span><span class="p">),</span><br/>&nbsp;<br/>      <span
+                        class="nx">timer</span> <span class="o">=</span> <span class="nx">setInterval</span><span
+                        class="p">(</span><span class="kd">function</span><span class="p">()</span> <span
+                        class="p">{</span><br/>        <span class="nx">seconds</span><span class="o">--</span><span
+                        class="p">;</span><br/>        <span class="nx">state</span><span class="p">.</span><span
+                        class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;Your video will start in &quot;</span> <span
+                        class="o">+</span> <span class="nx">seconds</span> <span class="o">+</span> <span class="s2">&quot; seconds ...&quot;</span><span
+                        class="p">;</span><br/>&nbsp;<br/>        <span class="k">if</span> <span
+                        class="p">(</span><span class="nx">seconds</span> <span class="o">===</span> <span
+                        class="mi">0</span><span class="p">)</span> <span class="p">{</span><br/>          <span
+                        class="nx">clearInterval</span><span class="p">(</span><span class="nx">timer</span><span
+                        class="p">);</span><br/>          <span class="nx">api</span><span class="p">.</span><span
+                        class="nx">load</span><span class="p">();</span><br/>&nbsp;<br/>          <span
+                        class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">autoplayallowed</span> <span
+                        class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">type</span> <span
+                        class="o">==</span> <span class="s2">&quot;progress&quot;</span><span class="p">)</span> <span
+                        class="p">{</span><br/>            <span
+                        class="c1">// hack to hide engine in paused state</span><br/>            <span class="nx">container</span><span
+                        class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">container</span><span
+                        class="p">.</span><span class="nx">className</span><span class="p">.</span><span class="nx">replace</span><span
+                        class="p">(</span><span class="s2">&quot;hide-engine&quot;</span><span class="p">,</span> <span
+                        class="s2">&quot;&quot;</span><span class="p">);</span><br/>&nbsp;<br/>          <span
+                        class="p">}</span><br/>&nbsp;<br/>          <span class="nx">state</span><span
+                        class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;Your video is now playing.&quot;</span><span
+                        class="p">;</span><br/>        <span class="p">}</span><br/>      <span
+                        class="p">},</span> <span class="mi">1000</span><span class="p">);</span><br/>    <span
+                        class="p">}</span><br/>&nbsp;<br/>  <span class="p">}).</span><span class="nx">one</span><span
+                        class="p">(</span><span class="s2">&quot;ready&quot;</span><span class="p">,</span> <span
+                        class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span
+                        class="p">,</span> <span class="nx">api</span><span class="p">)</span> <span
+                        class="p">{</span><br/>    <span class="k">if</span> <span class="p">(</span><span
+                        class="o">!</span><span class="nx">autoplayallowed</span><span class="p">)</span> <span
+                        class="p">{</span><br/>      <span class="c1">// hack to hide engine and pretend loading in paused state</span><br/>      <span
+                        class="nx">container</span><span class="p">.</span><span class="nx">className</span> <span
+                        class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">className</span> <span
+                        class="o">+</span> <span class="s2">&quot; is-splash is-loading&quot;</span><span
+                        class="p">;</span><br/>    <span class="p">}</span><br/>&nbsp;<br/>  <span
+                        class="p">});</span><br/>&nbsp;<br/><span class="p">};</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>JavaScript</figcaption>
+        </figure>
+    </div>
+
+
+    <h2 id="html-setup">&lt;body/&gt;</h2>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span
+                        class="o">=</span><span class="s">&quot;player&quot;</span><span class="p">&gt;&lt;/</span><span
+                        class="nt">div</span><span class="p">&gt;</span><br/>&nbsp;<br/><span class="p">&lt;</span><span
+                        class="nt">p</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;loading&quot;</span> <span
+                        class="na">class</span><span class="o">=</span><span class="s">&quot;info&quot;</span><span
+                        class="p">&gt;</span><span class="ni">&amp;nbsp;</span><span class="p">&lt;/</span><span
+                        class="nt">p</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
+
+    <div class="footer">
+        <a href="#" onclick="document.getElementById('codepenform').submit()">Edit demo on codepen</a><br>
+        <span>Flash not available</span>
+        <hr>
+
+        <p><a href="index.html">Demos in this section</a></p>
+
+        <hr>
+
+        <p><a href="../index.html">Version 6 Demos</a></p>
+
+        <p><a href="../../index.html">Flowplayer Demos+</a></p>
+
+        <hr>
+
+        <p><a href="https://flowplayer.org/v6docs/">Version 6 Docs</a></p>
+    </div>
+</div> <!-- end content -->
+
+</body>
+</html>

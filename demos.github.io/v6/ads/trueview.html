@@ -1,0 +1,314 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>AdSense for Flowplayer · TrueView skippable video advert</title>
+
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- The "functional" skin - choose from: "functional.css", "minimalist.css", "playful.css" -->
+    <link rel="stylesheet" href="../../common/releases/6.0.5/skin/functional.css">
+
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../../common/css/pygments.css">
+
+    <style>
+        .flowplayer {
+            background-image: url("../../common/media/img/logo-blue.png");
+            background-size: 95%;
+            background-color: #fff !important;
+            -webkit-box-shadow: 0 0 20px #b8b8b8;
+            -moz-box-shadow: 0 0 20px #b8b8b8;
+            box-shadow: 0 0 20px #b8b8b8;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        ul li {
+            margin-bottom: 1ex;
+        }
+    </style>
+
+    <!-- Flowplayer library -->
+    <script src="../../common/releases/6.0.5/flowplayer.min.js"></script>
+    <!-- The hlsjs plugin for playback of HLS without Flash in modern browsers -->
+    <script src="../../common/releases/hlsjs/flowplayer.hlsjs.min.js"></script>
+
+
+    <!-- load the AdSense assets after the Flowplayer assets -->
+    <script src="../../common/imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+    <script src="../../common/releases/asf/flowplayer.org/2.1.6/asf.min.js"></script>
+
+    <script>
+        // set up ASF pre-roll for all players on the page
+        flowplayer.conf.ima = {
+
+            // this should only be set when you are testing your installation
+            adtest: true,
+
+            // make the Google robots crawl the current page
+            description_url: location.href,
+
+            // adverts configuration
+            ads: [{
+                // pre-roll ...
+                time: 0,
+
+                // ... of type skippablevideo
+                ad_type: "skippablevideo",
+                // maximum trueview duration
+                sdmax: 40000
+            }]
+
+        };
+
+
+        window.onload = function () {
+
+            // install player as usual once DOM is ready
+            flowplayer("#player", {
+                ratio: 9 / 16,
+                splash: true,
+                clip: {
+                    sources: [
+                        {
+                            type: "application/x-mpegurl",
+                            src: "http://edge.flowplayer.org/FlowplayerHTML5forWordPress.m3u8"
+                        },
+                        {
+                            type: "video/mp4",
+                            src: "http://edge.flowplayer.org/FlowplayerHTML5forWordPress.mp4"
+                        }
+                    ]
+                }
+            });
+
+        };
+    </script>
+
+</head>
+
+<body>
+
+<div id="content">
+
+    <h1>Flowplayer · TrueView skippable video advert</h1>
+
+    <div id="player"></div>
+
+    <div class="info">
+        <p>This is a TrueView skippable video advert.</p>
+
+        <p>These kind of ads are often seen in YouTube. Learn more about
+            <a href="http://www.youtube.com/yt/advertise/trueview.html">TrueView skippable video ads</a>.</p>
+
+        <p><a href="https://flowplayer.org/v6docs/asf.html#skippable-pre-roll">JavaScript install alternative</a></p>
+    </div>
+
+    <div class="doc">
+        <p>Note:</p>
+
+        <ul>
+            <li>Google only allows the pre-roll position for Trueview ads; do not place them instream.</li>
+
+            <li>The feature must have a duration of at least one minute or longer.</li>
+        </ul>
+
+        <p>See the
+            <a href="https://support.google.com/adsense/answer/1706015#n5">AdSense for video and games policies</a>
+            for details.</p>
+
+        <p>Video adverts depend on what is available in the AdSense inventory and your region. Sometimes
+            there may be no video advert matching the current criteria and then no advert will be shown
+            here.</p>
+    </div>
+
+    <h2>&lt;head/&gt;</h2>
+
+    <p class="doc">Include the ASF assets after loading all other Flowplayer assets:</p>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="c">&lt;!-- Flowplayer --&gt;</span><br/><span class="p">&lt;</span><span
+                        class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/7.0.4/flowplayer.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/><span
+                        class="c">&lt;!-- Flowplayer hlsjs plugin --&gt;</span><br/><span class="p">&lt;</span><span
+                        class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/><span
+                        class="c">&lt;!-- Google IMA SDK --&gt;</span><br/><span class="p">&lt;</span><span class="nt">script</span> <span
+                        class="na">src</span><span class="o">=</span><span class="s">&quot;//imasdk.googleapis.com/js/sdkloader/ima3.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/><span
+                        class="c">&lt;!-- Flowplayer ASF plugin --&gt;</span><br/><span class="p">&lt;</span><span
+                        class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//releases.flowplayer.org/asf/flowplayer.org/2.1.6/asf.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
+
+
+    <div class="doc">
+        <p><code>asf.min.js</code> is the AdSense plugin for Flowplayer - you will get your own version of
+            it when you sign up with our AdSense program. This plugin will be tied to your personal ad slot so
+            that the ad impressions and clicks will be associated with your account, and the ad revenue will
+            be assigned to you.</p>
+
+        <p>This page uses
+            //releases.flowplayer.org/asf/flowplayer.org/2.1.6/asf.min.js which was built for
+            the <strong>flowplayer.org</strong> domain and its subdomains. Make sure you are using the build
+            we created for you, otherwise you will not see any revenues.</p>
+    </div>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">.</span><span class="nc">flowplayer</span> <span
+                        class="p">{</span><br/>   <span class="k">background-image</span><span class="p">:</span> <span
+                        class="nb">url</span><span class="p">(</span><span class="sx">//flowplayer.org/media/img/logo-blue.png</span><span
+                        class="p">);</span><br/>   <span class="k">background-size</span><span class="p">:</span> <span
+                        class="mi">95</span><span class="kt">%</span><span class="p">;</span><br/>   <span class="k">background-color</span><span
+                        class="p">:</span> <span class="mh">#fff</span> <span class="cp">!important</span><span
+                        class="p">;</span><br/>   <span class="kp">-webkit-</span><span class="k">box-shadow</span><span
+                        class="p">:</span> <span class="mi">0</span> <span class="mi">0</span> <span
+                        class="mi">20</span><span class="kt">px</span> <span class="mh">#b8b8b8</span><span
+                        class="p">;</span><br/>   <span class="kp">-moz-</span><span class="k">box-shadow</span><span
+                        class="p">:</span> <span class="mi">0</span> <span class="mi">0</span> <span
+                        class="mi">20</span><span class="kt">px</span> <span class="mh">#b8b8b8</span><span
+                        class="p">;</span><br/>   <span class="k">box-shadow</span><span class="p">:</span> <span
+                        class="mi">0</span> <span class="mi">0</span> <span class="mi">20</span><span
+                        class="kt">px</span> <span class="mh">#b8b8b8</span><span class="p">;</span><br/><span
+                        class="p">}</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>CSS</figcaption>
+        </figure>
+    </div>
+
+
+    <h3 id="javascript-setup">&lt;script&gt;</h3>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="c1">// set up ASF pre-roll for all players on the page</span><br/><span
+                        class="nx">flowplayer</span><span class="p">.</span><span class="nx">conf</span><span class="p">.</span><span
+                        class="nx">ima</span> <span class="o">=</span> <span class="p">{</span><br/>&nbsp;<br/>  <span
+                        class="c1">// this should only be set when you are testing your installation</span><br/>  <span
+                        class="nx">adtest</span><span class="o">:</span> <span class="kc">true</span><span
+                        class="p">,</span><br/>&nbsp;<br/>  <span class="c1">// make the Google robots crawl the current page</span><br/>  <span
+                        class="nx">description_url</span><span class="o">:</span> <span class="nx">location</span><span
+                        class="p">.</span><span class="nx">href</span><span class="p">,</span><br/>&nbsp;<br/>  <span
+                        class="c1">// adverts configuration</span><br/>  <span class="nx">ads</span><span
+                        class="o">:</span> <span class="p">[{</span><br/>    <span
+                        class="c1">// pre-roll ...</span><br/>    <span class="nx">time</span><span
+                        class="o">:</span> <span class="mi">0</span><span class="p">,</span><br/>&nbsp;<br/>    <span
+                        class="c1">// ... of type skippablevideo</span><br/>    <span class="nx">ad_type</span><span
+                        class="o">:</span> <span class="s2">&quot;skippablevideo&quot;</span><span
+                        class="p">,</span><br/>    <span class="c1">// maximum trueview duration</span><br/>    <span
+                        class="nx">sdmax</span><span class="o">:</span> <span class="mi">40000</span><br/>  <span
+                        class="p">}]</span><br/>&nbsp;<br/><span class="p">};</span><br/>&nbsp;<br/><br/><span
+                        class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span
+                        class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span
+                        class="p">{</span><br/>&nbsp;<br/>  <span class="c1">// install player as usual once DOM is ready</span><br/>  <span
+                        class="nx">flowplayer</span><span class="p">(</span><span
+                        class="s2">&quot;#player&quot;</span><span class="p">,</span> <span
+                        class="p">{</span><br/>    <span class="nx">ratio</span><span class="o">:</span> <span
+                        class="mi">9</span><span class="o">/</span><span class="mi">16</span><span
+                        class="p">,</span><br/>    <span class="nx">splash</span><span class="o">:</span> <span
+                        class="kc">true</span><span class="p">,</span><br/>    <span class="nx">clip</span><span
+                        class="o">:</span> <span class="p">{</span><br/>      <span class="nx">sources</span><span
+                        class="o">:</span> <span class="p">[</span><br/>        <span class="p">{</span> <span
+                        class="nx">type</span><span class="o">:</span> <span class="s2">&quot;application/x-mpegurl&quot;</span><span
+                        class="p">,</span><br/>          <span class="nx">src</span><span class="o">:</span>  <span
+                        class="s2">&quot;//edge.flowplayer.org/FlowplayerHTML5forWordPress.m3u8&quot;</span> <span
+                        class="p">},</span><br/>        <span class="p">{</span> <span class="nx">type</span><span
+                        class="o">:</span> <span class="s2">&quot;video/mp4&quot;</span><span class="p">,</span><br/>          <span
+                        class="nx">src</span><span class="o">:</span>  <span class="s2">&quot;//edge.flowplayer.org/FlowplayerHTML5forWordPress.mp4&quot;</span> <span
+                        class="p">}</span><br/>      <span class="p">]</span><br/>    <span
+                        class="p">}</span><br/>  <span class="p">});</span><br/>&nbsp;<br/><span
+                        class="p">};</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>JavaScript</figcaption>
+        </figure>
+    </div>
+
+
+    <h2 id="html-setup">&lt;body/&gt;</h2>
+
+    <p class="doc">Just the container element is needed here, the rest is left to the script above.</p>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span
+                        class="o">=</span><span class="s">&quot;player&quot;</span><span class="p">&gt;&lt;/</span><span
+                        class="nt">div</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
+
+
+    <h3>ad_type</h3>
+
+    <p class="doc"><code>ad_type</code> is "skippablevideo" and it is positioned at time zero,
+        which makes it a pre-roll.</p>
+
+    <div class="doc">
+
+        <p id="ad_type"><code>ad_type</code> defines what types of ads will be requested and shown.
+            Here we only show skippablevideo adverts. If you don't specify the ad_type value at all it
+            will show video, image and text ads because the default ad_type value is
+            <code>"video_image_text"</code>.</p>
+
+        <h2>AdSense for Flowplayer demos</h2>
+
+        <ul>
+            <li><a href="image_text.html">Image/Text advert</a></li>
+
+            <li><a href="trueview.html">TrueView video advert</a></li>
+
+            <li><a href="videoad.html">Mid-roll video advert</a></li>
+
+            <li><a href="embedded-ads.html">Embedded adverts</a></li>
+
+            <li><a href="intro-ad-feature.html">Intro before feature with advert</a></li>
+
+            <li><a href="live.html">Adverts for live stream</a></li>
+
+            <li><a href="vast.html">VAST plugin</a></li>
+        </ul>
+    </div>
+
+
+    <div class="footer">
+        <p><a href="index.html">Demos in this section</a></p>
+
+        <hr>
+
+        <p><a href="../index.html">Version 6 Demos</a></p>
+
+        <p><a href="../../index.html">Flowplayer Demos+</a></p>
+
+        <hr>
+
+        <p><a href="https://flowplayer.org/v6docs/">Version 6 Docs</a></p>
+    </div>
+</div> <!-- end content -->
+
+</body>
+</html>

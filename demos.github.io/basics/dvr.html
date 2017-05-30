@@ -1,0 +1,165 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Flowplayer · Live stream (DVR)</title>
+
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Flowplayer skin -->
+    <link rel="stylesheet" href="../common/releases/7.0.4/skin/skin.css">
+
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../common/css/pygments.css">
+
+
+    <!-- Flowplayer depends on jquery 1.7.2+ for video tag based installations -->
+    <script src="../common/jquery/jquery-1.12.4.min.js"></script>
+    <!-- Flowplayer library -->
+    <script src="../common/releases/7.0.4/flowplayer.min.js"></script>
+    <!-- The hlsjs plugin for playback of HLS without Flash in modern browsers -->
+    <script src="../common/releases/hlsjs/flowplayer.hlsjs.min.js"></script>
+
+
+</head>
+
+<body>
+
+<div id="content">
+
+    <h1>Flowplayer · Live stream (DVR)</h1>
+
+    <div data-dvr="true"
+         data-aspect-ratio="40:23"
+         data-embed="false"
+         data-facebook="true"
+         data-twitter="false"
+         class="flowplayer no-volume fp-slim fp-edgy fp-outlined">
+
+        <video data-title="Live stream (DVR)">
+            <source type="application/x-mpegurl"
+                    src="http://wowza.jwplayer.com/live/jelly.stream/playlist.m3u8?DVR">
+        </video>
+
+    </div>
+
+    <div class="info">
+        <p>HLS live stream offering to seek within the available "DVR" window</p>
+
+        <p>Test
+            <a id="hlsjstoggle" href="dvr.html-hlsjs=false.htm"><span>without</span> hlsjs plugin</a>.</p>
+
+        <p>With live DVR streams it is mandatory to configure <code>dvr: true</code> or to add the
+            <code>is-dvr</code>
+            <a href="https://flowplayer.org/docs/skinning.html#configurable-states">state class</a>.</p>
+
+        <p>See also the <a href="live.html">live stream</a> demo.</p>
+    </div>
+
+    <h2 id="head-setup">&lt;head/&gt;</h2>
+
+    <p class="doc">For smoother <a href="https://flowplayer.org/docs/setup.html#hls">HLS</a> playback in modern browsers
+        we load the
+        <a href="https://flowplayer.org/docs/plugins.html#hlsjs">hlsjs plugin</a>.
+    </p>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="c">&lt;!-- Flowplayer library --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span
+                        class="s">&quot;//releases.flowplayer.org/7.0.4/flowplayer.min.js&quot;</span><span class="p">&gt;&lt;/</span><span
+                        class="nt">script</span><span class="p">&gt;</span><br/><span class="c">&lt;!-- Flowplayer hlsjs engine --&gt;</span><br/><span
+                        class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js&quot;</span><span
+                        class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
+
+
+    <h2 id="html-setup">&lt;body/&gt;</h2>
+
+    <div class="codebox">
+        <figure class="code">
+            <div class="highlight">
+                <pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span
+                        class="na">data-dvr</span><span class="o">=</span><span class="s">&quot;true&quot;</span><br/>     <span
+                        class="na">data-aspect-ratio</span><span class="o">=</span><span
+                        class="s">&quot;40:23&quot;</span><br/>     <span class="na">data-embed</span><span
+                        class="o">=</span><span class="s">&quot;false&quot;</span><br/>     <span class="na">data-facebook</span><span
+                        class="o">=</span><span class="s">&quot;true&quot;</span><br/>     <span
+                        class="na">data-twitter</span><span class="o">=</span><span
+                        class="s">&quot;false&quot;</span><br/>     <span class="na">class</span><span
+                        class="o">=</span><span
+                        class="s">&quot;flowplayer no-volume fp-slim fp-edgy fp-outlined&quot;</span><span class="p">&gt;</span><br/>&nbsp;<br/>   <span
+                        class="p">&lt;</span><span class="nt">video</span> <span class="na">data-title</span><span
+                        class="o">=</span><span class="s">&quot;Live stream (DVR)&quot;</span><span
+                        class="p">&gt;</span><br/><span class="p">&lt;</span><span class="nt">source</span> <span
+                        class="na">type</span><span class="o">=</span><span
+                        class="s">&quot;application/x-mpegurl&quot;</span><br/>        <span class="na">src</span><span
+                        class="o">=</span><span class="s">&quot;//wowza.jwplayer.com/live/jelly.stream/playlist.m3u8?DVR&quot;</span><span
+                        class="p">&gt;</span><br/>   <span class="p">&lt;/</span><span class="nt">video</span><span
+                        class="p">&gt;</span><br/>&nbsp;<br/><span class="p">&lt;/</span><span
+                        class="nt">div</span><span class="p">&gt;</span><br/></pre>
+            </div>
+            <br/>
+            <figcaption>HTML</figcaption>
+        </figure>
+    </div>
+
+    <div class="footer">
+
+        <p><a href="index.html">Demos in this section</a></p>
+
+        <hr>
+
+        <p><a href="../index.html">Flowplayer Demos+</a></p>
+
+        <hr>
+
+        <p><a href="https://flowplayer.org/demos/" target="_blank">Flowplayer Demos</a></p>
+
+        <hr>
+
+        <p><a href="http://demos.flowplayer.org/v6/">Version 6 Demos</a></p>
+    </div>
+</div> <!-- end content -->
+
+<!-- for flashls testing only, DO NOT USE IN PRODUCTION! -->
+<script>
+    if (location.search.indexOf("hlsjs=false") > -1) {
+        flowplayer.conf.hlsjs = false;
+    } else if (location.search.indexOf("safari=true") > -1) {
+        flowplayer.conf.hlsjs = {
+            safari: true
+        };
+    }
+
+    var toggleButton = document.getElementById("hlsjstoggle"),
+        hlsjsLoaded = location.search.indexOf("hlsjs=false") < 0;
+
+    if (toggleButton) {
+        if (flowplayer.engines[0].engineName !== "hlsjs") {
+            toggleButton.parentNode.style.display = "none";
+        } else {
+            toggleButton.href = location.pathname + (hlsjsLoaded
+                    ? "?hlsjs=false"
+                    : "");
+            toggleButton.getElementsByTagName("span")[0].innerHTML = hlsjsLoaded
+                ? "without"
+                : "with";
+        }
+    }
+</script>
+</body>
+</html>
