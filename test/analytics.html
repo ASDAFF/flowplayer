@@ -79,6 +79,9 @@
                     $("#log").append($("<p/>").text("Ошибка пять!!!"));
                 }
                 console.log(e, err);
+            }).on("flashdisabled", function (e) {
+                $("#log").append($("<p/>").text("Отключенный флеш"));
+                console.log(e);
             });
 
         });
