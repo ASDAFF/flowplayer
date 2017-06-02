@@ -73,7 +73,7 @@ API предоставлен первым аргументом, и он выгл
 
 # Выборочный доступ API
 
-Once the players are installed initialized you can access specific player instances like this:
+После инициализации проигрывателей вы сможете получить доступ к конкретным экземплярам проигрывателей, например::
 
 ```js
 // get the first player
@@ -99,11 +99,11 @@ var elem = document.getElementById("myplayer");
 api = flowplayer(elem);
 ```
 
-The [installation method](/docs/setup.html#3-ways-to-install) determines when you have access to selected APIs:
+[Способ установки](setup.md#3-ways-to-install) определяет, когда у вас есть доступ к выбранным API:
 
-*   [automatic](/docs/setup.html#automatic-install): when the [DOM](http://www.w3schools.com/js/js_htmldom.asp) is ready
-*   [manual](/docs/setup.html#manual-install): after the specific instance has been initialized
-*   [JavaScript](/docs/setup.html#javascript-install): after the specific instance has been initialized or [instant API access](/docs/api.html#instant-api-access)
+*   [automatic](setup.md#automatic-install): when the [DOM](http://www.w3schools.com/js/js_htmldom.asp) is ready
+*   [manual](setup.md#manual-install): after the specific instance has been initialized
+*   [JavaScript](setup.md#javascript-install): after the specific instance has been initialized or [instant API access](api.md#instant-api-access)
 
 
 # Instant API access
@@ -129,11 +129,11 @@ During its life cycle the player is in varying states which are reflected in the
 
 <tr class="r1">
 
-<td class="c1">property</td>
+<td class="c1">свойство</td>
 
-<td class="c2">default value</td>
+<td class="c2">значение по умолчанию</td>
 
-<td class="c3">description</td>
+<td class="c3">описание</td>
 
 </tr>
 
