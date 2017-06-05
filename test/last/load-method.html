@@ -1,6 +1,7 @@
-<!doctype html>
-
+<!DOCTYPE html>
+<html lang="ru">
 <head>
+    <meta charset="utf-8"/>
 
     <!-- player skin -->
     <link rel="stylesheet" type="text/css" href="../dist/skin/minimalist.css">
@@ -20,10 +21,10 @@
     </style>
 
     <!-- flowplayer depends on jQuery 1.7.1+ (for now) -->
-    <script src="../deps/jquery.min.js"></script>
+    <script src="../../deps/jquery.min.js"></script>
 
     <!-- include flowplayer -->
-    <script src="../dist/flowplayer.js"></script>
+    <script src="../lib/flowplayer.js"></script>
 
     <script>
         $(function () {
@@ -48,7 +49,7 @@
 <body>
 
 <!-- the player -->
-<div class="flowplayer" -data-engine="flash" data-swf="../dist/flowplayer.swf" data-ratio=".4167">
+<div class="flowplayer" -data-engine="flash" data-swf="../lib/flowplayer.swf" data-ratio=".4167">
     <video>
         <source type="video/webm" src="http://edge.flowplayer.org/bauhaus.webm">
         <source type="video/mp4" src="http://edge.flowplayer.org/bauhaus.mp4">
@@ -62,3 +63,4 @@
 </p>
 
 </body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8"/>
+
+    <title>Flowplayer · Live connection check</title>
+
+    <!-- optimize mobile versions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Flowplayer skin -->
+    <link rel="stylesheet" href="../skin/skin.css">
+
+    <!-- Minimal styling for this standalone page, can be removed -->
+    <link rel="stylesheet" href="../common/css/demo.css">
+    <!-- Syntax highlighting of source code, can be removed -->
+    <link rel="stylesheet" href="../common/css/pygments.css">
+
+    <style>
+        #content {
+            max-width: 912px;
+        }
+
+        .flowplayer {
+            background: #00abcd;
+        }
+
+        .flowplayer .fp-color-play {
+            fill: #eee;
+        }
+
+        /* customized error display and message */
+        .flowplayer.is-offline .fp-controls,
+        .flowplayer.is-offline .fp-play {
+            display: none !important;
+        }
+
+        .flowplayer.is-offline .fp-message {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .flowplayer.is-offline .fp-message h2,
+        .flowplayer.is-offline .fp-message p {
+            font-weight: bold;
+            color: #000;
+            text-shadow: 1px 1px #fff
+        }
+
+        .flowplayer.is-offline .fp-message h2 {
+            margin-top: 15%;
+            font-size: 120%;
+        }
+    </style>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+    <!-- Flowplayer library -->
+    <script src="../lib/flowplayer.min.js"></script>
+    <!-- The hlsjs plugin for playback of HLS without Flash in modern browsers -->
+    <script src="../lib/hlsjs/flowplayer.hlsjs.min.js"></script>
+
+    <script>
+        window.onload = function () {
+
+            var container = document.getElementById("live"),
+                errImage = new Image(), // to preload error image, see below
+                timer,
+
+                player = flowplayer(container, {
+                    ratio: 9 / 16,
+                    clip: {
+                        hlsjs: {
+                            xhrSetup: function () {
+                                if (this.stats && this.stats.retry > 2) {
+                                    // intentionally throw network error
+                                    player.trigger("error", [player, {code: 2}]);
+                                }
+                            }
+                        },
+                        sources: [
+                            {
+//                                load: function (object) {
+//                                    if (object.conf.errors[4] || api.conf.errors[10]) {
+//                                        type: "video/flash"
+//                                    }
+//                                },
+                                type: "video/mp4",
+                                src: "http://edge.flowplayer.org/bauhaus.mp4-"
+                            }
+                        ]
+                    }
+
+                }).on("error", function (e, api, err) {
+                    var delay = 5,
+                        messageElement = container.querySelector(".fp-message");
+
+                    clearInterval(timer);
+
+                    if (err.code === 2 || err.code === 4) {
+                        container.className += " is-offline";
+                        messageElement.style.backgroundImage = "url(" + errImage.src + ")";
+                        messageElement.innerHTML = "<h2>We are sorry, currently no live stream available.</h2>"
+                            + "<p>Retrying in <span>" + delay + "</span> seconds ...</p>";
+
+                        if (flowplayer.support.flashVideo) {
+                            api.one("flashdisabled", function () {
+                                container.querySelector(".fp-flash-disabled").style.display = "none";
+                            });
+                        }
+
+                        timer = setInterval(function () {
+                            delay -= 1;
+                            messageElement.querySelector("span").innerHTML = delay;
+
+                            if (!delay) {
+                                clearInterval(timer);
+                                api.error = api.loading = false;
+                                messageElement.innerHTML = "";
+                                messageElement.style.backgroundImage = "none";
+                                container.className = container.className.replace(/\bis-error\b/, "");
+                                container.className = container.className.replace(/\bis-offline\b/, "");
+                                api.load(api.conf.clip.sources["0"]);
+                            }
+
+                        }, 1000);
+                    }
+                    console.log(e,api,err);
+                });
+
+            // preload error image in case of network timeouts
+            errImage.src = "../media/img/interruption.png";
+
+
+/*
+            /!*
+             * the following is for demo purposes and simulation only
+             * do not use in production!
+             *!/
+
+            var buttons = document.getElementsByTagName("button"),
+                i;
+
+            for (i = 0; i < buttons.length; i += 1) {
+                buttons[i].onclick = function () {
+                    var errorstream = !this.id
+                        ? null
+                        : this.id === "dummy"
+                            ? "http://edge.flowplayer.org/dummy-live.m3u8"
+                            : "http://edge.flowplayer.org/non-existent.m3u8";
+
+                    if (player.error) {
+                        // clean retry
+                        player.error = player.loading = false;
+                        container.className = container.className.replace(/\bis-offline\b/, "");
+                        container.className = container.className.replace(/\bis-error\b/, "");
+                    }
+
+                    if (errorstream) {
+                        player.load({
+                            sources: [
+                                {type: "application/x-mpegurl", src: errorstream}
+                            ]
+                        });
+                    } else {
+                        player.load(player.conf.clip);
+                    }
+                };
+            }
+*/
+
+        };
+    </script>
+   <!-- <script>
+        window.onload = function () {
+
+            var container = document.getElementById("live"),
+                timer,
+                player = flowplayer(container, {
+                    ratio: 9 / 16,
+                    live: true,
+                    clip: {
+                        sources: [
+                            {
+                                type: "video/mp4",
+                                src: "http://edge.flowplayer.org/bauhaus.mp4-"
+                            }
+                        ]
+                    }
+
+                }).on("error", function (e, api, err) {
+                    var delay = 5, messageElement = container.querySelector(".fp-message");
+                    clearInterval(timer);
+
+                    if (err.code === 1 || err.code === 4) {
+                        container.className += " is-offline";
+                        messageElement.innerHTML = "<h2>We are sorry, currently no live stream available.</h2>"
+                            + "<p>Retrying in <span>" + delay + "</span> seconds ...</p>";
+                        //document.querySelector(".fp-flash-disabled").style.display = "none";
+                        //document.container.querySelector(".fp-flash-disabled").style.display = "none";
+                        //document.getElementById("live").style.display = "none";
+
+                        if (flowplayer.support.flashVideo) {
+                            api.one("flashdisabled", function () {
+                                container.querySelector(".fp-flash-disabled").style.display = "none";
+                            });
+                        }
+
+//                        timer = setInterval(function () {
+//                            delay -= 1;
+//                            messageElement.querySelector("span").innerHTML = delay;
+//
+//                            if (!delay) {
+//                                clearInterval(timer);
+//                                api.error = api.loading = false;
+//                                messageElement.innerHTML = "";
+//                                messageElement.style.backgroundImage = "none";
+//                                container.className = container.className.replace(/\bis-error\b/, "");
+//                                container.className = container.className.replace(/\bis-offline\b/, "");
+//                                api.load(api.conf.clip);
+//                            }
+//
+//                        }, 1000);
+                    }
+
+                    console.log(e, err);
+                });
+
+        };
+    </script>-->
+
+</head>
+
+<body>
+
+<div id="content">
+
+    <h1>Flowplayer · Live connection check</h1>
+
+    <div id="live">
+        <video src="http://edge.flowplayer.org/black/470x250.mp4">
+            <source type="video/mp4" src="https://edge.flowplayer.org/bauhaus.mp4">
+        </video>
+    </div>
+
+
+</div> <!-- end content -->
+</body>
+</html>

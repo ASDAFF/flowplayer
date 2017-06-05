@@ -1,9 +1,10 @@
-<!doctype html>
-
+<!DOCTYPE html>
+<html lang="ru">
 <head>
+    <meta charset="utf-8"/>
 
     <!-- player skin -->
-    <link rel="stylesheet" type="text/css" href="../dist/skin/minimalist.css">
+    <link rel="stylesheet" type="text/css" href="../skin/skin.css">
 
     <!-- site specific styling -->
     <style>
@@ -20,17 +21,17 @@
     </style>
 
     <!-- flowplayer depends on jQuery 1.7.1+ -->
-    <script src="../deps/jquery.min.js"></script>
+    <script src="../../deps/jquery.min.js"></script>
 
     <!-- include flowplayer -->
-    <script src="../dist/flowplayer.js"></script>
+    <script src="../lib/flowplayer.js"></script>
 
 </head>
 
 <body>
 
 <div class="flowplayer is-closeable -is-splash -no-toggle" data-debug="true" data-ratio=".4167">
-    <video controls poster="init/camera.jpg">
+    <video controls poster="../init/camera.jpg">
         <source type="video/webm" src="http://edge.flowplayer.org/playful.webm">
         <source type="video/mp4" src="http://edge.flowplayer.org/playful.mp4">
         <source type="video/ogv" src="http://edge.flowplayer.org/playful.ogv">
@@ -52,3 +53,4 @@
 
 
 </body>
+</html>

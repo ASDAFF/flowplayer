@@ -1,9 +1,10 @@
-<!doctype html>
-
+<!DOCTYPE html>
+<html lang="ru">
 <head>
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- player skin -->
-    <link rel="stylesheet" type="text/css" href="../dist/skin/skin.css?f">
+    <link rel="stylesheet" type="text/css" href="../skin/skin.css">
 
     <!-- site specific styling -->
     <style>
@@ -23,7 +24,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
 
     <!-- include flowplayer -->
-    <script src="../dist/flowplayer.js?i"></script>
+    <script src="../lib/flowplayer.js"></script>
 
 </head>
 
@@ -31,8 +32,8 @@
 
 <!-- the player -->
 <div class="flowplayer"
-     data-swf="../dist/flowplayer.swf"
-     data-swf-hls="../dist/flowplayerhls.swf"
+     data-swf="lib/flowplayer.swf"
+     data-swf-hls="lib/flowplayerhls.swf"
      data-dvr="true"
      data-aspect-ratio="40:23">
 
